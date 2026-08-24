@@ -16,12 +16,18 @@ template. There is no code, no tests, and no linter — the deliverable is `main
 # Full build with bibliography, output into TeX_Outputs/ (matches .vscode config)
 latexmk -pdf -outdir=TeX_Outputs main.tex
 
-# What CI actually does (no biber pass — bibliography entries won't resolve)
-pdflatex main.tex && pdflatex main.tex
+# What CI runs — the same tool, into its own (gitignored) output directory.
+# The second, forced invocation guarantees a second pdflatex pass.
+latexmk -pdf -halt-on-error -file-line-error -interaction=nonstopmode \
+        -outdir=TeX_Outputs_CI main.tex
+latexmk -pdf -halt-on-error -file-line-error -interaction=nonstopmode \
+        -g -outdir=TeX_Outputs_CI main.tex
 ```
 
-Compile **at least twice**: `cleveref` and the ToC depend on the `.aux` files.
-Run `biber`/`latexmk` if you touched `TeX_Setup/References.bib` or citations.
+Compile **at least twice**: `cleveref` and the ToC depend on the `.aux` files, and
+citations need a `biber` pass in between. `latexmk` works that out for itself, which
+is why CI uses it — but CI also forces a second pass with `-g`, because a warm
+auxiliary-file cache can otherwise leave it satisfied after one.
 
 `TeX_Outputs/main.pdf` is **committed** (a general `*.pdf` ignore is deliberately
 commented out in `.gitignore`); CI republishes it as `public/LastLocallyCompiled.pdf`.
@@ -162,8 +168,32 @@ The four skills divide by how much latitude each has:
 
 ## Publishing
 
-`.github/workflows/publish-latex.yml` runs on every push/PR to `main`: copies the
-sources into `public/`, builds with `pdflatex` twice, uploads `main.pdf` as an artifact,
-publishes it to the `Current` release, and pushes `public/` to `gh-pages`. The HTML
-(`make4ht`) path is commented out. A broken build therefore breaks the published PDF —
-compile locally before pushing.
+`.github/workflows/publish-latex.yml` runs on every push/PR to `main`. It builds
+`main.pdf` with `latexmk` (so `biber` runs and the bibliography resolves) and uploads
+it as an artifact; where that PDF then goes depends on the trigger:
+
+- **push to `main`** — published to the `gh-pages` root, so
+  `https://thefundamentaltheor3m.github.io/DiscreteMathNotes/main.pdf` (the URL
+  printed on the title page) updates, and attached to the `Current` release. The
+  committed `TeX_Outputs/main.pdf` is republished alongside it as
+  `LastLocallyCompiled.pdf`.
+- **pull request** — published to `preview-<PR number>/` on the same site and linked
+  from a comment on the pull request, so an unmerged draft never overwrites the
+  published notes. `preview-cleanup.yml` deletes the directory when the PR closes.
+  Pull requests from forks only get the artifact: their token cannot push.
+
+The build fails loudly (`-halt-on-error`), so a broken document breaks CI rather than
+publishing a broken PDF — compile locally before pushing.
+
+CI does not install `texlive-full`. It installs exactly the packages listed in
+`.github/texlive-packages.txt` into a cached tree, which is why a run takes about a
+minute rather than ten. **Adding a `\usepackage` to `TeX_Setup/packages.tex` therefore
+means accounting for it in that manifest too**: either add its TeX Live package
+(`tlmgr info <file>.sty` names it, and it is often called something else — `authblk`
+ships in `preprint`, `tikz` in `pgf`), or, if an entry already there installs it, add
+the style file to that entry's `# provides:` list.
+
+`.github/scripts/check-manifest.sh` greps for this as the build's first step, so a
+forgotten package fails in seconds with the name and the file that loads it, rather
+than minutes later inside a pdflatex log. Run it locally to check before pushing. The
+HTML (`make4ht`) path is not wired up.

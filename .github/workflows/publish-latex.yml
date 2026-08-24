@@ -1,173 +1,250 @@
-# Adapted from https://gist.github.com/m516/550faa3a080c6c2d5daadc4678d81a79
-# This Action autogenerates PDFs and standalone HTML 
-# out of your Overleaf projects (or any LaTeX-live project).
-# 
-# PDF  generator: pdflatex
-# HTML generator: htlatex 
-# 
-# Both tools come from LaTeX Live and are executed on 
-# the latest version of Ubuntu.
-# 
-#    Given:
-#       A repository with a LaTeX project with main.tex in the root folder
-#   
-#    On every push:
-#       This GitHub Action builds the project with LaTeX Live. 
-#       A   PDF version of main.tex is uploaded to a Release called "Current." 
-#           (Make sure that release exists first)
-#       An HTML version of main.tex is uploaded to a new branch called gh-pages. 
-#           (Make sure GitHub Pages is active and reads from the gh-pages branch)
-
+# Builds main.pdf and publishes it.
+#
+#   push to main   ->  https://thefundamentaltheor3m.github.io/DiscreteMathNotes/main.pdf
+#                      plus the "Current" release
+#   pull request   ->  https://thefundamentaltheor3m.github.io/DiscreteMathNotes/preview-<PR>/main.pdf
+#
+# Pull requests get their own directory on the Pages site, so reviewing a PR no
+# longer means overwriting the published notes with an unmerged draft. The
+# preview is torn down by preview-cleanup.yml when the PR closes.
 
 name: Build and Deploy LaTeX Project
 
-permissions: write-all
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
+    paths-ignore:
+      - '.claude/**'
+      - '.vscode/**'
+      - '.gitignore'
+      - 'CLAUDE.md'
+      - 'LICENSE'
+      - 'README.md'
+      - 'TOPICS.md'
   pull_request:
     branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
+    paths-ignore:
+      - '.claude/**'
+      - '.vscode/**'
+      - '.gitignore'
+      - 'CLAUDE.md'
+      - 'LICENSE'
+      - 'README.md'
+      - 'TOPICS.md'
   workflow_dispatch:
 
+# Was `write-all`. The build itself only reads; the jobs that publish ask for
+# exactly what they push.
+permissions:
+  contents: read
 
-# concurrency:
-#   group: ${{ github.workflow }}-${{ github.ref }}
-#   cancel-in-progress: true  # Cancels any previous runs on the same branch
+# A second push to the same branch makes the first build's PDF irrelevant.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
+env:
+  # Pinned to a frozen historic release rather than the rolling tlnet, so the
+  # cached tree and the repository tlmgr installs from can never fall out of
+  # step with each other. Bump both together to move to a newer TeX Live.
+  TEXLIVE_YEAR: '2025'
+  TEXLIVE_REPO: 'https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2025/tlnet-final'
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
+    name: Compile main.pdf
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      # # Caches texlive-full
-      # - name: Cache texlive-full
-      #   uses: actions/cache@v4
-      #   id: cache-texlive-full
-      #   with:
-      #     path: ~/texlive
-      #     key: ${{ runner.os }}-texlive-${{ secrets.TEXLIVE_FULL_VERSION }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-texlive-
+      # Grep, before anything is downloaded: a \usepackage that nobody added to
+      # the manifest would otherwise fail minutes later, inside a pdflatex log.
+      - name: Check the TeX Live manifest covers what the sources load
+        run: .github/scripts/check-manifest.sh
 
-      # # Caches apt packages
-      # - name: Cache apt packages
-      #   uses: actions/cache@v4
-      #   with:
-      #     path: /var/cache/apt
-      #     key: ${{ runner.os }}-apt-${{ hashFiles('**/apt.txt') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-apt-
-      
-      # ChatGPT Code
-        
-      # Cache APT packages
-      - name: Cache APT packages
-        id: cache-apt
-        uses: actions/cache@v3
-        with:
-          path: /var/cache/apt/archives
-          key: apt-cache-${{ runner.os }}
-          restore-keys: |
-            apt-cache-
-
-      # Update APT and Install Dependencies
-      - name: Update APT and Install Dependencies
-        if: steps.cache-apt.outputs.cache-hit != 'true'
-        run: |
-          sudo apt update
-
-      # Retrieve TeX Live installation from Cache
-      - name: Cache TeX Live
+      # ~290 MB of TeX Live rather than the ~6 GB texlive-full the old workflow
+      # installed from apt on every run. The key is the package manifest, so the
+      # tree is reinstalled only when the list of packages changes; a manifest
+      # edit falls back to the newest older tree and tops it up in place.
+      - name: Restore TeX Live
         id: cache-texlive
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
-          path: /usr/local/texlive
-          key: texlive-2023-${{ runner.os }}
+          path: ~/texlive
+          key: texlive-${{ env.TEXLIVE_YEAR }}-${{ runner.os }}-${{ hashFiles('.github/texlive-packages.txt') }}
           restore-keys: |
-            texlive-2023-
+            texlive-${{ env.TEXLIVE_YEAR }}-${{ runner.os }}-
 
-      # Install TeX Live
-      - name: Install TeX Live (if not cached)
+      - name: Install TeX Live
         if: steps.cache-texlive.outputs.cache-hit != 'true'
+        run: .github/scripts/install-texlive.sh
+
+      - name: Put TeX Live on PATH
         run: |
-          sudo apt install -y texlive-full  # Installs only if cache is missing
-      
-      # Save TeX Live cache AFTER successful installation
-      - name: Save TeX Live Cache
-        if: steps.cache-texlive.outputs.cache-hit != 'true'
-        uses: actions/cache@v3
+          for bindir in "$HOME"/texlive/bin/*; do
+            echo "$bindir" >> "$GITHUB_PATH"
+          done
+
+      # latexmk works out how many passes it needs from the auxiliary files, so
+      # handing it the previous run's .aux/.toc/.bcf/.fdb_latexmk usually turns
+      # three passes into one. Caches from main are visible to pull requests,
+      # which is where this pays off most.
+      - name: Restore LaTeX auxiliary files
+        uses: actions/cache@v4
         with:
-          path: /usr/local/texlive
-          key: texlive-2023-${{ runner.os }}
+          path: TeX_Outputs_CI
+          key: latex-aux-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            latex-aux-${{ runner.os }}-
 
-      - name: Add TeX Live to PATH
-        run: echo "/usr/local/texlive/2023/bin/x86_64-linux" >> $GITHUB_PATH
-      
-      # Compiles 
-      - name: Build Latex PDF and HTML
+      - name: Compile
         run: |
-          # if [ -f /var/cache/apt/pkgcache.bin ]; then
-          #   echo "Restoring apt packages from cache."
-          #   sudo cp -r /var/cache/apt/* /var/lib/apt/lists/
-          # else
-          #   echo "Updating apt packages."
-          #   sudo apt update
-          # fi
-          # if [ -d ~/texlive ]; then
-          # echo "Texlive directory exists."
-          #   if ! ~/texlive/bin/x86_64-linux/tlmgr --version | grep -q "${{ secrets.TEXLIVE_FULL_VERSION }}"; then
-          #     echo "Texlive version does not match. Reinstalling..."
-          #     sudo rm -rf ~/texlive
-          #     sudo apt install texlive-full
-          #   else
-          #     echo "Texlive version matches. Using cached version."
-          #   fi
-          # else
-          #   echo "Texlive directory does not exist. Installing..."
-          #   sudo apt install texlive-full
-          # fi
-          mkdir ./public
+          latexmk=(latexmk -pdf -halt-on-error -file-line-error
+                   -interaction=nonstopmode -outdir=TeX_Outputs_CI)
+
+          # The title page prints \today, so the PDF itself is never reusable
+          # even when nothing else changed: drop it and let latexmk rebuild.
+          rm -f TeX_Outputs_CI/main.pdf
+
+          # latexmk drives biber as well, which two bare pdflatex passes never
+          # did -- the bibliography resolves now -- and reruns pdflatex until
+          # the cross-references stop moving.
+          "${latexmk[@]}" main.tex
+
+          # cleveref and the table of contents read the previous pass's .aux, so
+          # the notes are compiled at least twice however warm the restored
+          # auxiliary files were: -g forces a pass latexmk considers unnecessary,
+          # rather than leaving the invariant to its rerun detection.
+          "${latexmk[@]}" -g main.tex
+
+      - name: Assemble the site
+        run: |
+          mkdir -p public
+          cp TeX_Outputs_CI/main.pdf public/main.pdf
           cp TeX_Outputs/main.pdf public/LastLocallyCompiled.pdf
-          cp *.tex public/
-          cp -r Chapters public/
-          cp -r TeX_Setup public/
-          cd public/
-          pdflatex main.tex
-          pdflatex main.tex  # Cleveref uses aux files. Need to compile twice!
-          # make4ht main.tex
-          # mv main.html index.html
-  
-      # Uploads the PDF
-      - name: Upload artifact
+          touch public/.nojekyll
+
+      - name: Upload main.pdf
         uses: actions/upload-artifact@v4
         with:
-          name: PDF
+          name: main-pdf
           path: public/main.pdf
+          if-no-files-found: error
+          retention-days: 30
 
-      # Publishes the PDF as a release
-      - name: Publish PDF as Release
-        uses: softprops/action-gh-release@v2
-        # if: startsWith(github.ref, 'refs/tags/')
+      # Handed to the publishing jobs so they need neither TeX Live nor a rebuild.
+      - name: Upload the site
+        uses: actions/upload-artifact@v4
         with:
-          tag_name: Current
-          files: public/main.pdf
-          
-      # Publish HTML to GitHub Pages
-      - name: Publish HTML to GitHub Pages
+          name: site
+          path: public/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 1
+
+  publish:
+    name: Publish to the site root
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    # Shared with every other job that pushes to gh-pages, so two deployments
+    # can never race each other into a rejected push.
+    concurrency:
+      group: gh-pages
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: public
+
+      # The root deployment replaces what it finds, which would take the open
+      # PRs' previews with it. Carry them over untouched.
+      - name: Carry over open pull requests' previews
+        run: |
+          if git fetch --depth=1 origin gh-pages; then
+            git archive FETCH_HEAD \
+              | tar -x -C public --wildcards 'preview-*' 2>/dev/null \
+              || echo "No previews to carry over."
+          else
+            echo "No gh-pages branch yet."
+          fi
+
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
+          commit_message: "Publish main.pdf from ${{ github.sha }}"
+
+      - name: Publish main.pdf to the Current release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: Current
+          files: public/main.pdf
+
+  preview:
+    name: Publish a PR preview
+    needs: build
+    # Pull requests from forks get a read-only token, so there is nothing to
+    # deploy to; the main-pdf artifact is their build output.
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    concurrency:
+      group: gh-pages
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: public
+
+      - name: Deploy the preview
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          destination_dir: preview-${{ github.event.pull_request.number }}
+          # Leave the site root and the other PRs' previews alone.
+          keep_files: false
+          commit_message: "Preview for PR #${{ github.event.pull_request.number }} (${{ github.event.pull_request.head.sha }})"
+
+      - name: Link the preview from the pull request
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const marker = '<!-- latex-pdf-preview -->';
+            const url = `https://${context.repo.owner}.github.io/${context.repo.repo}`
+                      + `/preview-${context.issue.number}/main.pdf`;
+            const sha = context.payload.pull_request.head.sha.slice(0, 7);
+            const body = [
+              marker,
+              `📄 **[Compiled PDF for this pull request](${url})**`,
+              '',
+              `Built from \`${sha}\`, rebuilt on every push, and removed when this pull request closes.`,
+            ].join('\n');
+
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              ...context.repo,
+              issue_number: context.issue.number,
+            });
+            const existing = comments.find((comment) => comment.body.includes(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                ...context.repo, comment_id: existing.id, body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                ...context.repo, issue_number: context.issue.number, body,
+              });
+            }
