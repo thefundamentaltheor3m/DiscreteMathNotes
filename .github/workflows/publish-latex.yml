@@ -57,7 +57,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # ~170 MB of TeX Live rather than the ~6 GB texlive-full the old workflow
+      # Grep, before anything is downloaded: a \usepackage that nobody added to
+      # the manifest would otherwise fail minutes later, inside a pdflatex log.
+      - name: Check the TeX Live manifest covers what the sources load
+        run: .github/scripts/check-manifest.sh
+
+      # ~290 MB of TeX Live rather than the ~6 GB texlive-full the old workflow
       # installed from apt on every run. The key is the package manifest, so the
       # tree is reinstalled only when the list of packages changes; a manifest
       # edit falls back to the newest older tree and tops it up in place.

@@ -12,9 +12,16 @@
 # friends) are deliberately not used: they drag in some 800 packages for the
 # sake of a handful.
 #
-# If a new \usepackage in TeX_Setup/packages.tex makes CI fail with
-# "LaTeX Error: File `foo.sty' not found", add the containing package here.
-# `tlmgr info foo.sty` names it.
+# A \usepackage names a style file, which is not always the name of the TeX
+# Live package shipping it -- authblk lives in preprint, tikz in pgf. Where the
+# two differ, the entry carries a `# provides:` annotation naming the style
+# files it is here for. .github/scripts/check-manifest.sh reads those and fails
+# the build, before anything is installed, if the sources load something this
+# file does not account for.
+#
+# So: adding a \usepackage means either adding its TeX Live package here
+# (`tlmgr info foo.sty` names it), or -- if some entry already installs it --
+# adding the style file to that entry's `provides:` list.
 #
 # Blank lines and #-comments are ignored.
 
@@ -31,8 +38,8 @@ biblatex
 logreq
 
 # --- Document class and core LaTeX -----------------------------------------
-latex
-tools   # array, longtable, verbatim, bm
+latex     # provides: book, fontenc, inputenc
+tools     # provides: array, bm, longtable, verbatim
 l3kernel
 l3packages
 l3backend
@@ -41,10 +48,10 @@ xkeyval
 iftex
 
 # --- Fonts ------------------------------------------------------------------
-amsfonts
+amsfonts  # provides: amssymb
 cm-super
 sansmathfonts
-jknapltx
+jknapltx  # provides: mathrsfs
 rsfs
 
 # --- Page layout and typography --------------------------------------------
@@ -54,7 +61,7 @@ lastpage
 parskip
 setspace
 ragged2e
-preprint
+preprint  # provides: authblk
 enumitem
 csquotes
 babel
@@ -62,7 +69,7 @@ babel-english
 
 # --- Maths ------------------------------------------------------------------
 amsmath
-amscls
+amscls    # provides: amsthm
 mathtools
 mathdots
 cancel
@@ -73,13 +80,13 @@ yhmath
 booktabs
 float
 wrapfig
-caption
-graphics
+caption   # provides: subcaption
+graphics  # provides: graphicx
 graphics-cfg
 graphics-def
 
 # --- Graphics and diagrams --------------------------------------------------
-pgf
+pgf       # provides: tikz
 pgfplots
 pict2e
 tikz-cd

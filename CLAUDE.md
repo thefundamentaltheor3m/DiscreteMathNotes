@@ -184,6 +184,12 @@ publishing a broken PDF — compile locally before pushing.
 CI does not install `texlive-full`. It installs exactly the packages listed in
 `.github/texlive-packages.txt` into a cached tree, which is why a run takes about a
 minute rather than ten. **Adding a `\usepackage` to `TeX_Setup/packages.tex` therefore
-means adding its TeX Live package to that manifest too** — `tlmgr info <file>.sty`
-names it — otherwise CI fails with `File `<file>.sty' not found`. The HTML
-(`make4ht`) path is not wired up.
+means accounting for it in that manifest too**: either add its TeX Live package
+(`tlmgr info <file>.sty` names it, and it is often called something else — `authblk`
+ships in `preprint`, `tikz` in `pgf`), or, if an entry already there installs it, add
+the style file to that entry's `# provides:` list.
+
+`.github/scripts/check-manifest.sh` greps for this as the build's first step, so a
+forgotten package fails in seconds with the name and the file that loads it, rather
+than minutes later inside a pdflatex log. Run it locally to check before pushing. The
+HTML (`make4ht`) path is not wired up.
