@@ -30,8 +30,8 @@ those before you write.** The voice does not transfer from a description of it, 
 imitation is the entire job here.
 
 A directive that would need a new heading, or would move material between sections,
-is a structural change rather than a writing one: read `.claude/ORGANISATION.md`
-before acting on it, and consider whether it is really a job for `/organise`.
+is a structural change rather than a writing one: read `.claude/ORGANIZATION.md`
+before acting on it, and consider whether it is really a job for `/organize`.
 
 [t]: https://github.com/thefundamentaltheor3m/TopologyNotes
 [l]: https://github.com/thefundamentaltheor3m/LogicNotes
@@ -63,7 +63,7 @@ it. Before writing a single word, for each comment establish:
 - **Which earlier results are in scope.** "Finish proof using previous lemma" names
   a lemma; find it, read its exact statement, and use *that*, not a lemma you would
   have proved. If it does not quite give what the proof needs, that is a finding to
-  report, not a licence to prove a stronger lemma.
+  report, not a license to prove a stronger lemma.
 - **What the author already wrote about the same thing.** Often one case of an
   argument is written out and the comment asks for the rest. The written case is
   your template: match its structure, its level of detail, and its phrasing. This is
@@ -79,7 +79,7 @@ it is exactly the kind of error that survives review.
 ## 3. Write it
 
 **Match the density of the prose around it.** This is what "don't be verbose" means
-in practice: not "be terse", but "write at the same resolution as the neighbouring
+in practice: not "be terse", but "write at the same resolution as the neighboring
 sentences". If the proof around your insertion moves in one-sentence steps, your
 insertion moves in one-sentence steps. If the author compressed a routine
 verification into "This is essentially just definitions.", do not expand the next one
@@ -104,7 +104,7 @@ and never `\cref`. Case splits go in a `description` with
 
 **If you cannot honestly complete something, leave `\sorry`** — the red marker the
 author uses for a real gap — and say so in the report. A flagged gap is house style,
-and `/fill-sorries` is the skill that comes back for it later with a licence to work
+and `/fill-sorries` is the skill that comes back for it later with a license to work
 the mathematics out. A confident hand-wave in its place is the worst possible outcome,
 because it looks finished.
 
@@ -147,7 +147,7 @@ expression out.
 The paradigm case that *does* clear the bar, in a graph theory course, is **drawing
 graphs of a given shape**. `shortcuts.tex` already establishes the pattern in its
 `% TIKZ:` block — `\drawplane`, `\drawsquare{halfwidth}`,
-`\labelledpoint{x}{y}{dx}{dy}{label}` — reusable pictures parameterised by the one
+`\labeledpoint{x}{y}{dx}{dy}{label}` — reusable pictures parameterized by the one
 thing that varies. A comment asking for a triangle, a pentagon and a 7-gon is not
 asking for three hand-placed `tikzpicture`s; it is asking for a cycle-graph command
 used three times:
@@ -161,7 +161,7 @@ used three times:
 ```
 
 The same goes for path graphs, complete graphs, complete bipartite graphs, and a
-labelled hypergraph — anything a course on graphs will want again next week.
+labeled hypergraph — anything a course on graphs will want again next week.
 
 When you do add one, it must look like it belongs:
 
@@ -245,4 +245,4 @@ the author must check:
 
 Be specific and be brief. The author is going to read this and then read the diff;
 the report's job is to point at the parts of the diff that need their judgment, not
-to summarise the parts that do not.
+to summarize the parts that do not.
