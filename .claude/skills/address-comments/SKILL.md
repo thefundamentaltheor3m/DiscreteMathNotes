@@ -29,6 +29,10 @@ repositories written in the same style — [TopologyNotes][t], [LogicNotes][l],
 those before you write.** The voice does not transfer from a description of it, and
 imitation is the entire job here.
 
+A directive that would need a new heading, or would move material between sections,
+is a structural change rather than a writing one: read `.claude/ORGANISATION.md`
+before acting on it, and consider whether it is really a job for `/organise`.
+
 [t]: https://github.com/thefundamentaltheor3m/TopologyNotes
 [l]: https://github.com/thefundamentaltheor3m/LogicNotes
 [r]: https://github.com/thefundamentaltheor3m/RepTheoryEPFL

@@ -11,11 +11,16 @@ worth of unsorted material and distributes it into the right chapters, sections 
 subsections, writing whatever connecting prose is needed to make the result read as
 though it had always been there.
 
-Read `CLAUDE.md` and `.claude/STYLE.md` first. `CLAUDE.md` holds the build commands,
-the preamble layout, and the authoring conventions; `STYLE.md` holds the voice, the
-LaTeX mechanics, the label scheme and the macro conventions, with pointers into the
-author's other notes repositories when a question is not settled there. Everything
-below assumes both.
+Read these first; everything below assumes them.
+
+- `CLAUDE.md` — build commands, preamble layout, authoring conventions.
+- `.claude/STYLE.md` — the voice, the LaTeX mechanics, the label scheme and the macro
+  conventions, with pointers into the author's other notes repositories when a
+  question is not settled there.
+- `.claude/ORGANISATION.md` — what earns a chapter, a section and a subsection, and
+  the format of `TOPICS.md`. Here it is a **constraint**, not a target: it tells you
+  whether this lecture's material fits an existing section or has earned one of its
+  own. Making the document match it is `/organise`'s job, not yours.
 
 ## The staging convention
 
@@ -35,6 +40,21 @@ If the user names a file or a date, use that. Otherwise glob
 exist, list them and ask which to integrate — do not guess, and do not integrate
 several at once unless asked.
 
+**If no staging file exists**, the convention was not followed: the lecture was
+written straight into a real section file, or into a template-named one such as
+`1_1_Imp_Defs.tex`. Do not stop. Identify the file holding the unintegrated material,
+say which file you are treating as the staging file and why, and proceed — the
+ledger, the plan and the report all work the same way. The only difference is at the
+end: the file is not deleted, because it is a real section file. Its *contents* are
+redistributed and whatever is left of it is either a legitimate section or is emptied
+and removed. If you cannot tell which material is unintegrated, ask rather than
+guess.
+
+**If the notes contain nothing to integrate into** — a first lecture, or a repository
+still all template placeholders — then there is no integration to do, and the right
+skill is `/organise`: the task is arranging one lecture's material sensibly, not
+folding it into an existing arrangement. Say so and stop.
+
 ## There is no syllabus
 
 **No list of topics for the course will ever be provided.** Nobody knows what
@@ -42,23 +62,50 @@ several at once unless asked.
 drives most of the judgment calls in this skill:
 
 - `TOPICS.md` is a **record of what the lectures have actually covered**, not a plan
-  derived from a syllabus. It grows one lecture at a time. Never invent sections for
-  topics no lecture has reached because a course like this "usually" covers them.
+  derived from a syllabus. Never invent sections for topics no lecture has reached
+  because a course like this "usually" covers them.
 - The chapter and section structure is therefore **provisional**, and stays
   provisional. Early lectures land in whatever chapter looked right at the time; by
-  lecture ten it may be obviously wrong. Expect to rename chapters, split one into
-  two, promote a subsection to a section, and move settled material — and propose
-  exactly that when you see it, rather than wedging new material into a structure
-  that has stopped fitting.
+  lecture ten it may be obviously wrong. That is expected. It is also not yours to
+  fix — see the boundary below.
 - What you *may* do is infer where things seem to be heading from the lecture itself
   — a result stated but not proved, a definition introduced for later use, an
   explicit "we'll come back to this". Record those under `## Signposted` in
   `TOPICS.md`, clearly marked as the lecturer's signposting rather than as structure.
   They are the closest thing to a syllabus that exists.
-- When the current chapter's title no longer covers what the lecture added, say so.
-  A chapter called `Graphs and Colourings` that has quietly acquired three lectures
-  of extremal combinatorics needs renaming or splitting, and that is a decision for
-  the user.
+
+## Scope: this skill does not restructure
+
+`/integrate` and `/organise` share their format, their guiding principles and their
+respect for the author's mathematics. They do not share a scope.
+
+| | `/integrate` | `/organise` |
+| --- | --- | --- |
+| Input | one lecture's raw notes | the notes as they already stand |
+| Adds material | yes, that is the point | never |
+| Restructures | only enough to house the new material | yes, that is the point |
+| `TOPICS.md` | appends its own entries | owns the file |
+| Ends with | the raw file dissolved | the same content, better arranged |
+
+**Restructuring what already exists is out of scope here.** Concretely, you may:
+
+- create a new section or subsection for material that has nowhere to go, sized
+  according to `ORGANISATION.md`;
+- adjust a heading title that *this lecture's material* has made inaccurate;
+- add a cross-reference in either direction between new and existing material.
+
+You may not: move settled material between sections or chapters, split or merge
+existing headings, rename or split a chapter, promote a subsection to a section, or
+renumber anything that was already in place. Those are `/organise`'s, and they are
+out of scope even when they are obviously right, because they renumber results and
+the author has to review the fallout.
+
+When you see one — a chapter called *Graphs and Colourings* that has quietly acquired
+three lectures of extremal combinatorics, a section doing the work of three —
+**record it and recommend `/organise`**. Note it under a `## Structural pressure`
+heading in `TOPICS.md` and raise it in the report. A wedged-in placement that you have
+flagged is recoverable; a unilateral reorganisation buried in an integration diff is
+not.
 
 ## Procedure
 
@@ -74,6 +121,10 @@ end, so an unledgered item is a lost item.
 ### 2. Read the surrounding notes
 
 - `TOPICS.md` — the running topic map (see below). The primary placement authority.
+- `.claude/ORGANISATION.md` — the sizing norms, which decide whether this lecture's
+  material joins an existing section or earns a new one. Measure before deciding;
+  the numbers there are quartiles over 12,000 lines of the author's notes, and
+  eyeballing gets them wrong.
 - `.claude/STYLE.md` — the house style, and the corpus it points at. If you have not
   read a real section of the notes end to end in this session, read two now; the
   voice does not transfer from a description of it.
@@ -162,23 +213,24 @@ Then, mechanically:
   boundary renumbers it. Grep for stale `\Cref`s to anything you moved.
 - Delete the raw file and its `\input` line last, once every ledger item is placed.
 
-### 5. Update TOPICS.md
+### 5. Append to TOPICS.md
 
-The topic map is a plain outline: chapters mapping to directories, sections beneath
-them, each annotated with the lecture date that supplied it, then `## Signposted`
-and `## Unplaced` lists. Create it on first run if absent.
+`ORGANISATION.md` specifies the format and `/organise` owns the file. Your job is to
+**append, not to rewrite**: a line for each section this lecture put material in,
+dated; new entries under `## Signposted` for what the lecture pointed at without
+reaching; anything you could not place under `## Unplaced`. Leave the outline's shape,
+the inference note and the existing annotations alone.
 
-Because there is no syllabus (see above), **every line of this file must be
-traceable to a lecture.** A section exists in `TOPICS.md` because a lecture put
-material in it, or because the lecturer explicitly said we would come back to it —
-never because the topic is one a discrete mathematics course would normally reach.
-`## Signposted` is where the second kind lives, and it is annotated with the lecture
-that signposted it so that a signpost never quietly hardens into a chapter nobody
-asked for.
+If you find yourself wanting to rewrite the outline rather than add to it, that is
+the signal that this lecture has broken the structure. Add your entries where they
+least distort it, note the problem under `## Structural pressure`, and recommend
+`/organise` in the report.
 
-Open the file with a one-line note on what the structure currently looks like it is
-becoming, and flag it as inference. It is the handover to the next run, and the next
-run should feel free to disagree with it.
+Create the file on first run if it is absent, following the format in
+`ORGANISATION.md`. Every line must be traceable to a lecture: a section exists in
+`TOPICS.md` because a lecture put material in it, or because the lecturer explicitly
+said we would come back to it, never because the topic is one a discrete mathematics
+course would normally reach.
 
 ```
 <!-- No syllabus for this course. Structure is inferred from lectures and revised
@@ -193,12 +245,16 @@ run should feel free to disagree with it.
 
 ## Unplaced
   pigeonhole (mentioned 2026-08-26)
+
+## Structural pressure
+  1.1 is at 340 lines across 6 subsections [noted 2026-09-02] — over the corpus
+  range for a section; probably wants splitting. Run /organise.
 ```
 
-If this run's material makes the existing structure wrong rather than incomplete —
-a chapter title that no longer describes its contents, a section doing the work of
-three — say so here and in the report, and propose the reorganisation. Do not carry
-it out unilaterally; renaming a chapter renumbers every label under it.
+If this run's material makes the existing structure wrong rather than incomplete,
+record it under `## Structural pressure` with what you observed, and recommend
+`/organise` in the report. Do not act on it here: renaming a chapter renumbers every
+label under it, and that belongs in a diff of its own.
 
 ### 6. Verify
 
@@ -272,7 +328,10 @@ The repository was cut from a template, and some of it is still standing. `main.
 now carries the real course metadata, and `Chapters/1_Intro/` has real content, but
 `Chapters/0_Overview.tex`, `Chapters/1_Intro/1_2_Another_Section.tex`,
 `Chapters/2_Another Chapter/` and `Chapters/Appendices/` are all still placeholders.
-Offer to clear whichever ones are in your way — but ask first, and never delete a
-file that has acquired real content. Note also that `Chapters/1_Intro/` is now a
-misnomer for a chapter titled *Graphs and Colourings*; renaming the directory is a
-reasonable thing to propose and not a thing to do unasked.
+Offer to clear whichever ones are actually in your way — but ask first, and never
+delete a file that has acquired real content. The rest of the scaffolding is a
+structural problem rather than an integration one, so leave it and recommend
+`/organise`. Note in particular that `Chapters/1_Intro/` is **not** a misnomer for a
+chapter titled *Graphs and Colourings*: `1_Intro` is the author's directory name for
+chapter 1 across three of the four sibling repositories, whatever that chapter is
+called. Leave it alone.

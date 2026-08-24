@@ -19,6 +19,11 @@ wrong.
 The single test for anything you write: **could the author have written it?** Not
 "is it correct", not "is it thorough" — those are necessary. Seamless is the bar.
 
+This file is about how a passage *reads*. Its companion, `.claude/ORGANISATION.md`,
+is about where a passage *lives* — what earns a chapter, a section and a subsection,
+measured over the same corpus, plus the file-naming conventions and the format of
+`TOPICS.md`. Heading titles and file names are covered there, not here.
+
 ## Voice
 
 **First-person plural, and it does the work.** "We begin by defining the so-called

@@ -72,11 +72,18 @@ Cross-reference with `cleveref` — **always `\Cref`, never `\cref`** — and la
 `Ch<N>:<Kind>:<Name>`, with chapters as `Ch<N>:CH`
 (see `Chapters/1_Intro/1_Intro.tex`).
 
-**`.claude/STYLE.md` is the house style guide**: the prose voice, the LaTeX
-mechanics, the label scheme, the macro naming conventions, and pointers into the
-author's four sibling lecture-note repositories, which share this template and this
-style and are the corpus to imitate. Read it before writing any prose or math into
-the notes.
+Two reference files under `.claude/` carry the conventions, and the skills point at
+them rather than restating them:
+
+- **`.claude/STYLE.md`** — how a passage *reads*: the prose voice, the LaTeX
+  mechanics, the label scheme, the macro naming conventions, and pointers into the
+  author's four sibling lecture-note repositories, which share this template and
+  this style and are the corpus to imitate. Read it before writing any prose or
+  math into the notes.
+- **`.claude/ORGANISATION.md`** — where a passage *lives*: what earns a chapter, a
+  section and a subsection, measured over those same repositories, plus the naming
+  conventions and the format and ownership of `TOPICS.md`. Read it before deciding
+  where anything goes.
 
 `TeX_Setup/shortcuts.tex` is large and worth grepping before writing raw math — it
 already defines auto-sized delimiters (`\parenth`, `\brac`, `\set`, `\setst`, `\abs`,
@@ -101,14 +108,26 @@ compiles. The `/integrate` skill (`.claude/skills/integrate/`) then redistribute
 content into the proper sections by topic and deletes the staging file. Do not treat a
 `Lecture_*.tex` file as settled content.
 
-`TOPICS.md` at the repo root — written by the first `/integrate` run — is the running
-map of topic to chapter/section, and is the authority on where new material belongs.
+`TOPICS.md` at the repo root is the running map of topic to chapter/section, and is
+the authority on where new material belongs. `/organise` owns it; `/integrate`
+appends to it.
 
 **No syllabus of topics exists for this course, and none is coming.** `TOPICS.md` is
 therefore built up lecture by lecture from what was actually taught, and the chapter
-structure stays provisional: expect to propose renaming, splitting and rehoming
-chapters as the course reveals its shape. Never add a section because a discrete
-mathematics course "usually" covers that topic.
+structure stays provisional. Never add a section because a discrete mathematics
+course "usually" covers that topic.
+
+The two structural skills divide as follows, and the division matters because
+restructuring renumbers results:
+
+- **`/integrate`** (`.claude/skills/integrate/`) absorbs one lecture's raw notes. It
+  may create a heading for material that has nowhere to go, but it does **not**
+  restructure what is already written. When it sees that the structure has stopped
+  fitting, it records the pressure in `TOPICS.md` and recommends `/organise`.
+- **`/organise`** (`.claude/skills/organise/`) refactors the existing chapter,
+  section and subsection structure against `ORGANISATION.md`, and rebuilds
+  `TOPICS.md`. It adds no material and deletes none — the same content, better
+  arranged.
 
 ## `% [CLAUDE]` comments
 
