@@ -121,10 +121,11 @@ end, so an unledgered item is a lost item.
 ### 2. Read the surrounding notes
 
 - `TOPICS.md` — the running topic map (see below). The primary placement authority.
-- `.claude/ORGANISATION.md` — the sizing norms, which decide whether this lecture's
-  material joins an existing section or earns a new one. Measure before deciding;
-  the numbers there are quartiles over 12,000 lines of the author's notes, and
-  eyeballing gets them wrong.
+- `.claude/ORGANISATION.md` — the generality ladder, which decides whether this
+  lecture's material joins an existing section or earns a new one. The question is
+  conceptual, not dimensional: material that continues an existing line of enquiry
+  becomes a subsection of that section however much of it there is, and only material
+  asking a different question earns a section of its own.
 - `.claude/STYLE.md` — the house style, and the corpus it points at. If you have not
   read a real section of the notes end to end in this session, read two now; the
   voice does not transfer from a description of it.

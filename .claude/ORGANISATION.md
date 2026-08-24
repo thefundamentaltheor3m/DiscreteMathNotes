@@ -29,89 +29,148 @@ Three consequences run through the whole file:
    explicitly saying we would come back to something.
 3. **Prefer the arrangement whose mistakes self-heal.** Some structural mistakes
    correct themselves as lectures arrive; others harden. See
-   [Which axis to optimise](#which-axis-to-optimise).
+   [Which mistakes to prefer](#which-mistakes-to-prefer).
 
-## What the corpus actually looks like
+## The generality ladder
 
-Measured over the author's four sibling repositories — [TopologyNotes][t],
-[LogicNotes][l], [RepTheoryEPFL][r], [LieAlgebrasNotes][a] — 12,277 lines, 14
-chapters, 66 sections, 181 subsections:
+The three levels are three degrees of generality, and that — not size — is what
+decides where something goes:
 
-| Unit | Lines | Contains | Boxed environments |
-| --- | --- | --- | --- |
-| **Chapter** | median ≈ 830, range 313–1844 | 2–8 sections, typically 3–6 | — |
-| **Section** | median 148, IQR 99–229 | median 3 subsections, IQR 2–3 | median 9, IQR 5–13 |
-| **Subsection** | median 48, IQR 30–79 | prose and environments only | median 3, IQR 2–5 |
+| | holds | answers |
+| --- | --- | --- |
+| **Chapter** | a body of theory with its own objects and vocabulary | *what are we studying?* |
+| **Section** | one line of enquiry within that theory, with a destination | *what are we trying to establish about it?* |
+| **Subsection** | one idea | *what is this particular thing?* |
+
+Read down a real chapter from the corpus — [TopologyNotes][t], [LogicNotes][l],
+[RepTheoryEPFL][r], [LieAlgebrasNotes][a] — and the ladder is unmistakable:
+
+```
+Propositional Logic                          <- the theory
+  Propositional Formulae                     <- what the objects are
+      Propositions and Connectives
+      Truth Functions
+      Adequacy
+  A Formal System for Propositional Logic    <- how we reason about them
+      Formal Deduction Systems
+      Constructing a Formal System for Propositional Logic
+      Deductions in L
+  Important Properties of L                  <- and what that system is worth
+      Propositional Valuations
+      Soundness
+      Consistency
+      Completeness
+```
 
 [t]: https://github.com/thefundamentaltheor3m/TopologyNotes
 [l]: https://github.com/thefundamentaltheor3m/LogicNotes
 [r]: https://github.com/thefundamentaltheor3m/RepTheoryEPFL
 [a]: https://github.com/thefundamentaltheor3m/LieAlgebrasNotes
 
-Two hard facts from the same measurement:
+Each section has a destination its subsections walk towards, and each subsection is
+one nameable thing. That is the whole standard.
 
-- **There are no subsubsections.** One appears in 12,277 lines. Depth stops at
-  subsection; below that, use a paragraph break, or `description`/`enumerate` inside
-  an environment. If material seems to need a fourth level, the section above it is
-  wrong.
-- **A section almost always has at least two subsections.** 54 of 66 sections have
-  two or more; 8 have none at all (these are short, single-idea sections) and only 4
-  have exactly one. **A section with exactly one subsection is the shape to avoid**
-  — either the subsection heading is redundant, or the section should be a
-  subsection of something larger.
+**There are no subsubsections.** One appears in 12,277 lines of the corpus. Depth
+stops at subsection; below it, use a paragraph break, or `description`/`enumerate`
+inside an environment. If material seems to want a fourth level, the section above it
+is holding more than one line of enquiry.
 
 ## What earns each level
 
-### Subsection
+### Subsection — one idea
 
-**One idea, developed once.** A definition with its examples; a single theorem with
-its proof; one construction. Median 48 lines and 3 boxed environments — if a
-prospective subsection has one environment and four lines of prose, it is a
-paragraph, not a subsection.
+A definition and what it is for; a single theorem and its proof; one construction;
+one property. **The test is nameability: can you title it in a noun phrase, without
+an "and" that joins two unrelated things?** *Adequacy*, *Soundness*, *Ideals*,
+*Quotients*, *Subnets*, *Cluster Points*, *Tychonoff's Theorem*. "Directed Sets and
+Nets" passes, because nets are defined *in terms of* directed sets; "Colourings and
+Ramsey Numbers" would not.
 
-The test: can you name it in a noun phrase without "and"? "Directed Sets and Nets"
-passes because nets are defined *in terms of* directed sets. "Colourings and
-Ramsey Numbers" does not.
+**Size is emphatically not the test.** The corpus settles this. *Important Definitions
+and First Examples* in LieAlgebrasNotes carries ten subsections — Algebras,
+Subalgebras and Homomorphisms, Isomorphisms, Ideals, Quotients, Isomorphism Theorems,
+Adjoints, Derivations, Structure Constants, Direct Sums — several only a few lines
+long, because each is a distinct idea and the author names each one. In the other
+direction, TopologyNotes' *Relating Filters to Nets* is a whole section with no
+subsections at all, because it is one idea that happens to be a whole line of enquiry.
+Two short ideas are two subsections; one long idea is one.
 
-### Section
+### Section — one line of enquiry, with a destination
 
-**A coherent line of argument, made of two or more such ideas.** Median 148 lines, 9
-environments, 2–3 subsections. A section is what you would set as a single reading:
-the subsections are the steps, and the section title says what they add up to.
+**The test is whether the subsections go somewhere together.** Name the destination in
+a sentence: *Important Properties of $\bL$* arrives at soundness, consistency and
+completeness, and sets up valuations first because the rest needs them. *The Theory of
+Irreducible Characters* arrives at understanding the irreducible characters, via
+central functions and the orthogonality theorem. If you cannot say what a prospective
+section is trying to establish, it is not a section.
 
-Reach for a new section when the material genuinely does not continue the argument of
-any existing one. Reach for a new *subsection* of an existing section when it does.
-Under ~100 lines and 5 environments, prefer the subsection.
+The corollary is the practical rule: **material that continues an existing line of
+enquiry becomes a subsection of that section, however much of it there is.** A new
+section is for material asking a different question. If two subsections could be read
+in either order and neither needs the other, they are probably two lines of enquiry,
+and want two sections.
 
-### Chapter
+### Chapter — a body of theory
 
-**A topic area that the course will spend weeks on.** Median 830 lines, 3–6 sections.
-A chapter is a big unit: no single lecture is a chapter, and a chapter with one
-section is a chapter that has not happened yet.
+**The test is vocabulary.** A chapter introduces its own objects and the words for
+talking about them, and everything under it is about those objects: *Propositional
+Logic*, *Character Theory*, *Nets and Filters*, *Set Theory*. If you could imagine a
+textbook giving it a chapter, it is a chapter; if it is one thing you want to prove
+about objects introduced elsewhere, it is a section.
 
-This is the level where the absent syllabus hurts most, because a new chapter is a
-bet on where the course is going, and the bet is expensive to unwind — renaming or
-splitting a chapter renumbers every result under it. So:
+This is where the absent syllabus hurts most, because a new chapter is a bet on where
+the course is going and the bet is expensive to unwind — renaming or splitting a
+chapter renumbers every result under it. So:
 
 - Do not open a chapter for material that could be a section of an existing one.
-- Do open one when a section has grown past ~800 lines, or when its contents have
-  visibly stopped being about what its title says.
-- Chapter 1 is allowed to be undersized early on, because everything starts there.
-  Do not "fix" that by inventing chapters 2 and 3.
+- Do open one when a section's contents have visibly stopped being about what its
+  title says, or when the notes have started developing a genuinely new class of
+  object.
+- Chapter 1 is allowed to look thin early on, because everything starts there. Do not
+  "fix" that by inventing chapters 2 and 3.
 
-### Which axis to optimise
+### Which mistakes to prefer
 
-When the current material cannot satisfy every norm at once — and early in a course
-it cannot — favour the arrangement whose deviations *self-heal*:
+Early in a course the notes cannot look like the corpus, because there is not enough
+material yet. When you have to choose, prefer the arrangement whose mistakes
+*self-heal*:
 
-- **Sections per chapter self-heals.** One section today becomes four by lecture
-  eight, with no edits to anything already written.
-- **Section and subsection sizes do not.** Get them wrong and you are splitting or
-  merging files later, renumbering results and chasing stale `\Cref`s.
+- **A chapter with too few sections self-heals.** Lecture 2 adds section 1.2, with no
+  edits to anything already written.
+- **A misjudged idea boundary does not.** Splitting one line of enquiry across two
+  sections, or fusing two into one, is a conceptual error that stays wrong and gets
+  more expensive to undo as material piles on top of it — you are splitting or merging
+  files later, renumbering results and chasing stale `\Cref`s.
 
-So a chapter that is temporarily one well-proportioned section beats a chapter of
-three undersized sections that will need merging. Record the deviation in
-`TOPICS.md` rather than structuring around it.
+So a chapter that is temporarily one coherent section beats a chapter of three
+sections carved out of one line of enquiry. Record the deviation in `TOPICS.md`
+rather than structuring around it.
+
+## The numbers, and how little they are worth
+
+Sizes in the corpus are a *consequence* of the judgments above, not a criterion. They
+are recorded here only so that a borderline call has something to fall back on, and
+they carry far less weight than anything in the previous section.
+
+<details>
+<summary>Measured over 12,277 lines: 14 chapters, 66 sections, 181 subsections</summary>
+
+| Unit | Lines | Contains | Boxed environments |
+| --- | --- | --- | --- |
+| Chapter | median ≈ 830, range 313–1844 | 2–8 sections, typically 3–6 | — |
+| Section | median 148, IQR 99–229 | median 3 subsections, IQR 2–3 | median 9, IQR 5–13 |
+| Subsection | median 48, IQR 30–79 | prose and environments only | median 3, IQR 2–5 |
+
+54 of 66 sections have two or more subsections; 8 have none and 4 have exactly one.
+
+</details>
+
+Use them **only** when you have genuinely failed to decide on the ideas, and only in
+one direction: as a prompt to go back and look at the ideas again. A section far
+outside the range is a reason to re-read it and ask whether it is really one line of
+enquiry — it is never, by itself, a reason to split it. Never cite a line count as the
+justification for a structural decision; if that is the best reason available, you
+have not understood the material well enough to reorganise it.
 
 ## Naming
 

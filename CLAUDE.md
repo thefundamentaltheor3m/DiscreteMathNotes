@@ -80,10 +80,10 @@ them rather than restating them:
   author's four sibling lecture-note repositories, which share this template and
   this style and are the corpus to imitate. Read it before writing any prose or
   math into the notes.
-- **`.claude/ORGANISATION.md`** — where a passage *lives*: what earns a chapter, a
-  section and a subsection, measured over those same repositories, plus the naming
-  conventions and the format and ownership of `TOPICS.md`. Read it before deciding
-  where anything goes.
+- **`.claude/ORGANISATION.md`** — where a passage *lives*: the generality ladder that
+  decides what earns a chapter, a section and a subsection, read off those same
+  repositories, plus the naming conventions and the format and ownership of
+  `TOPICS.md`. Read it before deciding where anything goes.
 
 `TeX_Setup/shortcuts.tex` is large and worth grepping before writing raw math — it
 already defines auto-sized delimiters (`\parenth`, `\brac`, `\set`, `\setst`, `\abs`,

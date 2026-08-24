@@ -13,9 +13,10 @@ nothing and removing nothing.
 
 Read these first, in order:
 
-- `.claude/ORGANISATION.md` — what earns a chapter, a section and a subsection, what
-  the corpus actually measures, the naming conventions, and the format and ownership
-  of `TOPICS.md`. **This skill's job is to make the document match that file.**
+- `.claude/ORGANISATION.md` — what earns a chapter, a section and a subsection, the
+  naming conventions, and the format and ownership of `TOPICS.md`. **This skill's job
+  is to make the document match that file** — which means matching its account of the
+  generality ladder, not its size table.
 - `CLAUDE.md` — build commands, preamble layout, authoring conventions.
 - `.claude/STYLE.md` — the voice, for the connecting prose that restructuring
   inevitably needs rewritten.
@@ -51,16 +52,22 @@ material would restructure around content that is about to move anyway.
 
 ### 1. Take inventory
 
-Before forming any opinion, measure. The judgment calls later are all comparisons
-against `ORGANISATION.md`'s numbers, and eyeballing gets them wrong.
+Before forming any opinion, read the notes and say what is in them. For every
+chapter, section and subsection, write down **what idea or line of enquiry it
+actually contains** — one sentence, in your own words, of the form "this establishes
+X" or "this is the definition of Y and what it is for". If you cannot write that
+sentence for a heading, that is your first finding.
 
-For every chapter, section and subsection: its title, its file, its line count, its
-count of boxed environments, and a one-line summary of what it covers. Also record
+Then, for each unit: its title, its file, and whether the sentence you wrote matches
+the title. Sizes are worth noting in passing but they decide nothing; see
+`ORGANISATION.md` on how little they are worth.
 
-- every `\subsubsection` (there should be none),
-- every section with exactly one subsection (the shape `ORGANISATION.md` says to
-  avoid),
-- every chapter or section whose title no longer describes its contents,
+Also record
+
+- every `\subsubsection` (there should be none — that one is a real rule),
+- every heading whose title no longer describes what you just wrote down about it,
+- every place where consecutive material is really one idea under two headings, or two
+  ideas under one,
 - every label, and every `\Cref` that points at one — this is the map of what
   renumbering will break.
 
@@ -80,19 +87,29 @@ comparable piece of material is handled in [TopologyNotes][t], [LogicNotes][l],
 [r]: https://github.com/thefundamentaltheor3m/RepTheoryEPFL
 [a]: https://github.com/thefundamentaltheor3m/LieAlgebrasNotes
 
-Two questions worth asking of the corpus every time:
+Three questions worth asking of the corpus every time:
 
-- **Is this material one idea or several?** That is the subsection test, and the
-  corpus is full of worked examples of where the author draws the line.
-- **Would the author have given this its own heading?** Median subsection is 48
-  lines and 3 environments. Below that, the corpus uses a paragraph break.
+- **Is this material one idea or several?** That is the subsection test, and the corpus
+  is full of worked examples of where the author draws the line — including very short
+  subsections (*Ideals*, *Quotients*) kept separate because they are separate ideas.
+- **Where is this line of enquiry going?** If you can name the destination, you have a
+  section; if the destination is the same as the section it follows, you have a
+  subsection of that section.
+- **Would the author have given this its own heading?** Look for the nearest analogue
+  and see whether they did. Do not reason from length — the author does not.
 
 ### 3. Diagnose
 
 State what is wrong with the current arrangement, as a list of specific findings,
-each with the measurement behind it. "Section 1.2 is 45 lines with 4 environments and
-one subsection, against a corpus median of 148 lines and 3 subsections" is a finding.
-"The structure could be cleaner" is not.
+each argued from the ideas. A finding names the mismatch between what a unit contains
+and what its heading claims: "the hypergraph material asks the same question of a more
+general object, so it continues 1.1's line of enquiry rather than starting a new one,
+but it currently sits unheaded inside a subsection about graphs". "Section 1.2 is 45
+lines, below the corpus median" is not a finding — it is at best a hint that sent you
+to look. "The structure could be cleaner" is not a finding either.
+
+Every finding must survive the question **"what would a reader misunderstand?"** If
+nothing, there is nothing to fix, whatever the numbers say.
 
 Then say what is *right*, and leave it alone. A correction pass that rewrites
 everything it touches is indistinguishable from noise, and the author has to review
@@ -221,7 +238,8 @@ https://github.com/thefundamentaltheor3m/DiscreteMathNotes/compare/main...organi
 
 ## Report back
 
-- **The diagnosis**: each finding, with the measurement behind it.
+- **The diagnosis**: each finding, argued from what the material is about and what a
+  reader would otherwise misunderstand.
 - **The moves**: what went where, and which finding each one answers.
 - **What was left alone**, including anything off-norm you decided to tolerate and
   the condition that would change your mind.
