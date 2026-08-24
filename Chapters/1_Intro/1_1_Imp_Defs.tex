@@ -1,31 +1,26 @@
-\section{Colourings}
+\begin{boxnotation} \hfill
+    \begin{itemize}
+        \item $[k]$ will denote $\set{1, \ldots, k}$.
+        \item $\sim$ will denote the adjacency relation on graph vertices.
+    \end{itemize}
+\end{boxnotation}
+
+\section{Graph Colourings}
 
 \begin{boxdefinition}[Colouring]
     Given a graph $G = (V, E)$, a $k$-colouring of $G$ is a map $c : V \to [k]$ such that $u \sim v \implies c(u) \ne c(v)$.
 \end{boxdefinition}
 
-\subsection{$2$-Colourings of Graphs}
+\subsection{$2$-Colourings}
 
 Let's start with a motivating question: which graphs can be 2-coloured?
 
 Any odd cycle graph can't be 2-coloured. That is, any graph that looks like
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
-        \cyclegraph{3}
-        \begin{scope}[xshift = 3cm]
-            \cyclegraph{5}
-        \end{scope}
-        \begin{scope}[xshift = 6cm]
-            \cyclegraph{7}
-        \end{scope}
-        \node at (8.25, 0.1) {$\cdots$};
-    \end{tikzpicture}
-\end{figure}
+% [CLAUDE] insert triangle, pendtagon, 7-gon, \cdots here
 
 Let's study when odd cycles exist.
 
-\begin{boxlemma}\label{Ch1:Lemma:Odd_Closed_Walk}
+\begin{boxlemma}
     If $G$ has an odd closed walk, then $G$ has an odd cycle.
 \end{boxlemma}
 Recall that a closed walk need not be a cycle: walks can contain repetitions. So even line graphs can have closed walks (start from one vertex, go to its neighbour, return).
@@ -42,7 +37,7 @@ Here's a cool result.
     \begin{description}
         \item[$\parenth{\implies}$] We've already seen that odd cycles can't be $2$-coloured. So if $G$ can be $2$-coloured, it can't have an odd cycle. We've essentially seen this from the examples above.
 
-        \item[$\parenth{\impliedby}$] We may assume $G$ is connected, since otherwise we can colour each component separately. Fix some $v_0 \in V$. Define $c : V \to \set{1, 2}$ by
+        \item[$\parenth{\impliedby}$] Fix some $v_0 \in V$. Define $c : V \to \set{1, 2}$ by
         \begin{align*}
             c(u) =
             \begin{cases}
@@ -56,17 +51,11 @@ Here's a cool result.
 
         Indeed, suppose it is not. Then, there must be some $u, v \in V$ such that $u \sim v$ and $c(u) = c(v)$. Now let's consider the two possible cases on the colour.
 
-        Suppose $c(u) = c(v) = 1$ for adjacent $u, v$. Then, there is a path of even length between $v$ and $v_0$ and another path of even length between $u$ and $v_0$. Concatenating the path from $v$ to $v_0$ with the one from $v_0$ to $u$, and closing up with the edge $uv$, we get a closed walk of length even $+$ even $+ 1$. This is odd, so by \Cref{Ch1:Lemma:Odd_Closed_Walk}, $G$ has an odd cycle.
+        Suppose $c(u) = c(v) = 1$ for adjacent $u, v$. Then, there is a path of odd length between $v$ and $v_0$ and another path of odd length between $u$ and $v_0$. Then, concatenating the paths $v$ to $v_0$ to $u$, we get an odd cycle.
 
-        The case $c(u) = c(v) = 2$ is identical: the two paths are now of odd length, so the closed walk they form with the edge $uv$ has length odd $+$ odd $+ 1$, which is odd again.
-
-        Either way, $G$ has an odd cycle, contrary to hypothesis. So $c$ must be a valid $2$-colouring.
+        % [CLAUDE] Finish proof using previous lemma - in even case (and odd case too?) you should be able to use lemma
     \end{description}
 \end{proof}
-
-\subsection{Colourings of Hypergraphs}
-
-Colouring is not really a question about graphs. All the definition above asks of $G$ is that we know which pairs of vertices may not share a colour, and nothing stops us forbidding larger sets instead.
 
 \begin{boxdefinition}[Hypergraph]
     Given a vertex set $V$, a \textbf{hypergraph} is a collection $H$ of subsets of $V$. The sets in $H$ are called \textbf{hyperedges}.
@@ -94,12 +83,8 @@ For each $k$, define $m(k)$ to be the smallest $m$ such that $\exists$ some $k$-
 
 Let $H$ be a $3$-uniform hypergraph that's not $2$-colourable. Assume, further, that $H$ has at most $6$ edges (each being a subset of size $3$).
 
-First, we'll show that we can reduce, without loss of generality, to the case where $H$ has exactly $6$ vertices. Indeed, if $H$ has vertices $x, y$ that are not in any common edge, then I can define $H'$ by ``merging'' $x$ and $y$. So $H'$ has one fewer vertex than $H$. This $H'$ cannot be $2$-colourable: if it were, then that colouring would extend to $H$ by using the colour of the merged vertex at both $x$ and $y$, which would make $H$ $2$-colourable. And when $H$ has more than $6$ vertices, such a pair always exists.
+First, we'll show that we can reduce, without loss of generality, to the case where $H$ has exactly $6$ vertices. Indeed, if $H$ has vertices $x, y$ that are not in any common edge, then I can define $H'$ by ``merging'' $x$ and $y$. So $H'$ has one fewer vertex than $H$. This $H'$ cannot be $2$-colourable: if it were, then that colouring would extend to $H$ by using the colour of the merged vertex at both $x$ and $y$, which would make $H$ $2$-colourable. One can show that when $H$ has more than $6$ vertices, it is always possible to find such a pair of vertices sharing no common edge.
 
-To see this, call a pair of vertices \textbf{covered} if some edge of $H$ contains both of them; an uncovered pair is exactly what we are after. Now count. An edge has $3$ vertices, so it covers the $\binom{3}{2} = 3$ pairs among them, and $H$ has at most $6$ edges, so at most
-\begin{align*}
-    6 \cdot \binom{3}{2} = 18
-\end{align*}
-pairs are covered in total. But if $H$ has $n \geq 7$ vertices, there are $\binom{n}{2} \geq \binom{7}{2} = 21$ pairs to cover. So some pair is left uncovered, and merging it brings us one vertex closer to $6$.
+% [CLAUDE] elaborate on why such a pair always exists by working out the arithmetic. Don't be verbose though, match my expository style.
 
 So now assume that $H$ has exactly $6$ edges and $6$ vertices and is not $2$-colourable. 

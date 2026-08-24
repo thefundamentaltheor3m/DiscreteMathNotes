@@ -245,12 +245,3 @@
 % DISCRETE MATH COURSE
 
 \newcommand{\dist}[1]{\operatorname{dist}\!\parenth{#1}}
-
-\newcommand{\cyclegraph}[2][1]{  % [radius]{n}: the cycle graph on n vertices, drawn as a regular n-gon
-    \foreach \i in {1, ..., #2}{
-        \pgfmathsetmacro{\angthis}{90 + 360 * (\i - 1) / #2}
-        \pgfmathsetmacro{\angnext}{90 + 360 * \i / #2}
-        \draw[thick] (\angthis:#1) -- (\angnext:#1);
-        \fill (\angthis:#1) circle (2pt);
-    }
-}
