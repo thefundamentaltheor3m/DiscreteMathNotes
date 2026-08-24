@@ -1,6 +1,6 @@
 ---
 name: fill-sorries
-description: Fill the `\sorry` markers in these LaTeX lecture notes — the red flags the author leaves where a proof was not given, a case was not covered, a computation was skipped, or a lecture broke off mid-argument. Unlike the other skills, this one is authorised to do the mathematics itself: work out the proof, add whatever lemmas and examples it needs, and write the passage. Use when the user says "/fill-sorries", "fill in the sorries", "fill the gaps", "prove the sorries", "close the sorries", or points at one and asks you to do it.
+description: Fill the `\sorry` markers in these LaTeX lecture notes — the red flags the author leaves where a proof was not given, a case was not covered, a computation was skipped, or a lecture broke off mid-argument. Unlike the other skills, this one is authorized to do the mathematics itself: work out the proof, add whatever lemmas and examples it needs, and write the passage. Use when the user says "/fill-sorries", "fill in the sorries", "fill the gaps", "prove the sorries", "close the sorries", or points at one and asks you to do it.
 ---
 
 # Filling `\sorry`
@@ -11,14 +11,14 @@ skipped a proof, waved at a case, asserted a computation, or simply ran out of t
 mid-development.
 
 ```tex
-So now assume that $H$ has exactly $6$ edges and $6$ vertices and is not $2$-colourable. \sorry
+So now assume that $H$ has exactly $6$ edges and $6$ vertices and is not $2$-colorable. \sorry
 ```
 
 Closing one is not a patching job. It is a writing job with mathematics in it, and it
 is the one place in this repository where **you are expected to work things out for
 yourself.**
 
-## You are authorised to work autonomously
+## You are authorized to work autonomously
 
 This skill is deliberately looser than the others. Read that as permission, and use it.
 
@@ -44,8 +44,8 @@ four. Length is decided by the argument, not by the size of the hole.
 **Reshape the immediate passage.** You may reorder a proof, split one into a lemma plus
 a short main argument, promote a remark to a numbered result, add a `\subsection` if the
 material you produced genuinely needs one, and add macros to `shortcuts.tex`. What you
-may not do is reorganise beyond the passage you are filling — moving settled material
-between sections or renaming a chapter is `/organise`'s, and if your fill turns out to
+may not do is reorganize beyond the passage you are filling — moving settled material
+between sections or renaming a chapter is `/organize`'s, and if your fill turns out to
 need that, say so and stop at the boundary.
 
 **Decide, then say what you decided.** Where a `\sorry` admits several readings, pick
@@ -223,7 +223,7 @@ Then, separately:
   specify. Broad scope, write what the mathematics needs, decide and report.
 - **`/integrate`** absorbs a lecture. It *creates* `\sorry` markers rather than
   filling them, and does not do mathematics of its own.
-- **`/organise`** rearranges. It neither adds nor removes mathematics.
+- **`/organize`** rearranges. It neither adds nor removes mathematics.
 
 A `% [CLAUDE]` comment that says "prove this" is an `/address-comments` job, because
 the author wrote it deliberately and scoped it. A bare `\sorry` is this one.

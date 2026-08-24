@@ -19,7 +19,7 @@ wrong.
 The single test for anything you write: **could the author have written it?** Not
 "is it correct", not "is it thorough" — those are necessary. Seamless is the bar.
 
-This file is about how a passage *reads*. Its companion, `.claude/ORGANISATION.md`,
+This file is about how a passage *reads*. Its companion, `.claude/ORGANIZATION.md`,
 is about where a passage *lives* — what earns a chapter, a section and a subsection,
 measured over the same corpus, plus the file-naming conventions and the format of
 `TOPICS.md`. Heading titles and file names are covered there, not here.
@@ -32,14 +32,14 @@ state what it means for a net to converge." The `we` is the author and reader
 walking through the material together, not a passive-voice screen.
 
 **Every boxed environment is introduced by prose, usually one sentence.** This is the
-most recognisable feature of the notes: results are almost never stacked back to
+most recognizable feature of the notes: results are almost never stacked back to
 back. The bridging sentence says what is coming and, when it can, why:
 
 > We have already encountered a trivial family of solvable Lie algebras.
 >
 > There is also a less trivial example.
 >
-> We have a special term for Lie algebras for which the derived series stabilises at $0$.
+> We have a special term for Lie algebras for which the derived series stabilizes at $0$.
 >
 > This gives us a natural relationship between nilpotency and solvability.
 >
@@ -63,8 +63,10 @@ stuck get spelled out. The author writes to be re-read months later, so the *ide
 an argument is always visible even when the arithmetic is terse. Do not pad; do not
 write "Note that", "It is important to observe that", or "In other words" as filler.
 
-**British spelling**, and it matters here: *colouring*, *neighbourhood*,
-*generalisation*, *organised*, *stabilises*, *centraliser*, *characterisation*.
+**American spelling**, and it matters here: *coloring*, *neighborhood*,
+*generalization*, *organized*, *stabilizes*, *centralizer*, *characterization*.
+The `/americanise` skill exists to enforce this; run it if a lecture's raw notes
+came in with British spellings.
 
 **Abbreviations used inline, unpunctuated:** `ie,` `eg,` `cf.` `TFAE`, `WLOG`.
 
@@ -98,7 +100,7 @@ sentence are not followed by a blank line when the sentence continues.
 
 **Boxed environments always**, never the plain `theorem`/`definition`/`example`
 forms. The full family is in `TeX_Setup/environments.tex`; `CLAUDE.md` lists them by
-colour. Frequency across the corpus, which is a good prior for what to reach for:
+color. Frequency across the corpus, which is a good prior for what to reach for:
 `boxdefinition` ≫ `boxlemma` ≈ `boxexample` > `boxtheorem` ≈ `boxproposition` >
 `boxconvention` > `boxcorollary` > `boxnotation` > `boxcexample` > `boxexercise` >
 `boxwarning` > `boxnexample`.
@@ -213,10 +215,10 @@ not number.
 
 **Reusable pictures become macros in the `% TIKZ:` block of `shortcuts.tex`**, not
 inline TikZ repeated at each use site. The existing precedents are `\drawplane`
-(gridded, labelled axes), `\drawsquare{halfwidth}` (the labelled square that the
-dihedral-group discussion reuses), and `\labelledpoint{x}{y}{dx}{dy}{label}`. This is
+(gridded, labeled axes), `\drawsquare{halfwidth}` (the labeled square that the
+dihedral-group discussion reuses), and `\labeledpoint{x}{y}{dx}{dy}{label}`. This is
 the pattern to follow for anything a graph theory course will want repeatedly — cycle
-graphs, path graphs, complete graphs, a labelled hypergraph — parameterised by the
+graphs, path graphs, complete graphs, a labeled hypergraph — parameterized by the
 one thing that varies. Available libraries are listed in `TeX_Setup/packages.tex`:
 `positioning`, `cd`, `shapes.geometric`, `arrows`, `decorations.markings`.
 

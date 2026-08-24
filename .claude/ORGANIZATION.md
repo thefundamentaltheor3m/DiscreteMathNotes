@@ -1,4 +1,4 @@
-# Document organisation
+# Document organization
 
 How these notes are carved into chapters, sections and subsections, and what
 `TOPICS.md` records. `STYLE.md` is the companion: it governs how a passage *reads*,
@@ -6,7 +6,7 @@ this file governs where the passage *lives*.
 
 Read by both skills, for different reasons:
 
-- **`/organise`** treats this file as its standard. Its job is to make the document
+- **`/organize`** treats this file as its standard. Its job is to make the document
   match it.
 - **`/integrate`** treats it as a constraint. Its job is to put new material where it
   belongs without disturbing what is already there, and this file tells it whether
@@ -83,7 +83,7 @@ A definition and what it is for; a single theorem and its proof; one constructio
 one property. **The test is nameability: can you title it in a noun phrase, without
 an "and" that joins two unrelated things?** *Adequacy*, *Soundness*, *Ideals*,
 *Quotients*, *Subnets*, *Cluster Points*, *Tychonoff's Theorem*. "Directed Sets and
-Nets" passes, because nets are defined *in terms of* directed sets; "Colourings and
+Nets" passes, because nets are defined *in terms of* directed sets; "Colorings and
 Ramsey Numbers" would not.
 
 **Size is emphatically not the test.** The corpus settles this. *Important Definitions
@@ -170,7 +170,7 @@ one direction: as a prompt to go back and look at the ideas again. A section far
 outside the range is a reason to re-read it and ask whether it is really one line of
 enquiry — it is never, by itself, a reason to split it. Never cite a line count as the
 justification for a structural decision; if that is the best reason available, you
-have not understood the material well enough to reorganise it.
+have not understood the material well enough to reorganize it.
 
 ## Naming
 
@@ -205,11 +205,11 @@ label to every heading is not house style.
 
 The running map of topic to location, at the repository root.
 
-**`/organise` owns this file.** It decides the outline, the annotations and the
+**`/organize` owns this file.** It decides the outline, the annotations and the
 inference note. **`/integrate` appends to it**: a line for each section it added
 material to, dated with the lecture. If `/integrate` finds itself wanting to rewrite
 the outline rather than add to it, that is the signal to stop and hand over to
-`/organise`.
+`/organize`.
 
 Sections:
 
@@ -242,4 +242,4 @@ chapters renumbers everything in both. After any restructuring:
 Because these costs are real, **`/integrate` does not restructure**. It may create a
 section or subsection for material that has nowhere to go, and it may adjust a title
 that its new material has made inaccurate — nothing else. Everything beyond that is
-`/organise`'s, and `/organise` proposes before it moves.
+`/organize`'s, and `/organize` proposes before it moves.
