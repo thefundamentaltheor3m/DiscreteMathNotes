@@ -126,6 +126,10 @@ Named cases are underlined and end with a full stop:
 
 **Quotes are LaTeX quotes:** ``` ``like this'' ```, never `"` and never `''` alone.
 
+**Dashes are `---`, set closed up:** `directed sets---that is, posets`. The corpus
+uses `---` sixty-odd times and a literal Unicode `—` never; a Unicode em dash in the
+source is one of the easiest seams to spot.
+
 **`\Cref`, never `\cref`.** The corpus uses `\Cref` 239 times and `\cref` zero times.
 `\Cref{Ch1:Eg:Poset_Downward_Cone}` mid-sentence, capital `C` regardless of position.
 `(cf. \Cref{…})` is the idiom for a parenthetical back-reference.
