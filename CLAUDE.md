@@ -32,9 +32,10 @@ Keep it refreshed when making substantive content changes.
 `main.tex` is the only root document. It defines course metadata as macros
 (`\COURSENUMBER`, `\COURSENAME`, `\LECTURER`, `\SCRIBE`, `\UNIVERSITY`, `\TERM`,
 `\REPONAME`) that are consumed by the title block and by the "latest version" URLs.
-**These still hold the template's placeholder values** (`MATH00001`,
-`Lecture-Notes-Template-2026`, …) — update them, not the prose, when the notes are
-adopted for a real course.
+These are set for the real course — 21-701 Discrete Mathematics, CMU, Fall 2026.
+Chapter *content*, on the other hand, is still partly template scaffolding:
+`Chapters/0_Overview.tex`, `Chapters/1_Intro/1_2_Another_Section.tex`,
+`Chapters/2_Another Chapter/` and `Chapters/Appendices/` are all placeholders.
 
 `main.tex` then `\input`s the four preamble files in a fixed order, and they are not
 interchangeable:
@@ -67,8 +68,15 @@ boxed form in the notes** — that is what the existing content uses.
 
 Numbering: `theorem` and everything sharing its counter number per *section*;
 `remark`, `solution`, `convention`, `notation`, `warning`, `abbreviation` are unnumbered.
-Cross-reference with `cleveref` (`\cref`), and label chapters as `Ch<N>:CH`
+Cross-reference with `cleveref` — **always `\Cref`, never `\cref`** — and label as
+`Ch<N>:<Kind>:<Name>`, with chapters as `Ch<N>:CH`
 (see `Chapters/1_Intro/1_Intro.tex`).
+
+**`.claude/STYLE.md` is the house style guide**: the prose voice, the LaTeX
+mechanics, the label scheme, the macro naming conventions, and pointers into the
+author's four sibling lecture-note repositories, which share this template and this
+style and are the corpus to imitate. Read it before writing any prose or math into
+the notes.
 
 `TeX_Setup/shortcuts.tex` is large and worth grepping before writing raw math — it
 already defines auto-sized delimiters (`\parenth`, `\brac`, `\set`, `\setst`, `\abs`,
@@ -95,6 +103,27 @@ content into the proper sections by topic and deletes the staging file. Do not t
 
 `TOPICS.md` at the repo root — written by the first `/integrate` run — is the running
 map of topic to chapter/section, and is the authority on where new material belongs.
+
+**No syllabus of topics exists for this course, and none is coming.** `TOPICS.md` is
+therefore built up lecture by lecture from what was actually taught, and the chapter
+structure stays provisional: expect to propose renaming, splitting and rehoming
+chapters as the course reveals its shape. Never add a section because a discrete
+mathematics course "usually" covers that topic.
+
+## `% [CLAUDE]` comments
+
+Notes taken live contain delegated tasks, marked inline:
+
+```tex
+% [CLAUDE] Finish proof using previous lemma
+% [CLAUDE] insert triangle, pentagon, 7-gon, \cdots here
+```
+
+Each is a small, specific writing job — finish an argument, draw a figure, work out
+arithmetic the lecture skipped. The `/address-comments` skill
+(`.claude/skills/address-comments/`) executes them, writing in the author's voice and
+deleting the marker once satisfied. Do not treat a `% [CLAUDE]` line as ordinary
+commented-out content, and do not delete one without addressing it.
 
 ## Publishing
 

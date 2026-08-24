@@ -11,8 +11,11 @@ worth of unsorted material and distributes it into the right chapters, sections 
 subsections, writing whatever connecting prose is needed to make the result read as
 though it had always been there.
 
-Read `CLAUDE.md` first — it holds the build commands, the preamble layout, and the
-authoring conventions this skill must reproduce. Everything below assumes it.
+Read `CLAUDE.md` and `.claude/STYLE.md` first. `CLAUDE.md` holds the build commands,
+the preamble layout, and the authoring conventions; `STYLE.md` holds the voice, the
+LaTeX mechanics, the label scheme and the macro conventions, with pointers into the
+author's other notes repositories when a question is not settled there. Everything
+below assumes both.
 
 ## The staging convention
 
@@ -32,6 +35,31 @@ If the user names a file or a date, use that. Otherwise glob
 exist, list them and ask which to integrate — do not guess, and do not integrate
 several at once unless asked.
 
+## There is no syllabus
+
+**No list of topics for the course will ever be provided.** Nobody knows what
+`Chapters/` should eventually look like — not the user, not you. That single fact
+drives most of the judgment calls in this skill:
+
+- `TOPICS.md` is a **record of what the lectures have actually covered**, not a plan
+  derived from a syllabus. It grows one lecture at a time. Never invent sections for
+  topics no lecture has reached because a course like this "usually" covers them.
+- The chapter and section structure is therefore **provisional**, and stays
+  provisional. Early lectures land in whatever chapter looked right at the time; by
+  lecture ten it may be obviously wrong. Expect to rename chapters, split one into
+  two, promote a subsection to a section, and move settled material — and propose
+  exactly that when you see it, rather than wedging new material into a structure
+  that has stopped fitting.
+- What you *may* do is infer where things seem to be heading from the lecture itself
+  — a result stated but not proved, a definition introduced for later use, an
+  explicit "we'll come back to this". Record those under `## Signposted` in
+  `TOPICS.md`, clearly marked as the lecturer's signposting rather than as structure.
+  They are the closest thing to a syllabus that exists.
+- When the current chapter's title no longer covers what the lecture added, say so.
+  A chapter called `Graphs and Colourings` that has quietly acquired three lectures
+  of extremal combinatorics needs renaming or splitting, and that is a decision for
+  the user.
+
 ## Procedure
 
 ### 1. Build the ledger
@@ -46,6 +74,9 @@ end, so an unledgered item is a lost item.
 ### 2. Read the surrounding notes
 
 - `TOPICS.md` — the running topic map (see below). The primary placement authority.
+- `.claude/STYLE.md` — the house style, and the corpus it points at. If you have not
+  read a real section of the notes end to end in this session, read two now; the
+  voice does not transfer from a description of it.
 - `main.tex` — chapter order and which chapters are commented out.
 - Every chapter file, and any section file the ledger might touch.
 - `TeX_Setup/shortcuts.tex` and `TeX_Setup/environments.tex` — the available macro
@@ -87,46 +118,87 @@ would leave the notes a pile of lectures.
 lectures state the same result, merge them into one environment, keep the stronger or
 better-worded statement, and say so in the report.
 
+#### Expository style, in brief
+
+`.claude/STYLE.md` is the full account and takes precedence over this summary. The
+parts that bite hardest during an integration:
+
+- **Every boxed environment gets a one-sentence bridge before it.** This is the most
+  visible signature of the notes and the thing a raw lecture file most reliably
+  lacks. "We have a special term for Lie algebras whose derived series stabilises at
+  $0$." / "There is also a less trivial example." / "The following is thus obvious."
+  One clause of signposting, then the box. Writing these is most of the work.
+- **First-person plural, colloquial but not chatty.** "We begin by…", "Next, we…",
+  "It turns out that…". Dry humour where it lands naturally ("Here's a cool result.")
+  and nowhere else. British spelling: *colouring*, *neighbourhood*, *generalisation*.
+- **Boxed environments always** — `boxdefinition`, `boxtheorem`, `boxlemma`,
+  `boxexample`, … (`CLAUDE.md` has the family). Raw notes are written loosely;
+  converting them is expected. Definitions carry a title, `[Colouring]`; results
+  usually do not. `\hfill` after `\begin{box…}` or `\begin{proof}` when the body
+  opens with a list. `\textbf{}` the term being defined, in the definition body.
+- **`align*` for every display**, even one-liners. One paragraph per source line, no
+  hard wrapping — and never reflow a line you were not otherwise changing.
+- **Case splits use `description`** with `\item[\underline{Case…}]` or
+  `\item[$\parenth{\implies}$]`.
+- **Replace ad-hoc math with house macros:** `\parenth`, `\set`, `\setst`, `\abs`,
+  `\floor`, `\ceil`, `\R`, `\Z`, `\N`, `\pgcd`, `\Sym`, … Grep `shortcuts.tex`
+  first; it almost always already has one. A genuinely new one is appended to the
+  `% DISCRETE MATH COURSE` block following the existing naming conventions, never
+  defined inline.
+- **Mark a gap the lecture left** — a proof not given, a case not covered — with
+  `\sorry`. Do not quietly fill it with a hand-wave.
+
 Then, mechanically:
 
-- Match the existing prose voice: first-person plural ("we now show"), unindented
-  paragraphs, sentences that carry the argument between environments rather than
-  bare lists of results.
-- Use the **boxed** environment for every theorem-like item (`boxdefinition`,
-  `boxtheorem`, `boxlemma`, `boxexample`, `boxexercise`, …) — see `CLAUDE.md` for the
-  full family. Raw notes are usually written loosely; converting them is expected.
-- Replace ad-hoc math with house macros: `\parenth`, `\set`, `\setst`, `\abs`,
-  `\floor`, `\ceil`, `\R`, `\Z`, `\N`, `\pgcd`, `\Sym`, and so on. Add a genuinely
-  new macro to `shortcuts.tex` rather than defining it inline.
-- Mark a gap the lecture left — a proof not given, a case not covered — with `\sorry`.
 - One file per section, named `<chapter>_<section>_<Topic>.tex`, `\input` from the
   chapter file in reading order. Quote paths: directory names may contain spaces.
-- Label new chapters `Ch<N>:CH`, sections `Ch<N>:S<M>`, and named results
-  `Ch<N>:<handle>`, following the existing `Ch1:CH` pattern — but if the notes have
-  settled on a different scheme by the time you read them, follow the notes.
-  Cross-reference with `\cref`, and add references both ways when a new result
-  depends on an older one.
+- Labels are `Ch<N>:<Kind>:<Name>` — `Def`, `Thm`, `Prop`, `Lemma`, `Cor`, `Eg`,
+  `CEg`, `Eq`, `Sec`, `Subsec` — with chapters as `Ch<N>:CH`; see `STYLE.md` for the
+  full table. **Label only what is actually referenced**; most environments in the
+  notes carry no label. Cross-reference with `\Cref` (capital C — `\cref` appears
+  nowhere in the notes), and add references both ways when a new result depends on
+  an older one.
 - Remember results are numbered per *section*, so moving a theorem across a section
-  boundary renumbers it. Grep for stale `\cref`s to anything you moved.
+  boundary renumbers it. Grep for stale `\Cref`s to anything you moved.
 - Delete the raw file and its `\input` line last, once every ledger item is placed.
 
 ### 5. Update TOPICS.md
 
 The topic map is a plain outline: chapters mapping to directories, sections beneath
-them, each annotated with the lecture date that supplied it, plus a trailing
-`## Unplaced` list. Create it on first run if absent. Add sections the syllabus
-implies but no lecture has reached yet, marked `(empty)` — they are what tells the
-next integration where a topic is heading.
+them, each annotated with the lecture date that supplied it, then `## Signposted`
+and `## Unplaced` lists. Create it on first run if absent.
+
+Because there is no syllabus (see above), **every line of this file must be
+traceable to a lecture.** A section exists in `TOPICS.md` because a lecture put
+material in it, or because the lecturer explicitly said we would come back to it —
+never because the topic is one a discrete mathematics course would normally reach.
+`## Signposted` is where the second kind lives, and it is annotated with the lecture
+that signposted it so that a signpost never quietly hardens into a chapter nobody
+asked for.
+
+Open the file with a one-line note on what the structure currently looks like it is
+becoming, and flag it as inference. It is the handover to the next run, and the next
+run should feel free to disagree with it.
 
 ```
-## 1. Logic  -> Chapters/1_Logic/
-  1.1 Propositions        [2026-08-24]
-  1.2 Truth tables        [2026-08-24]
-  1.3 Quantifiers         (empty)
+<!-- No syllabus for this course. Structure is inferred from lectures and revised
+     as they arrive. Currently reads as: graph theory first, with colourability as
+     the running thread; extremal/probabilistic material may want its own chapter. -->
+
+## 1. Graphs and Colourings  -> Chapters/1_Intro/
+  1.1 Graph Colourings        [2026-08-24]
+
+## Signposted
+  m(3) for 3-uniform hypergraphs — posed 2026-08-24, left open
 
 ## Unplaced
   pigeonhole (mentioned 2026-08-26)
 ```
+
+If this run's material makes the existing structure wrong rather than incomplete —
+a chapter title that no longer describes its contents, a section doing the work of
+three — say so here and in the report, and propose the reorganisation. Do not carry
+it out unilaterally; renaming a chapter renumbers every label under it.
 
 ### 6. Verify
 
@@ -194,11 +266,13 @@ and the build result. Be specific about the edits to existing content — those 
 the ones the user most needs to check, and burying them defeats the propose-then-apply
 step.
 
-## First run
+## Leftover template scaffolding
 
-The repository starts from a template whose chapters are placeholders
-(`An Introduction to the Theory of Introductions`, `Another Chapter`,
-`0_Overview.tex`) and whose `main.tex` still carries template metadata
-(`\COURSENUMBER`, `\REPONAME`, …). On the first integration, offer to clear the
-placeholder chapters and set the real course metadata — but ask first, and never
-delete a chapter that has acquired real content.
+The repository was cut from a template, and some of it is still standing. `main.tex`
+now carries the real course metadata, and `Chapters/1_Intro/` has real content, but
+`Chapters/0_Overview.tex`, `Chapters/1_Intro/1_2_Another_Section.tex`,
+`Chapters/2_Another Chapter/` and `Chapters/Appendices/` are all still placeholders.
+Offer to clear whichever ones are in your way — but ask first, and never delete a
+file that has acquired real content. Note also that `Chapters/1_Intro/` is now a
+misnomer for a chapter titled *Graphs and Colourings*; renaming the directory is a
+reasonable thing to propose and not a thing to do unasked.
