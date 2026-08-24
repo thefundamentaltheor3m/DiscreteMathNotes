@@ -1,17 +1,10 @@
-\begin{boxnotation} \hfill
-    \begin{itemize}
-        \item $[k]$ will denote $\set{1, \ldots, k}$.
-        \item $\sim$ will denote the adjacency relation on graph vertices.
-    \end{itemize}
-\end{boxnotation}
-
-\section{Graph Colourings}
+\section{Colourings}
 
 \begin{boxdefinition}[Colouring]
     Given a graph $G = (V, E)$, a $k$-colouring of $G$ is a map $c : V \to [k]$ such that $u \sim v \implies c(u) \ne c(v)$.
 \end{boxdefinition}
 
-\subsection{$2$-Colourings}
+\subsection{$2$-Colourings of Graphs}
 
 Let's start with a motivating question: which graphs can be 2-coloured?
 
@@ -70,6 +63,10 @@ Here's a cool result.
         Either way, $G$ has an odd cycle, contrary to hypothesis. So $c$ must be a valid $2$-colouring.
     \end{description}
 \end{proof}
+
+\subsection{Colourings of Hypergraphs}
+
+Colouring is not really a question about graphs. All the definition above asks of $G$ is that we know which pairs of vertices may not share a colour, and nothing stops us forbidding larger sets instead.
 
 \begin{boxdefinition}[Hypergraph]
     Given a vertex set $V$, a \textbf{hypergraph} is a collection $H$ of subsets of $V$. The sets in $H$ are called \textbf{hyperedges}.
