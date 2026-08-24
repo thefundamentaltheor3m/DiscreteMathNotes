@@ -96,10 +96,10 @@ Let $H$ be a $3$-uniform hypergraph that's not $2$-colourable. Assume, further, 
 
 First, we'll show that we can reduce, without loss of generality, to the case where $H$ has exactly $6$ vertices. Indeed, if $H$ has vertices $x, y$ that are not in any common edge, then I can define $H'$ by ``merging'' $x$ and $y$. So $H'$ has one fewer vertex than $H$. This $H'$ cannot be $2$-colourable: if it were, then that colouring would extend to $H$ by using the colour of the merged vertex at both $x$ and $y$, which would make $H$ $2$-colourable. And when $H$ has more than $6$ vertices, such a pair always exists.
 
-To see this, suppose $H$ has $n \geq 7$ vertices. Each edge of $H$ is a set of size $3$, and so lies over exactly $3$ pairs of vertices; since there are at most $6$ edges, at most
+To see this, call a pair of vertices \textbf{covered} if some edge of $H$ contains both of them; an uncovered pair is exactly what we are after. Now count. An edge has $3$ vertices, so it covers the $\binom{3}{2} = 3$ pairs among them, and $H$ has at most $6$ edges, so at most
 \begin{align*}
-    6 \cdot 3 = 18
+    6 \cdot \binom{3}{2} = 18
 \end{align*}
-of the $\binom{n}{2} \geq \binom{7}{2} = 21$ pairs of vertices are contained in a common edge. Some pair is therefore left over, and merging it brings us one vertex closer to $6$.
+pairs are covered in total. But if $H$ has $n \geq 7$ vertices, there are $\binom{n}{2} \geq \binom{7}{2} = 21$ pairs to cover. So some pair is left uncovered, and merging it brings us one vertex closer to $6$.
 
 So now assume that $H$ has exactly $6$ edges and $6$ vertices and is not $2$-colourable. 
