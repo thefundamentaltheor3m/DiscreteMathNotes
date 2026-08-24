@@ -139,16 +139,52 @@ next integration where a topic is heading.
 
 ### 7. Branch, commit, PR
 
+Never integrate directly on `main`.
+
 ```bash
 git checkout -b integrate/<lecture-date>
 git add -A && git commit    # subject: "Integrate lecture of <date>"
 git push -u origin integrate/<lecture-date>
-gh pr create --fill         # if gh is unavailable, print the compare URL instead:
-                            # https://github.com/thefundamentaltheor3m/DiscreteMathNotes/compare/main...integrate/<date>
 ```
 
-Never integrate directly on `main`. The PR body should carry the substance of the
-report below, so the diff is reviewable without re-deriving your reasoning.
+If the push fails on credentials, the remote is HTTPS but the machine may only have
+an SSH key. Retry once over SSH without rewriting the remote:
+
+```bash
+git push git@github.com:thefundamentaltheor3m/DiscreteMathNotes.git HEAD:refs/heads/integrate/<lecture-date>
+```
+
+Then **always attempt the PR** — `gh` is present on some of the user's machines and
+not others, so check rather than assume:
+
+```bash
+gh auth status                  # gh installed and authenticated?
+gh pr create --base main --title "Integrate lecture of <date>" --body-file <file>
+```
+
+Write the body to a file rather than passing `--body` inline, so the report survives
+shell quoting, and do not use `--fill` — the commit message is not a substitute for
+the placement rationale a reviewer needs. The body should carry the substance of the
+report below: where each group of material went, what existing content moved or was
+rewritten, and anything left unplaced.
+
+With `gh` available, use the rest of it too:
+
+- `gh pr view --web` to hand the user a live link, and `gh pr diff` to sanity-check
+  the diff you just produced.
+- `gh pr checks --watch` to follow the LaTeX build the PR triggers
+  (`.github/workflows/publish-latex.yml`). If it fails, read the log with
+  `gh run view --log-failed` and fix it on the branch — a red build on `main` breaks
+  the published PDF.
+- `gh pr edit --add-label` / `gh pr comment` for anything worth flagging separately,
+  such as a result you moved but are unsure about.
+
+If `gh` is missing or unauthenticated, say so plainly and print the compare URL
+instead — do not treat that as a failure of the integration:
+
+```
+https://github.com/thefundamentaltheor3m/DiscreteMathNotes/compare/main...integrate/<date>
+```
 
 ## Report back
 
