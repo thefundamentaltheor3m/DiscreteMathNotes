@@ -1,0 +1,169 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## What this is
+
+A LaTeX lecture-notes project (`book` class), derived from the
+[Lecture-Notes-Template-2026](https://github.com/thefundamentaltheor3m/Lecture-Notes-Template-2026)
+template. There is no code, no tests, and no linter — the deliverable is `main.pdf`.
+
+## Building
+
+`latexmk`, `pdflatex`, `biber`, and `make4ht` are all available locally.
+
+```bash
+# Full build with bibliography, output into TeX_Outputs/ (matches .vscode config)
+latexmk -pdf -outdir=TeX_Outputs main.tex
+
+# What CI actually does (no biber pass — bibliography entries won't resolve)
+pdflatex main.tex && pdflatex main.tex
+```
+
+Compile **at least twice**: `cleveref` and the ToC depend on the `.aux` files.
+Run `biber`/`latexmk` if you touched `TeX_Setup/References.bib` or citations.
+
+`TeX_Outputs/main.pdf` is **committed** (a general `*.pdf` ignore is deliberately
+commented out in `.gitignore`); CI republishes it as `public/LastLocallyCompiled.pdf`.
+Keep it refreshed when making substantive content changes.
+
+## Structure
+
+`main.tex` is the only root document. It defines course metadata as macros
+(`\COURSENUMBER`, `\COURSENAME`, `\LECTURER`, `\SCRIBE`, `\UNIVERSITY`, `\TERM`,
+`\REPONAME`) that are consumed by the title block and by the "latest version" URLs.
+These are set for the real course — 21-701 Discrete Mathematics, CMU, Fall 2026.
+Chapter *content*, on the other hand, is still partly template scaffolding:
+`Chapters/0_Overview.tex`, `Chapters/1_Intro/1_2_Another_Section.tex`,
+`Chapters/2_Another Chapter/` and `Chapters/Appendices/` are all placeholders.
+
+`main.tex` then `\input`s the four preamble files in a fixed order, and they are not
+interchangeable:
+
+- `TeX_Setup/packages.tex` — all `\usepackage` calls, `hyperref` colours, `biblatex` + bib resource, TikZ libraries
+- `TeX_Setup/format.tex` — sans-serif default font, `fancyhdr` headers, 1.5 line spacing, `parskip` (no paragraph indents), colour definitions
+- `TeX_Setup/environments.tex` — `amsthm` theorem declarations and the boxed variants
+- `TeX_Setup/shortcuts.tex` — all custom macros
+
+Content lives in `Chapters/`, one directory per multi-section chapter. A chapter file
+holds `\chapter{...}`, intro prose, and `\input`s of its sections; sections are
+separate files named `<chapter>_<section>_<Name>.tex`. Note `Chapters/2_Another Chapter/`
+contains a space in its path — quote paths when scripting over it.
+`Chapters/Appendices/` and the reference-list `\chapter*` in `main.tex` are currently
+commented out.
+
+Adding a chapter means: create the directory, write the chapter file with its section
+`\input`s, and add one `\input` line to `main.tex`.
+
+## Authoring conventions
+
+Every theorem-like environment has a plain form and a boxed `box*` form; **prefer the
+boxed form in the notes** — that is what the existing content uses.
+
+- Orange box: `boxtheorem`, `boxproposition`, `boxlemma`, `boxcorollary`
+- Cyan box: `boxdefinition`
+- Magenta box: `boxconvention`, `boxnotation`, `boxlnotation` (local notation), `boxabbrev`
+- Green/red box: `boxexample`, `boxnexample` (non-example), `boxcexample` (counterexample)
+- Grey/red box: `boxexercise`, `boxproblem`, `boxwarning`
+
+Numbering: `theorem` and everything sharing its counter number per *section*;
+`remark`, `solution`, `convention`, `notation`, `warning`, `abbreviation` are unnumbered.
+Cross-reference with `cleveref` — **always `\Cref`, never `\cref`** — and label as
+`Ch<N>:<Kind>:<Name>`, with chapters as `Ch<N>:CH`
+(see `Chapters/1_Intro/1_Intro.tex`).
+
+Two reference files under `.claude/` carry the conventions, and the skills point at
+them rather than restating them:
+
+- **`.claude/STYLE.md`** — how a passage *reads*: the prose voice, the LaTeX
+  mechanics, the label scheme, the macro naming conventions, and pointers into the
+  author's four sibling lecture-note repositories, which share this template and
+  this style and are the corpus to imitate. Read it before writing any prose or
+  math into the notes.
+- **`.claude/ORGANISATION.md`** — where a passage *lives*: the generality ladder that
+  decides what earns a chapter, a section and a subsection, read off those same
+  repositories, plus the naming conventions and the format and ownership of
+  `TOPICS.md`. Read it before deciding where anything goes.
+
+`TeX_Setup/shortcuts.tex` is large and worth grepping before writing raw math — it
+already defines auto-sized delimiters (`\parenth`, `\brac`, `\set`, `\setst`, `\abs`,
+`\norm`, `\floor`, `\ceil`, `\cycl`), number sets (`\R`, `\Z`, `\N`, `\Q`, `\C`, `\F`),
+operator wrappers (`\pgcd`, `\plcm`, `\rank`, `\pker`, `\pim`, `\Span`, `\ord`, `\sgn`,
+`\Sym`, `\Aut`, `\Spec`, …), the `cd`/`cd*` commutative-diagram environments, and
+`\sorry` (red `sorry` marker for gaps to fill in later). Add new macros there rather
+than defining them inline.
+
+## Lecture workflow
+
+Notes are taken linearly but organised by topic, so raw and integrated material are
+kept distinct. A lecture's raw notes go in a throwaway section file inside whatever
+chapter is current, with `Lecture_` in its basename and the date as its title:
+
+```
+Chapters/1_Logic/1_4_Lecture_0824.tex     ->  \section{Lecture 2026-08-24}
+```
+
+It is `\input` from its chapter file like any other section, so the document always
+compiles. The `/integrate` skill (`.claude/skills/integrate/`) then redistributes that
+content into the proper sections by topic and deletes the staging file. Do not treat a
+`Lecture_*.tex` file as settled content.
+
+`TOPICS.md` at the repo root is the running map of topic to chapter/section, and is
+the authority on where new material belongs. `/organise` owns it; `/integrate`
+appends to it.
+
+**No syllabus of topics exists for this course, and none is coming.** `TOPICS.md` is
+therefore built up lecture by lecture from what was actually taught, and the chapter
+structure stays provisional. Never add a section because a discrete mathematics
+course "usually" covers that topic.
+
+The two structural skills divide as follows, and the division matters because
+restructuring renumbers results:
+
+- **`/integrate`** (`.claude/skills/integrate/`) absorbs one lecture's raw notes. It
+  may create a heading for material that has nowhere to go, but it does **not**
+  restructure what is already written. When it sees that the structure has stopped
+  fitting, it records the pressure in `TOPICS.md` and recommends `/organise`.
+- **`/organise`** (`.claude/skills/organise/`) refactors the existing chapter,
+  section and subsection structure against `ORGANISATION.md`, and rebuilds
+  `TOPICS.md`. It adds no material and deletes none — the same content, better
+  arranged.
+
+## `% [CLAUDE]` comments
+
+Notes taken live contain delegated tasks, marked inline:
+
+```tex
+% [CLAUDE] Finish proof using previous lemma
+% [CLAUDE] insert triangle, pentagon, 7-gon, \cdots here
+```
+
+Each is a small, specific writing job — finish an argument, draw a figure, work out
+arithmetic the lecture skipped. The `/address-comments` skill
+(`.claude/skills/address-comments/`) executes them, writing in the author's voice and
+deleting the marker once satisfied. Do not treat a `% [CLAUDE]` line as ordinary
+commented-out content, and do not delete one without addressing it.
+
+`\sorry` is the other inline marker, and it means something different: not a scoped
+instruction but an unfilled gap — a proof not given, a case not covered, a development
+that broke off. The `/fill-sorries` skill (`.claude/skills/fill-sorries/`) closes them,
+and it is the one skill authorised to work the mathematics out for itself rather than
+following an instruction. It marks what it supplied with a `% [FILLED]` comment, so
+the notes stay honest about which arguments came from the lecturer.
+
+The four skills divide by how much latitude each has:
+
+| Skill | Acts on | Latitude |
+| --- | --- | --- |
+| `/address-comments` | `% [CLAUDE]` directives | do exactly what the directive says |
+| `/fill-sorries` | `\sorry` markers | work out the mathematics; decide and report |
+| `/integrate` | one lecture's raw notes | place new material; never restructure |
+| `/organise` | the notes as they stand | rearrange only; add and delete nothing |
+
+## Publishing
+
+`.github/workflows/publish-latex.yml` runs on every push/PR to `main`: copies the
+sources into `public/`, builds with `pdflatex` twice, uploads `main.pdf` as an artifact,
+publishes it to the `Current` release, and pushes `public/` to `gh-pages`. The HTML
+(`make4ht`) path is commented out. A broken build therefore breaks the published PDF —
+compile locally before pushing.
