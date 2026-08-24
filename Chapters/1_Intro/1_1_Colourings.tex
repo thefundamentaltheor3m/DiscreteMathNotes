@@ -96,7 +96,7 @@ Let $H$ be a $3$-uniform hypergraph that's not $2$-colourable. Assume, further, 
 
 First, we'll show that we can reduce, without loss of generality, to the case where $H$ has exactly $6$ vertices. Indeed, if $H$ has vertices $x, y$ that are not in any common edge, then I can define $H'$ by ``merging'' $x$ and $y$. So $H'$ has one fewer vertex than $H$. This $H'$ cannot be $2$-colourable: if it were, then that colouring would extend to $H$ by using the colour of the merged vertex at both $x$ and $y$, which would make $H$ $2$-colourable. And when $H$ has more than $6$ vertices, such a pair always exists.
 
-To see this, call a pair of vertices \textbf{covered} if some edge of $H$ contains both of them; an uncovered pair is exactly what we are after. Now count. An edge has $3$ vertices, so it covers the $\binom{3}{2} = 3$ pairs among them, and $H$ has at most $6$ edges, so at most
+An edge has $3$ vertices, so it covers the $\binom{3}{2} = 3$ pairs among them, and $H$ has at most $6$ edges, so at most
 \begin{align*}
     6 \cdot \binom{3}{2} = 18
 \end{align*}
