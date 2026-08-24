@@ -1,6 +1,0 @@
-\babel@toc {english}{}\relax 
-\contentsline {chapter}{\numberline {1}Graphs and Colourings}{2}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Colourings}{2}{section.1.1}%
-\contentsline {subsection}{\numberline {1.1.1}$2$-Colourings of Graphs}{2}{subsection.1.1.1}%
-\contentsline {subsection}{\numberline {1.1.2}Colourings of Hypergraphs}{4}{subsection.1.1.2}%
-\contentsline {chapter}{Bibliography}{6}{theorem.1.1.7}%
