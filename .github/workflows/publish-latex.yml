@@ -99,13 +99,23 @@ jobs:
 
       - name: Compile
         run: |
+          latexmk=(latexmk -pdf -halt-on-error -file-line-error
+                   -interaction=nonstopmode -outdir=TeX_Outputs_CI)
+
           # The title page prints \today, so the PDF itself is never reusable
           # even when nothing else changed: drop it and let latexmk rebuild.
           rm -f TeX_Outputs_CI/main.pdf
+
           # latexmk drives biber as well, which two bare pdflatex passes never
-          # did -- the bibliography resolves now.
-          latexmk -pdf -halt-on-error -file-line-error -interaction=nonstopmode \
-                  -outdir=TeX_Outputs_CI main.tex
+          # did -- the bibliography resolves now -- and reruns pdflatex until
+          # the cross-references stop moving.
+          "${latexmk[@]}" main.tex
+
+          # cleveref and the table of contents read the previous pass's .aux, so
+          # the notes are compiled at least twice however warm the restored
+          # auxiliary files were: -g forces a pass latexmk considers unnecessary,
+          # rather than leaving the invariant to its rerun detection.
+          "${latexmk[@]}" -g main.tex
 
       - name: Assemble the site
         run: |

@@ -16,14 +16,18 @@ template. There is no code, no tests, and no linter — the deliverable is `main
 # Full build with bibliography, output into TeX_Outputs/ (matches .vscode config)
 latexmk -pdf -outdir=TeX_Outputs main.tex
 
-# What CI runs — the same tool, into its own (gitignored) output directory
+# What CI runs — the same tool, into its own (gitignored) output directory.
+# The second, forced invocation guarantees a second pdflatex pass.
 latexmk -pdf -halt-on-error -file-line-error -interaction=nonstopmode \
         -outdir=TeX_Outputs_CI main.tex
+latexmk -pdf -halt-on-error -file-line-error -interaction=nonstopmode \
+        -g -outdir=TeX_Outputs_CI main.tex
 ```
 
-Compile **at least twice** if you drive `pdflatex` by hand: `cleveref` and the ToC
-depend on the `.aux` files, and citations need a `biber` pass in between. `latexmk`
-works all of that out for itself, which is why CI uses it.
+Compile **at least twice**: `cleveref` and the ToC depend on the `.aux` files, and
+citations need a `biber` pass in between. `latexmk` works that out for itself, which
+is why CI uses it — but CI also forces a second pass with `-g`, because a warm
+auxiliary-file cache can otherwise leave it satisfied after one.
 
 `TeX_Outputs/main.pdf` is **committed** (a general `*.pdf` ignore is deliberately
 commented out in `.gitignore`); CI republishes it as `public/LastLocallyCompiled.pdf`.
