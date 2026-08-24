@@ -103,9 +103,10 @@ and never `\cref`. Case splits go in a `description` with
 `\item[\underline{Case…}]`.
 
 **If you cannot honestly complete something, leave `\sorry`** — the red marker the
-author uses for a real gap — and say so in the report. A flagged gap is house style.
-A confident hand-wave in its place is the worst possible outcome, because it looks
-finished.
+author uses for a real gap — and say so in the report. A flagged gap is house style,
+and `/fill-sorries` is the skill that comes back for it later with a licence to work
+the mathematics out. A confident hand-wave in its place is the worst possible outcome,
+because it looks finished.
 
 **Never silently change the surrounding mathematics.** If the comment's context
 contains an error — a statement that is false as written, a case that cannot be

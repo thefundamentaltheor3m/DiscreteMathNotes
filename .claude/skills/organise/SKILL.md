@@ -37,8 +37,8 @@ two is the main way either can do damage.
 
 **This skill adds no mathematics and no exposition beyond connecting prose.** If you
 find yourself writing a definition, finishing a proof, or supplying an example, stop:
-that is `/address-comments` or a lecture's job, not this one. The content going in is
-the content coming out.
+that is `/address-comments`, `/fill-sorries`, or a lecture's job, not this one. The
+content going in is the content coming out.
 
 **This skill deletes nothing.** Not a duplicate, not a triviality, not a stray aside.
 Restructuring that loses a sentence has failed, however much better the outline

@@ -197,8 +197,10 @@ parts that bite hardest during an integration:
   first; it almost always already has one. A genuinely new one is appended to the
   `% DISCRETE MATH COURSE` block following the existing naming conventions, never
   defined inline.
-- **Mark a gap the lecture left** — a proof not given, a case not covered — with
-  `\sorry`. Do not quietly fill it with a hand-wave.
+- **Mark a gap the lecture left** — a proof not given, a case not covered, an argument
+  that simply stops — with `\sorry`. Do not quietly fill it with a hand-wave, and do
+  not work it out yourself: marking is your job, and `/fill-sorries` is the skill that
+  closes them. An unmarked gap is one nobody will come back for.
 
 Then, mechanically:
 

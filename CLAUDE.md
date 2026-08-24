@@ -144,6 +144,22 @@ arithmetic the lecture skipped. The `/address-comments` skill
 deleting the marker once satisfied. Do not treat a `% [CLAUDE]` line as ordinary
 commented-out content, and do not delete one without addressing it.
 
+`\sorry` is the other inline marker, and it means something different: not a scoped
+instruction but an unfilled gap — a proof not given, a case not covered, a development
+that broke off. The `/fill-sorries` skill (`.claude/skills/fill-sorries/`) closes them,
+and it is the one skill authorised to work the mathematics out for itself rather than
+following an instruction. It marks what it supplied with a `% [FILLED]` comment, so
+the notes stay honest about which arguments came from the lecturer.
+
+The four skills divide by how much latitude each has:
+
+| Skill | Acts on | Latitude |
+| --- | --- | --- |
+| `/address-comments` | `% [CLAUDE]` directives | do exactly what the directive says |
+| `/fill-sorries` | `\sorry` markers | work out the mathematics; decide and report |
+| `/integrate` | one lecture's raw notes | place new material; never restructure |
+| `/organise` | the notes as they stand | rearrange only; add and delete nothing |
+
 ## Publishing
 
 `.github/workflows/publish-latex.yml` runs on every push/PR to `main`: copies the
