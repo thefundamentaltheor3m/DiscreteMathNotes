@@ -66,17 +66,25 @@ m(2) = 3                         asserted 2026-08-24 without justification.
 
 Nothing.
 
-## Template scaffolding still standing
+## Template scaffolding
 
-Not content, but `\input` from `main.tex`, so it compiles into the PDF. Clearing it
-is a structural change and therefore `/organise`'s to propose: **recommended, awaiting
-the author's go-ahead**, since none of it has acquired real content.
+Cleared, on the author's go-ahead, 2026-08-24. None of it had acquired real content,
+and none of it survives in any of the four sibling repositories.
 
 ```
-Chapters/0_Overview.tex                 placeholder
-Chapters/2_Another Chapter/             placeholder chapter, two placeholder sections
-Chapters/Appendices/                    placeholder, \input already commented out
+Chapters/0_Overview.tex                 removed -- one template sentence, rendered as
+                                        the first prose in the document
+Chapters/2_Another Chapter/             removed -- placeholder chapter, two placeholder
+                                        sections, pages 7-9 of 11
+Chapters/1_Intro/1_2_Another_Section.tex  removed earlier -- held only \lipsum and
+                                        occupied the 1.2 slot
 ```
 
-`Chapters/1_Intro/1_2_Another_Section.tex` was in this list and has been removed: it
-held nothing but `\lipsum` and occupied the 1.2 slot.
+What remains, deliberately:
+
+```
+Chapters/Appendices/                    kept, \input still commented out in main.tex.
+                                        3 of the 4 sibling repos keep an Appendices
+                                        directory, 2 of those with the \input
+                                        commented out. This matches; leave it.
+```
