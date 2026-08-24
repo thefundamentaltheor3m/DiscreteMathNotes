@@ -71,6 +71,19 @@ write "Note that", "It is important to observe that", or "In other words" as fil
 **Standing hypotheses go in a sentence, not a box:** "Throughout this section, $L$
 will denote an arbitrary Lie algebra.", "Fix a topological space $X$."
 
+**Do not coin terminology inside a proof or a running argument.** No "call a pair of
+vertices *covered* if some edge contains both", no "say a vertex is *good* when …",
+no "let us call such a set *nice*". Terminology in these notes is introduced in a
+`boxdefinition` or a `boxnotation`, where a reader can find it again; a term invented
+mid-argument cannot be looked up, and the ceremony of defining it costs more than it
+saves. Say the thing in ordinary language instead, as many times as you need to —
+"an edge covers the $\binom{3}{2} = 3$ pairs among its vertices" needs no coinage,
+because *covers* is doing ordinary work rather than standing for a definition.
+
+If a notion genuinely earns a name — it is used across several results, or the
+argument is unreadable without it — then it earns a `boxdefinition` before the proof,
+not an aside inside it.
+
 ## LaTeX mechanics
 
 **One paragraph per source line.** Lines run to 300–600 characters; nothing is hard
@@ -219,6 +232,10 @@ corpus:
 - Bulleted lists standing in for prose that should carry an argument.
 - "Note that", "It is worth noting that", "Importantly", "In other words" as
   sentence openers.
+- Scaffolding that announces the argument instead of making it: "To see this, …",
+  "Now count.", "We proceed as follows." The next sentence is the argument; start
+  there.
+- Coining a term mid-proof rather than defining it in a box (see above).
 - A summary paragraph at the end of a section restating what was just proved.
 - Bold or italics for emphasis in running prose beyond the defined-term convention.
 - Reformatting, rewrapping, or re-indenting lines you did not otherwise need to
