@@ -39,9 +39,11 @@ Keep it refreshed when making substantive content changes.
 (`\COURSENUMBER`, `\COURSENAME`, `\LECTURER`, `\SCRIBE`, `\UNIVERSITY`, `\TERM`,
 `\REPONAME`) that are consumed by the title block and by the "latest version" URLs.
 These are set for the real course — 21-701 Discrete Mathematics, CMU, Fall 2026.
-Chapter *content*, on the other hand, is still partly template scaffolding:
-`Chapters/0_Overview.tex`, `Chapters/1_Intro/1_2_Another_Section.tex`,
-`Chapters/2_Another Chapter/` and `Chapters/Appendices/` are all placeholders.
+The template's placeholder chapters were cleared on 2026-08-24 (`TOPICS.md` records
+which, and why). What remains under `Chapters/` is `1_Intro/`, which is real, and
+`Appendices/`, which is still a placeholder with its `\input` commented out in
+`main.tex` — kept deliberately, since three of the four sibling repositories keep an
+`Appendices/` directory and two of those keep it commented out.
 
 `main.tex` then `\input`s the four preamble files in a fixed order, and they are not
 interchangeable:
@@ -53,10 +55,10 @@ interchangeable:
 
 Content lives in `Chapters/`, one directory per multi-section chapter. A chapter file
 holds `\chapter{...}`, intro prose, and `\input`s of its sections; sections are
-separate files named `<chapter>_<section>_<Name>.tex`. Note `Chapters/2_Another Chapter/`
-contains a space in its path — quote paths when scripting over it.
-`Chapters/Appendices/` and the reference-list `\chapter*` in `main.tex` are currently
-commented out.
+separate files named `<chapter>_<section>_<Name>.tex`. Quote paths when scripting over
+`Chapters/` — a directory name there may contain a space, as the template's placeholder
+chapter did. `Chapters/Appendices/` and the reference-list `\chapter*` in `main.tex`
+are currently commented out.
 
 Adding a chapter means: create the directory, write the chapter file with its section
 `\input`s, and add one `\input` line to `main.tex`.
@@ -157,7 +159,7 @@ and it is the one skill authorized to work the mathematics out for itself rather
 following an instruction. It marks what it supplied with a `% [FILLED]` comment, so
 the notes stay honest about which arguments came from the lecturer.
 
-The four skills divide by how much latitude each has:
+The five skills divide by how much latitude each has:
 
 | Skill | Acts on | Latitude |
 | --- | --- | --- |
@@ -165,12 +167,21 @@ The four skills divide by how much latitude each has:
 | `/fill-sorries` | `\sorry` markers | work out the mathematics; decide and report |
 | `/integrate` | one lecture's raw notes | place new material; never restructure |
 | `/organize` | the notes as they stand | rearrange only; add and delete nothing |
+| `/americanise` | British spellings | spelling only; never the mathematics |
 
 ## Publishing
 
-`.github/workflows/publish-latex.yml` runs on every push/PR to `main`. It builds
-`main.pdf` with `latexmk` (so `biber` runs and the bibliography resolves) and uploads
-it as an artifact; where that PDF then goes depends on the trigger:
+`.github/workflows/publish-latex.yml` runs on every push/PR to `main`. It is a
+**caller**: the build itself is a reusable workflow published by
+[Lecture-Notes-Template-2026][tpl] and shared with the sibling notes repositories, so
+a fix to the build reaches all of them rather than having to be applied seven times.
+**To change how the notes are built, change the template, not this repository.**
+
+[tpl]: https://github.com/thefundamentaltheor3m/Lecture-Notes-Template-2026/blob/main/.github/workflows/latex-build-deploy.yml
+
+The build compiles `main.pdf` with `latexmk` (so `biber` runs and the bibliography
+resolves) and uploads it as an artifact; where that PDF then goes depends on the
+trigger:
 
 - **push to `main`** — published to the `gh-pages` root, so
   `https://thefundamentaltheor3m.github.io/DiscreteMathNotes/main.pdf` (the URL
@@ -185,15 +196,27 @@ it as an artifact; where that PDF then goes depends on the trigger:
 The build fails loudly (`-halt-on-error`), so a broken document breaks CI rather than
 publishing a broken PDF — compile locally before pushing.
 
-CI does not install `texlive-full`. It installs exactly the packages listed in
-`.github/texlive-packages.txt` into a cached tree, which is why a run takes about a
-minute rather than ten. **Adding a `\usepackage` to `TeX_Setup/packages.tex` therefore
-means accounting for it in that manifest too**: either add its TeX Live package
-(`tlmgr info <file>.sty` names it, and it is often called something else — `authblk`
-ships in `preprint`, `tikz` in `pgf`), or, if an entry already there installs it, add
-the style file to that entry's `# provides:` list.
+CI does not install `texlive-full`. It installs exactly the packages listed in the
+template's `.github/texlive-packages.txt` into a cached tree, which is why a run takes
+about a minute rather than ten. That manifest is **shared** — this repository no longer
+keeps its own copy — so **adding a `\usepackage` to `TeX_Setup/packages.tex` means
+accounting for it in the template**: either add its TeX Live package (`tlmgr info
+<file>.sty` names it, and it is often called something else — `authblk` ships in
+`preprint`, `tikz` in `pgf`), or, if an entry already there installs it, add the style
+file to that entry's `# provides:` list.
 
-`.github/scripts/check-manifest.sh` greps for this as the build's first step, so a
-forgotten package fails in seconds with the name and the file that loads it, rather
-than minutes later inside a pdflatex log. Run it locally to check before pushing. The
-HTML (`make4ht`) path is not wired up.
+Dropping a `.github/texlive-packages.txt` in here would override the shared one and
+work, but it then has to be maintained separately, which is the drift this arrangement
+exists to prevent. Prefer adding upstream.
+
+`check-manifest.sh` greps for this as the build's first step, so a forgotten package
+fails in seconds with the name and the file that loads it, rather than minutes later
+inside a pdflatex log. It lives in the template too; to run it locally against these
+sources, clone the template alongside and point it here:
+
+```bash
+MANIFEST=../Lecture-Notes-Template-2026/.github/texlive-packages.txt \
+  bash ../Lecture-Notes-Template-2026/.github/scripts/check-manifest.sh
+```
+
+The HTML (`make4ht`) path is not wired up.

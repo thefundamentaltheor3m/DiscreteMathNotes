@@ -176,10 +176,12 @@ regardless of the chapter's title — see `ORGANIZATION.md`.
 
 **No subsubsections, ever.** If the plan wanted one, the section above it was wrong.
 
-**Placeholders left over from the template** — `Chapters/0_Overview.tex`,
-`Chapters/2_Another Chapter/`, `Chapters/Appendices/` — are in scope for this skill
-in a way they are not for `/integrate`, since they are a structural problem. Propose
-clearing them; never clear a file that has acquired real content.
+**Placeholders left over from the template** are in scope for this skill in a way
+they are not for `/integrate`, since they are a structural problem. Most were cleared
+on 2026-08-24 and `TOPICS.md` records which; `Chapters/Appendices/` is the one kept
+deliberately, its `\input` still commented out in `main.tex`, because three of the four
+sibling repositories do the same. Propose clearing anything that does turn up; never
+clear a file that has acquired real content.
 
 ### 6. Rebuild TOPICS.md
 

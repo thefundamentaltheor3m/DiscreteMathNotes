@@ -89,7 +89,7 @@ and months later, which arguments are theirs.
 
 The autonomy is about *what* you write, not *how*. Read `.claude/STYLE.md` and follow
 it exactly — first-person plural, a one-sentence bridge before every boxed environment,
-British spelling, `` ``LaTeX quotes'' ``, `align*` for displays, one paragraph per
+American spelling, `` ``LaTeX quotes'' ``, `align*` for displays, one paragraph per
 source line with no hard wrapping, `---` for dashes, `\Cref` and never `\cref`, case
 splits in a `description`. Read two or three real sections from the sibling
 repositories — [TopologyNotes][t], [LogicNotes][l], [RepTheoryEPFL][r],
