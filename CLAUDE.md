@@ -186,6 +186,14 @@ The four skills divide by how much latitude each has:
 | `/integrate` | one lecture's raw notes | place new material; never restructure |
 | `/organize` | the notes as they stand | rearrange only; add and delete nothing |
 
+`/post-lecture` (`.claude/skills/post-lecture/`) is deliberately not a row in that
+table, because it has no scope of its own. It is a composition: `/address-comments`, then
+`/integrate`, then `/americanise`, on one branch, as three commits, in one pull
+request. That order is deliberate — directives are addressed while the material is
+still raw and in one place, and the spelling sweep runs last so it catches the prose
+the first two phases wrote. Use it for the routine after-lecture pass; reach for the
+component skills individually when you want just one of them.
+
 ## Publishing
 
 `.github/workflows/publish-latex.yml` runs on every push/PR to `main`. It builds
