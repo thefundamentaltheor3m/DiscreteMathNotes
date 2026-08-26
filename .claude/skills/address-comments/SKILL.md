@@ -240,6 +240,7 @@ the author must check:
 - **New macros**, with what they do and where they are used.
 - **Anything left `\sorry`**, and what is missing.
 - **Anything you think is wrong** in the surrounding notes, quoted, left unchanged.
+  That list is the input to `/check-correctness`, which is the skill that acts on it.
 - **Ambiguous directives** and the reading you took.
 - The build result.
 

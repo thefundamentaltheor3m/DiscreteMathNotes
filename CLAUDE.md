@@ -175,27 +175,48 @@ commented-out content, and do not delete one without addressing it.
 `\sorry` is the other inline marker, and it means something different: not a scoped
 instruction but an unfilled gap — a proof not given, a case not covered, a development
 that broke off. The `/fill-sorries` skill (`.claude/skills/fill-sorries/`) closes them,
-and it is the one skill authorized to work the mathematics out for itself rather than
-following an instruction. It marks what it supplied with a `% [FILLED]` comment, so
-the notes stay honest about which arguments came from the lecturer.
+and it is one of the two skills authorized to work the mathematics out for itself
+rather than following an instruction. It marks what it supplied with a `% [FILLED]`
+comment, so the notes stay honest about which arguments came from the lecturer.
 
-The five skills divide by how much latitude each has:
+The other is `/check-correctness` (`.claude/skills/check-correctness/`), which asks
+whether what is written is *true* — a quantifier over the wrong set, a bound off by a
+factor of two, a hypothesis the lecture said aloud but nobody wrote down. It leaves two
+markers of its own: `% [CORRECTED]`, carrying the original text of anything whose
+mathematical content it changed, and `% [SUSPECT]`, on something it believes is wrong
+and did not know how to fix. Treat a `% [SUSPECT]` like a `\sorry` — an honest flag
+waiting for the author — and never delete a `% [CORRECTED]` line without checking what
+it says was there before.
+
+The six skills divide by how much latitude each has:
 
 | Skill | Acts on | Latitude |
 | --- | --- | --- |
 | `/address-comments` | `% [CLAUDE]` directives | do exactly what the directive says |
 | `/fill-sorries` | `\sorry` markers | work out the mathematics; decide and report |
+| `/check-correctness` | mathematics that is wrong | fix minimally; adjudicate every fix |
 | `/integrate` | one lecture's raw notes | place new material; never restructure |
 | `/organize` | the notes as they stand | rearrange only; add and delete nothing |
 | `/americanise` | British spellings | spelling only; never the mathematics |
 
+`/check-correctness` is the only one of them that overwrites the author's own
+mathematics, so it is also the only one wrapped in machinery to stop it doing that
+carelessly: every candidate correction goes to an independent agent with a neutral
+context for adjudication *before* it is applied — the author's text wins unless that
+agent rules against it — and any run that changes anything is then reviewed by two
+further independent agents, each with an empty context, on the pull request thread
+where the author can read both halves of the exchange. Nothing in this repository lets
+an assistant correct the notes on its own authority.
+
 `/post-lecture` (`.claude/skills/post-lecture/`) is deliberately not a row in that
-table, because it has no scope of its own. It is a composition: `/address-comments`, then
-`/integrate`, then `/americanise`, on one branch, as three commits, in one pull
-request. That order is deliberate — directives are addressed while the material is
-still raw and in one place, and the spelling sweep runs last so it catches the prose
-the first two phases wrote. Use it for the routine after-lecture pass; reach for the
-component skills individually when you want just one of them.
+table, because it has no scope of its own. It is a composition: `/fill-sorries`, then
+`/address-comments`, then `/check-correctness`, then `/americanise`, then `/integrate`,
+on one branch, as five commits, in one pull request, scoped to whatever the git diff
+shows is the latest lecture's material. That order is deliberate — write the material,
+then check it, then tidy it, then move it — so the phases that produce text all run
+before the phases that inspect it, and integration is left redistributing finished
+passages rather than half-finished ones. Use it for the routine after-lecture pass;
+reach for the component skills individually when you want just one of them.
 
 ## Publishing
 

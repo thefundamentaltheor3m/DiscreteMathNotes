@@ -254,7 +254,7 @@ Working rules, in order of importance:
 **Never lose or alter mathematics.** Definitions, theorem/lemma/proposition
 statements, and proofs move *verbatim* — copy them, do not retype or paraphrase them.
 If a statement seems wrong or incomplete, move it unchanged and flag it in the report;
-do not fix it silently.
+do not fix it silently. `/check-correctness` is the skill that acts on those flags.
 
 **Rewrite freely at the level of connective tissue.** Transitions, motivating
 sentences, section titles and ordering are yours to adjust so the result reads
