@@ -24,6 +24,21 @@ What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
     1.1.2 Colorings of Hypergraphs                  [2026-08-24]
       hypergraphs, k-uniformity, proper colorings
       m(k), and the reduction to 6 vertices for m(3)
+      m(3) = 7: balanced colorings for the lower bound, the
+        Fano plane for the upper                       [2026-08-26]
+    1.1.3 Bounds on m(k)                            [2026-08-26]
+      m(k) >= 2^(k-1), by a union bound over random colorings
+      m(k) = O(k^2 2^k), set as an exercise
+    1.1.4 Maker-Breaker Games                       [2026-08-26]
+      Erdos-Selfridge: breaker wins when m + Delta < 2^k
+      8x8x8 tic-tac-toe, as an aside the course drops
+
+1.2 Ramsey Numbers                                  [2026-08-26]
+    Turns the question around: how large must a structure be before every
+    coloring of it is forced to produce something monochromatic.
+      R(k), for edge colorings of complete graphs
+      R(3) >= 6, from the two-colored K_5
+      known values and the best known bounds
 ```
 
 `Chapters/1_Intro/` is the author's directory name for chapter 1 across three of
@@ -44,6 +59,9 @@ Chapter 1 has one section, where the corpus runs 2-8.
     separation the lecture does not have. A chapter short of sections self-heals
     the moment lecture 2 lands; a misjudged idea boundary does not.
     Ends when: a lecture opens a genuinely different question. That is section 1.2.
+    ENDED 2026-08-26: lecture 2 opened the Ramsey question, which is a different
+    question, so it became section 1.2 exactly as anticipated. Left standing as the
+    record of why 1.1 was not split; /organize should retire the entry.
 
 The chapter title "Graphs and Colorings" is a bet placed on one lecture.
     Ends when: chapter 1 holds three or so lines of enquiry. Re-read it then and
@@ -59,12 +77,40 @@ to sections until a lecture supplies content.
 ```
 m(3) for 3-uniform hypergraphs   posed 2026-08-24. The argument breaks off at
                                  "6 edges and 6 vertices" at the end of 1.1.2.
+                                 REACHED 2026-08-26: m(3) = 7, finished in 1.1.2.
 m(2) = 3                         asserted 2026-08-24 without justification.
+R(3) = 6                         asserted 2026-08-26 as "rather nontrivial",
+                                 not proved. Only R(3) >= 6 is in the notes.
+2^(k/2) <= R(k) <= 3.8^k         quoted 2026-08-26 as the best known bounds,
+                                 with no indication of where either comes from.
+m(k) = O(k^2 2^k)                set as an exercise 2026-08-26. Would close the
+                                 gap above 1.1.3's lower bound.
+the probabilistic method         flagged 2026-08-26: the union bound in 1.1.3
+                                 could have been phrased as a count, but the
+                                 lecturer warned that this will not always hold.
 ```
 
 ## Unplaced
 
 Nothing.
+
+## Structural pressure
+
+Observations for `/organize`, recorded rather than acted on.
+
+```
+1.1.4 Maker-Breaker Games is a game inside a section about colorings.
+    It earns its place for now: Erdos-Selfridge is the same 2^(k-1) threshold as
+    1.1.3, so the subsection continues that line of enquiry rather than opening
+    a new one, and the lecturer closed it with "we won't say any more about
+    tic-tac-toe in this course". If a later lecture returns to positional games,
+    this wants lifting out into a section of its own. [noted 2026-08-26]
+
+The m(3) = 7 development is loose prose at the end of 1.1.2, not a subsection.
+    It is now the longest thing in that subsection and has a figure and two
+    boxed environments of its own. Splitting it out would renumber everything
+    after it, so it is left where the lecture put it. [noted 2026-08-26]
+```
 
 ## Template scaffolding
 
