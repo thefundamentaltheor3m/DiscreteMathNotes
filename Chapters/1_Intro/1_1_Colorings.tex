@@ -138,13 +138,13 @@ Every vertex lies on exactly three lines, any two vertices lie on exactly one li
 
 \subsection{Bounds on $m(k)$}
 
-Pinning down $m(3)$ took a page of case analysis, and doing the same for $m(4)$ is out of the question. What we can do for every $k$ at once is bound it, and the lower bound falls out of an idea that will keep coming back: colour at random, and show that a bad colouring is improbable.
+Pinning down $m(3)$ took a page of case analysis, and doing the same for $m(4)$ is out of the question. What we can do for every $k$ at once is bound it, and the lower bound falls out of an idea that will keep coming back: color at random, and show that a bad coloring is improbable.
 
 \begin{boxtheorem}\label{Ch1:Thm:mk_Lower_Bound}
-    $m(k) \geq 2^{k - 1}$. In other words, any $k$-uniform hypergraph with $< 2^{k - 1}$ edges is $2$-colourable.
+    $m(k) \geq 2^{k - 1}$. In other words, any $k$-uniform hypergraph with $< 2^{k - 1}$ edges is $2$-colorable.
 \end{boxtheorem}
 \begin{proof}
-    Given such a hypergraph, randomly colour the vertices red and blue, with equal probability ($1/2$) for each. For each edge $f$, let $\mathcal{E}_f$ be the event that $f$ is monochromatic. Then,
+    Given such a hypergraph, randomly color the vertices red and blue, with equal probability ($1/2$) for each. For each edge $f$, let $\mathcal{E}_f$ be the event that $f$ is monochromatic. Then,
     \begin{align*}
         \Pr\of{\mathcal{E}_f} = \frac{2}{2^k}
     \end{align*}
@@ -152,7 +152,7 @@ Pinning down $m(3)$ took a page of case analysis, and doing the same for $m(4)$ 
     \begin{align*}
         \Pr\of{\bigcup_{f \in H} \mathcal{E}_f} \leq \frac{\abs{H}}{2^{k - 1}} < 1
     \end{align*}
-    where we interpret $\bigcup_{f \in H} \mathcal{E}_f$ as the event that there is a monochromatic edge. As the probability is less than $1$, there must be at least one colouring with no monochromatic edge.
+    where we interpret $\bigcup_{f \in H} \mathcal{E}_f$ as the event that there is a monochromatic edge. As the probability is less than $1$, there must be at least one coloring with no monochromatic edge.
 \end{proof}
 
 Note that the above argument can also be written combinatorially instead of probabilistically. In this instance, the probabilistic language essentially conveys the same information as combinatorial language would. But this may not always be true, so it's worth being careful about this.
@@ -165,7 +165,7 @@ In the other direction, the truth is only a factor of about $k^2$ away.
 
 \subsection{Maker-Breaker Games}
 
-\Cref{Ch1:Thm:mk_Lower_Bound} says that a hypergraph with few enough edges has a proper $2$-colouring somewhere among all the colourings of its vertices. It turns out that the very same threshold survives a far more demanding requirement: that one of two players be able to build such a colouring one vertex at a time, against an opponent trying to stop them.
+\Cref{Ch1:Thm:mk_Lower_Bound} says that a hypergraph with few enough edges has a proper $2$-coloring somewhere among all the colorings of its vertices. It turns out that the very same threshold survives a far more demanding requirement: that one of two players be able to build such a coloring one vertex at a time, against an opponent trying to stop them.
 
 Here's a fun fact: a ``maker-breaker'' game is a game where the ``maker'' wins if they are able to achieve an objective and the ``breaker'' wins if they are able to stop the maker from winning. So if you set up a ``maker-breaker'' version of tic-tac-toe, where only the crosses can win by making three in a row and the noughts can only win by stopping the crosses, the crosses will always win (assuming the crosses play first). This is, of course, different from tic-tac-toe, which, as our own studies from when we were a kid have shown, can always be drawn.
 
@@ -175,7 +175,7 @@ The threshold at which breaker can hold out is exactly the one we have just been
     If $H$ is a $k$-uniform hypergraph with $m$ edges, and $m < 2^{k - 1}$, then breaker wins (if breaker goes second).
 \end{boxtheorem}
 
-In the language of hypergraphs, the game is $2$-colouring; maker winning is equivalent to the existence of a colouring with a monochromatic edge; and breaker winning is equivalent to the inexistence of such edge.
+In the language of hypergraphs, the game is $2$-coloring; maker winning is equivalent to the existence of a coloring with a monochromatic edge; and breaker winning is equivalent to the inexistence of such edge.
 
 \begin{proof}
     Let $\Delta$ be the maximum degree of $H$, that is,
@@ -184,7 +184,7 @@ In the language of hypergraphs, the game is $2$-colouring; maker winning is equi
     \end{align*}
     We'll prove that if $m + \Delta < 2^k$, then breaker will win. Then, since $\Delta \leq m$, it will follow that if $m < 2^{k - 1}$, then $ m + \Delta \leq 2m < 2^k$.
 
-    At the start of move $i$, we will conceptualise the danger of edge $f \in H$ by
+    At the start of move $i$, we will conceptualize the danger of edge $f \in H$ by
     \begin{align*}
         \phi_i(f) &=
         \begin{cases}
@@ -194,18 +194,18 @@ In the language of hypergraphs, the game is $2$-colouring; maker winning is equi
         \\
         \Phi_i &= \sum_{f \in H} \phi_i(f)
     \end{align*}
-    Consider the strategy where, once maker has played $y$ on move $i$, breaker plays the unclaimed vertex carrying the most danger, that is, the $x$ maximising
+    Consider the strategy where, once maker has played $y$ on move $i$, breaker plays the unclaimed vertex carrying the most danger, that is, the $x$ maximizing
     \begin{align*}
         \sum_{f \ni x} \phi(f)
     \end{align*}
-    with $\phi$ measured after maker's move. Two things move $\Phi$ on move $i$. Maker's play doubles the danger of every edge through $y$ that breaker has not already killed, so it raises $\Phi$ by $a_i = \sum_{f \ni y} \phi_i(f)$; breaker's play sends the danger of every surviving edge through $x$ to $0$, so it lowers $\Phi$ by the quantity $b_i$ that breaker has just maximised. Hence
+    with $\phi$ measured after maker's move. Two things move $\Phi$ on move $i$. Maker's play doubles the danger of every edge through $y$ that breaker has not already killed, so it raises $\Phi$ by $a_i = \sum_{f \ni y} \phi_i(f)$; breaker's play sends the danger of every surviving edge through $x$ to $0$, so it lowers $\Phi$ by the quantity $b_i$ that breaker has just maximized. Hence
     \begin{align*}
         \Phi_{i + 1} = \Phi_i + a_i - b_i
     \end{align*}
 
     The point of breaker's rule is that $a_i \leq b_{i - 1}$ for every $i \geq 2$. Indeed, $y$ is unclaimed right up until maker takes it on move $i$, so it was one of the vertices breaker was choosing between on move $i - 1$, and breaker chose one carrying at least as much danger as it. Between then and the start of move $i$ nothing happens except breaker's own play, which only ever sends dangers to $0$, so the danger through $y$ at the start of move $i$ is no greater than it was when breaker passed $y$ over.
 
-    Summing $\Phi_{i + 1} = \Phi_i + a_i - b_i$ over the first $n$ moves and cancelling each $a_i$ against $b_{i - 1}$, everything past the first two terms disappears and we are left with
+    Summing $\Phi_{i + 1} = \Phi_i + a_i - b_i$ over the first $n$ moves and canceling each $a_i$ against $b_{i - 1}$, everything past the first two terms disappears and we are left with
     \begin{align*}
         \Phi_{n + 1} \leq \Phi_1 + a_1
     \end{align*}

@@ -3,7 +3,7 @@ name: organize
 description: Refactor the chapter, section and subsection structure of these discrete mathematics notes so that what is already written sits where it belongs, and maintain TOPICS.md as the record of that structure. Use when the notes have outgrown or drifted from their current arrangement — a section doing the work of three, a chapter whose title no longer describes its contents, material in the wrong place, a heading level that should not exist — or when TOPICS.md needs rebuilding. Triggers on "/organize", "organize the notes", "reorganize the chapters", "restructure this", "sort out TOPICS.md". Not for absorbing a new lecture: that is /integrate.
 ---
 
-# Organising the notes
+# Organizing the notes
 
 There is no syllabus for this course. The structure of `Chapters/` was therefore
 never designed — it accreted, one lecture at a time, and every lecture was placed

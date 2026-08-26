@@ -3,7 +3,7 @@
 Everything so far has asked when a coloring exists. The opposite question is at least as natural: how large does a structure have to be before every coloring of it is forced to contain something monochromatic? Let's step back into ``graph land'' from ``hypergraph land'' and ask it of the complete graphs, coloring edges this time rather than vertices.
 
 \begin{boxdefinition}[Ramsey Number]
-    The $k$th Ramsey number, denoted $R(k)$, is the smallest $n \in \N$ such that any $2$-colouring of edges of $K_n$ gives a monochromatic $K_k$.
+    The $k$th Ramsey number, denoted $R(k)$, is the smallest $n \in \N$ such that any $2$-coloring of edges of $K_n$ gives a monochromatic $K_k$.
 \end{boxdefinition}
 
 One immediate result we can see is that $R(3) \geq 6$, which we can see simply by drawing a picture of $K_5$ and studying what happens if we move our attention to $K_6$.
@@ -21,7 +21,7 @@ One immediate result we can see is that $R(3) \geq 6$, which we can see simply b
     \end{tikzpicture}
 \end{figure}
 
-Each colour carries a $5$-cycle---the outer pentagon in red, the inner pentagram in blue---and a $5$-cycle contains no triangle at all, so neither colour gives us a monochromatic $K_3$. Nothing forces a monochromatic triangle at $n = 5$, and so $R(3) \geq 6$. The picture also shows how little room there is to spare: every vertex of $K_5$ meets exactly two edges of each colour, and the moment we pass to $K_6$ each vertex has five edges to distribute between two colours, so one of the colours is forced to take three of them.
+Each color carries a $5$-cycle---the outer pentagon in red, the inner pentagram in blue---and a $5$-cycle contains no triangle at all, so neither color gives us a monochromatic $K_3$. Nothing forces a monochromatic triangle at $n = 5$, and so $R(3) \geq 6$. The picture also shows how little room there is to spare: every vertex of $K_5$ meets exactly two edges of each color, and the moment we pass to $K_6$ each vertex has five edges to distribute between two colors, so one of the colors is forced to take three of them.
 
 We can actually prove that $R(3) = 6$, but this is rather nontrivial.
 

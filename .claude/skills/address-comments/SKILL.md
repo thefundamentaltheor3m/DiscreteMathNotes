@@ -169,11 +169,11 @@ When you do add one, it must look like it belongs:
   `% DELIMITERS:`, …), or open a new all-caps banner in the existing style if the
   group genuinely does not exist yet. Course-specific additions go under
   `% DISCRETE MATH COURSE`.
-- **Follow the naming conventions:** `p`-prefix for a parenthesised operator
-  (`\pgcd`, `\pdim`), `of`-suffix for parenthesised function application (`\fof`,
+- **Follow the naming conventions:** `p`-prefix for a parenthesized operator
+  (`\pgcd`, `\pdim`), `of`-suffix for parenthesized function application (`\fof`,
   `\Tof`), `\operatorname{}` rather than `\mathrm{}`, and `\!` before the delimiter
   so there is no gap.
-- **Parameterise the thing that varies and nothing else.** `\cyclegraph{5}`, not
+- **Parameterize the thing that varies and nothing else.** `\cyclegraph{5}`, not
   `\cyclegraph{5}{1cm}{blue}{above}`. Optional arguments with sensible defaults are
   better than four mandatory ones.
 - **Use it everywhere it applies**, including in any existing figure that was doing

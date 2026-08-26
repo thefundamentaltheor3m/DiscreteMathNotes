@@ -80,7 +80,7 @@ lecture where nothing happened because one directive was unclear is not.
 
 The component skills each say when to stop and ask rather than guess — an ambiguous
 `% [CLAUDE]` directive, two readings of a `\sorry`, a date that disagrees with the
-commit. Honour that, but **batch it**: gather the questions and ask them together, at
+commit. Honor that, but **batch it**: gather the questions and ask them together, at
 the end, rather than interrupting three times.
 
 ## The approval gate
