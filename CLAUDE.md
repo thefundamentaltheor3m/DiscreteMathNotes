@@ -102,17 +102,37 @@ than defining them inline.
 ## Lecture workflow
 
 Notes are taken linearly but organized by topic, so raw and integrated material are
-kept distinct. A lecture's raw notes go in a throwaway section file inside whatever
-chapter is current, with `Lecture_` in its basename and the date as its title:
+kept distinct. Raw notes are typed in Overleaf during the lecture and synced, so they
+arrive as ordinary commits — `feat: Lecture 2`, `Updates from Overleaf` — touching
+whatever files were open.
+
+**`/integrate` finds what is new from the git history, not from a filename or a
+heading.** It establishes a watermark (the last commit that touched `TOPICS.md` is the
+sharpest signal, since only `/integrate` and `/organize` do), diffs from there to
+`HEAD`, and also checks the working tree for material not yet committed. So it works
+wherever the notes were typed, and the lecture date comes from the commit rather than
+from a comment that may or may not be there.
+
+There is a reusable inbox for convenience, in whichever chapter is current:
 
 ```
-Chapters/1_Logic/1_4_Lecture_0824.tex     ->  \section{Lecture 2026-08-24}
+Chapters/1_Intro/todays_lecture.tex
 ```
 
 It is `\input` from its chapter file like any other section, so the document always
-compiles. The `/integrate` skill (`.claude/skills/integrate/`) then redistributes that
-content into the proper sections by topic and deletes the staging file. Do not treat a
-`Lecture_*.tex` file as settled content.
+compiles and the Overleaf preview builds live during the lecture. `/integrate`
+**empties it rather than deleting it**, leaving a header comment and the `\input` line
+so the same file is ready next time. It is a convenience, not the definition of the
+input: material typed elsewhere is found just the same.
+
+Two failure modes to avoid: never treat the inbox as settled content when it has
+something in it, and never treat it as scaffolding to clear when it is empty — an empty
+inbox is its normal resting state.
+
+Structure the author wrote during a lecture — real headings like
+`\subsection{Ramsey Numbers}` — is deliberate and informative. `/integrate` starts from
+it, may overrule it against `ORGANIZATION.md`, and must say so explicitly when it does;
+the author has the final say at review.
 
 `TOPICS.md` at the repo root is the running map of topic to chapter/section, and is
 the authority on where new material belongs. `/organize` owns it; `/integrate`
