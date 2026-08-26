@@ -97,7 +97,7 @@ display.
 
 **Voice, from `STYLE.md`:** first-person plural doing real work ("We now show…",
 "Indeed, …", "It turns out that…"); a one-sentence bridge before every boxed
-environment; British spelling; `` ``LaTeX quotes'' ``; `ie,` and `cf.` inline;
+environment; American spelling; `` ``LaTeX quotes'' ``; `ie,` and `cf.` inline;
 `align*` for displays; one paragraph per source line with no hard wrapping; `\Cref`
 and never `\cref`. Case splits go in a `description` with
 `\item[\underline{Case…}]`.

@@ -327,14 +327,15 @@ step.
 
 ## Leftover template scaffolding
 
-The repository was cut from a template, and some of it is still standing. `main.tex`
-now carries the real course metadata, and `Chapters/1_Intro/` has real content, but
-`Chapters/0_Overview.tex`, `Chapters/1_Intro/1_2_Another_Section.tex`,
-`Chapters/2_Another Chapter/` and `Chapters/Appendices/` are all still placeholders.
-Offer to clear whichever ones are actually in your way — but ask first, and never
-delete a file that has acquired real content. The rest of the scaffolding is a
-structural problem rather than an integration one, so leave it and recommend
-`/organize`. Note in particular that `Chapters/1_Intro/` is **not** a misnomer for a
+The repository was cut from a template. Most of the scaffolding was cleared on
+2026-08-24 — `TOPICS.md` records what went and why — leaving `Chapters/1_Intro/`, which
+is real, and `Chapters/Appendices/`, a placeholder kept on purpose with its `\input`
+still commented out in `main.tex`.
+
+So there is normally nothing to clear here any more. If some placeholder does turn up
+in your way, offer to clear it — but ask first, and never delete a file that has
+acquired real content. Scaffolding is a structural problem rather than an integration
+one, so otherwise leave it and recommend `/organize`. Note in particular that `Chapters/1_Intro/` is **not** a misnomer for a
 chapter titled *Graphs and Colorings*: `1_Intro` is the author's directory name for
 chapter 1 across three of the four sibling repositories, whatever that chapter is
 called. Leave it alone.

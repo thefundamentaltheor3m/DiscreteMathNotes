@@ -91,5 +91,7 @@ in the changed files, convert it and note it in the report.
 - It does not rewrap paragraphs or reformat code.
 - It does not reorganize the notes — that is `/organize`.
 - It does not fill `\sorry` markers or answer `% [CLAUDE]` directives.
-- It does not change the spelling in `.claude/` unless explicitly asked; those
-  files are instructions to future assistants, not lecture-note prose.
+- It does not rename the skill itself. `/americanise` is spelt with an `s` on
+  purpose: someone who already writes American English will never think to
+  invoke it, and someone writing British English will.
+- It does not touch the British column of the table above, for the same reason.
