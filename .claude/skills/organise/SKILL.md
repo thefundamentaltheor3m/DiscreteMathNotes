@@ -33,7 +33,7 @@ two is the main way either can do damage.
 | Adds material | yes, that is the point | **never** |
 | Restructures | only enough to house the new material | yes, that is the point |
 | `TOPICS.md` | appends its own entries | **owns the file** |
-| Ends with | the raw file dissolved | the same content, better arranged |
+| Ends with | the staging file emptied and kept | the same content, better arranged |
 
 **This skill adds no mathematics and no exposition beyond connecting prose.** If you
 find yourself writing a definition, finishing a proof, or supplying an example, stop:
@@ -44,9 +44,16 @@ content going in is the content coming out.
 Restructuring that loses a sentence has failed, however much better the outline
 looks.
 
-If the notes contain a `Lecture_*.tex` staging file, this skill is the wrong one —
-that file is `/integrate`'s. Say so and stop. Running `/organise` first on unintegrated
-material would restructure around content that is about to move anyway.
+`Chapters/**/todays_lecture.tex` is the lecture inbox, and it is **permanent** — it
+lives in the repository whether or not anything is in it, because the author reuses it
+every lecture and needs its `\input` line and its Overleaf preview to survive.
+
+- **Empty** (nothing but its header comment): not your business and not a finding.
+  Leave the file, its contents and its `\input` line exactly as they are. Do not
+  report it as leftover scaffolding, and do not clear it.
+- **With content in it**: this skill is the wrong one. That content is `/integrate`'s,
+  and restructuring around material that is about to move is wasted work. Say so and
+  stop.
 
 ## Procedure
 

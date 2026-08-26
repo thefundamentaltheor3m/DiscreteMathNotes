@@ -96,17 +96,24 @@ than defining them inline.
 ## Lecture workflow
 
 Notes are taken linearly but organised by topic, so raw and integrated material are
-kept distinct. A lecture's raw notes go in a throwaway section file inside whatever
-chapter is current, with `Lecture_` in its basename and the date as its title:
+kept distinct. A lecture's raw notes go in one permanent staging file — the inbox —
+inside whatever chapter is current:
 
 ```
-Chapters/1_Logic/1_4_Lecture_0824.tex     ->  \section{Lecture 2026-08-24}
+Chapters/1_Intro/todays_lecture.tex     ->  \section{Lecture 2026-08-24}
 ```
 
 It is `\input` from its chapter file like any other section, so the document always
-compiles. The `/integrate` skill (`.claude/skills/integrate/`) then redistributes that
-content into the proper sections by topic and deletes the staging file. Do not treat a
-`Lecture_*.tex` file as settled content.
+compiles and the Overleaf preview builds live during the lecture. The `/integrate`
+skill (`.claude/skills/integrate/`) then redistributes that content into the proper
+sections by topic and **empties the file rather than deleting it**, leaving its header
+comment and its `\input` line in place so the same file is ready for the next lecture.
+
+Two consequences. Never treat `todays_lecture.tex` as settled content when it has
+something in it; and never treat it as scaffolding to clear when it is empty — an
+empty inbox is its normal resting state. The lecture date lives in the
+`\section{Lecture <date>}` heading inside the file, since the filename no longer
+carries it.
 
 `TOPICS.md` at the repo root is the running map of topic to chapter/section, and is
 the authority on where new material belongs. `/organise` owns it; `/integrate`

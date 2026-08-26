@@ -1,6 +1,6 @@
 ---
 name: integrate
-description: Absorb one lecture's raw notes into the structured chapter/section hierarchy of these discrete mathematics notes. Use when the user has just taken notes in a throwaway "Lecture <date>" section and wants them redistributed by topic, matching the existing expository style, boxed environments, numbering, and labels. Triggers on "/integrate", "integrate my notes", "integrate today's lecture", "fold in the last lecture".
+description: Absorb one lecture's raw notes into the structured chapter/section hierarchy of these discrete mathematics notes. Use when the user has just taken notes into the reusable todays_lecture.tex staging file and wants them redistributed by topic, matching the existing expository style, boxed environments, numbering, and labels. Triggers on "/integrate", "integrate my notes", "integrate today's lecture", "fold in the last lecture".
 ---
 
 # Integrating a lecture into the notes
@@ -24,31 +24,64 @@ Read these first; everything below assumes them.
 
 ## The staging convention
 
-A raw lecture lives as an ordinary section file inside the chapter that was current
-during the lecture:
+Raw notes are typed into one permanent file, in whichever chapter is current:
 
 ```
-Chapters/1_Logic/1_4_Lecture_0824.tex     <- raw; \section{Lecture 2026-08-24}
+Chapters/1_Intro/todays_lecture.tex
 ```
 
-Recognise a raw file by `Lecture_` in its basename. It is `\input` by its chapter
-file like any other section, so the notes always compile. **Integration dissolves
-it**: its content is redistributed and the file and its `\input` line are removed.
+It is `\input` from its chapter file like any other section, so the notes always
+compile and the author can watch the preview build in Overleaf while the lecture is
+happening.
 
-If the user names a file or a date, use that. Otherwise glob
-`Chapters/**/*Lecture_*.tex`; if exactly one exists, that is the target. If several
-exist, list them and ask which to integrate — do not guess, and do not integrate
-several at once unless asked.
+**The file is reused every lecture, so integration empties it rather than deleting
+it.** Its content is redistributed; what stays behind is the file itself, holding
+nothing but its header comment, with its `\input` line untouched. Deleting either
+would break the Overleaf preview and force the author to recreate the file before the
+next lecture, which is the whole thing this convention exists to avoid.
 
-**If no staging file exists**, the convention was not followed: the lecture was
-written straight into a real section file, or into a template-named one such as
+Leave it in exactly this state:
+
+```tex
+% Raw notes for the next lecture go here.
+%
+% /integrate empties this file rather than deleting it, so that the file, its \input
+% line and the Overleaf preview all survive from one lecture to the next.
+%
+% Open with \section{Lecture <YYYY-MM-DD>}. The date matters: it is how /integrate
+% and TOPICS.md identify the lecture, and the filename no longer carries it.
+```
+
+A file in that state is the notes' inbox sitting empty. It is not a stub, not
+leftover scaffolding, and not something for any skill to report or clear.
+
+**Finding the target.** If the user names a file or a date, use that. Otherwise glob
+`Chapters/**/todays_lecture.tex`. Normally exactly one exists. If the file is empty
+there is nothing to integrate — say so and stop, rather than going hunting for
+unintegrated material elsewhere. If several exist and more than one has content, list
+them and ask; do not integrate several at once unless asked.
+
+**The date comes from inside the file now.** It used to be in the filename
+(`Lecture_0824.tex`) and no longer is, so read it from the `\section{Lecture <date>}`
+heading at the top of the raw notes. `TOPICS.md` annotates every entry with it, so if
+the heading is missing or undated, ask — a guessed date is a false record of when
+something was taught.
+
+**When the course moves to a new chapter,** the staging file wants moving to that
+chapter's directory so the preview appears in context. That is a `git mv` plus one
+`\input` line, and it is the author's call — offer it, do not do it unasked. Note also
+that where the file *sits* is only where the author types; it says nothing about which
+chapter this lecture's material belongs in.
+
+**If no `todays_lecture.tex` exists at all**, the convention was not followed: the
+lecture went straight into a real section file, or into a template-named one such as
 `1_1_Imp_Defs.tex`. Do not stop. Identify the file holding the unintegrated material,
-say which file you are treating as the staging file and why, and proceed — the
-ledger, the plan and the report all work the same way. The only difference is at the
-end: the file is not deleted, because it is a real section file. Its *contents* are
+say which file you are treating as the staging file and why, and proceed — the ledger,
+the plan and the report all work the same way. The difference is at the end: a real
+section file is not emptied, because it is not the inbox. Its *contents* are
 redistributed and whatever is left of it is either a legitimate section or is emptied
-and removed. If you cannot tell which material is unintegrated, ask rather than
-guess.
+and removed. Offer to create `todays_lecture.tex` for next time. If you cannot tell
+which material is unintegrated, ask rather than guess.
 
 **If the notes contain nothing to integrate into** — a first lecture, or a repository
 still all template placeholders — then there is no integration to do, and the right
@@ -85,7 +118,7 @@ respect for the author's mathematics. They do not share a scope.
 | Adds material | yes, that is the point | never |
 | Restructures | only enough to house the new material | yes, that is the point |
 | `TOPICS.md` | appends its own entries | owns the file |
-| Ends with | the raw file dissolved | the same content, better arranged |
+| Ends with | the staging file emptied and kept | the same content, better arranged |
 
 **Restructuring what already exists is out of scope here.** Concretely, you may:
 
@@ -115,8 +148,8 @@ Before changing anything, enumerate **every** discrete piece of the raw file int
 checklist: each theorem-like environment, each displayed derivation, each figure or
 TikZ picture, each paragraph of prose, each aside. Give every item a short handle
 and quote its opening words. Keep this ledger for the rest of the run. It is the
-only guard against silently dropping something, and the raw file is deleted at the
-end, so an unledgered item is a lost item.
+only guard against silently dropping something, and the staging file is emptied at
+the end, so an unledgered item is a lost item.
 
 ### 2. Read the surrounding notes
 
@@ -214,7 +247,9 @@ Then, mechanically:
   an older one.
 - Remember results are numbered per *section*, so moving a theorem across a section
   boundary renumbers it. Grep for stale `\Cref`s to anything you moved.
-- Delete the raw file and its `\input` line last, once every ledger item is placed.
+- Empty the staging file last, once every ledger item is placed: replace its contents
+  with the header comment from **The staging convention** above, and leave its
+  `\input` line alone. Delete neither the file nor the line.
 
 ### 5. Append to TOPICS.md
 
@@ -266,7 +301,12 @@ label under it, and that belongs in a diff of its own.
 2. **Build** — `latexmk -pdf -outdir=TeX_Outputs main.tex`. It must compile. Check
    the log for undefined references and duplicate labels, which are the usual
    symptoms of a botched move.
-3. Refresh the committed `TeX_Outputs/main.pdf` (it is tracked deliberately).
+3. **The inbox is empty and still there** — `Chapters/**/todays_lecture.tex` holds
+   nothing but its header comment, the file exists, and its `\input` line is still in
+   the chapter file. Rebuild and confirm the page count is what it was before the
+   lecture's material arrived plus whatever that material added: an emptied inbox must
+   render nothing at all.
+4. Refresh the committed `TeX_Outputs/main.pdf` (it is tracked deliberately).
 
 ### 7. Branch, commit, PR
 
