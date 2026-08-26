@@ -1,0 +1,81 @@
+% 26 Aug 2026
+
+% [CLAUDE] Finish incomplete proof from last lecture.
+
+\subsection{Ramsey Numbers}
+
+For this subsection, let's step back into ``graph land'' from ``hypergraph land''.
+
+\begin{boxdefinition}[Ramsey Number]
+    The $k$th Ramsey number, denoted $R(k)$, is the smallest $n \in \N$ such that any $2$-colouring of edges of $K_n$ gives a monochromatic $K_k$.
+\end{boxdefinition}
+
+One immediate result we can see is that $R(3) \geq 6$, which we can see simply by drawing a picture of $K_5$ and studying what happens if we move our attention to $K_6$.
+
+% [CLAUDE] elaborate (draw a picture of $K_5$ and briefly explain the intuition you get from it)
+
+We can actually prove that $R(3) = 6$, but this is rather nontrivial.
+
+Other known Ramsey numbers are $R(2) = 2$ and $R(4) = 18$. The rest are unknown, though we do have bounds for them. The best (or close to the best) known bounds are
+\begin{align*}
+    2^{\frac{k}{2}} \leq R(k) \leq 3.8^k
+\end{align*}
+
+\begin{boxtheorem}
+    $m(k) \geq 2^{k - 1}$. In other words, any $k$-uniform hypergraph with $< 2^{k - 1}$ edges is $2$-colourable.
+\end{boxtheorem}
+\begin{proof} % [CLAUDE] notational change: replace all events $E_f$ with $\mathcal{E}_f$
+    Given such a hypergraph, randomly colour the vertices red and blue, with equal probability ($1/2$) for each. For each edge $f$, let $E_f$ be the event that $f$ is monochromatic. Then,
+    \begin{align*}
+        \Pr\of{E_f} = \frac{2}{2^k}
+    \end{align*}
+    Taking a simple union bound,
+    \begin{align*}
+        \Pr\of{\bigcup_{f \in H} E_f} \leq \frac{\abs{H}}{2^{k - 1}} < 1
+    \end{align*}
+    where we interpret $\bigcup_{f \in H} E_f$ as the event that there is a monochromatic edge. As the probability is less than $1$, there must be at least one colouring with no monochromatic edge.
+\end{proof}
+
+Note that the above argument can also be written combinatorially instead of probabilistically. In this instance, the probabilistic language essentially conveys the same information as combinatorial language would. But this may not always be true, so it's worth being careful about this.
+
+\begin{boxexercise}
+    Prove that $m(k) = \BigO{k^2 \cdot 2^k}$
+\end{boxexercise}
+
+Here's a fun fact: a ``maker-breaker'' game is a game where the ``maker'' wins if they are able to achieve an objective and the ``breaker'' wins if they are able to stop the maker from winning. So if you set up a ``maker-breaker'' version of tic-tac-toe, where only the crosses can win by making three in a row and the noughts can only win by stopping the crosses, the crosses will always win (assuming the crosses play first). This is, of course, different from tic-tac-toe, which, as our own studies from when we were a kid have shown, can always be drawn.
+
+\begin{boxtheorem}[Erd\H{o}s-Selfridge]
+    If $H$ is a $k$-uniform hypergraph with $m$ edges, and $m < 2^{k - 1}$, then breaker wins (if breaker goes second).
+\end{boxtheorem}
+
+In the language of hypergraphs, the game is $2$-colouring; maker winning is equivalent to the existence of a colouring with a monochromatic edge; and breaker winning is equivalent to the inexistence of such edge.
+
+\begin{proof}
+    Let $\Delta$ be the maximum degree of $H$, that is,
+    \begin{align*}
+        \Delta = \max_{v \in H} \abs{\setst{f \subseteq H}{v \in f}}
+    \end{align*}
+    We'll prove that if $m + \Delta < 2^k$, then breaker will win. Then, since $\Delta \leq m$, it will follow that if $m < 2^{k - 1}$, then $ m + \Delta \leq 2m < 2^k$.
+
+    At the start of move $i$, we will conceptualise the danger of edge $f \in H$ by
+    \begin{align*}
+        \phi_i(f) &=
+        \begin{cases}
+            2^{\text{number of maker moves in $f$}} & \text{ if there are no breaker moves in $f$} \\
+            0 & \text{ if there is a breaker move in $f$} \\
+        \end{cases}
+        \\
+        \Phi_i(f) &= \sum_{f \in H} \phi_i(f)
+    \end{align*}
+    Consider the strategy where each time maker plays $y$ on move $i$, breaker plays $x$ to minimise the sum
+    \begin{align*}
+        \sum_{f \ni x} \phi_i(f) + \sum_{f \ni y} \phi_i(f)
+    \end{align*}
+    One can show that with this strategy, the danger $\Phi_i$ never exceeds $m + \Delta$.
+    % [CLAUDE] Elaborate and finish this off nicely.
+\end{proof}
+
+Let's consider higher-dimensional maker-breaker tic-tac-toe. Turns out that $8 \times 8 \times 8$ maker-breaker tic-tac-toe is breaker-winnable: we can show that $m = \frac{10^3 - 8^3}{2} = 244$ and $\Delta = 7$, meaning $m + \Delta = 251 < 2^k = 256$.
+% [CLAUDE] say more about this, include some explanations for where these numbers come from. But don't talk about this too much, we won't say any more about tic-tac-toe in this course.
+
+We won't say any more about tic-tac-toe in this course, but it was a fun aside.
