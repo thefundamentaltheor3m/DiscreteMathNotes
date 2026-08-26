@@ -102,7 +102,8 @@ An edge has $3$ vertices, so it covers the $\binom{3}{2} = 3$ pairs among them, 
 \end{align*}
 pairs are covered in total. But if $H$ has $n \geq 7$ vertices, there are $\binom{n}{2} \geq \binom{7}{2} = 21$ pairs to cover. So some pair is left uncovered, and merging it brings us one vertex closer to $6$.
 
-So now assume that $H$ has exactly $6$ edges and $6$ vertices and is not $2$-colorable. 
+So now assume that $H$ has exactly $6$ edges and $6$ vertices and is not $2$-colorable.
+
 There is no loss in the vertex count in the other direction either: a hypergraph with fewer than $6$ vertices can be handed as many extra vertices as it likes, and vertices lying in no edge change nothing about which colorings are proper.
 
 Now count colorings. Among all the ways of coloring $6$ vertices with two colors, consider only the balanced ones, which split $V$ into two sets of three; there are $\frac{1}{2}\binom{6}{3} = 10$ of these. Such a coloring fails exactly when some edge is monochromatic, and an edge of $H$ has three vertices, so it is monochromatic under a balanced coloring precisely when it is one of the two color classes. Each edge $f$ therefore rules out exactly one of the ten balanced colorings, namely the one splitting $V$ into $f$ and $V \setminus f$. Six edges rule out at most six of the ten, so at least four survive, and any one of them is a proper $2$-coloring of $H$. This contradicts our assumption, so no such $H$ exists and
@@ -110,6 +111,8 @@ Now count colorings. Among all the ways of coloring $6$ vertices with two colors
     m(3) \geq 7
 \end{align*}
 
+% Not from the lecture: the example and proposition below were supplied to close the
+% m(3) question the reduction above sets up.
 That bound is attained, and the hypergraph attaining it is a familiar object.
 
 \begin{boxexample}[The Fano Plane]
