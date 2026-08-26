@@ -203,8 +203,10 @@ follows, which any new macro must follow too:
 **`\sorry`** (red `sorry`, borrowed from Lean) marks a gap: a proof not given, a case
 not covered, an argument the lecture waved at. Leaving a `\sorry` is honest and
 expected; silently writing a hand-wave in its place is not. Closing them is the
-`/fill-sorries` skill's job, and the only place in the repository where an assistant
-is expected to work the mathematics out for itself.
+`/fill-sorries` skill's job, and one of only two places in the repository where an
+assistant is expected to work the mathematics out for itself; the other is
+`/check-correctness`, which checks whether what is written is true and leaves
+`% [SUSPECT]` where it believes something is wrong and cannot fix it.
 
 ## TikZ
 

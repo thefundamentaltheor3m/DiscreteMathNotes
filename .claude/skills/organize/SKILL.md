@@ -249,6 +249,7 @@ https://github.com/thefundamentaltheor3m/DiscreteMathNotes/compare/main...organi
 - **Prose you rewrote** — titles, bridges, intros. These are the only places where
   words changed, so they are what the author needs to read.
 - **Anything you think is wrong** in the notes, quoted, left unchanged.
+  That list is the input to `/check-correctness`, which is the skill that acts on it.
 - The build result.
 
 Be specific about the prose. In a restructuring pass the moves are mechanical and
