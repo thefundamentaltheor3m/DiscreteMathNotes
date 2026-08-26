@@ -187,10 +187,10 @@ follows, which any new macro must follow too:
 - **Delimiters auto-size.** `\parenth`, `\brac`, `\set`, `\setst{elts}{cond}`,
   `\abs`, `\norm`, `\floor`, `\ceil`, `\cycl`, `\oc`, `\co` — all `\left…\right`.
   Bare `(`…`)` around a nontrivial expression is a style error.
-- **`p`-prefix for a parenthesised operator:** `\pgcd`, `\plcm`, `\pdim`, `\pker`,
+- **`p`-prefix for a parenthesized operator:** `\pgcd`, `\plcm`, `\pdim`, `\pker`,
   `\pim`, `\pdet`, `\pdeg`, `\psin`, `\psup`, `\pchar`. The lecture-1 addition
   `\dist{v_0, u}` follows this shape.
-- **`of`-suffix for parenthesised function application:** `\fof`, `\gof`, `\Tof`,
+- **`of`-suffix for parenthesized function application:** `\fof`, `\gof`, `\Tof`,
   `\varphiof`, `\muof`, `\Powset`. Plus the bare `\of{…}` for "apply whatever
   precedes".
 - **`\!` before the delimiter** in every operator macro, so `\rank{A}` sets as

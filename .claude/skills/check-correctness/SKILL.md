@@ -42,7 +42,7 @@ of preference:
 4. **The passage reworked.** Reserved for something actually false. Rare, and it
    comes with a marker and a paragraph in the report.
 
-Never take a correction as licence to improve the exposition around it. Tightening a
+Never take a correction as license to improve the exposition around it. Tightening a
 proof you happened to be reading, adding a remark you think is missing, renaming
 notation you find clumsy — all out of scope, all `/organize`'s or nobody's. If a
 passage is genuinely unsalvageable, say so in the report and leave it.
@@ -390,7 +390,7 @@ thread on the pull request and say where it disagrees with either side. In that
 order — its own reading first, so the exchange it is auditing cannot frame it.
 
 Post its findings and your response the same way, on the same pull request, clearly
-labelled round two.
+labeled round two.
 
 ### Then stop
 

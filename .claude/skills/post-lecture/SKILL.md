@@ -164,7 +164,7 @@ where nothing happened because one directive was unclear is not.
 
 The component skills each say when to stop and ask rather than guess — an ambiguous
 `% [CLAUDE]` directive, two readings of a `\sorry`, a statement that is wrong in a way
-you cannot fix, a date that disagrees with the commit. Honour that, but **batch it**:
+you cannot fix, a date that disagrees with the commit. Honor that, but **batch it**:
 gather the questions and ask them together, at the end, rather than interrupting five
 times.
 
