@@ -135,3 +135,91 @@ Every vertex lies on exactly three lines, any two vertices lie on exactly one li
 
     So the Fano plane is a $3$-uniform hypergraph with seven edges that is not $2$-colorable, giving $m(3) \leq 7$.
 \end{proof}
+
+\subsection{Bounds on $m(k)$}
+
+Pinning down $m(3)$ took a page of case analysis, and doing the same for $m(4)$ is out of the question. What we can do for every $k$ at once is bound it, and the lower bound falls out of an idea that will keep coming back: colour at random, and show that a bad colouring is improbable.
+
+\begin{boxtheorem}\label{Ch1:Thm:mk_Lower_Bound}
+    $m(k) \geq 2^{k - 1}$. In other words, any $k$-uniform hypergraph with $< 2^{k - 1}$ edges is $2$-colourable.
+\end{boxtheorem}
+\begin{proof}
+    Given such a hypergraph, randomly colour the vertices red and blue, with equal probability ($1/2$) for each. For each edge $f$, let $\mathcal{E}_f$ be the event that $f$ is monochromatic. Then,
+    \begin{align*}
+        \Pr\of{\mathcal{E}_f} = \frac{2}{2^k}
+    \end{align*}
+    Taking a simple union bound,
+    \begin{align*}
+        \Pr\of{\bigcup_{f \in H} \mathcal{E}_f} \leq \frac{\abs{H}}{2^{k - 1}} < 1
+    \end{align*}
+    where we interpret $\bigcup_{f \in H} \mathcal{E}_f$ as the event that there is a monochromatic edge. As the probability is less than $1$, there must be at least one colouring with no monochromatic edge.
+\end{proof}
+
+Note that the above argument can also be written combinatorially instead of probabilistically. In this instance, the probabilistic language essentially conveys the same information as combinatorial language would. But this may not always be true, so it's worth being careful about this.
+
+In the other direction, the truth is only a factor of about $k^2$ away.
+
+\begin{boxexercise}
+    Prove that $m(k) = \BigO{k^2 \cdot 2^k}$
+\end{boxexercise}
+
+\subsection{Maker-Breaker Games}
+
+\Cref{Ch1:Thm:mk_Lower_Bound} says that a hypergraph with few enough edges has a proper $2$-colouring somewhere among all the colourings of its vertices. It turns out that the very same threshold survives a far more demanding requirement: that one of two players be able to build such a colouring one vertex at a time, against an opponent trying to stop them.
+
+Here's a fun fact: a ``maker-breaker'' game is a game where the ``maker'' wins if they are able to achieve an objective and the ``breaker'' wins if they are able to stop the maker from winning. So if you set up a ``maker-breaker'' version of tic-tac-toe, where only the crosses can win by making three in a row and the noughts can only win by stopping the crosses, the crosses will always win (assuming the crosses play first). This is, of course, different from tic-tac-toe, which, as our own studies from when we were a kid have shown, can always be drawn.
+
+The threshold at which breaker can hold out is exactly the one we have just been looking at.
+
+\begin{boxtheorem}[Erd\H{o}s-Selfridge]
+    If $H$ is a $k$-uniform hypergraph with $m$ edges, and $m < 2^{k - 1}$, then breaker wins (if breaker goes second).
+\end{boxtheorem}
+
+In the language of hypergraphs, the game is $2$-colouring; maker winning is equivalent to the existence of a colouring with a monochromatic edge; and breaker winning is equivalent to the inexistence of such edge.
+
+\begin{proof}
+    Let $\Delta$ be the maximum degree of $H$, that is,
+    \begin{align*}
+        \Delta = \max_{v \in V} \abs{\setst{f \in H}{v \in f}}
+    \end{align*}
+    We'll prove that if $m + \Delta < 2^k$, then breaker will win. Then, since $\Delta \leq m$, it will follow that if $m < 2^{k - 1}$, then $ m + \Delta \leq 2m < 2^k$.
+
+    At the start of move $i$, we will conceptualise the danger of edge $f \in H$ by
+    \begin{align*}
+        \phi_i(f) &=
+        \begin{cases}
+            2^{\text{number of maker moves in $f$}} & \text{ if there are no breaker moves in $f$} \\
+            0 & \text{ if there is a breaker move in $f$} \\
+        \end{cases}
+        \\
+        \Phi_i &= \sum_{f \in H} \phi_i(f)
+    \end{align*}
+    Consider the strategy where, once maker has played $y$ on move $i$, breaker plays the unclaimed vertex carrying the most danger, that is, the $x$ maximising
+    \begin{align*}
+        \sum_{f \ni x} \phi(f)
+    \end{align*}
+    with $\phi$ measured after maker's move. Two things move $\Phi$ on move $i$. Maker's play doubles the danger of every edge through $y$ that breaker has not already killed, so it raises $\Phi$ by $a_i = \sum_{f \ni y} \phi_i(f)$; breaker's play sends the danger of every surviving edge through $x$ to $0$, so it lowers $\Phi$ by the quantity $b_i$ that breaker has just maximised. Hence
+    \begin{align*}
+        \Phi_{i + 1} = \Phi_i + a_i - b_i
+    \end{align*}
+
+    The point of breaker's rule is that $a_i \leq b_{i - 1}$ for every $i \geq 2$. Indeed, $y$ is unclaimed right up until maker takes it on move $i$, so it was one of the vertices breaker was choosing between on move $i - 1$, and breaker chose one carrying at least as much danger as it. Between then and the start of move $i$ nothing happens except breaker's own play, which only ever sends dangers to $0$, so the danger through $y$ at the start of move $i$ is no greater than it was when breaker passed $y$ over.
+
+    Summing $\Phi_{i + 1} = \Phi_i + a_i - b_i$ over the first $n$ moves and cancelling each $a_i$ against $b_{i - 1}$, everything past the first two terms disappears and we are left with
+    \begin{align*}
+        \Phi_{n + 1} \leq \Phi_1 + a_1
+    \end{align*}
+    Stopping the same sum one term earlier gives the same bound halfway through a move, after maker has played and before breaker has replied. Now $\Phi_1 = m$, since at the start every edge contains a move of neither player and so contributes $2^0 = 1$, and $a_1$ is the number of edges through maker's opening vertex, which is at most $\Delta$. So the danger never exceeds $m + \Delta$ at any point in the game.
+
+    But if maker ever completes an edge $f$, then at that moment $f$ contains all $k$ of its vertices from maker and none from breaker, so $\phi(f) = 2^k$ and hence $\Phi \geq 2^k$. Since $m + \Delta < 2^k$, this never happens, and breaker wins.
+\end{proof}
+
+Let's consider higher-dimensional maker-breaker tic-tac-toe.
+
+\begin{boxexample}
+    Turns out that $8 \times 8 \times 8$ maker-breaker tic-tac-toe is breaker-winnable: we can show that $m = \frac{10^3 - 8^3}{2} = 244$ and $\Delta = 7$, meaning $m + \Delta = 251 < 2^k = 256$.
+\end{boxexample}
+
+Both numbers come out of the geometry. For $m$, pad the board with one extra cell in every direction, giving a $10 \times 10 \times 10$ cube, and run each winning line one step past each of its two ends. The two cells we land on lie in the shell we just added, and every cell of the shell is the end of exactly one line: a coordinate of the cell equal to $0$ tells the line to increase along that axis, one equal to $9$ tells it to decrease, and the rest stay fixed. So the lines are in bijection with the pairs of shell cells, of which there are $\frac{10^3 - 8^3}{2}$. For $\Delta$, a line through a given cell is determined by its direction, and a corner cell has the $3$ lines along the axes, the $3$ face diagonals and the one long diagonal through it, which is $7$; no cell of an $8 \times 8 \times 8$ board does better. And it is the $m + \Delta < 2^k$ form of the criterion doing the work here, since $244$ is a long way above $2^{k - 1} = 128$.
+
+We won't say any more about tic-tac-toe in this course, but it was a fun aside.
