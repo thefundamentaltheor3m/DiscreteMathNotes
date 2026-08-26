@@ -246,13 +246,43 @@
 
 \newcommand{\dist}[1]{\operatorname{dist}\!\parenth{#1}}
 
-\newcommand{\cyclegraph}[2][1]{  % [radius]{n}: the cycle graph on n vertices, drawn as a regular n-gon
+\newcommand{\cyclevertices}[2][1]{  % [radius]{n}: the n vertices of a regular n-gon
     \foreach \i in {1, ..., #2}{
         \pgfmathsetmacro{\angthis}{90 + 360 * (\i - 1) / #2}
-        \pgfmathsetmacro{\angnext}{90 + 360 * \i / #2}
-        \draw[thick] (\angthis:#1) -- (\angnext:#1);
-        \fill (\angthis:#1) circle (2pt);
+        \fill[black] (\angthis:#1) circle (2pt);
     }
+}
+
+\newcommand{\stepedges}[3][1]{  % [radius]{n}{step}: the edges joining each vertex of a regular n-gon to the one `step' further round
+    \foreach \i in {1, ..., #2}{
+        \pgfmathsetmacro{\angthis}{90 + 360 * (\i - 1) / #2}
+        \pgfmathsetmacro{\angnext}{90 + 360 * (\i - 1 + #3) / #2}
+        \draw[thick] (\angthis:#1) -- (\angnext:#1);
+    }
+}
+
+\newcommand{\cyclegraph}[2][1]{  % [radius]{n}: the cycle graph on n vertices, drawn as a regular n-gon
+    \stepedges[#1]{#2}{1}
+    \cyclevertices[#1]{#2}
+}
+
+\newcommand{\fanoplane}[1][1.6]{  % [radius]: the Fano plane, drawn as a triangle with its medians and the circle through its edge midpoints
+    \pgfmathsetmacro{\rmid}{0.5 * #1}
+    \foreach \i in {0, 1, 2}{
+        \pgfmathsetmacro{\angcorner}{90 + 120 * \i}
+        \pgfmathsetmacro{\angnext}{210 + 120 * \i}
+        \pgfmathsetmacro{\angopp}{270 + 120 * \i}
+        \draw[thick] (\angcorner:#1) -- (\angnext:#1);
+        \draw[thick] (\angcorner:#1) -- (\angopp:\rmid);
+    }
+    \draw[thick] (0, 0) circle (\rmid);
+    \foreach \i in {0, 1, 2}{
+        \pgfmathsetmacro{\angcorner}{90 + 120 * \i}
+        \pgfmathsetmacro{\angmid}{150 + 120 * \i}
+        \fill[black] (\angcorner:#1) circle (2pt);
+        \fill[black] (\angmid:\rmid) circle (2pt);
+    }
+    \fill[black] (0, 0) circle (2pt);
 }
 
 \newcommand{\BigO}[1]{\operatorname{O}\of{#1}}

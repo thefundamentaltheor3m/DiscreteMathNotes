@@ -103,3 +103,35 @@ An edge has $3$ vertices, so it covers the $\binom{3}{2} = 3$ pairs among them, 
 pairs are covered in total. But if $H$ has $n \geq 7$ vertices, there are $\binom{n}{2} \geq \binom{7}{2} = 21$ pairs to cover. So some pair is left uncovered, and merging it brings us one vertex closer to $6$.
 
 So now assume that $H$ has exactly $6$ edges and $6$ vertices and is not $2$-colorable. 
+There is no loss in the vertex count in the other direction either: a hypergraph with fewer than $6$ vertices can be handed as many extra vertices as it likes, and vertices lying in no edge change nothing about which colorings are proper.
+
+Now count colorings. Among all the ways of coloring $6$ vertices with two colors, consider only the balanced ones, which split $V$ into two sets of three; there are $\frac{1}{2}\binom{6}{3} = 10$ of these. Such a coloring fails exactly when some edge is monochromatic, and an edge of $H$ has three vertices, so it is monochromatic under a balanced coloring precisely when it is one of the two color classes. Each edge $f$ therefore rules out exactly one of the ten balanced colorings, namely the one splitting $V$ into $f$ and $V \setminus f$. Six edges rule out at most six of the ten, so at least four survive, and any one of them is a proper $2$-coloring of $H$. This contradicts our assumption, so no such $H$ exists and
+\begin{align*}
+    m(3) \geq 7
+\end{align*}
+
+That bound is attained, and the hypergraph attaining it is a familiar object.
+
+\begin{boxexample}[The Fano Plane]
+    The \textbf{Fano plane} is the $3$-uniform hypergraph on the seven vertices below, whose seven edges---by convention, its \textbf{lines}---are the three sides of the triangle, the three medians, and the circle through the three edge midpoints.
+\end{boxexample}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \fanoplane
+    \end{tikzpicture}
+\end{figure}
+
+Every vertex lies on exactly three lines, any two vertices lie on exactly one line together, and any two lines meet in exactly one vertex. That last property is what does the work below.
+
+\begin{boxproposition}
+    The Fano plane is not $2$-colorable. Hence $m(3) = 7$.
+\end{boxproposition}
+\begin{proof}
+    Of the $\binom{7}{4} = 35$ sets of four vertices, exactly $28$ contain a line: a line together with any one of the four vertices off it gives such a set, which is $7 \cdot 4 = 28$ sets in all, and no two of them coincide because four vertices cannot contain two lines---two lines meet in a vertex, so between them they cover five. The seven sets left over are the complements of the seven lines.
+
+    Now suppose we had a proper $2$-coloring, with color classes $A$ and $B$, and say $\abs{A} \leq 3$. If $\abs{A} = 3$, then $A$ is not a line, since $A$ is monochromatic; so $B = V \setminus A$ is a set of four vertices that is not the complement of a line, and hence contains one. If $\abs{A} \leq 2$, then the vertices outside $B$ lie on at most $3 + 3 - 1 = 5$ lines between them, so at least two lines avoid them both and lie inside $B$. Either way some line is monochromatic, which is a contradiction.
+
+    So the Fano plane is a $3$-uniform hypergraph with seven edges that is not $2$-colorable, giving $m(3) \leq 7$.
+\end{proof}
