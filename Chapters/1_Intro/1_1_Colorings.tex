@@ -33,7 +33,7 @@ Recall that a closed walk need not be a cycle: walks can contain repetitions. So
 % has $x_1 = x_{\ell}$, so that says nothing, and at $i = 1$, $j = \ell$ the two sub-walks below are the length-$0$ walk
 % and $W$ itself, neither shorter, so the minimality contradiction never fires.
 \begin{proof}
-    Suppose $G$ has an odd closed walk. Let $W$ be such a walk of minimal length. Write $W = \parenth{x_1, \ldots, x_i, \ldots, x_j, \ldots, x_{\ell}}$, with $x_{\ell} = x_1$. Suppose $W$ is not a cycle. Then there must be some $x_i, x_j$ such that $x_i = x_j$ even though $i \neq j$, with $\set{i, j} \neq \set{1, \ell}$, ie, there must be some repetition beyond the closing one. Then, $\parenth{x_1, \ldots, x_i, x_{j+1}, \ldots, x_{\ell}}$ and $\parenth{x_i, x_{i+1}, \ldots, x_{j}}$ are both shorter walks than $W$. Moreover, one of them must be of odd length. This contradicts minimality of the length of $W$. So $W$ must be a cycle.
+    Suppose $G$ has an odd closed walk. Let $W$ be such a walk of minimal length. Write $W = \parenth{x_1, \ldots, x_i, \ldots, x_j, \ldots, x_{\ell}}$, with $x_{\ell} = x_1$. Suppose $W$ is not a cycle. Then there must be some $x_i, x_j$ such that $x_i = x_j$ with $1 \leq i < j \leq \ell - 1$, ie, there must be some repetition beyond the closing one. Then, $\parenth{x_1, \ldots, x_i, x_{j+1}, \ldots, x_{\ell}}$ and $\parenth{x_i, x_{i+1}, \ldots, x_{j}}$ are both shorter walks than $W$. Moreover, one of them must be of odd length. This contradicts minimality of the length of $W$. So $W$ must be a cycle.
 \end{proof}
 
 Here's a cool result.

@@ -1,6 +1,6 @@
 \section{Matchings in Bipartite Graphs}
 
-Hypergraphs came up in \Cref{Ch1:Def:Hypergraph} as the setting in which the coloring question gets hard, and we have not looked at them since. This section asks something else of them: given a hypergraph, can we pick one vertex out of each edge, all of them different? Getting to the answer means first noticing that a hypergraph, a $0,1$ matrix and a bipartite graph are three views of the same data.
+Hypergraphs came up in \Cref{Ch1:Def:Hypergraph} as the setting in which the coloring question gets hard, and we set them aside when the Ramsey numbers took us back to graphs. This section asks something else of them: given a hypergraph, can we pick one vertex out of each edge, all of them different? Getting to the answer means first noticing that a hypergraph, a $0,1$ matrix and a bipartite graph are three views of the same data.
 
 \subsection{Adjacency Matrices}
 
@@ -50,9 +50,11 @@ Here are some examples of constructing adjacency matrices.
         \end{align*}
 
         \item Consider the hypergraph
-        % The matrix below had a repeated column, so it was the adjacency matrix of no hypergraph with that many
-        % hyper-edges; the duplicate is dropped. Note that the correspondence claimed after this example runs between
-        % hypergraphs and those $0,1$ matrices whose columns are distinct, up to permutation of rows and of columns.
+        % [CORRECTED] was the $3 \times 5$ matrix with rows (1 1 1 1 0), (0 0 1 1 0), (0 0 1 0 1) --- its first two
+        % columns are equal, and a hypergraph is a collection of subsets, so distinct hyper-edges give distinct
+        % columns and no five-edge hypergraph has that matrix. The duplicate column is dropped. So the correspondence
+        % claimed after this example runs between hypergraphs and those $0,1$ matrices whose columns are distinct,
+        % up to permutation of the rows and of the columns.
         \begin{align*}
             \begin{bmatrix}
                 1 & 1 & 1 & 0 \\
@@ -99,6 +101,8 @@ The bipartite graph attached to $H$ has the vertices of $H$ on one side and the 
 
 Recall, now, the most important result about bipartite graphs.
 
+% [CORRECTED] was: "$\Gamma(S) = \setst{v \in B}{\exists u \in A \st u \sim v}$" --- quantified over $A$, $\Gamma$ does not
+% depend on its argument, so the condition collapses to $\abs{\Gamma(A)} \geq \abs{A}$ and the theorem is false.
 % [CORRECTED] was: "Given a bipartite graph with parts $A$ and $B$" --- with $A$ infinite the "if" direction is false:
 % join $a_0$ to every $b_i$ and $a_i$ to $b_i$ alone, and Hall's condition holds while $a_0$ has nowhere to go. The
 % induction below is on $\abs{A}$ and needs it. $B$ is never counted, so it may stay arbitrary.
@@ -151,7 +155,7 @@ Hall's condition asks something of every subset of $A$, which is a lot to check.
 
 % [CORRECTED] was: "with $d_2 \leq d_1$" --- $d_1 = d_2 = 0$ satisfies that, and an edgeless graph with $A$ nonempty has
 % no complete matching. The proof divides by $d_2$, so $d_2 \geq 1$ is what it uses.
-\begin{boxtheorem}
+\begin{boxtheorem} \label{Ch1:Cor:Biregular}
     If $G$ is a bipartite graph with parts $A$ and $B$, if all degrees in $A$ are $d_1$ and all degrees in $B$ are $d_2$, with $1 \leq d_2 \leq d_1$, then there is a complete matching of $A$.
 \end{boxtheorem}
 
