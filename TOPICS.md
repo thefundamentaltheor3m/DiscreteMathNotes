@@ -39,6 +39,23 @@ What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
       R(k), for edge colorings of complete graphs
       R(3) >= 6, from the two-colored K_5
       known values and the best known bounds
+
+1.3 Matchings in Bipartite Graphs                   [2026-08-28]
+    Turns from coloring a hypergraph to choosing from one: can a vertex be
+    picked out of each edge, all of them different?
+    1.3.1 Adjacency Matrices                        [2026-08-28]
+      Adj(H), once vertices and edges are put in some order
+      the hypergraph / 0,1 matrix / bipartite graph trifecta
+      two worked examples; the second's matrix has a repeated column
+    1.3.2 Hall's Marriage Theorem                   [2026-08-28]
+      Hall, both directions, by induction on |A|, for A finite
+      families of distinct representatives, as Hall read on a hypergraph
+      the biregular corollary: 1 <= d_2 <= d_1 gives a complete matching of A
+
+1.4 Sperner Systems                                 [2026-08-28]
+    How large can a family of subsets of [n] be when none contains another?
+      the containment diagram on [3], and each layer as a Sperner system
+      Sperner's theorem, by the random-permutation (LYM) argument
 ```
 
 `Chapters/1_Intro/` is the author's directory name for chapter 1 across three of
@@ -67,6 +84,8 @@ The chapter title "Graphs and Colorings" is a bet placed on one lecture.
     Ends when: chapter 1 holds three or so lines of enquiry. Re-read it then and
     check the title still names what the chapter is about; renaming later
     renumbers every label under it.
+    MET 2026-08-28: lecture 3 brought two more lines of enquiry, neither of them
+    about coloring. Recorded under Structural pressure; /organize should act.
 ```
 
 ## Signposted
@@ -88,6 +107,13 @@ m(k) = O(k^2 2^k)                set as an exercise 2026-08-26. Would close the
 the probabilistic method         flagged 2026-08-26: the union bound in 1.1.3
                                  could have been phrased as a count, but the
                                  lecturer warned that this will not always hold.
+matchings between the layers     gestured at 2026-08-28 as the intuitive route
+                                 to Sperner's theorem, and said to break down
+                                 "before k exceeds n/2". Not carried out; the
+                                 proof given is the random-permutation one.
+what makes a matching complete   used throughout 1.3 and never defined. The
+                                 notes say "complete matching of A" from Hall
+                                 onwards without saying what one is.
 ```
 
 ## Unplaced
@@ -110,6 +136,22 @@ The m(3) = 7 development is loose prose at the end of 1.1.2, not a subsection.
     It is now the longest thing in that subsection and has a figure and two
     boxed environments of its own. Splitting it out would renumber everything
     after it, so it is left where the lecture put it. [noted 2026-08-26]
+
+Chapter 1 is called "Graphs and Colorings" and half of it is no longer about
+    either. 1.3 and 1.4 ask about matchings and about antichains, neither has
+    anything to do with coloring, and both are about hypergraphs rather than
+    graphs. This is exactly the condition the chapter-title deviation above set
+    for re-reading the title. Renaming renumbers every label under the chapter,
+    so nothing is done about it here. Run /organize. [noted 2026-08-28]
+
+Whether 1.3 and 1.4 want to be one section, or a chapter of their own, is
+    /organize's call. They were split because neither needs the other and
+    either order reads -- the proof of Sperner uses no matching theory, and Hall
+    never mentions antichains -- which is ORGANIZATION.md's test for two lines
+    of enquiry rather than one. But they arrived in a single lecture and share
+    their objects, and if lecture 4 continues either of them the right home may
+    be a chapter about set systems rather than two sections inside a chapter
+    about coloring. [noted 2026-08-28]
 ```
 
 ## Template scaffolding
