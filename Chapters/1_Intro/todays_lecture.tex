@@ -13,7 +13,7 @@ We can represent the data of a hypergraph $H$ in a matrix, known as the adjacenc
     \begin{align*}
         a_{ij} =
         \begin{cases}
-            1 & \text{ if row $i$ lies in hyper-edge $j$} \\
+            1 & \text{ if vertex $i$ lies in hyper-edge $j$} \\
             0 & \text{ otherwise}
         \end{cases}
     \end{align*}
@@ -50,6 +50,9 @@ Here are some examples of constructing adjacency matrices.
         \end{align*}
 
         \item Consider the hypergraph
+        % [SUSPECT] the first two columns of this matrix are equal, so it is not $\Adj(H)$ for any hypergraph with five
+        % hyper-edges: a hypergraph is a collection of subsets, and distinct hyper-edges give distinct columns. It is
+        % also the transpose of the matrix in the item above, which may be what was intended. Left as written.
         \begin{align*}
             \begin{bmatrix}
                 1 & 1 & 1 & 1 & 0 \\
@@ -57,19 +60,17 @@ Here are some examples of constructing adjacency matrices.
                 0 & 0 & 1 & 0 & 1
             \end{bmatrix}
         \end{align*}
-        Reading the columns off one at a time, this is the hypergraph on three vertices whose five hyper-edges are $f_1 = f_2 = \set{1}$, $f_3 = \set{1, 2, 3}$, $f_4 = \set{1, 2}$ and $f_5 = \set{3}$.
+        Reading the columns off one at a time gives $\set{1}$, $\set{1}$, $\set{1, 2, 3}$, $\set{1, 2}$ and $\set{3}$, and the first two of those are the same set. So what the matrix describes is the hypergraph on three vertices with the four hyper-edges $f_1 = \set{1}$, $f_2 = \set{1, 2}$, $f_3 = \set{1, 2, 3}$ and $f_4 = \set{3}$.
         \begin{center}
             \begin{tikzpicture}
                 \draw[thick, brown] (2.3, 0) ellipse (3.8 and 1.8);
                 \draw[thick, pink] (1.35, 0) ellipse (2.6 and 1.35);
                 \draw[thick, blue] (0, 0) circle (0.3);
-                \draw[thick, red] (0, 0) circle (0.75);
                 \draw[thick, teal] (4.6, 0) circle (0.4);
                 \node[brown] at (2.3, 2.05) {$f_3$};
-                \node[pink] at (1.35, -1.62) {$f_4$};
+                \node[pink] at (1.35, -1.62) {$f_2$};
                 \node[blue] at (-0.52, 0) {$f_1$};
-                \node[red] at (-0.98, 0) {$f_2$};
-                \node[teal] at (4.6, 0.62) {$f_5$};
+                \node[teal] at (4.6, 0.62) {$f_4$};
                 \foreach \i/\x in {1/0, 2/2.6, 3/4.6}{
                     \node[circle, draw = black, fill = white, inner sep = 1.5pt, font = \small] at (\x, 0) {$\i$};
                 }
@@ -101,7 +102,7 @@ Recall, now, the most important result about bipartite graphs.
     \begin{align*}
         \abs{\Gamma(S)} \geq \abs{S}
     \end{align*}
-    where $\Gamma(S) = \setst{v \in B}{\exists u \in A \st u \sim v}$.
+    where $\Gamma(S) = \setst{v \in B}{\exists u \in S \st u \sim v}$.
 \end{boxtheorem}
 \begin{iffproof}
     \onlyifdir Let $M$ be a complete matching of $A$ and let $S \subseteq A$. The partners under $M$ of the elements of $S$ are $\abs{S}$ distinct vertices of $B$, each adjacent to something in $S$, so $\Gamma(S)$ has at least $\abs{S}$ elements.
@@ -110,11 +111,16 @@ Recall, now, the most important result about bipartite graphs.
     \begin{itemize}
         \item \underline{Case 1:} Assume that in fact, $\forall S \subsetneq A$ nonempty, $\abs{\Gamma(S)} \geq \abs{S} + 1$. Arbitrarily match some pair: pick any $a \in A$ and any $b \in \Gamma(\set{a})$, which is nonempty by hypothesis. After deleting this edge---and with it the vertices $a$ and $b$ and every other edge at either of them---the rest satisfies the desired result, since a nonempty $T \subseteq A \setminus \set{a}$ is a nonempty proper subset of $A$ and so had at least $\abs{T} + 1$ neighbors to begin with, of which deleting $b$ can take away only one. What is left has $\abs{A} - 1$ vertices on the left, so we are done by induction: it has a complete matching of $A \setminus \set{a}$, and adding the edge $ab$ to that matching completes it to one of $A$.
 
-            \item \underline{Case 2:} Now assume the opposite, ie, that $\exists S \subsetneq S$ nonempty such that $\abs{\Gamma(S)} = \abs{S}$. We will apply induction again, on $\abs{A}$ as before.
+            \item \underline{Case 2:} Now assume the opposite, ie, that $\exists S \subsetneq A$ nonempty such that $\abs{\Gamma(S)} = \abs{S}$. We will apply induction again, on $\abs{A}$ as before.
 
-            If we restrict our attention to $S$, obviously we have a perfect matching between $S$ and $\Gamma(S)$ by both the definition of $\Gamma$ and the fact that they're of equal cardinality. (There may be more than one, but there is one.)
+            % [CORRECTED] was: "by both the definition of $\Gamma$ and the fact that they're of equal cardinality" --- equal
+            % cardinality does not on its own give a matching; what does is the induction hypothesis.
+            If we restrict our attention to $S$, obviously we have a perfect matching between $S$ and $\Gamma(S)$: every $T \subseteq S$ has $\Gamma(T) \subseteq \Gamma(S)$, so the graph they span satisfies Hall's condition and induction gives a complete matching of $S$, which the fact that they're of equal cardinality makes perfect. (There may be more than one, but there is one.)
 
-            Define $A' = A \setminus S$, $B' = B \setminus \Gamma(S)$. We claim that any bipartite graph structure on $A'$ and $B'$ also has a perfect matching, in which case we'd be done (by induction).
+            % [CORRECTED] was: "any bipartite graph structure on $A'$ and $B'$ also has a perfect matching" --- it is the
+            % induced structure and no other, and $\abs{B'} - \abs{A'} = \abs{B} - \abs{A}$ need not be $0$, so the matching
+            % is complete rather than perfect.
+            Define $A' = A \setminus S$, $B' = B \setminus \Gamma(S)$. We claim that the bipartite graph induced on $A'$ and $B'$ also has a complete matching of $A'$, in which case we'd be done (by induction).
 
             % Not from the lecture: the verification of Hall's condition on A' and B' below, and
             % the assembly of the two matchings, were supplied to close the gap the lecture left here.
@@ -126,7 +132,9 @@ Recall, now, the most important result about bipartite graphs.
     \end{itemize}
 \end{iffproof}
 
-Given a hypergraph $H$, a family of distinct representatives is a collection $x_1, \ldots, x_m$ such that $x_i \in f_i$, where we have distinct hyper-edges $f_1, \ldots, f_m$ in $H$. Such a collection exists iff for any collection $C$ of edges,
+% [CORRECTED] was: "a collection $x_1, \ldots, x_m$ such that $x_i \in f_i$" --- without distinctness the criterion below
+% is false, and it is distinctness that corresponds to a matching under Hall.
+Given a hypergraph $H$, a family of distinct representatives is a collection of distinct $x_1, \ldots, x_m$ such that $x_i \in f_i$, where we have distinct hyper-edges $f_1, \ldots, f_m$ in $H$. Such a collection exists iff for any collection $C$ of edges,
 \begin{align*}
     \abs{\bigcup_{f \in C} f} \geq \abs{C}
 \end{align*}
@@ -134,8 +142,10 @@ In other words, the number of vertices in all the edges in the collection should
 
 We can, in fact, prove an even stronger statement than Hall.
 
+% [CORRECTED] was: "with $d_2 \leq d_1$" --- $d_1 = d_2 = 0$ satisfies that, and an edgeless graph with $A$ nonempty has
+% no complete matching. The proof divides by $d_2$, so $d_2 \geq 1$ is what it uses.
 \begin{boxtheorem}
-    If $G$ is a bipartite graph with parts $A$ and $B$, if all degrees in $A$ are $d_1$ and all degrees in $B$ are $d_2$, with $d_2 \leq d_1$, then there is a complete matching of $A$.
+    If $G$ is a bipartite graph with parts $A$ and $B$, if all degrees in $A$ are $d_1$ and all degrees in $B$ are $d_2$, with $1 \leq d_2 \leq d_1$, then there is a complete matching of $A$.
 \end{boxtheorem}
 
 Such a graph is a good deal more rigid than a bipartite graph with Hall's condition alone; here is one with $d_1 = 4$ and $d_2 = 2$.
@@ -210,7 +220,7 @@ An intuitive way of arguing is to find perfect matchings between the $k$th layer
     \end{align*}
     Note that we can express
     \begin{align*}
-        X = \sum_{h \in H} \xi_{f, \pi}
+        X = \sum_{h \in H} \xi_{h, \pi}
     \end{align*}
     where $\xi_{h, \pi}$ is $1$ if $\pi(h) \in F$ and $0$ otherwise.
 
@@ -218,9 +228,11 @@ An intuitive way of arguing is to find perfect matchings between the $k$th layer
     \begin{align*}
         \E\of{X} = \sum_{h \in H} \E\of{\xi_{h, \pi}}
     \end{align*}
-    Let's now compute the expectation of $\xi_{h, \pi}$. This is the probability that the permutation $\pi \in S_n$ sends $h \in H$ to some element of $F$. Since you cannot modify sizes, the only possible element in $F$ to which $\pi$ can send $h$ is precisely the set $\set{1, 2, \ldots, \abs{h}}$. How many such $\pi$ can do this? We have to consider the way $\pi$ acts on the other $n - \abs{h}$ elements of $h$, because we know it sends $h$ to $\set{1, 2, \ldots, \abs{h}}$. Thus, the probability is
+    % [CORRECTED] was: "Thus, the probability is $\binom{n}{n - \abs{h}} = \binom{n}{\abs{h}}$" --- that is the reciprocal of
+    % the probability, and exceeds $1$. The count also needs the $\abs{h}!$ ways of mapping $h$ onto $\set{1, \ldots, \abs{h}}$.
+    Let's now compute the expectation of $\xi_{h, \pi}$. This is the probability that the permutation $\pi \in S_n$ sends $h \in H$ to some element of $F$. Since you cannot modify sizes, the only possible element in $F$ to which $\pi$ can send $h$ is precisely the set $\set{1, 2, \ldots, \abs{h}}$. How many such $\pi$ can do this? We have to consider the way $\pi$ acts on $h$, and the way it acts on the other $n - \abs{h}$ elements of $[n]$, because we know it sends $h$ to $\set{1, 2, \ldots, \abs{h}}$. There are $\abs{h}! \parenth{n - \abs{h}}!$ such $\pi$, so the probability is
     \begin{align*}
-        \binom{n}{n - \abs{h}} = \binom{n}{\abs{h}}
+        \frac{\abs{h}! \parenth{n - \abs{h}}!}{n!} = \frac{1}{\binom{n}{\abs{h}}}
     \end{align*}
 
     % Not from the lecture: everything below was supplied to close the gap the lecture left here.
