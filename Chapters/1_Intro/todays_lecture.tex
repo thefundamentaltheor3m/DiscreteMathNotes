@@ -24,7 +24,20 @@ Here are some examples of constructing adjacency matrices.
 \begin{boxexample}[Some Adjacency Matrices of Hypergraphs] \hfill
     \begin{enumerate}
         \item Consider the hypergraph
-        % [CLAUDE] Draw a hypergraph with five vertices. Group the edges as follows: edge $a$ contains vertices 1,2,3,4; edge $b$ contains vertices 3,4; and edge $c$ contains vertices 3,5.
+        \begin{center}
+            \begin{tikzpicture}
+                \draw[thick, blue] (1.8, 0) ellipse (2.5 and 0.85);
+                \draw[thick, brown] (3.0, 0) ellipse (0.95 and 0.4);
+                \draw[thick, pink, rotate around = {70:(2.15, -0.7)}] (2.15, -0.7) ellipse (1.15 and 0.42);
+                \node[blue] at (-1.05, 0) {$a$};
+                \node[brown] at (3.0, 0) {$b$};
+                \node[pink] at (1.15, -1.35) {$c$};
+                \foreach \i/\x in {1/0, 2/1.2, 3/2.4, 4/3.6}{
+                    \node[circle, draw = black, fill = white, inner sep = 1.5pt, font = \small] at (\x, 0) {$\i$};
+                }
+                \node[circle, draw = black, fill = white, inner sep = 1.5pt, font = \small] at (1.9, -1.4) {$5$};
+            \end{tikzpicture}
+        \end{center}
         Its adjacency matrix is
         \begin{align*}
             \begin{bmatrix}
@@ -37,7 +50,6 @@ Here are some examples of constructing adjacency matrices.
         \end{align*}
 
         \item Consider the hypergraph
-        % [CLAUDE] just construct the hypergraph corresponding to the following adjacency matrix (hypergraphs and adjacency matrices are in bijection so you should be able to do this easily)
         \begin{align*}
             \begin{bmatrix}
                 1 & 1 & 1 & 1 & 0 \\
@@ -45,39 +57,74 @@ Here are some examples of constructing adjacency matrices.
                 0 & 0 & 1 & 0 & 1
             \end{bmatrix}
         \end{align*}
+        Reading the columns off one at a time, this is the hypergraph on three vertices whose five hyper-edges are $f_1 = f_2 = \set{1}$, $f_3 = \set{1, 2, 3}$, $f_4 = \set{1, 2}$ and $f_5 = \set{3}$.
+        \begin{center}
+            \begin{tikzpicture}
+                \draw[thick, brown] (2.3, 0) ellipse (3.8 and 1.8);
+                \draw[thick, pink] (1.35, 0) ellipse (2.6 and 1.35);
+                \draw[thick, blue] (0, 0) circle (0.3);
+                \draw[thick, red] (0, 0) circle (0.75);
+                \draw[thick, teal] (4.6, 0) circle (0.4);
+                \node[brown] at (2.3, 2.05) {$f_3$};
+                \node[pink] at (1.35, -1.62) {$f_4$};
+                \node[blue] at (-0.52, 0) {$f_1$};
+                \node[red] at (-0.98, 0) {$f_2$};
+                \node[teal] at (4.6, 0.62) {$f_5$};
+                \foreach \i/\x in {1/0, 2/2.6, 3/4.6}{
+                    \node[circle, draw = black, fill = white, inner sep = 1.5pt, font = \small] at (\x, 0) {$\i$};
+                }
+            \end{tikzpicture}
+        \end{center}
     \end{enumerate}
 \end{boxexample}
 
 It turns out that there is not just a correspondence between hypergraphs and $0,1$ adjacency matrices, we can also complete the trifecta with bipartite graphs.
 
-% [CLAUDE] draw a schematic triangle - Hypergraphs next to one vertex, adjacency vertices next to another, and bipartite graphs next to the third
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \node[align = center] (hyp) at (90:2.4) {Hypergraphs};
+        \node[align = center] (mat) at (210:2.4) {$0,1$ matrices};
+        \node[align = center] (bip) at (330:2.4) {Bipartite graphs};
+        \draw[<->, thick] (hyp) -- (mat);
+        \draw[<->, thick] (mat) -- (bip);
+        \draw[<->, thick] (bip) -- (hyp);
+    \end{tikzpicture}
+\end{figure}
+
+The bipartite graph attached to $H$ has the vertices of $H$ on one side and the hyper-edges of $H$ on the other, with $v$ joined to $f$ exactly when $v \in f$, which is to say exactly when the adjacency matrix has a $1$ in position $(v, f)$.
 
 Recall, now, the most important result about bipartite graphs.
 
-\begin{boxtheorem}[Hall's Marriage Theorem]
+\begin{boxtheorem}[Hall's Marriage Theorem] \label{Ch1:Thm:Hall}
     Given a bipartite graph with parts $A$ and $B$, there is a complete matching of $A$ iff $\forall S \subseteq A$,
     \begin{align*}
         \abs{\Gamma(S)} \geq \abs{S}
     \end{align*}
     where $\Gamma(S) = \setst{v \in B}{\exists u \in A \st u \sim v}$.
 \end{boxtheorem}
-\begin{proof} \hfill
-    \begin{description} % [CLAUDE] refactor the entire repo with some simple environment or something for iff proofs - have one \item-like command for the if and another for the only if (could do if first then only if, or vice-versa, order should be allowed to vary from proof to proof)
-        \item[$\parenth{\impliedby}$]  Let's do some casework.
-        \begin{itemize}
-            \item \underline{Case 1:} Assume that in fact, $\forall S \subsetneq A$ nonempty, $\abs{\Gamma(S)} \geq \abs{S} + 1$. Arbitrarily match some pair, After deleting this edge, the rest satisfies the desired result, so we are done by induction.
-            % [CLAUDE] flesh this out a bit
+\begin{iffproof}
+    \onlyifdir Let $M$ be a complete matching of $A$ and let $S \subseteq A$. The partners under $M$ of the elements of $S$ are $\abs{S}$ distinct vertices of $B$, each adjacent to something in $S$, so $\Gamma(S)$ has at least $\abs{S}$ elements.
 
-            \item \underline{Case 2:} Now assume the opposite, ie, that $\exists S \subsetneq S$ nonempty such that $\abs{\Gamma(S)} = \abs{S}$. We will apply induction again. % [CLAUDE] induction on what?
+    \ifdir We induct on $\abs{A}$. If $\abs{A} = 1$, then Hall's condition applied to $A$ itself says that the one vertex of $A$ has a neighbor, and matching it to one is a complete matching. So suppose $\abs{A} > 1$, and let's do some casework.
+    \begin{itemize}
+        \item \underline{Case 1:} Assume that in fact, $\forall S \subsetneq A$ nonempty, $\abs{\Gamma(S)} \geq \abs{S} + 1$. Arbitrarily match some pair: pick any $a \in A$ and any $b \in \Gamma(\set{a})$, which is nonempty by hypothesis. After deleting this edge---and with it the vertices $a$ and $b$ and every other edge at either of them---the rest satisfies the desired result, since a nonempty $T \subseteq A \setminus \set{a}$ is a nonempty proper subset of $A$ and so had at least $\abs{T} + 1$ neighbors to begin with, of which deleting $b$ can take away only one. What is left has $\abs{A} - 1$ vertices on the left, so we are done by induction: it has a complete matching of $A \setminus \set{a}$, and adding the edge $ab$ to that matching completes it to one of $A$.
+
+            \item \underline{Case 2:} Now assume the opposite, ie, that $\exists S \subsetneq S$ nonempty such that $\abs{\Gamma(S)} = \abs{S}$. We will apply induction again, on $\abs{A}$ as before.
 
             If we restrict our attention to $S$, obviously we have a perfect matching between $S$ and $\Gamma(S)$ by both the definition of $\Gamma$ and the fact that they're of equal cardinality. (There may be more than one, but there is one.)
 
             Define $A' = A \setminus S$, $B' = B \setminus \Gamma(S)$. We claim that any bipartite graph structure on $A'$ and $B'$ also has a perfect matching, in which case we'd be done (by induction).
 
-            \sorry % [CLAUDE] finish this proof!
-        \end{itemize}
-    \end{description}
-\end{proof}
+            % Not from the lecture: the verification of Hall's condition on A' and B' below, and
+            % the assembly of the two matchings, were supplied to close the gap the lecture left here.
+            Writing $\Gamma'$ for the neighborhood taken in that smaller graph, we have $\Gamma'(T) = \Gamma(T) \setminus \Gamma(S)$ for every $T \subseteq A'$. Such a $T$ is disjoint from $S$, so $\Gamma(S \cup T) = \Gamma(S) \cup \Gamma(T)$, and therefore
+            \begin{align*}
+                \abs{\Gamma'(T)} = \abs{\Gamma(S) \cup \Gamma(T)} - \abs{\Gamma(S)} = \abs{\Gamma(S \cup T)} - \abs{S} \geq \abs{S \cup T} - \abs{S} = \abs{T}
+            \end{align*}
+            where the inequality is Hall's condition applied to $S \cup T$. So the smaller graph satisfies Hall's condition, and $\abs{A'} < \abs{A}$ because $S$ is nonempty, so induction gives a complete matching of $A'$ into $B'$. That matching touches no vertex of $S$ and no vertex of $\Gamma(S)$, so laying it alongside the matching of $S$ onto $\Gamma(S)$ gives a complete matching of $A$.
+    \end{itemize}
+\end{iffproof}
 
 Given a hypergraph $H$, a family of distinct representatives is a collection $x_1, \ldots, x_m$ such that $x_i \in f_i$, where we have distinct hyper-edges $f_1, \ldots, f_m$ in $H$. Such a collection exists iff for any collection $C$ of edges,
 \begin{align*}
@@ -90,13 +137,27 @@ We can, in fact, prove an even stronger statement than Hall.
 \begin{boxtheorem}
     If $G$ is a bipartite graph with parts $A$ and $B$, if all degrees in $A$ are $d_1$ and all degrees in $B$ are $d_2$, with $d_2 \leq d_1$, then there is a complete matching of $A$.
 \end{boxtheorem}
-% [CLAUDE] include a picture of such a graph
+
+Such a graph is a good deal more rigid than a bipartite graph with Hall's condition alone; here is one with $d_1 = 4$ and $d_2 = 2$.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \bipartiteparts{3}{6}
+        \foreach \i/\j in {1/1, 1/2, 1/3, 1/4, 2/3, 2/4, 2/5, 2/6, 3/5, 3/6, 3/1, 3/2}{
+            \draw (A\i) -- (B\j);
+        }
+        \node[anchor = south] at (0, 1.5) {$A$};
+        \node[anchor = south] at (3, 2.55) {$B$};
+    \end{tikzpicture}
+\end{figure}
+
 \begin{proof}
-    Given a set $S \ssq A$, there are $d_1 \abs{S}$ edges coming out of $S$ and going to the right. Then,
+    Given a set $S \ssq A$, there are $d_1 \abs{S}$ edges coming out of $S$ and going to the right. Each vertex of $\Gamma(S)$ absorbs at most $d_2$ of them, so
     \begin{align*}
         \abs{\Gamma(S)} \geq \frac{d_1\abs{S}}{d_2} \geq \abs{S}
     \end{align*}
-    so we can just apply Hall. % [CLAUDE] add cross-ref (/integrate should do this anyway, but still worth saying explicitly)
+    so we can just apply \Cref{Ch1:Thm:Hall}.
 \end{proof}
 
 \begin{boxdefinition}[Sperner System]
@@ -104,11 +165,27 @@ We can, in fact, prove an even stronger statement than Hall.
 \end{boxdefinition}
 
 \begin{boxexample}
-    The following is a Sperner system:
-    % [CLAUDE] draw a 4-level thing for [3]: bottom level is empty set; one level above that is singletons {1}, {2}, {3}; level above that is two-element subsets; and top is [3]. Draw edges between vertices (subsets) where the thing in the layer below is included in the thing in the layer above. The layers are all Sperner systems.
+    The three two-element subsets of $\brac{3}$, circled below, form a Sperner system.
 \end{boxexample}
 
-% [CLAUDE] include a paragraph explaining what the above diagram is, why we can study Sperner systems by drawing such diagrams, hammering home that each layer is a SS rather than the entire graph... add some more details here, this was under-explained in the lecture and confused me (though I understand it now)
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \node (se) at (0, 0) {$\emptyset$};
+        \node (s1) at (-2.4, 1.5) {$\set{1}$};
+        \node (s2) at (0, 1.5) {$\set{2}$};
+        \node (s3) at (2.4, 1.5) {$\set{3}$};
+        \node[ellipse, draw = pink, thick, inner sep = 2pt] (s12) at (-2.4, 3) {$\set{1, 2}$};
+        \node[ellipse, draw = pink, thick, inner sep = 2pt] (s13) at (0, 3) {$\set{1, 3}$};
+        \node[ellipse, draw = pink, thick, inner sep = 2pt] (s23) at (2.4, 3) {$\set{2, 3}$};
+        \node (s123) at (0, 4.5) {$\brac{3}$};
+        \foreach \u/\v in {se/s1, se/s2, se/s3, s1/s12, s1/s13, s2/s12, s2/s23, s3/s13, s3/s23, s12/s123, s13/s123, s23/s123}{
+            \draw (\u) -- (\v);
+        }
+    \end{tikzpicture}
+\end{figure}
+
+The picture is the whole collection of subsets of $\brac{3}$ ordered by inclusion, arranged in layers by size, with an edge drawn from each set to every set one size up that contains it. Containment between two subsets is then visible as an upward path, so a Sperner system is precisely a collection of vertices no two of which are joined by such a path---and drawing the diagram turns a question about set inclusions into a question about which vertices we are allowed to pick. The diagram as a whole is emphatically not a Sperner system; each individual layer is, since two distinct sets of the same size never contain one another. That gives us two Sperner systems of size $3$ here, the singletons and the two-element subsets, and the top and bottom layers give two more, though useless ones: any system containing $\emptyset$ or $\brac{3}$ can contain nothing else.
 
 How large can a Sperner system be?
 
@@ -138,12 +215,18 @@ An intuitive way of arguing is to find perfect matchings between the $k$th layer
     where $\xi_{h, \pi}$ is $1$ if $\pi(h) \in F$ and $0$ otherwise.
 
     Computing the expected value of $X$, we get
-    \begin{align*} % [CLAUDE] define notation for expected value - should be \mathbb{E}
-        E(X) = \sum_{h \in H} E\of{\xi_{h, \pi}}
+    \begin{align*}
+        \E\of{X} = \sum_{h \in H} \E\of{\xi_{h, \pi}}
     \end{align*}
     Let's now compute the expectation of $\xi_{h, \pi}$. This is the probability that the permutation $\pi \in S_n$ sends $h \in H$ to some element of $F$. Since you cannot modify sizes, the only possible element in $F$ to which $\pi$ can send $h$ is precisely the set $\set{1, 2, \ldots, \abs{h}}$. How many such $\pi$ can do this? We have to consider the way $\pi$ acts on the other $n - \abs{h}$ elements of $h$, because we know it sends $h$ to $\set{1, 2, \ldots, \abs{h}}$. Thus, the probability is
     \begin{align*}
         \binom{n}{n - \abs{h}} = \binom{n}{\abs{h}}
     \end{align*}
-    \sorry % [CLAUDE] finish proof by concluding that expectation of X is less than 1 and then concluding
+
+    % Not from the lecture: everything below was supplied to close the gap the lecture left here.
+    The conclusion now comes from bounding $\E\of{X}$ on the other side. Any $\pi$ is a bijection and so preserves containment, which makes $H_{\pi}$ a Sperner system; and $F$ is a chain, any two of its members being comparable. A chain and a Sperner system share at most one set, so $X \leq 1$ for every $\pi$, and hence $\E\of{X} \leq 1$. Since $\binom{n}{k}$ is largest at $k = \floor{n / 2}$, this gives
+    \begin{align*}
+        1 \geq \E\of{X} = \sum_{h \in H} \frac{1}{\binom{n}{\abs{h}}} \geq \sum_{h \in H} \frac{1}{\binom{n}{\floor{n / 2}}} = \frac{\abs{H}}{\binom{n}{\floor{n / 2}}}
+    \end{align*}
+    and rearranging is exactly the bound we wanted.
 \end{proof}

@@ -38,31 +38,29 @@ Here's a cool result.
 \begin{boxtheorem}
     A graph $G = (V, E)$ can be $2$-colored if and only if $G$ has no odd cycle.
 \end{boxtheorem}
-\begin{proof} \hfill
-    \begin{description}
-        \item[$\parenth{\implies}$] We've already seen that odd cycles can't be $2$-colored. So if $G$ can be $2$-colored, it can't have an odd cycle. We've essentially seen this from the examples above.
+\begin{iffproof}
+    \onlyifdir We've already seen that odd cycles can't be $2$-colored. So if $G$ can be $2$-colored, it can't have an odd cycle. We've essentially seen this from the examples above.
 
-        \item[$\parenth{\impliedby}$] We may assume $G$ is connected, since otherwise we can color each component separately. Fix some $v_0 \in V$. Define $c : V \to \set{1, 2}$ by
-        \begin{align*}
-            c(u) =
-            \begin{cases}
-                2 & \text{ if } \dist{v_0, u} \text{ is odd} \\
-                1 & \text{ if } \dist{v_0, u} \text{ is even}
-            \end{cases}
-        \end{align*}
-        where $\dist{\cdot, \cdot}$ denotes the shortest number of edges from one vertex to another.
+    \ifdir We may assume $G$ is connected, since otherwise we can color each component separately. Fix some $v_0 \in V$. Define $c : V \to \set{1, 2}$ by
+    \begin{align*}
+        c(u) =
+        \begin{cases}
+            2 & \text{ if } \dist{v_0, u} \text{ is odd} \\
+            1 & \text{ if } \dist{v_0, u} \text{ is even}
+        \end{cases}
+    \end{align*}
+    where $\dist{\cdot, \cdot}$ denotes the shortest number of edges from one vertex to another.
 
-        We claim that this $c$ is a valid $2$-coloring.
+    We claim that this $c$ is a valid $2$-coloring.
 
-        Indeed, suppose it is not. Then, there must be some $u, v \in V$ such that $u \sim v$ and $c(u) = c(v)$. Now let's consider the two possible cases on the color.
+    Indeed, suppose it is not. Then, there must be some $u, v \in V$ such that $u \sim v$ and $c(u) = c(v)$. Now let's consider the two possible cases on the color.
 
-        Suppose $c(u) = c(v) = 1$ for adjacent $u, v$. Then, there is a path of even length between $v$ and $v_0$ and another path of even length between $u$ and $v_0$. Concatenating the path from $v$ to $v_0$ with the one from $v_0$ to $u$, and closing up with the edge $uv$, we get a closed walk of length even $+$ even $+ 1$. This is odd, so by \Cref{Ch1:Lemma:Odd_Closed_Walk}, $G$ has an odd cycle.
+    Suppose $c(u) = c(v) = 1$ for adjacent $u, v$. Then, there is a path of even length between $v$ and $v_0$ and another path of even length between $u$ and $v_0$. Concatenating the path from $v$ to $v_0$ with the one from $v_0$ to $u$, and closing up with the edge $uv$, we get a closed walk of length even $+$ even $+ 1$. This is odd, so by \Cref{Ch1:Lemma:Odd_Closed_Walk}, $G$ has an odd cycle.
 
-        The case $c(u) = c(v) = 2$ is identical: the two paths are now of odd length, so the closed walk they form with the edge $uv$ has length odd $+$ odd $+ 1$, which is odd again.
+    The case $c(u) = c(v) = 2$ is identical: the two paths are now of odd length, so the closed walk they form with the edge $uv$ has length odd $+$ odd $+ 1$, which is odd again.
 
-        Either way, $G$ has an odd cycle, contrary to hypothesis. So $c$ must be a valid $2$-coloring.
-    \end{description}
-\end{proof}
+    Either way, $G$ has an odd cycle, contrary to hypothesis. So $c$ must be a valid $2$-coloring.
+\end{iffproof}
 
 \subsection{Colorings of Hypergraphs}
 
