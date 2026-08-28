@@ -46,7 +46,7 @@ What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
     1.3.1 Adjacency Matrices                        [2026-08-28]
       Adj(H), once vertices and edges are put in some order
       the hypergraph / 0,1 matrix / bipartite graph trifecta
-      two worked examples; the second's matrix has a repeated column
+      two worked examples, the second read off a matrix rather than drawn
     1.3.2 Hall's Marriage Theorem                   [2026-08-28]
       Hall, both directions, by induction on |A|, for A finite
       families of distinct representatives, as Hall read on a hypergraph

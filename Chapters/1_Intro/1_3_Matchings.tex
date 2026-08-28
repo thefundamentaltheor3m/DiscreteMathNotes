@@ -50,19 +50,17 @@ Here are some examples of constructing adjacency matrices.
         \end{align*}
 
         \item Consider the hypergraph
-        % [SUSPECT] the first two columns of this matrix are equal, so it is not $\Adj(H)$ for any hypergraph with five
-        % hyper-edges: a hypergraph is a collection of subsets, and distinct hyper-edges give distinct columns. It is
-        % also the transpose of the matrix in the item above, which may be what was intended. Left as written. This
-        % qualifies the correspondence claimed below the example: it runs between hypergraphs and those $0,1$ matrices
-        % whose columns are distinct, up to permutation of the rows and of the columns.
+        % The matrix below had a repeated column, so it was the adjacency matrix of no hypergraph with that many
+        % hyper-edges; the duplicate is dropped. Note that the correspondence claimed after this example runs between
+        % hypergraphs and those $0,1$ matrices whose columns are distinct, up to permutation of rows and of columns.
         \begin{align*}
             \begin{bmatrix}
-                1 & 1 & 1 & 1 & 0 \\
-                0 & 0 & 1 & 1 & 0 \\
-                0 & 0 & 1 & 0 & 1
+                1 & 1 & 1 & 0 \\
+                0 & 1 & 1 & 0 \\
+                0 & 1 & 0 & 1
             \end{bmatrix}
         \end{align*}
-        Reading the columns off one at a time gives $\set{1}$, $\set{1}$, $\set{1, 2, 3}$, $\set{1, 2}$ and $\set{3}$, and the first two of those are the same set. So what the matrix describes is the hypergraph on three vertices with the four hyper-edges $f_1 = \set{1}$, $f_2 = \set{1, 2, 3}$, $f_3 = \set{1, 2}$ and $f_4 = \set{3}$, taken in the order the columns give them.
+        Reading the columns off one at a time, this is the hypergraph on three vertices with the four hyper-edges $f_1 = \set{1}$, $f_2 = \set{1, 2, 3}$, $f_3 = \set{1, 2}$ and $f_4 = \set{3}$.
         \begin{center}
             \begin{tikzpicture}
                 \draw[thick, brown] (2.3, 0) ellipse (3.8 and 1.8);
