@@ -64,15 +64,15 @@ Here are some examples of constructing adjacency matrices.
                 0 & 0 & 1 & 0 & 1
             \end{bmatrix}
         \end{align*}
-        Reading the columns off one at a time gives $\set{1}$, $\set{1}$, $\set{1, 2, 3}$, $\set{1, 2}$ and $\set{3}$, and the first two of those are the same set. So what the matrix describes is the hypergraph on three vertices with the four hyper-edges $f_1 = \set{1}$, $f_2 = \set{1, 2}$, $f_3 = \set{1, 2, 3}$ and $f_4 = \set{3}$.
+        Reading the columns off one at a time gives $\set{1}$, $\set{1}$, $\set{1, 2, 3}$, $\set{1, 2}$ and $\set{3}$, and the first two of those are the same set. So what the matrix describes is the hypergraph on three vertices with the four hyper-edges $f_1 = \set{1}$, $f_2 = \set{1, 2, 3}$, $f_3 = \set{1, 2}$ and $f_4 = \set{3}$, taken in the order the columns give them.
         \begin{center}
             \begin{tikzpicture}
                 \draw[thick, brown] (2.3, 0) ellipse (3.8 and 1.8);
                 \draw[thick, pink] (1.35, 0) ellipse (2.6 and 1.35);
                 \draw[thick, blue] (0, 0) circle (0.3);
                 \draw[thick, teal] (4.6, 0) circle (0.4);
-                \node[brown] at (2.3, 2.05) {$f_3$};
-                \node[pink] at (1.35, -1.62) {$f_2$};
+                \node[brown] at (2.3, 2.05) {$f_2$};
+                \node[pink] at (1.35, -1.62) {$f_3$};
                 \node[blue] at (-0.52, 0) {$f_1$};
                 \node[teal] at (4.6, 0.62) {$f_4$};
                 \foreach \i/\x in {1/0, 2/2.6, 3/4.6}{
@@ -101,8 +101,11 @@ The bipartite graph attached to $H$ has the vertices of $H$ on one side and the 
 
 Recall, now, the most important result about bipartite graphs.
 
+% [CORRECTED] was: "Given a bipartite graph with parts $A$ and $B$" --- with $A$ infinite the "if" direction is false:
+% join $a_0$ to every $b_i$ and $a_i$ to $b_i$ alone, and Hall's condition holds while $a_0$ has nowhere to go. The
+% induction below is on $\abs{A}$ and needs it. $B$ is never counted, so it may stay arbitrary.
 \begin{boxtheorem}[Hall's Marriage Theorem] \label{Ch1:Thm:Hall}
-    Given a bipartite graph with parts $A$ and $B$, there is a complete matching of $A$ iff $\forall S \subseteq A$,
+    Given a bipartite graph with parts $A$ and $B$, with $A$ finite, there is a complete matching of $A$ iff $\forall S \subseteq A$,
     \begin{align*}
         \abs{\Gamma(S)} \geq \abs{S}
     \end{align*}
@@ -144,7 +147,9 @@ Given a hypergraph $H$, a family of distinct representatives is a collection of 
 \end{align*}
 In other words, the number of vertices in all the edges in the collection should be at least the number of edges in the collection. This is what Hall's Marriage Theorem tells us about hypergraphs.
 
-We can, in fact, prove an even stronger statement than Hall.
+% [CORRECTED] was: "We can, in fact, prove an even stronger statement than Hall." --- the result below is a corollary
+% of Hall: its proof verifies Hall's condition and then cites it, and it applies to strictly fewer graphs.
+Hall's condition asks something of every subset of $A$, which is a lot to check. There is a consequence of it that only asks about degrees.
 
 % [CORRECTED] was: "with $d_2 \leq d_1$" --- $d_1 = d_2 = 0$ satisfies that, and an edgeless graph with $A$ nonempty has
 % no complete matching. The proof divides by $d_2$, so $d_2 \geq 1$ is what it uses.
@@ -233,7 +238,7 @@ An intuitive way of arguing is to find perfect matchings between the $k$th layer
         \E\of{X} = \sum_{h \in H} \E\of{\xi_{h, \pi}}
     \end{align*}
     % [CORRECTED] was: "Thus, the probability is $\binom{n}{n - \abs{h}} = \binom{n}{\abs{h}}$" --- that is the reciprocal of
-    % the probability, and exceeds $1$. The count also needs the $\abs{h}!$ ways of mapping $h$ onto $\set{1, \ldots, \abs{h}}$.
+    % the probability, and is $> 1$ whenever $0 < \abs{h} < n$. The count also needs the $\abs{h}!$ ways of mapping $h$ onto $\set{1, \ldots, \abs{h}}$.
     Let's now compute the expectation of $\xi_{h, \pi}$. This is the probability that the permutation $\pi \in S_n$ sends $h \in H$ to some element of $F$. Since you cannot modify sizes, the only possible element in $F$ to which $\pi$ can send $h$ is precisely the set $\set{1, 2, \ldots, \abs{h}}$. How many such $\pi$ can do this? We have to consider the way $\pi$ acts on $h$, and the way it acts on the other $n - \abs{h}$ elements of $[n]$, because we know it sends $h$ to $\set{1, 2, \ldots, \abs{h}}$. There are $\abs{h}! \parenth{n - \abs{h}}!$ such $\pi$, so the probability is
     \begin{align*}
         \frac{\abs{h}! \parenth{n - \abs{h}}!}{n!} = \frac{1}{\binom{n}{\abs{h}}}
