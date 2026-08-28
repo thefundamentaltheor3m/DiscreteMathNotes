@@ -290,3 +290,16 @@
 \newcommand{\Adj}{\operatorname{Adj}}
 
 \newcommand{\ssq}{\subseteq}
+
+\newcommand{\E}{\mathbb{E}}
+
+\newcommand{\bipartiteparts}[3][0.9]{  % [spacing]{m}{n}: the two parts of a bipartite graph, as columns of m and n vertices named (A1), ..., (Am) and (B1), ..., (Bn), ready to be joined by \draw (A1) -- (B2);
+    \foreach \i in {1, ..., #2}{
+        \pgfmathsetmacro{\yleft}{#1 * ((#2 + 1) / 2 - \i)}
+        \node[circle, fill = black, inner sep = 1.5pt] (A\i) at (0, \yleft) {};
+    }
+    \foreach \j in {1, ..., #3}{
+        \pgfmathsetmacro{\yright}{#1 * ((#3 + 1) / 2 - \j)}
+        \node[circle, fill = black, inner sep = 1.5pt] (B\j) at (3, \yright) {};
+    }
+}

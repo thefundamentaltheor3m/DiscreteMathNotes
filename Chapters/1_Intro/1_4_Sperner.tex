@@ -1,0 +1,76 @@
+\section{Sperner Systems}
+
+A hypergraph is a family of subsets of its vertex set, and the last question this chapter asks about one is how large it can be. Unrestricted the question is dull---all $2^n$ subsets of $[n]$ form a hypergraph---so we forbid the cheapest way of making a family large, which is to pile sets up inside one another.
+
+\begin{boxdefinition}[Sperner System]
+    A collection of subsets of $[n]$ such that none is a subset of another is called a Sperner system.
+\end{boxdefinition}
+
+\begin{boxexample}
+    The three two-element subsets of $\brac{3}$, circled below, form a Sperner system.
+\end{boxexample}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \node (se) at (0, 0) {$\emptyset$};
+        \node (s1) at (-2.4, 1.5) {$\set{1}$};
+        \node (s2) at (0, 1.5) {$\set{2}$};
+        \node (s3) at (2.4, 1.5) {$\set{3}$};
+        \node[ellipse, draw = pink, thick, inner sep = 2pt] (s12) at (-2.4, 3) {$\set{1, 2}$};
+        \node[ellipse, draw = pink, thick, inner sep = 2pt] (s13) at (0, 3) {$\set{1, 3}$};
+        \node[ellipse, draw = pink, thick, inner sep = 2pt] (s23) at (2.4, 3) {$\set{2, 3}$};
+        \node (s123) at (0, 4.5) {$\brac{3}$};
+        \foreach \u/\v in {se/s1, se/s2, se/s3, s1/s12, s1/s13, s2/s12, s2/s23, s3/s13, s3/s23, s12/s123, s13/s123, s23/s123}{
+            \draw (\u) -- (\v);
+        }
+    \end{tikzpicture}
+\end{figure}
+
+The picture is the whole collection of subsets of $\brac{3}$ ordered by inclusion, arranged in layers by size, with an edge drawn from each set to every set one size up that contains it. Containment between two subsets is then visible as an upward path, so a Sperner system is precisely a collection of vertices no two of which are joined by such a path---and drawing the diagram turns a question about set inclusions into a question about which vertices we are allowed to pick. The diagram as a whole is emphatically not a Sperner system; each individual layer is, since two distinct sets of the same size never contain one another. That gives us two Sperner systems of size $3$ here, the singletons and the two-element subsets, and the top and bottom layers give two more, though useless ones: any system containing $\emptyset$ or $\brac{3}$ can contain nothing else.
+
+How large can a Sperner system be?
+
+\begin{boxtheorem}[Sperner's Theorem]
+    A Sperner system on $[n]$ can have at most $\binom{n}{\floor{n/2}}$ sets.
+\end{boxtheorem}
+
+An intuitive way of arguing is to find perfect matchings between the $k$th layer and the $(k + 1)$th layer (cf. \Cref{Ch1:Thm:Hall}), but at some point, this starts to break down. And at what point is that? Before $k$ exceeds $n / 2$.
+
+\begin{proof}
+    Let $H$ be a Sperner system on $[n]$. Define
+    \begin{align*}
+        F = \set{\emptyset, \set{1}, \set{1, 2}, \set{1, 2, 3}, \ldots, \set{1, 2, \ldots, n}}
+    \end{align*}
+    Choose a random permutation $\pi \in S_n$, and define 
+    \begin{align*}
+        H_{\pi} = \setst{\pi(h)}{h \in H}
+    \end{align*}
+    Define the random variable
+    \begin{align*}
+        X = \abs{\setst{f \in F}{f \in H_{\pi}}}
+    \end{align*}
+    Note that we can express
+    \begin{align*}
+        X = \sum_{h \in H} \xi_{h, \pi}
+    \end{align*}
+    where $\xi_{h, \pi}$ is $1$ if $\pi(h) \in F$ and $0$ otherwise.
+
+    Computing the expected value of $X$, we get
+    \begin{align*}
+        \E\of{X} = \sum_{h \in H} \E\of{\xi_{h, \pi}}
+    \end{align*}
+    % [CORRECTED] was: "Thus, the probability is $\binom{n}{n - \abs{h}} = \binom{n}{\abs{h}}$" --- that is the reciprocal of
+    % the probability, and is $> 1$ whenever $0 < \abs{h} < n$. The count also needs the $\abs{h}!$ ways of mapping $h$ onto $\set{1, \ldots, \abs{h}}$.
+    Let's now compute the expectation of $\xi_{h, \pi}$. This is the probability that the permutation $\pi \in S_n$ sends $h \in H$ to some element of $F$. Since you cannot modify sizes, the only possible element in $F$ to which $\pi$ can send $h$ is precisely the set $\set{1, 2, \ldots, \abs{h}}$. How many such $\pi$ can do this? We have to consider the way $\pi$ acts on $h$, and the way it acts on the other $n - \abs{h}$ elements of $[n]$, because we know it sends $h$ to $\set{1, 2, \ldots, \abs{h}}$. There are $\abs{h}! \parenth{n - \abs{h}}!$ such $\pi$, so the probability is
+    \begin{align*}
+        \frac{\abs{h}! \parenth{n - \abs{h}}!}{n!} = \frac{1}{\binom{n}{\abs{h}}}
+    \end{align*}
+
+    % Not from the lecture: everything below was supplied to close the gap the lecture left here.
+    The conclusion now comes from bounding $\E\of{X}$ on the other side. Any $\pi$ is a bijection and so preserves containment, which makes $H_{\pi}$ a Sperner system; and $F$ is a chain, any two of its members being comparable. A chain and a Sperner system share at most one set, so $X \leq 1$ for every $\pi$, and hence $\E\of{X} \leq 1$. Since $\binom{n}{k}$ is largest at $k = \floor{n / 2}$, this gives
+    \begin{align*}
+        1 \geq \E\of{X} = \sum_{h \in H} \frac{1}{\binom{n}{\abs{h}}} \geq \sum_{h \in H} \frac{1}{\binom{n}{\floor{n / 2}}} = \frac{\abs{H}}{\binom{n}{\floor{n / 2}}}
+    \end{align*}
+    and rearranging is exactly the bound we wanted.
+\end{proof}

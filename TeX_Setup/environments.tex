@@ -102,5 +102,15 @@
     \end{exercise}\end{tcolorbox}
 }
 
+% Proofs of an "if and only if", whose two directions are the two items of a
+% `description`. The order of the directions is left to each proof.
+\newenvironment{iffproof}{
+    \begin{proof} \hfill \begin{description}
+}{
+    \end{description} \end{proof}
+}
+\newcommand{\ifdir}{\item[$\parenth{\impliedby}$]}
+\newcommand{\onlyifdir}{\item[$\parenth{\implies}$]}
+
 % \def\SMALLCOLWIDTH{1.5cm}
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
