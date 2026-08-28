@@ -8,8 +8,10 @@
 
 We can represent the data of a hypergraph $H$ in a matrix, known as the adjacency matrix.
 
+% [CORRECTED] was: "with $n$ vertices and $m$ hyper-edges, then" --- a hypergraph is a collection of subsets and carries
+% no ordering of either, so without one the recipe names $n! m! / \abs{\operatorname{Aut}(H)}$ matrices rather than one.
 \begin{boxdefinition}[Adjacency Matrix]
-    If $H$ is a hypergraph with $n$ vertices and $m$ hyper-edges, then the adjacency matrix of $H$, denoted $\Adj(H)$, is the unique $n \times m$ matrix $\parenth{a_{ij}}$ where
+    If $H$ is a hypergraph with $n$ vertices and $m$ hyper-edges, both taken in some fixed order, then the adjacency matrix of $H$, denoted $\Adj(H)$, is the unique $n \times m$ matrix $\parenth{a_{ij}}$ where
     \begin{align*}
         a_{ij} =
         \begin{cases}
@@ -52,7 +54,9 @@ Here are some examples of constructing adjacency matrices.
         \item Consider the hypergraph
         % [SUSPECT] the first two columns of this matrix are equal, so it is not $\Adj(H)$ for any hypergraph with five
         % hyper-edges: a hypergraph is a collection of subsets, and distinct hyper-edges give distinct columns. It is
-        % also the transpose of the matrix in the item above, which may be what was intended. Left as written.
+        % also the transpose of the matrix in the item above, which may be what was intended. Left as written. This
+        % qualifies the correspondence claimed below the example: it runs between hypergraphs and those $0,1$ matrices
+        % whose columns are distinct, up to permutation of the rows and of the columns.
         \begin{align*}
             \begin{bmatrix}
                 1 & 1 & 1 & 1 & 0 \\
@@ -124,11 +128,11 @@ Recall, now, the most important result about bipartite graphs.
 
             % Not from the lecture: the verification of Hall's condition on A' and B' below, and
             % the assembly of the two matchings, were supplied to close the gap the lecture left here.
-            Writing $\Gamma'$ for the neighborhood taken in that smaller graph, we have $\Gamma'(T) = \Gamma(T) \setminus \Gamma(S)$ for every $T \subseteq A'$. Such a $T$ is disjoint from $S$, so $\Gamma(S \cup T) = \Gamma(S) \cup \Gamma(T)$, and therefore
+            Writing $\Gamma'$ for the neighborhood taken in that smaller graph, we have $\Gamma'(T) = \Gamma(T) \setminus \Gamma(S)$ for every $T \subseteq A'$, and $\Gamma(S \cup T) = \Gamma(S) \cup \Gamma(T)$ as it does for any two sets, so
             \begin{align*}
                 \abs{\Gamma'(T)} = \abs{\Gamma(S) \cup \Gamma(T)} - \abs{\Gamma(S)} = \abs{\Gamma(S \cup T)} - \abs{S} \geq \abs{S \cup T} - \abs{S} = \abs{T}
             \end{align*}
-            where the inequality is Hall's condition applied to $S \cup T$. So the smaller graph satisfies Hall's condition, and $\abs{A'} < \abs{A}$ because $S$ is nonempty, so induction gives a complete matching of $A'$ into $B'$. That matching touches no vertex of $S$ and no vertex of $\Gamma(S)$, so laying it alongside the matching of $S$ onto $\Gamma(S)$ gives a complete matching of $A$.
+            where the inequality is Hall's condition applied to $S \cup T$, and the last step is that $T \subseteq A'$ is disjoint from $S$. So the smaller graph satisfies Hall's condition, and $\abs{A'} < \abs{A}$ because $S$ is nonempty, so induction gives a complete matching of $A'$ into $B'$. That matching touches no vertex of $S$ and no vertex of $\Gamma(S)$, so laying it alongside the matching of $S$ onto $\Gamma(S)$ gives a complete matching of $A$.
     \end{itemize}
 \end{iffproof}
 
