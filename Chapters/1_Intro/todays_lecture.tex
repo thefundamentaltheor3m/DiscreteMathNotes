@@ -20,7 +20,7 @@ The question is: how big can an intersecting $k$-uniform hypergraph be? Ie, how 
     \item $k > \frac{n}{2}$: we can do better! $\binom{n}{k}$ works because of something involving pigeons and holes.
 \end{itemize}
 
-\begin{boxtheorem}[\Edros-Ko-Rado]
+\begin{boxtheorem}[\Erdos-Ko-Rado]
     If $n \geq 2k$, and $H$ is an intersecting $k$-uniform hypergraph on $n$ vertices, then the number of hyper-edges of $H$ is $\leq \binom{n-1}{k-1}$. Moreover, if $n \geq 2k + 1$, then the (``unique'') extremal example is given by all $k$-subsets containing a fixed vertex.
 \end{boxtheorem}
 
@@ -41,7 +41,7 @@ So since $X \leq 1$, we conclude that
 \end{align*}
 Rearranging gives us that
 \begin{align*}
-    \abs{H} \leq \bimom{n}{k} \cdot \frac{k}{n} = \binom{n-1}{k-1}
+    \abs{H} \leq \binom{n}{k} \cdot \frac{k}{n} = \binom{n-1}{k-1}
 \end{align*}
 
 Now let's prove the result in full generality.
@@ -56,18 +56,45 @@ Denote by $F_{\pi}$ the set of all $k$-intervals on $C_{\pi(n)} = \set{\pi(1), \
 
 The maximum number of intersecting edges in $F$ is $k$. Moreover, any collection $C$ of $k$ intersecting edges in  $F$, $C$ must be the collection of all edges that include some fixed vertex. % [CLAUDE] justify
 
-It is always true that $X \leq K$. Now, let's compute the expectation of $X$. \sorry
+It is always true that $X \leq K$. Now, let's compute the expectation of $X$.
+% [FILLED] the lecture broke off at ``let's compute the expectation of $X$''; the computation and the conclusion below were supplied
+\begin{align*}
+    \E\of{X} = \sum_{h \in H} \Pr\of{h \in F_{\pi}}
+\end{align*}
+A given $h$ is an interval of the randomly ordered cycle exactly when $\pi$ lays its $k$ elements out consecutively, and we can count the $\pi$ that do so. There are $n$ places for the interval to start, $k!$ ways of arranging $h$ within it and $\parenth{n - k}!$ ways of arranging the other $n - k$ vertices, and no $\pi$ gets counted twice, since an interval determines where it starts. So
+\begin{align*}
+    \Pr\of{h \in F_{\pi}} = \frac{n \cdot k! \parenth{n - k}!}{n!} = \frac{n}{\binom{n}{k}}
+\end{align*}
+and hence
+\begin{align*}
+    \abs{H} \cdot \frac{n}{\binom{n}{k}} = \E\of{X} \leq k
+\end{align*}
+Rearranging,
+\begin{align*}
+    \abs{H} \leq \frac{k}{n} \binom{n}{k} = \binom{n-1}{k-1}
+\end{align*}
 
 % [CLAUDE] finish this (also modify the pipeline so that \sorry with comments doesn't always get handed off to /address-comments; it should be done by \sorry-filling, with comments taken as additional context)
 \end{proof}
 
 \begin{boxtheorem} % [CLAUDE] notation is a mess, I'm using $\abs{H}$ for number of edges when really it should be $\abs{\H}$ or something, idk what I'm doing, uniformise across document
-    If $\abs{H} = \binom{n-1}{k-1}$ and $n \geq 2k + 1$, then the extremal example \sorry
+    If $\abs{H} = \binom{n-1}{k-1}$ and $n \geq 2k + 1$, then the extremal example is the obvious one: there is a vertex $x$ such that $H$ consists of precisely the $k$-subsets of $[n]$ that contain $x$.
 \end{boxtheorem}
 In the proof, if $\abs{H} = \binom{n-1}{k-1}$, $x \equiv K$ always. % [CLAUDE] what does this mean?
 So: for any ordering of the cycle, there is an interval of $k$ intervals, all belonging to $H$.
 \begin{proof}
-    For the ordering $1, \ldots, n$, $H \cap F$ includes all intervals containing $x$.
+    % [FILLED] the statement broke off mid-sentence and the lecture sketched the proof in a line; the completion above and the argument below were supplied
+    Run the argument above again, this time at equality. If $\abs{H} = \binom{n-1}{k-1}$, then
+    \begin{align*}
+        \E\of{X} = \binom{n-1}{k-1} \cdot \frac{n}{\binom{n}{k}} = k
+    \end{align*}
+    and we already know that $X \leq k$ whatever $\pi$ is. There are finitely many $\pi$ and each is equally likely, so a mean of $k$ under a ceiling of $k$ leaves nothing to spare: $X = k$ for every single $\pi$. However we lay the $n$ vertices out around a cycle, then, exactly $k$ of that cycle's $k$-intervals are edges of $H$, and $k$ pairwise intersecting $k$-intervals are the $k$ intervals through a single vertex. Write $x_{\pi}$ for that vertex.
+
+    It remains to see that $x_{\pi}$ does not depend on $\pi$, and one transposition at a time is enough. Fix an ordering, put $x = x_{\pi}$ at position $0$, number the other positions $1, \ldots, n - 1$ round the circle, and write $I_s$ for the interval occupying positions $s, s + 1, \ldots, s + k - 1$, so that the edges of $H$ that are intervals are exactly $I_{-(k-1)}, \ldots, I_0$. Now transpose the vertices at two adjacent positions $q$ and $q + 1$, neither of them position $0$. The only intervals this disturbs are the two holding exactly one of those positions, namely $I_{q+1}$ and $I_{q-k+1}$. But $I_{q+1}$ is one of ours only for $q \in \set{-k, \ldots, -1}$ and $I_{q-k+1}$ only for $q \in \set{0, \ldots, k-1}$, and once $q = 0$ and $q = -1$ are excluded those two ranges are disjoint, because $n \geq 2k + 1$. So at most one of our $k$ edges stops being an interval and at least $k - 1$ of them survive.
+
+    The new ordering has exactly $k$ of its own intervals in $H$, again a run of $k$ consecutive ones. If nothing was lost, that run is ours. If what was lost came from the middle of ours, the survivors still include $I_{-(k-1)}$ and $I_0$, and no run of $k$ consecutive intervals but ours contains both. That leaves only the possibility that the interval lost was at one end, say $I_0$; the survivors are then $I_{-(k-1)}, \ldots, I_{-1}$, and the run of $k$ containing them is either ours or the one obtained by adding $I_{-k}$. But $I_{-k}$ occupies positions $-k, \ldots, -1$, so the transposition left it alone and it misses position $0$---making it an interval of the old ordering that was not an edge of $H$. So the run is ours after all, and the other end is the same argument with $I_1$ in place of $I_{-k}$. Either way the new ordering's distinguished vertex is again $x$.
+
+    Adjacent transpositions avoiding position $0$ generate every arrangement of the other $n - 1$ vertices around the circle, so $x_{\pi} = x$ for every $\pi$. Take any $k$-subset $h$ of $[n]$ containing $x$, and lay the vertices out with the elements of $h$ consecutive: then $h$ is an interval containing $x$, so $h \in H$. There are $\binom{n-1}{k-1}$ such $h$, which is exactly $\abs{H}$, so they are all of it.
 \end{proof}
 
 % [CLAUDE] I am really lost here, please write this up in a concise but comprehensive way. We want to know something about the extremal example in the case where $H$ has $\binom{n-1}{k-1}$ edges and $n \geq 2k + 1$. Draw some diagrams to put your point across clearly. You may have to refactor things a little (or a lot).
