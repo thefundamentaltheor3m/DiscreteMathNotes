@@ -20,7 +20,7 @@ The question is: how big can an intersecting $k$-uniform hypergraph be? Ie, how 
     \item $k > \frac{n}{2}$: we can do better! $\binom{n}{k}$ works because of something involving pigeons and holes.
 \end{itemize}
 
-\begin{boxtheorem}[\Edros-Ko-Rado]
+\begin{boxtheorem}[\Erdos-Ko-Rado]
     If $n \geq 2k$, and $H$ is an intersecting $k$-uniform hypergraph on $n$ vertices, then the number of hyper-edges of $H$ is $\leq \binom{n-1}{k-1}$. Moreover, if $n \geq 2k + 1$, then the (``unique'') extremal example is given by all $k$-subsets containing a fixed vertex.
 \end{boxtheorem}
 
@@ -41,7 +41,7 @@ So since $X \leq 1$, we conclude that
 \end{align*}
 Rearranging gives us that
 \begin{align*}
-    \abs{H} \leq \bimom{n}{k} \cdot \frac{k}{n} = \binom{n-1}{k-1}
+    \abs{H} \leq \binom{n}{k} \cdot \frac{k}{n} = \binom{n-1}{k-1}
 \end{align*}
 
 Now let's prove the result in full generality.
