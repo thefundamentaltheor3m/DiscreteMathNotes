@@ -56,7 +56,21 @@ What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
     How large can a family of subsets of [n] be when none contains another?
       the containment diagram on [3], and each layer as a Sperner system
       Sperner's theorem, by the random-permutation (LYM) argument
+
+1.5 Intersecting Families                           [2026-08-31]
+    Forbids the opposite of 1.4: how large can a family of k-subsets be when
+    no two of them are allowed to miss each other?
+      intersecting k-uniform hypergraphs
+      the small cases k = 1, 2, 3 and the star, and why k > n/2 beats them
+      Erdos-Ko-Rado, with the k | n warmup on a random partition
+      k-intervals of a cycle, and at most k of them pairwise intersect
+        -- uniquely a star once n >= 2k+1                  [supplied]
+      the extremal case: |H| = binom(n-1,k-1) forces a star, by transposing
+        adjacent vertices of the cycle one at a time       [supplied]
 ```
+
+Entries marked `[supplied]` are arguments this repository's skills worked out,
+not arguments the lecturer gave; each carries a `% [FILLED]` comment at its site.
 
 `Chapters/1_Intro/` is the author's directory name for chapter 1 across three of
 the four sibling repositories, whatever that chapter is titled. It is a convention,
@@ -114,6 +128,15 @@ matchings between the layers     gestured at 2026-08-28 as the intuitive route
 what makes a matching complete   used throughout 1.3 and never defined. The
                                  notes say "complete matching of A" from Hall
                                  onwards without saying what one is.
+binom(n,k) for k > n/2           asserted 2026-08-31 as working "because of
+                                 something involving pigeons and holes". True
+                                 and easy -- two k-sets with 2k > n cannot be
+                                 disjoint -- but the notes do not say it.
+Hilton-Milner                    not named 2026-08-31, but it is the standard
+                                 route to the uniqueness in 1.5 and would give
+                                 a second proof of the extremal theorem. The
+                                 proof in the notes goes the other way, through
+                                 the cycle, and needs nothing external.
 ```
 
 ## Unplaced
@@ -152,6 +175,32 @@ Whether 1.3 and 1.4 want to be one section, or a chapter of their own, is
     their objects, and if lecture 4 continues either of them the right home may
     be a chapter about set systems rather than two sections inside a chapter
     about coloring. [noted 2026-08-28]
+    ANSWERED 2026-08-31, in the affirmative: lecture 4 continues 1.4 closely.
+    See the entry below.
+
+Lecture 4 continues 1.4, and the chapter is now three sections of extremal set
+    theory wearing a coloring chapter's title. 1.5 asks 1.4's question with the
+    containment constraint swapped for an intersection constraint, and answers
+    it by the same random-permutation device -- the proof of Sperner and the
+    k | n warmup for Erdos-Ko-Rado are the same argument twice. So the case for
+    1.4 and 1.5 being one line of enquiry, or a chapter of their own together
+    with 1.3, is now much stronger than it was on 2026-08-28.
+    Not acted on here, and deliberately: merging them means splitting 1.4's
+    existing content into subsections and retitling it, and splitting or merging
+    an existing heading is /organize's, not /integrate's. A chapter carrying one
+    section too many self-heals; a misjudged idea boundary does not. The author
+    also wrote \section themselves, which is their own proposal for a section
+    rather than a subsection.
+    Run /organize. Three things for it to weigh together: the chapter title
+    (flagged 2026-08-28 and now worse), whether 1.3/1.4/1.5 become a chapter on
+    set systems, and whether 1.4 and 1.5 are one section or two.
+    [noted 2026-08-31]
+
+The "moreover" of Erdos-Ko-Rado is stated twice in 1.5, once inside the theorem
+    and once as the extremal theorem that actually proves it. The duplication is
+    the author's -- both were written in the lecture -- and /integrate may not
+    delete a statement, so both stand, with the second cross-referenced as the
+    first made precise. Merging them is /organize's call. [noted 2026-08-31]
 ```
 
 ## Template scaffolding
