@@ -138,7 +138,10 @@ review rounds happen on the review thread rather than in the report. So:
    line had also been respelled and moved to another file.
 3. Then carry on with phases 4 and 5 on the same branch.
 4. Update the pull request body at the end (`gh pr edit --body-file`) so it covers all
-   five phases, and mark it ready (`gh pr ready`).
+   five phases, and mark it ready (`gh pr ready`). The body carries the sources list
+   too: an added `.bib` entry prints in the published bibliography — `main.tex` has
+   `\nocite{*}` — so a citation this run invented is a change to the document, not
+   merely to a footnote.
 
 If phase 3 corrected nothing, there are no review rounds and no reason to push early:
 open the pull request at the end as usual.
@@ -225,6 +228,13 @@ nothing about what to report is decided here. Then, across the whole run:
   of the middle of a five-part report.
 - **The overruled structure**, hoisted from the phase-5 section. It is the single most
   likely thing to want reverting.
+- **Every source the run cited**, hoisted from whichever phases cited one, as a single
+  list: the work, what it was used for, the citation and its locator, and whether the
+  `.bib` gained an entry. Four of the five phases can reach for a reference and each
+  reports its own, which is exactly how a citation ends up buried three sections deep
+  in a five-part report. One list, in one place, is what makes them checkable — and
+  a locator is the kind of detail that is cheap to check now and expensive to discover
+  wrong in a year.
 - **Markers left in the notes** — `\sorry` you could not close, `% [SUSPECT]` you
   flagged, and any out-of-scope marker from an earlier lecture you deliberately left.
 - The build result.

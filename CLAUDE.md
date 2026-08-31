@@ -93,6 +93,15 @@ them rather than restating them:
   repositories, plus the naming conventions and the format and ownership of
   `TOPICS.md`. Read it before deciding where anything goes.
 
+**Anything drawn from a textbook or another set of lecture notes gets cited.** The
+bibliography is live: `biblatex` against `TeX_Setup/References.bib`,
+`\printbibliography` in `main.tex`, and `\nocite{*}` — so every entry in the `.bib`
+prints whether anything cites it or not, and adding one changes the published document.
+The house form is `\cite[<precise locator>]{<Key>}` with a sentence saying what the
+source is doing there, and the standing rule is that a locator you have not verified is
+worse than no citation at all. **Citations** in `.claude/STYLE.md` has the details, and
+every skill that can reach for a reference points at it.
+
 `TeX_Setup/shortcuts.tex` is large and worth grepping before writing raw math — it
 already defines auto-sized delimiters (`\parenth`, `\brac`, `\set`, `\setst`, `\abs`,
 `\norm`, `\floor`, `\ceil`, `\cycl`), number sets (`\R`, `\Z`, `\N`, `\Q`, `\C`, `\F`),

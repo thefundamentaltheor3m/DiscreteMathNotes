@@ -108,6 +108,16 @@ and `/fill-sorries` is the skill that comes back for it later with a license to 
 the mathematics out. A confident hand-wave in its place is the worst possible outcome,
 because it looks finished.
 
+**Cite a source you leaned on.** A directive is usually answerable from the notes
+themselves, and when it is, nothing needs citing. But "finish proof using previous
+lemma" sometimes turns out to need the standard form of a theorem, or an argument you
+looked up rather than reconstructed. When something you read reached the page, it gets a
+`\cite` at the point of use and an entry in `TeX_Setup/References.bib` — see
+**Citations** in `.claude/STYLE.md`, which also forbids a locator you have not actually
+checked. This does not conflict with seamlessness: the author cites this way themselves,
+so a citation is what their own hand would have left. What breaks seamlessness is a
+passage that quietly depends on a book nobody can identify.
+
 **Never silently change the surrounding mathematics.** If the comment's context
 contains an error — a statement that is false as written, a case that cannot be
 closed the way the author intended — write what you can, flag the problem in the
@@ -237,6 +247,9 @@ the author must check:
 - **Mathematics you supplied**, called out as such. Anything you proved, counted or
   bounded that the lecture did not, is the highest-risk content in the diff and
   should be at the top of the list. Name the earlier results you leaned on.
+- **Sources you used**, with the citation you wrote and where, and the `.bib` entry if
+  you added one. Say if you cited without a locator, and why. A source you consulted
+  and did not draw on goes here too, uncited.
 - **New macros**, with what they do and where they are used.
 - **Anything left `\sorry`**, and what is missing.
 - **Anything you think is wrong** in the surrounding notes, quoted, left unchanged.

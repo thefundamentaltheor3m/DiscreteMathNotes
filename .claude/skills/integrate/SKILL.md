@@ -292,6 +292,16 @@ parts that bite hardest during an integration:
   first; it almost always already has one. A genuinely new one is appended to the
   `% DISCRETE MATH COURSE` block following the existing naming conventions, never
   defined inline.
+- **A source the lecture named becomes a citation.** Raw notes record a pointer the
+  lecturer gave aloud as whatever was quickest to type — "see Alon-Spencer ch 3",
+  "in the 2018 notes", a bare surname in the margin. That is a real reference in
+  shorthand, and dropping it as untidy loses information you cannot recover later. Turn
+  it into a `\cite` with an entry in `TeX_Setup/References.bib`, per **Citations** in
+  `.claude/STYLE.md`. Two limits, because you are transcribing rather than researching:
+  keep the locator the lecture gave and invent none, and if the shorthand is too thin to
+  identify the work, leave the author's words in place and raise it in the report rather
+  than guessing at a book. You are also not to go looking for sources of your own ---
+  this skill does no mathematics, so it has nothing to cite that the lecture did not.
 - **Mark a gap the lecture left** — a proof not given, a case not covered, an argument
   that simply stops — with `\sorry`. Do not quietly fill it with a hand-wave, and do
   not work it out yourself: marking is your job, and `/fill-sorries` is the skill that
@@ -439,6 +449,8 @@ Close with:
 - Where each group of material went.
 - Every existing passage you moved or rewrote, and why.
 - The linking prose you added.
+- **Citations you made from the lecture's own pointers**, and any source shorthand too
+  thin to identify, quoted as the author typed it.
 - Anything left unplaced or flagged, and the build result.
 
 Be specific about the edits to existing content and about the overruled structure —

@@ -37,6 +37,14 @@ Ramsey's theorem, which we will not prove"). Prefer machinery the course already
 because a proof the reader can follow from what they have seen is worth more than a
 slicker one they cannot.
 
+**And cite what you reached for.** A theorem, proof or construction you took from a
+book or another set of lecture notes gets a `\cite` at the point of use and an entry in
+`TeX_Setup/References.bib` — see **Citations** in `.claude/STYLE.md` for the form,
+the key conventions, and the rule against locators you have not verified. Naming a
+source in the prose is not a substitute: "by a standard compactness argument" says the
+result is standard, and a citation says where to go and read it. The two do different
+jobs and a filled gap that leaned on a source wants both.
+
 **Write as much as the mathematics needs.** `/address-comments` is told to match the
 density of the surrounding prose because it is finishing someone else's sentence. You
 are supplying material that does not exist. If the gap needs three sentences, write
@@ -86,6 +94,10 @@ filled gap in the source with a single comment line, invisible in the PDF:
 
 and account for all of it in the report. The author must be able to tell, at a glance
 and months later, which arguments are theirs.
+
+A `% [FILLED]` marker and a citation are not alternatives. The marker says the argument
+is not the lecturer's; the citation says whose it is and where to check it. Where the
+fill came from a source, write both.
 
 ## Style is not relaxed
 
@@ -204,6 +216,9 @@ because everything you wrote is new and unverified by anyone else. For each gap:
 - **What it depends on**: which results from the notes, and which results from outside
   the course. Call the outside ones out individually; they are where a reader is most
   likely to want a reference.
+- **Which sources you used**, and for what. For each: the citation you wrote and where,
+  the `.bib` entry if you added one, and — if you cited without a locator — that you
+  did, and why. A source you consulted and did not draw on goes here too, uncited.
 - **How confident you are, and where the weak point is.** Every proof has a step you
   are least sure of. Name it. "I am confident in all of it" is almost never true and is
   the least useful thing you can say.

@@ -119,6 +119,22 @@ in the report is enough. Markers exist so the author can find the places where t
 mathematics is no longer theirs, and burying those among a dozen typo notices defeats
 the purpose.
 
+**A correction with a source behind it gets cited.** Where the corrected statement is a
+standard result whose canonical form lives in a reference — the hypothesis the notes
+dropped, the bound as the literature states it — put a `\cite` at the point of use and
+the entry in `TeX_Setup/References.bib`, per **Citations** in `.claude/STYLE.md`. The
+`% [CORRECTED]` marker and the citation answer different questions: the marker says the
+mathematics changed, the citation says what a reader should consult to check it. Do not
+cite a source you did not open, and do not attach a locator you have not verified ---
+on a correction that is worse than elsewhere, because the citation is standing in for
+the author's own knowledge of the result.
+
+**But the source stays out of the adjudicator's brief.** The brief exists to get the
+mathematics worked out from first principles by someone who does not know what you
+concluded, and "the textbook says X" is exactly the request for agreement that **The
+brief** rules out. Consult a reference while building the candidate list if you like;
+adjudicate without it, and cite it afterwards if the applied correction warrants it.
+
 **Never write a `% [CLAUDE]` marker.** That is the author's channel for delegating
 work, and a `% [CLAUDE]` line you write is work the next `/post-lecture` run will
 silently do. If you want something done that you are not doing, the report is where
@@ -415,6 +431,8 @@ Corrections first, one entry each, in document order:
 - **The mathematical reason**, in a sentence or two. Enough that the author can check
   it without opening the file.
 - **The adjudicator's ruling**, and the weak step it named in its own reasoning.
+- **Any source you consulted** for that candidate, whether or not it ended up cited,
+  and the citation you wrote if it did.
 
 Then:
 

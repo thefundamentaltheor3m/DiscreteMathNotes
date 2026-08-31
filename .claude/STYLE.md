@@ -178,6 +178,73 @@ Examples from the corpus: `Ch1:Def:Poset`, `Ch1:Eg:2D_NonAbelian_Lie_Algebra`,
 **Label only what gets referenced.** Most environments in the corpus carry no label
 at all. Adding one to everything is not house style.
 
+## Citations
+
+When something in the notes came from a book or another set of lecture notes, it gets
+cited. The machinery is already wired up: `biblatex` against
+`TeX_Setup/References.bib`, and `\printbibliography` in `main.tex` under the note
+*"These lecture notes are based heavily on the following references:"*.
+
+**`main.tex` carries `\nocite{*}`, so every entry in the `.bib` prints whether
+anything cites it or not.** Two consequences: never park a speculative or
+might-be-useful entry there, and adding an entry is itself a visible change to the
+published document.
+
+The form, from the corpus — always a key, and almost always a precise locator:
+
+```tex
+The proof is quite technical, and was omitted from lectures. It can be found in \cite[Appendix A.4]{LecNotes2025}.
+The material here was \textbf{not covered in lectures}, and is based on~\cite[Definition 1.2.1]{LecNotes2018}.
+\item $\pi_1\of{\quotient{X}{G}} \cong G$. \cite[Chapitre 5, Corollaire 11.3, p. 117]{EPFLTopologie}
+```
+
+- **Locate it precisely.** `[Appendix A.4]`, `[Definition 1.2.1]`, `[Proof of 1.3.1]`,
+  `[Chapitre 5, Corollaire 11.3, p. 117]` — the author cites a numbered result or a
+  named part, never a whole book. A bare `\cite{Key}` says "this book is a source for
+  the subject", which is what the bibliography note and `\nocite{*}` already say for
+  every entry.
+- **`~\cite`** where it follows a word, so the citation cannot break onto a line of
+  its own.
+- **Say in the prose what the source is doing there**, and flag material the lectures
+  did not cover: *"was omitted from lectures"*, *"not covered in lectures"*, *"we do
+  not give more than a sketch here"*. The citation is the pointer; the sentence is
+  what tells a reader months later why it is there at all.
+- **A citation and a `\sorry` sit together happily.** Pointing at where a proof lives
+  while marking that it is not written out here is house style, not a contradiction:
+  `This is given in \cite[Proof of 1.3.1]{LecNotes2018}. \sorry`
+- **Keys** are the surname or surnames for a book (`ErdmannWildon`, `HorawaLiebeck`,
+  `Lachowska`), `LecNotes<year>` for a course's own notes, and a course or institution
+  where that identifies it better (`EPFLTopologie`).
+- **Entries** follow the shape of the one already in `References.bib`: `author`,
+  `title`, `subtitle`, `publisher`, `year`, `edition`, `series`, `isbn`, `doi`, `note`
+  as applicable. `/americanise` skips the `.bib`, so titles keep their source's
+  spelling.
+- **`SP:`** on a label marks a result imported from outside the course's own
+  development (see **Labels**). An imported result that is also cited usually wants
+  both.
+
+**Never invent a locator.** `\cite[Theorem 4.2]{Key}` pointing at something that is
+not Theorem 4.2, or at a book you did not actually consult, is worse than no citation:
+it looks checkable, so the author will not check it. If the result is standard and you
+know the source but not where in it, cite the source without a locator and say so in
+your report. If you cannot honestly name a source you used, name it in the report as
+prose and add no citation at all. An uncited honest gap is recoverable; a fabricated
+reference is a trap.
+
+**Cite what reached the page, not everything you read.** A source you consulted and
+did not draw on belongs in the report, not in the bibliography.
+
+<details>
+<summary>The single entry currently in <code>References.bib</code> is not a precedent</summary>
+
+It is Bourbaki's *Groupes et Algèbres de Lie*, carried over from the author's Lie
+algebras notes, and because of `\nocite{*}` it prints today in the bibliography of a
+discrete mathematics course. It is template residue rather than a source this course
+drew on. Do not reason from it about what these notes cite, and do not delete it as a
+side effect of some other task — it is its own small fix, and it changes the PDF.
+
+</details>
+
 ## Macros
 
 `TeX_Setup/shortcuts.tex` is the vocabulary and it is long. **Grep it before writing
