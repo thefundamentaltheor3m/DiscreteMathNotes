@@ -27,6 +27,8 @@ The middle of that list is the general answer, and the bottom of it is why $n \g
     If $n \geq 2k$, and $H$ is an intersecting $k$-uniform hypergraph on $n$ vertices, then the number of hyper-edges of $H$ is $\leq \binom{n-1}{k-1}$. Moreover, if $n \geq 2k + 1$, then the (``unique'') extremal example is given by all $k$-subsets containing a fixed vertex.
 \end{boxtheorem}
 
+The result is \Erdos, Ko and Rado's~\cite{ErdosKoRado}.
+
 % [CORRECTED] was: "some partition of $H$ into subsets of size $k$", and "$h \in \pi(f)$" in the display --- what the
 % argument needs is a partition of the vertex set rather than of the edge set: the $n / k$ in the expectation below counts
 % its blocks, and $X \leq 1$ holds because they are pairwise disjoint. And $h$ and $\pi(f)$ are both $k$-sets of vertices,
@@ -51,7 +53,7 @@ Rearranging gives us that
     \abs{\H} \leq \binom{n}{k} \cdot \frac{k}{n} = \binom{n-1}{k-1}
 \end{align*}
 
-Now let's prove the result in full generality. The random permutation survives, but the partition into $n / k$ blocks does not, and what replaces it is a cycle.
+Now let's prove the result in full generality, by an argument of Katona's~\cite{Katona}. The random permutation survives, but the partition into $n / k$ blocks does not, and what replaces it is a cycle.
 
 \begin{boxlnotation}
     Lay the $n$ vertices out around a circle. A \textbf{$k$-interval} of that cycle is a set of $k$ vertices occupying consecutive positions on it, and $\calF_{\pi}$ will denote the collection of all of them when the vertices are laid out in the order $\pi(1), \pi(2), \ldots, \pi(n)$.
@@ -144,3 +146,5 @@ Whatever order we lay the vertices out in, the picture looks like the one above:
 
     Adjacent transpositions avoiding position $0$ generate every arrangement of the other $n - 1$ vertices around the circle, and rotating or reflecting a layout leaves its intervals, and hence $x_{\pi}$, alone---so every $\pi$ can first be turned until $x$ sits at position $0$, and $x_{\pi} = x$ for all of them. Take any $k$-subset $h$ of $[n]$ containing $x$, and lay the vertices out with the elements of $h$ consecutive: then $h$ is an interval containing $x$, so $h \in \H$. There are $\binom{n-1}{k-1}$ such $h$, which is exactly $\abs{\H}$, so they are all of it.
 \end{proof}
+
+The usual route to this is Hilton and Milner's theorem~\cite{HiltonMilner}, which bounds an intersecting family whose members share no common vertex well below $\binom{n-1}{k-1}$; the argument above gets there without it, at the cost of the bookkeeping over transpositions.

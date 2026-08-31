@@ -253,6 +253,11 @@
 % align environment outside maths mode, so \H inside one would take the text branch and break.)
 \let\Hacute\H
 \renewcommand{\H}{\mathcal{H}}
+% inputenc maps the literal characters ő and Ő to \H o and \H O, so they would expand to
+% $\mathcal{H}$o here. Point them at the saved accent, so typing either straight into the
+% source (in Overleaf, say) still works.
+\DeclareUnicodeCharacter{0151}{\Hacute{o}}
+\DeclareUnicodeCharacter{0150}{\Hacute{O}}
 
 \newcommand{\cyclevertices}[2][1]{  % [radius]{n}: the n vertices of a regular n-gon
     \foreach \i in {1, ..., #2}{
