@@ -139,7 +139,11 @@ Recall, now, the most important result about bipartite graphs.
 
 % [CORRECTED] was: "a collection $x_1, \ldots, x_m$ such that $x_i \in f_i$" --- without distinctness the criterion below
 % is false, and it is distinctness that corresponds to a matching under Hall.
-Given a hypergraph $H$, a family of distinct representatives is a collection of distinct $x_1, \ldots, x_m$ such that $x_i \in f_i$, where we have distinct hyper-edges $f_1, \ldots, f_m$ in $\H$. Such a collection exists iff for any collection $\calC$ of hyper-edges,
+% [CORRECTED] was: "for any collection of hyper-edges", with $\calC$ ranging over the whole of $\H$ --- on that reading the
+% ``iff'' is false. Take $\H = \set{\set{1}, \set{2}, \set{1, 2}}$ with $f_1 = \set{1}$ and $f_2 = \set{2}$: representatives
+% exist, while $\calC = \H$ gives $2 < 3$. Hall applied to the bipartite graph on the indices $1, \ldots, m$ delivers the
+% condition for subcollections of the $f_i$ and for nothing else; the edges of $\H$ outside the $f_i$ are not in that graph.
+Given a hypergraph $H$, a family of distinct representatives is a collection of distinct $x_1, \ldots, x_m$ such that $x_i \in f_i$, where we have distinct hyper-edges $f_1, \ldots, f_m$ in $\H$. Such a collection exists iff for any subcollection $\calC$ of $f_1, \ldots, f_m$,
 \begin{align*}
     \abs{\bigcup_{f \in \calC} f} \geq \abs{\calC}
 \end{align*}
