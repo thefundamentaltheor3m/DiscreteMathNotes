@@ -318,7 +318,7 @@
     }
 }
 
-\newcommand{\cyclefan}[4][1]{  % [radius]{n}{k}{s}: the n-cycle, with the k intervals through vertex s drawn as nested arcs outside it
+\newcommand{\cyclefan}[4][1]{  % [radius]{n}{k}{s}: the n-cycle, with the k intervals through vertex s drawn as concentric arcs outside it
     \pgfmathtruncatemacro{\klast}{#3 - 1}
     \draw[gray!50] (0, 0) circle (#1);
     \foreach \i in {1, ..., #2}{
