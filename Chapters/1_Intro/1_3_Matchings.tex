@@ -1,6 +1,6 @@
 \section{Matchings in Bipartite Graphs}
 
-Hypergraphs came up in \Cref{Ch1:Def:Hypergraph} as the setting in which the coloring question gets hard, and we have not looked at them since. This section asks something else of them: given a hypergraph, can we pick one vertex out of each edge, all of them different? Getting to the answer means first noticing that a hypergraph, a $0,1$ matrix and a bipartite graph are three views of the same data.
+Hypergraphs came up in \Cref{Ch1:Def:Hypergraph} as the setting in which the coloring question gets hard, and we set them aside when the Ramsey numbers took us back to graphs. This section asks something else of them: given a hypergraph, can we pick one vertex out of each edge, all of them different? Getting to the answer means first noticing that a hypergraph, a $0,1$ matrix and a bipartite graph are three views of the same data.
 
 \subsection{Adjacency Matrices}
 
@@ -26,11 +26,11 @@ Here are some examples of constructing adjacency matrices.
         \item Consider the hypergraph
         \begin{center}
             \begin{tikzpicture}
-                \draw[thick, blue] (1.8, 0) ellipse (2.5 and 0.85);
+                \draw[thick, blue] (1.8, 0) ellipse (2.5 and 1.0);
                 \draw[thick, brown] (3.0, 0) ellipse (0.95 and 0.4);
                 \draw[thick, pink, rotate around = {70:(2.15, -0.7)}] (2.15, -0.7) ellipse (1.15 and 0.42);
                 \node[blue] at (-1.05, 0) {$a$};
-                \node[brown] at (3.0, 0) {$b$};
+                \node[brown] at (3.0, 0.62) {$b$};
                 \node[pink] at (1.15, -1.35) {$c$};
                 \foreach \i/\x in {1/0, 2/1.2, 3/2.4, 4/3.6}{
                     \node[circle, draw = black, fill = white, inner sep = 1.5pt, font = \small] at (\x, 0) {$\i$};
@@ -50,9 +50,11 @@ Here are some examples of constructing adjacency matrices.
         \end{align*}
 
         \item Consider the hypergraph
-        % The matrix below had a repeated column, so it was the adjacency matrix of no hypergraph with that many
-        % hyper-edges; the duplicate is dropped. Note that the correspondence claimed after this example runs between
-        % hypergraphs and those $0,1$ matrices whose columns are distinct, up to permutation of rows and of columns.
+        % [CORRECTED] was the $3 \times 5$ matrix with rows (1 1 1 1 0), (0 0 1 1 0), (0 0 1 0 1) --- its first two
+        % columns are equal, and a hypergraph is a collection of subsets, so distinct hyper-edges give distinct
+        % columns and no five-edge hypergraph has that matrix. The duplicate column is dropped. So the correspondence
+        % claimed after this example runs between hypergraphs and those $0,1$ matrices whose columns are distinct,
+        % up to permutation of the rows and of the columns.
         \begin{align*}
             \begin{bmatrix}
                 1 & 1 & 1 & 0 \\
@@ -99,6 +101,8 @@ The bipartite graph attached to $H$ has the vertices of $H$ on one side and the 
 
 Recall, now, the most important result about bipartite graphs.
 
+% [CORRECTED] was: "$\Gamma(S) = \setst{v \in B}{\exists u \in A \st u \sim v}$" --- quantified over $A$, $\Gamma$ does not
+% depend on its argument, so the condition collapses to $\abs{\Gamma(A)} \geq \abs{A}$ and the theorem is false.
 % [CORRECTED] was: "Given a bipartite graph with parts $A$ and $B$" --- with $A$ infinite the "if" direction is false:
 % join $a_0$ to every $b_i$ and $a_i$ to $b_i$ alone, and Hall's condition holds while $a_0$ has nowhere to go. The
 % induction below is on $\abs{A}$ and needs it. $B$ is never counted, so it may stay arbitrary.
@@ -133,7 +137,7 @@ Recall, now, the most important result about bipartite graphs.
             \begin{align*}
                 \abs{\Gamma'(T)} = \abs{\Gamma(S) \cup \Gamma(T)} - \abs{\Gamma(S)} = \abs{\Gamma(S \cup T)} - \abs{S} \geq \abs{S \cup T} - \abs{S} = \abs{T}
             \end{align*}
-            where the inequality is Hall's condition applied to $S \cup T$, and the last step is that $T \subseteq A'$ is disjoint from $S$. So the smaller graph satisfies Hall's condition, and $\abs{A'} < \abs{A}$ because $S$ is nonempty, so induction gives a complete matching of $A'$ into $B'$. That matching touches no vertex of $S$ and no vertex of $\Gamma(S)$, so laying it alongside the matching of $S$ onto $\Gamma(S)$ gives a complete matching of $A$.
+            where the inequality is Hall's condition applied to $S \cup T$, and the last step is that $T \subseteq A'$ is disjoint from $S$. (If $\Gamma(T)$ is infinite the display needs no reading at all: $\Gamma(S)$ is finite, so $\Gamma'(T)$ is infinite and certainly at least $\abs{T}$.) So the smaller graph satisfies Hall's condition, and $\abs{A'} < \abs{A}$ because $S$ is nonempty, so induction gives a complete matching of $A'$ into $B'$. That matching touches no vertex of $S$ and no vertex of $\Gamma(S)$, so laying it alongside the matching of $S$ onto $\Gamma(S)$ gives a complete matching of $A$.
     \end{itemize}
 \end{iffproof}
 
@@ -151,7 +155,7 @@ Hall's condition asks something of every subset of $A$, which is a lot to check.
 
 % [CORRECTED] was: "with $d_2 \leq d_1$" --- $d_1 = d_2 = 0$ satisfies that, and an edgeless graph with $A$ nonempty has
 % no complete matching. The proof divides by $d_2$, so $d_2 \geq 1$ is what it uses.
-\begin{boxtheorem}
+\begin{boxtheorem} \label{Ch1:Cor:Biregular}
     If $G$ is a bipartite graph with parts $A$ and $B$, if all degrees in $A$ are $d_1$ and all degrees in $B$ are $d_2$, with $1 \leq d_2 \leq d_1$, then there is a complete matching of $A$.
 \end{boxtheorem}
 

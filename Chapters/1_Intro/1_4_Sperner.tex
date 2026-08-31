@@ -35,7 +35,11 @@ How large can a Sperner system be?
     A Sperner system on $[n]$ can have at most $\binom{n}{\floor{n/2}}$ sets.
 \end{boxtheorem}
 
-An intuitive way of arguing is to find perfect matchings between the $k$th layer and the $(k + 1)$th layer (cf. \Cref{Ch1:Thm:Hall}), but at some point, this starts to break down. And at what point is that? Before $k$ exceeds $n / 2$.
+% [CORRECTED] was: "perfect matchings between the $k$th layer and the $(k + 1)$th layer" --- consecutive layers have
+% equal size only when $n = 2k + 1$, so a matching saturating both sides fails already at $k = 0$. What exists for
+% every $k < n/2$ is a complete matching of the smaller, lower layer, the two layers spanning a biregular graph with
+% $d_1 = n - k$ and $d_2 = k + 1$.
+An intuitive way of arguing is to find complete matchings of the $k$th layer into the $(k + 1)$th layer (cf. \Cref{Ch1:Cor:Biregular}), but at some point, this starts to break down. And at what point is that? Before $k$ exceeds $n / 2$.
 
 \begin{proof}
     Let $H$ be a Sperner system on $[n]$. Define
