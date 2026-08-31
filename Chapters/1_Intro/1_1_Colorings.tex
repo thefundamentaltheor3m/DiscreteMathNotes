@@ -29,8 +29,11 @@ Let's study when odd cycles exist.
     If $G$ has an odd closed walk, then $G$ has an odd cycle.
 \end{boxlemma}
 Recall that a closed walk need not be a cycle: walks can contain repetitions. So even line graphs can have closed walks (start from one vertex, go to its neighbor, return).
+% [CORRECTED] was: "there must be some $x_i, x_j$ such that $x_i = x_j$ even though $i \neq j$" --- every closed walk
+% has $x_1 = x_{\ell}$, so that says nothing, and at $i = 1$, $j = \ell$ the two sub-walks below are the length-$0$ walk
+% and $W$ itself, neither shorter, so the minimality contradiction never fires.
 \begin{proof}
-    Suppose $G$ has an odd closed walk. Let $W$ be such a walk of minimal length. Write $W = \parenth{x_1, \ldots, x_i, \ldots, x_j, \ldots, x_{\ell}}$, with $x_{\ell} = x_1$. Suppose $W$ is not a cycle. Then there must be some $x_i, x_j$ such that $x_i = x_j$ even though $i \neq j$, ie, there must be some repetition. Then, $\parenth{x_1, \ldots, x_i, x_{j+1}, \ldots, x_{\ell}}$ and $\parenth{x_i, x_{i+1}, \ldots, x_{j}}$ are both shorter walks than $W$. Moreover, one of them must be of odd length. This contradicts minimality of the length of $W$. So $W$ must be a cycle.
+    Suppose $G$ has an odd closed walk. Let $W$ be such a walk of minimal length. Write $W = \parenth{x_1, \ldots, x_i, \ldots, x_j, \ldots, x_{\ell}}$, with $x_{\ell} = x_1$. Suppose $W$ is not a cycle. Then there must be some $x_i, x_j$ such that $x_i = x_j$ with $1 \leq i < j \leq \ell - 1$, ie, there must be some repetition beyond the closing one. Then, $\parenth{x_1, \ldots, x_i, x_{j+1}, \ldots, x_{\ell}}$ and $\parenth{x_i, x_{i+1}, \ldots, x_{j}}$ are both shorter walks than $W$. Moreover, one of them must be of odd length. This contradicts minimality of the length of $W$. So $W$ must be a cycle.
 \end{proof}
 
 Here's a cool result.
@@ -67,7 +70,7 @@ Here's a cool result.
 Coloring is not really a question about graphs. All the definition above asks of $G$ is that we know which pairs of vertices may not share a color, and nothing stops us forbidding larger sets instead.
 
 \begin{boxdefinition}[Hypergraph] \label{Ch1:Def:Hypergraph}
-    Given a vertex set $V$, a \textbf{hypergraph} is a pair $H = \parenth{V, \H}$, where $\H$ is a collection of subsets of $V$. The sets in $\H$ are called \textbf{hyperedges}.
+    Given a vertex set $V$, a \textbf{hypergraph} is a pair $H = \parenth{V, \H}$, where $\H$ is a collection of subsets of $V$. The sets in $\H$ are called \textbf{hyper-edges}.
 \end{boxdefinition}
 
 \begin{boxdefinition}[Uniformity]
@@ -166,7 +169,11 @@ In the other direction, the truth is only a factor of about $k^2$ away.
 
 \subsection{Maker-Breaker Games}
 
-\Cref{Ch1:Thm:mk_Lower_Bound} says that a hypergraph with few enough edges has a proper $2$-coloring somewhere among all the colorings of its vertices. It turns out that the very same threshold survives a far more demanding requirement: that one of two players be able to build such a coloring one vertex at a time, against an opponent trying to stop them.
+% [CORRECTED] was: "that one of two players be able to build such a coloring one vertex at a time, against an opponent
+% trying to stop them" --- a breaker win only keeps maker's class free of an edge; breaker's own class may contain one,
+% so the play does not build a proper $2$-coloring. "Far more demanding" does stand: breaker winning implies
+% $2$-colorability, by setting breaker's second-player strategy against the first-player one it yields.
+\Cref{Ch1:Thm:mk_Lower_Bound} says that a hypergraph with few enough edges has a proper $2$-coloring somewhere among all the colorings of its vertices. It turns out that the very same threshold survives a far more demanding requirement: that one of two players, claiming vertices one at a time, be able to stop the other from ever owning a whole edge. Winning that does not by itself produce a proper $2$-coloring, since the winner's own class may contain a monochromatic edge. It does force one to exist all the same: a breaker who can win going second can also win going first, by holding a spare vertex in reserve, and setting those two strategies against each other leaves neither class containing an edge.
 
 Here's a fun fact: a ``maker-breaker'' game is a game where the ``maker'' wins if they are able to achieve an objective and the ``breaker'' wins if they are able to stop the maker from winning. So if you set up a ``maker-breaker'' version of tic-tac-toe, where only the crosses can win by making three in a row and the noughts can only win by stopping the crosses, the crosses will always win (assuming the crosses play first). This is, of course, different from tic-tac-toe, which, as our own studies from when we were a kid have shown, can always be drawn.
 
@@ -176,7 +183,11 @@ The threshold at which breaker can hold out is exactly the one we have just been
     If $H$ is a $k$-uniform hypergraph with $m$ edges, and $m < 2^{k - 1}$, then breaker wins (if breaker goes second).
 \end{boxtheorem}
 
-In the language of hypergraphs, the game is $2$-coloring; maker winning is equivalent to the existence of a coloring with a monochromatic edge; and breaker winning is equivalent to the inexistence of such edge.
+% [CORRECTED] was: "the game is $2$-coloring; maker winning is equivalent to the existence of a coloring with a
+% monochromatic edge; and breaker winning is equivalent to the inexistence of such edge" --- coloring everything red
+% makes an edge monochromatic in every hypergraph with a nonempty edge, so that condition holds always and can be
+% equivalent to nothing. Winning is a property of strategies, not of which colorings exist.
+In the language of hypergraphs, the game is played on the vertices of $H$: the two players alternately claim unclaimed vertices, maker wins by claiming every vertex of some edge, and breaker wins if play ends with no edge wholly maker's.
 
 \begin{proof}
     Let $\Delta$ be the maximum degree of $H$, that is,
@@ -221,6 +232,9 @@ Let's consider higher-dimensional maker-breaker tic-tac-toe.
     Turns out that $8 \times 8 \times 8$ maker-breaker tic-tac-toe is breaker-winnable: we can show that $m = \frac{10^3 - 8^3}{2} = 244$ and $\Delta = 7$, meaning $m + \Delta = 251 < 2^k = 256$.
 \end{boxexample}
 
-Both numbers come out of the geometry. For $m$, pad the board with one extra cell in every direction, giving a $10 \times 10 \times 10$ cube, and run each winning line one step past each of its two ends. The two cells we land on lie in the shell we just added, and every cell of the shell is the end of exactly one line: a coordinate of the cell equal to $0$ tells the line to increase along that axis, one equal to $9$ tells it to decrease, and the rest stay fixed. So the lines are in bijection with the pairs of shell cells, of which there are $\frac{10^3 - 8^3}{2}$. For $\Delta$, a line through a given cell is determined by its direction, and a corner cell has the $3$ lines along the axes, the $3$ face diagonals and the one long diagonal through it, which is $7$; no cell of an $8 \times 8 \times 8$ board does better. And it is the $m + \Delta < 2^k$ form of the criterion doing the work here, since $244$ is a long way above $2^{k - 1} = 128$.
+% [CORRECTED] was: "the lines are in bijection with the pairs of shell cells, of which there are
+% $\frac{10^3 - 8^3}{2}$" --- the shell has $488$ cells and so $\binom{488}{2} = 118{,}828$ pairs; $244$ counts the
+% pairs that are the two ends of a line, which is a perfect matching on the shell rather than all of its pairs.
+Both numbers come out of the geometry. For $m$, pad the board with one extra cell in every direction, giving a $10 \times 10 \times 10$ cube, and run each winning line one step past each of its two ends. The two cells we land on lie in the shell we just added, and every cell of the shell is the end of exactly one line: a coordinate of the cell equal to $0$ tells the line to increase along that axis, one equal to $9$ tells it to decrease, and the rest stay fixed. So the lines are in bijection with those pairs of shell cells that arise as the two ends of a line, and since every shell cell is the end of exactly one line there are $\frac{10^3 - 8^3}{2}$ of them. For $\Delta$, a line through a given cell is determined by its direction, and a corner cell has the $3$ lines along the axes, the $3$ face diagonals and the one long diagonal through it, which is $7$; no cell of an $8 \times 8 \times 8$ board does better. And it is the $m + \Delta < 2^k$ form of the criterion doing the work here, since $244$ is a long way above $2^{k - 1} = 128$.
 
 We won't say any more about tic-tac-toe in this course, but it was a fun aside.
