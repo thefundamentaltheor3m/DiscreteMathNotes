@@ -44,10 +44,14 @@ like "finish proof using previous lemma" reads very differently before and after
 gap two lines above it has been closed.
 
 > Where a `% [CLAUDE]` directive sits on the same gap as a `\sorry` — a marker with
-> "prove this" written beside it — **the directive wins and phase 1 leaves it alone.**
-> A scoped instruction the author wrote by hand is `/address-comments`' job, as
-> `fill-sorries/SKILL.md` says itself. Phase 1 fills the bare markers; phase 2 fills
-> the ones that came with instructions.
+> "prove this" written beside it — **the `\sorry` wins and phase 1 fills it**, reading
+> the directive as extra context on what the gap is and where the argument was going.
+> A comment beside a marker is usually the author saying what they would have written
+> had there been time, which is exactly what the fill needs; routing it to phase 2
+> instead would put the mathematics in the hands of the skill that is told not to do
+> any. What stays phase 2's is anything in that comment asking for something other
+> than the missing argument — a figure, a cross-reference, a rename — so the comment
+> survives phase 1 and phase 2 deletes it once the rest of it is done.
 
 **`/check-correctness` goes third**, once every word this lecture is going to acquire
 has been written. It checks the author's raw notes *and* what phases 1 and 2 wrote,

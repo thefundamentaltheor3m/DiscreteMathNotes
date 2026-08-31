@@ -38,39 +38,39 @@ How large can a Sperner system be?
 An intuitive way of arguing is to find perfect matchings between the $k$th layer and the $(k + 1)$th layer (cf. \Cref{Ch1:Thm:Hall}), but at some point, this starts to break down. And at what point is that? Before $k$ exceeds $n / 2$.
 
 \begin{proof}
-    Let $H$ be a Sperner system on $[n]$. Define
+    Let $\H$ be a Sperner system on $[n]$. Define
     \begin{align*}
-        F = \set{\emptyset, \set{1}, \set{1, 2}, \set{1, 2, 3}, \ldots, \set{1, 2, \ldots, n}}
+        \calF = \set{\emptyset, \set{1}, \set{1, 2}, \set{1, 2, 3}, \ldots, \set{1, 2, \ldots, n}}
     \end{align*}
     Choose a random permutation $\pi \in S_n$, and define 
     \begin{align*}
-        H_{\pi} = \setst{\pi(h)}{h \in H}
+        \H_{\pi} = \setst{\pi(h)}{h \in \H}
     \end{align*}
     Define the random variable
     \begin{align*}
-        X = \abs{\setst{f \in F}{f \in H_{\pi}}}
+        X = \abs{\setst{f \in \calF}{f \in \H_{\pi}}}
     \end{align*}
     Note that we can express
     \begin{align*}
-        X = \sum_{h \in H} \xi_{h, \pi}
+        X = \sum_{h \in \H} \xi_{h, \pi}
     \end{align*}
-    where $\xi_{h, \pi}$ is $1$ if $\pi(h) \in F$ and $0$ otherwise.
+    where $\xi_{h, \pi}$ is $1$ if $\pi(h) \in \calF$ and $0$ otherwise.
 
     Computing the expected value of $X$, we get
     \begin{align*}
-        \E\of{X} = \sum_{h \in H} \E\of{\xi_{h, \pi}}
+        \E\of{X} = \sum_{h \in \H} \E\of{\xi_{h, \pi}}
     \end{align*}
     % [CORRECTED] was: "Thus, the probability is $\binom{n}{n - \abs{h}} = \binom{n}{\abs{h}}$" --- that is the reciprocal of
     % the probability, and is $> 1$ whenever $0 < \abs{h} < n$. The count also needs the $\abs{h}!$ ways of mapping $h$ onto $\set{1, \ldots, \abs{h}}$.
-    Let's now compute the expectation of $\xi_{h, \pi}$. This is the probability that the permutation $\pi \in S_n$ sends $h \in H$ to some element of $F$. Since you cannot modify sizes, the only possible element in $F$ to which $\pi$ can send $h$ is precisely the set $\set{1, 2, \ldots, \abs{h}}$. How many such $\pi$ can do this? We have to consider the way $\pi$ acts on $h$, and the way it acts on the other $n - \abs{h}$ elements of $[n]$, because we know it sends $h$ to $\set{1, 2, \ldots, \abs{h}}$. There are $\abs{h}! \parenth{n - \abs{h}}!$ such $\pi$, so the probability is
+    Let's now compute the expectation of $\xi_{h, \pi}$. This is the probability that the permutation $\pi \in S_n$ sends $h \in \H$ to some element of $\calF$. Since you cannot modify sizes, the only possible element in $\calF$ to which $\pi$ can send $h$ is precisely the set $\set{1, 2, \ldots, \abs{h}}$. How many such $\pi$ can do this? We have to consider the way $\pi$ acts on $h$, and the way it acts on the other $n - \abs{h}$ elements of $[n]$, because we know it sends $h$ to $\set{1, 2, \ldots, \abs{h}}$. There are $\abs{h}! \parenth{n - \abs{h}}!$ such $\pi$, so the probability is
     \begin{align*}
         \frac{\abs{h}! \parenth{n - \abs{h}}!}{n!} = \frac{1}{\binom{n}{\abs{h}}}
     \end{align*}
 
     % Not from the lecture: everything below was supplied to close the gap the lecture left here.
-    The conclusion now comes from bounding $\E\of{X}$ on the other side. Any $\pi$ is a bijection and so preserves containment, which makes $H_{\pi}$ a Sperner system; and $F$ is a chain, any two of its members being comparable. A chain and a Sperner system share at most one set, so $X \leq 1$ for every $\pi$, and hence $\E\of{X} \leq 1$. Since $\binom{n}{k}$ is largest at $k = \floor{n / 2}$, this gives
+    The conclusion now comes from bounding $\E\of{X}$ on the other side. Any $\pi$ is a bijection and so preserves containment, which makes $\H_{\pi}$ a Sperner system; and $\calF$ is a chain, any two of its members being comparable. A chain and a Sperner system share at most one set, so $X \leq 1$ for every $\pi$, and hence $\E\of{X} \leq 1$. Since $\binom{n}{k}$ is largest at $k = \floor{n / 2}$, this gives
     \begin{align*}
-        1 \geq \E\of{X} = \sum_{h \in H} \frac{1}{\binom{n}{\abs{h}}} \geq \sum_{h \in H} \frac{1}{\binom{n}{\floor{n / 2}}} = \frac{\abs{H}}{\binom{n}{\floor{n / 2}}}
+        1 \geq \E\of{X} = \sum_{h \in \H} \frac{1}{\binom{n}{\abs{h}}} \geq \sum_{h \in \H} \frac{1}{\binom{n}{\floor{n / 2}}} = \frac{\abs{\H}}{\binom{n}{\floor{n / 2}}}
     \end{align*}
     and rearranging is exactly the bound we wanted.
 \end{proof}

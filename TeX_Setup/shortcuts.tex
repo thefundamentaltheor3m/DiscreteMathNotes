@@ -246,6 +246,14 @@
 
 \newcommand{\dist}[1]{\operatorname{dist}\!\parenth{#1}}
 
+% The hyper-edge set of the hypergraph H, and likewise \mathcal{G}, \mathcal{F}, ... for any other
+% letter. This takes over LaTeX's own \H, which is the double acute accent of Erd\H{o}s; the accent
+% is kept under the name \Hacute, and \Erdos at the foot of this file is how to write the name.
+% (Guarding the two meanings with \ifmmode instead does not work: amsmath measures the cells of an
+% align environment outside maths mode, so \H inside one would take the text branch and break.)
+\let\Hacute\H
+\renewcommand{\H}{\mathcal{H}}
+
 \newcommand{\cyclevertices}[2][1]{  % [radius]{n}: the n vertices of a regular n-gon
     \foreach \i in {1, ..., #2}{
         \pgfmathsetmacro{\angthis}{90 + 360 * (\i - 1) / #2}
@@ -285,6 +293,48 @@
     \fill[black] (0, 0) circle (2pt);
 }
 
+\newcommand{\stargraph}[2][1]{  % [radius]{n}: the star graph with n edges, drawn as a hub with n spokes
+    \foreach \i in {1, ..., #2}{
+        \pgfmathsetmacro{\angthis}{90 + 360 * (\i - 1) / #2}
+        \draw[thick] (0, 0) -- (\angthis:#1);
+        \fill[black] (\angthis:#1) circle (2pt);
+    }
+    \fill[black] (0, 0) circle (2pt);
+}
+
+\newcommand{\cyclearc}[4][1]{  % [radius]{n}{k}{s}: the n-cycle as n dots on a circle, with the k-interval running from vertex s highlighted
+    \pgfmathtruncatemacro{\klast}{#3 - 1}
+    \pgfmathsetmacro{\angfrom}{90 + 360 * (#4 - 1) / #2}
+    \pgfmathsetmacro{\angto}{90 + 360 * (#4 - 2 + #3) / #2}
+    \draw[gray!50] (0, 0) circle (#1);
+    \draw[very thick, magenta] (\angfrom:#1) arc (\angfrom:\angto:#1);
+    \foreach \i in {1, ..., #2}{
+        \pgfmathsetmacro{\angthis}{90 + 360 * (\i - 1) / #2}
+        \fill[black] (\angthis:#1) circle (2pt);
+    }
+    \foreach \j in {0, ..., \klast}{
+        \pgfmathsetmacro{\angdot}{90 + 360 * (#4 - 1 + \j) / #2}
+        \fill[magenta] (\angdot:#1) circle (3pt);
+    }
+}
+
+\newcommand{\cyclefan}[4][1]{  % [radius]{n}{k}{s}: the n-cycle, with the k intervals through vertex s drawn as nested arcs outside it
+    \pgfmathtruncatemacro{\klast}{#3 - 1}
+    \draw[gray!50] (0, 0) circle (#1);
+    \foreach \i in {1, ..., #2}{
+        \pgfmathsetmacro{\angthis}{90 + 360 * (\i - 1) / #2}
+        \fill[black] (\angthis:#1) circle (2pt);
+    }
+    \foreach \j in {0, ..., \klast}{
+        \pgfmathsetmacro{\rarc}{#1 + 0.17 * (\j + 1)}
+        \pgfmathsetmacro{\angfrom}{90 + 360 * (#4 - #3 + \j) / #2}
+        \pgfmathsetmacro{\angto}{90 + 360 * (#4 - 1 + \j) / #2}
+        \draw[thick, magenta] (\angfrom:\rarc) arc (\angfrom:\angto:\rarc);
+    }
+    \pgfmathsetmacro{\angx}{90 + 360 * (#4 - 1) / #2}
+    \fill[magenta] (\angx:#1) circle (3pt);
+}
+
 \newcommand{\BigO}[1]{\operatorname{O}\of{#1}}
 
 \newcommand{\Adj}{\operatorname{Adj}}
@@ -304,4 +354,4 @@
     }
 }
 
-\newcommand{\Erdos}{Erd\H{o}s}
+\newcommand{\Erdos}{Erd\Hacute{o}s}

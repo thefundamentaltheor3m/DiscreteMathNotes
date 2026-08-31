@@ -49,6 +49,12 @@ second comment line — and search `TeX_Setup/` as well as `Chapters/`; a commen
 a macro belongs where the macros are. Quote paths when globbing: some directory names
 contain spaces.
 
+A directive sitting on a `\sorry` is **not** yours in the part that asks for the
+missing argument: that marker is `/fill-sorries`', and the comment beside it is
+context for that skill rather than a writing job for this one. What remains yours is
+whatever else the comment asks for — a figure, a cross-reference, a rename — and
+every `% [CLAUDE]` comment with no `\sorry` near it.
+
 If the user named a file, a comment, or a topic, restrict to that. Otherwise take
 them all, and list them to the user up front with file, line, and the directive
 quoted, so they can see what is in scope before you start writing.

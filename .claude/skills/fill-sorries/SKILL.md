@@ -234,5 +234,10 @@ Then, separately:
   filling them, and does not do mathematics of its own.
 - **`/organize`** rearranges. It neither adds nor removes mathematics.
 
-A `% [CLAUDE]` comment that says "prove this" is an `/address-comments` job, because
-the author wrote it deliberately and scoped it. A bare `\sorry` is this one.
+A `\sorry` is this skill's job whether or not a `% [CLAUDE]` comment sits beside it.
+Where one does, read it as additional context on what the gap is — it is usually the
+author telling you what they would have written — and take the mathematics on
+yourself. What belongs to `/address-comments` is a directive asking for something
+other than the missing argument (a figure, a cross-reference, a rename), and any
+`% [CLAUDE]` comment with no `\sorry` near it. Leave such a comment in place when you
+fill the marker beside it; it is still that skill's to satisfy and delete.

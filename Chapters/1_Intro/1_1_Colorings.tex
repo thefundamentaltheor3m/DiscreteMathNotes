@@ -67,11 +67,11 @@ Here's a cool result.
 Coloring is not really a question about graphs. All the definition above asks of $G$ is that we know which pairs of vertices may not share a color, and nothing stops us forbidding larger sets instead.
 
 \begin{boxdefinition}[Hypergraph] \label{Ch1:Def:Hypergraph}
-    Given a vertex set $V$, a \textbf{hypergraph} is a collection $H$ of subsets of $V$. The sets in $H$ are called \textbf{hyperedges}.
+    Given a vertex set $V$, a \textbf{hypergraph} $H$ consists of a collection $\H$ of subsets of $V$. The sets in $\H$ are called \textbf{hyperedges}.
 \end{boxdefinition}
 
 \begin{boxdefinition}[Uniformity]
-    A hypergraph $H$ is \textbf{$k$-uniform} if $\abs{f} = k$ for all $f \in H$.
+    A hypergraph $H$ is \textbf{$k$-uniform} if $\abs{f} = k$ for all $f \in \H$.
 \end{boxdefinition}
 
 The following is thus obvious.
@@ -81,7 +81,7 @@ The following is thus obvious.
 \end{boxproposition}
 
 \begin{boxdefinition}
-A proper coloring of a hypergraph $H$ is an assignment $c : V \to [r]$ such that $\forall f \in H$, $\abs{c(f)} \geq 2$.
+A proper coloring of a hypergraph $H$ is an assignment $c : V \to [r]$ such that $\forall f \in \H$, $\abs{c(f)} \geq 2$.
 \end{boxdefinition}
 
 We say ``no edge is monochromatic''.
@@ -151,9 +151,9 @@ Pinning down $m(3)$ took a page of case analysis, and doing the same for $m(4)$ 
     \end{align*}
     Taking a simple union bound,
     \begin{align*}
-        \Pr\of{\bigcup_{f \in H} \mathcal{E}_f} \leq \frac{\abs{H}}{2^{k - 1}} < 1
+        \Pr\of{\bigcup_{f \in \H} \mathcal{E}_f} \leq \frac{\abs{\H}}{2^{k - 1}} < 1
     \end{align*}
-    where we interpret $\bigcup_{f \in H} \mathcal{E}_f$ as the event that there is a monochromatic edge. As the probability is less than $1$, there must be at least one coloring with no monochromatic edge.
+    where we interpret $\bigcup_{f \in \H} \mathcal{E}_f$ as the event that there is a monochromatic edge. As the probability is less than $1$, there must be at least one coloring with no monochromatic edge.
 \end{proof}
 
 Note that the above argument can also be written combinatorially instead of probabilistically. In this instance, the probabilistic language essentially conveys the same information as combinatorial language would. But this may not always be true, so it's worth being careful about this.
@@ -172,7 +172,7 @@ Here's a fun fact: a ``maker-breaker'' game is a game where the ``maker'' wins i
 
 The threshold at which breaker can hold out is exactly the one we have just been looking at.
 
-\begin{boxtheorem}[Erd\H{o}s-Selfridge]
+\begin{boxtheorem}[\Erdos-Selfridge]
     If $H$ is a $k$-uniform hypergraph with $m$ edges, and $m < 2^{k - 1}$, then breaker wins (if breaker goes second).
 \end{boxtheorem}
 
@@ -181,11 +181,11 @@ In the language of hypergraphs, the game is $2$-coloring; maker winning is equiv
 \begin{proof}
     Let $\Delta$ be the maximum degree of $H$, that is,
     \begin{align*}
-        \Delta = \max_{v \in V} \abs{\setst{f \in H}{v \in f}}
+        \Delta = \max_{v \in V} \abs{\setst{f \in \H}{v \in f}}
     \end{align*}
     We'll prove that if $m + \Delta < 2^k$, then breaker will win. Then, since $\Delta \leq m$, it will follow that if $m < 2^{k - 1}$, then $ m + \Delta \leq 2m < 2^k$.
 
-    At the start of move $i$, we will conceptualize the danger of edge $f \in H$ by
+    At the start of move $i$, we will conceptualize the danger of edge $f \in \H$ by
     \begin{align*}
         \phi_i(f) &=
         \begin{cases}
@@ -193,7 +193,7 @@ In the language of hypergraphs, the game is $2$-coloring; maker winning is equiv
             0 & \text{ if there is a breaker move in $f$} \\
         \end{cases}
         \\
-        \Phi_i &= \sum_{f \in H} \phi_i(f)
+        \Phi_i &= \sum_{f \in \H} \phi_i(f)
     \end{align*}
     Consider the strategy where, once maker has played $y$ on move $i$, breaker plays the unclaimed vertex carrying the most danger, that is, the $x$ maximizing
     \begin{align*}
