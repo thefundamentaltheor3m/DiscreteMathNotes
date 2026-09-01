@@ -52,7 +52,7 @@
 
 \newpage
 
-\nocite{*}
+% \nocite{*}  % nothing to cite: References.bib is empty. Uncomment with the block below.
 
 \input{Chapters/1_Intro/1_Intro.tex}
 
@@ -66,11 +66,15 @@
 
 % These lecture notes are based heavily on the following references:~\cite{ErdmannWildon}
 
-\defbibnote{mybibnote}{These lecture notes are based heavily on the following references:}
-
-\printbibliography[prenote=mybibnote]
-\addcontentsline{toc}{chapter}{Bibliography}
-\thispagestyle{empty}
+% Dormant while References.bib is empty. With no entries, \nocite{*} leaves biblatex asking
+% for a biber rerun on every build and \addcontentsline puts a Bibliography in the table of
+% contents pointing at a blank page. Uncomment all four lines, and \nocite{*} above, as soon
+% as the notes acquire a reference.
+% \defbibnote{mybibnote}{These lecture notes are based heavily on the following references:}
+%
+% \printbibliography[prenote=mybibnote]
+% \addcontentsline{toc}{chapter}{Bibliography}
+% \thispagestyle{empty}
 
 Visit~\url{https://thefundamentaltheor3m.github.io/\REPONAME/main.pdf} for the latest version of these notes. If you have any suggestions or corrections, please feel free to fork and make a pull request to the \href{https://github.com/thefundamentaltheor3m/\REPONAME}{associated GitHub repository}.
 
