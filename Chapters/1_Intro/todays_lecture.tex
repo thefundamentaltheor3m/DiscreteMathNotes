@@ -14,8 +14,11 @@
 
 There are some trivial bounds on $\chi(G)$.
 
+% [CORRECTED] was: "a fully connected subgraph" --- "connected" already means path-connected in these notes (1.1.1
+% colors each component separately), and on that reading every path would be a clique in itself, so $\omega(P_n) = n$
+% while $\chi(P_n) = 2$ and the inequality below fails. What $\omega \leq \chi$ needs is pairwise adjacency.
 \begin{boxdefinition}[Clique]
-    A \textbf{clique} in $G$ is a fully connected subgraph. The \textbf{clique number} of a graph, denoted $\omega(G)$, is the number of vertices in the largest clique. % [CLAUDE] pass this on to /check-correctness
+    A \textbf{clique} in $G$ is a complete subgraph, ie, a set of vertices any two of which are adjacent. The \textbf{clique number} of a graph, denoted $\omega(G)$, is the number of vertices in the largest clique.
 \end{boxdefinition}
 
 It isn't hard to see that $\omega(G) \leq \chi(G)$ always. Similarly, it is clear that $\chi(G) \leq \Delta + 1$, where $\Delta$ is the maximum degree.
@@ -93,10 +96,16 @@ These have exactly the property we want.
     The \textbf{girth} of $G$, denoted $\girth(G)$, is the length of the shortest cycle in $G$.
 \end{boxdefinition}
 
-The girth of a cycle is infinite.
+% [CORRECTED] was: "The girth of a cycle is infinite." --- the girth of $C_n$ is $n$; it is a graph with no cycles at
+% all whose girth the definition leaves open, and $\infty$ is the standard value there.
+The girth of a graph with no cycles is infinite.
 
+% [CORRECTED] was: "graphs of girth $k$ and chromatic number $k$" --- the argument below produces a graph with no cycle
+% of length $\leq k$, so its girth is not $k$ but greater, and it bounds the chromatic number below without pinning it
+% down; and no simple graph has girth $1$ or $2$. The exact version does follow for $k \geq 3$ (delete vertices until
+% $\chi = k$, then add a disjoint $C_k$), but that is not what is proved here.
 \begin{boxtheorem}[\Erdos]
-    For any $k$, there are graphs of girth $k$ and chromatic number $k$.
+    For any $k$, there are graphs of girth at least $k$ and chromatic number at least $k$.
 \end{boxtheorem}
 
 The proof runs through independent sets rather than through colorings directly.
@@ -112,15 +121,22 @@ As a first attempt, let's choose a set $S$ randomly by including each vertex of 
     \E\of{\abs{S}} &= pn \\
     \E\of{e(S)} &= \frac{p^2 n d}{2}
 \end{align*}
-the second line because each of the $\frac{nd}{2}$ edges lands inside $S$ with probability $p^2$. We want $S$ large and $e(S)$ small, and the two pull against each other: the expected size grows like $p$ but the expected number of edges inside like $p^2$. So we take $p$ as large as we can while keeping the expected number of edges inside $S$ down to about one. I would want $p \simeq \sqrt{\frac{2}{dn}}$. In that case we would get something like $\E\of{e(S)} \approx \sqrt{\frac{n}{d}}$. This is a poor return: a disjoint union of copies of $K_{d + 1}$ has average degree $d$ and an independent set of size $\frac{n}{d + 1}$, and the trouble is that we have insisted on $S$ coming out independent all by itself.
+% [CORRECTED] was: "$\E\of{e(S)} \approx \sqrt{n / d}$" at the end of this paragraph --- at $p = \sqrt{2 / dn}$ the
+% expected number of edges inside $S$ is exactly $1$, by the choice of $p$; it is $\E\of{\abs{S}} = \sqrt{2n / d}$ that
+% comes out at about $\sqrt{n / d}$, and it is a size that the next sentence compares against $n / (d + 1)$.
+the second line because each of the $\frac{nd}{2}$ edges lands inside $S$ with probability $p^2$. We want $S$ large and $e(S)$ small, and the two pull against each other: the expected size grows like $p$ but the expected number of edges inside like $p^2$. So we take $p$ as large as we can while keeping the expected number of edges inside $S$ down to about one. I would want $p \simeq \sqrt{\frac{2}{dn}}$. In that case we would get something like $\E\of{\abs{S}} \approx \sqrt{\frac{n}{d}}$. This is a poor return: a disjoint union of copies of $K_{d + 1}$ has average degree $d$ and an independent set of size $\frac{n}{d + 1}$, and the trouble is that we have insisted on $S$ coming out independent all by itself.
 
 Now, let's make another attempt. Still choose $S$ randomly, including each vertex with probability $p$.
 
 Let $X = \abs{S}$ and $Y = e(S)$.
 
-Now consider $\E\of{X _ Y}$. This is $pn - \frac{p^2 n d}{2}$ by linearity of expectation. So if $S$ has $X - Y$ many vertices then edges form an of $G$ contains an independent set of size $X - Y$, and using $p = \frac{1}{d}$ gives $\E\of{X - Y} = \frac{nd}{2}$.
+% [CORRECTED] was: "So if $S$ has $X - Y$ many vertices then edges form an of $G$ contains an independent set of size
+% $X - Y$", and "$\E\of{X - Y} = \frac{nd}{2}$" --- the first has no reading that is both well-formed and does the work
+% (with $X = \abs{S}$ its hypothesis forces $Y = 0$); the second is the value at $p = 1/d$ of $pn - p^2 nd / 2$, which
+% is $n / d - n / 2d = n / 2d$, and $nd / 2$ exceeds $n \geq X - Y$ as soon as $d > 2$.
+Now consider $\E\of{X - Y}$. This is $pn - \frac{p^2 n d}{2}$ by linearity of expectation. So if $S$ has $X$ vertices and $Y$ edges inside it, then $G$ contains an independent set of size at least $X - Y$, and using $p = \frac{1}{d}$ gives $\E\of{X - Y} = \frac{n}{2d}$.
 
-% [FILLED] the argument broke off after computing $\E\of{X - Y}$; the conclusion below and the lemma recording it were supplied. Evaluating $pn - p^2 nd / 2$ at $p = 1/d$ gives $n / 2d$, not the $nd / 2$ in the line above; that line is left as written for /check-correctness
+% [FILLED] the argument broke off after computing $\E\of{X - Y}$; the conclusion below and the lemma recording it were supplied
 This needs $d \geq 1$ for $p = \frac{1}{d}$ to be a probability at all, and then some $S$ has $X - Y \geq \E\of{X - Y} = \frac{n}{2d}$. Now alter that $S$: for each of the $Y$ edges lying inside it, throw out one of the two endpoints. At most $Y$ vertices go, and no edge of $G$ keeps both its endpoints, so what is left is an independent set of size at least $X - Y \geq \frac{n}{2d}$.
 
 What we have shown is worth recording.
@@ -142,15 +158,18 @@ using $\binom{n}{a} \leq n^a$ and $1 - p \leq e^{-p}$. Take $a = \ceil{\frac{n}{
 
 Now, let $X$ be the number of short cycles. That is, cycles of length $\leq k$. Then,
 \begin{align*}
-    \E(X) &= \sum_{\ell = 3}^{k} \frac{\binom{n}{\ell} \cdot \ell !}{2\ell} p \ell \\
-    &\leq \frac{1}{2} \sum_{p=3}^{k} n^{\ell} p^{\ell} \\
+    \E(X) &= \sum_{\ell = 3}^{k} \frac{\binom{n}{\ell} \cdot \ell !}{2\ell} p^{\ell} \\
+    &\leq \frac{1}{2} \sum_{\ell = 3}^{k} n^{\ell} p^{\ell} \\
     &\leq \parenth{k - 2} \frac{1}{2} n^k p^k \\
     &\leq \frac{k}{2} n^{\eps k}
 \end{align*}
+% [CORRECTED] was: "as $\eps \to 0$" after the display --- with $n$ and $k$ fixed and $\eps \to 0$ the bound tends to
+% $k / n$, not $0$; it is $n \to \infty$ with $\eps k < 1$ fixed that sends $k n^{\eps k - 1}$ to $0$, and that is the
+% limit "for sufficiently large $n$" in the next sentence uses.
 By Markov's inequality,
 \begin{align*}
     \Pr\of{X \geq \frac{n}{2}} \leq \frac{\E(X)}{n / 2} \to 0
 \end{align*}
-as $\eps \to 0$. So, there is some graph $G$ with $n$ vertices, for sufficiently large $n$, such that $X \leq \frac{n}{2}$ and $\alpha(G) \leq \frac{n}{2k}$. Construct a new graph $G'$ by deleting one vertex from each short cycle. This new graph has at least $\frac{n}{2}$ vertices, independence number at most $\frac{n}{2k}$, and thus chromatic number at least $\frac{n/2}{n/2k} \geq k$.
+as $n \to \infty$. So, there is some graph $G$ with $n$ vertices, for sufficiently large $n$, such that $X \leq \frac{n}{2}$ and $\alpha(G) \leq \frac{n}{2k}$. Construct a new graph $G'$ by deleting one vertex from each short cycle. This new graph has at least $\frac{n}{2}$ vertices, independence number at most $\frac{n}{2k}$, and thus chromatic number at least $\frac{n/2}{n/2k} \geq k$.
 
 % [CLAUDE] the proof of Erdos begins at some point in the waffle above. organise appropriately!
