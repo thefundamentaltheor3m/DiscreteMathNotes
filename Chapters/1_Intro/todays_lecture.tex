@@ -33,8 +33,9 @@ In fact, we will show that $\chi(G)$ can be much bigger than $\omega(G)$.
     A graph $G$ is \textbf{perfect} if $\chi(H) = \omega(H)$ for all induced subgraphs $H$ of $G$.
 \end{boxdefinition}
 
+% [FILLED] the lecture used the term without defining it; the definition below was supplied
 \begin{boxdefinition}[Induced Subgraph]
-    \sorry
+    Given a graph $G = \parenth{V, E}$ and a subset $W \ssq V$, the subgraph of $G$ \textbf{induced} by $W$, denoted $G[W]$, is the graph with vertex set $W$ whose edges are precisely the edges of $G$ with both endpoints in $W$. An \textbf{induced subgraph} of $G$ is any subgraph of the form $G[W]$.
 \end{boxdefinition}
 
 Let's now construct a sequence $(G_n)_{n \in \N}$.
@@ -71,16 +72,27 @@ Now, let's make another attempt. Still choose $S$ randomly, including each verte
 
 Let $X = \abs{S}$ and $Y = e(S)$.
 
-Now consider $\E\of{X _ Y}$. This is $pn - \frac{p^2 n d}{2}$ by linearity of expectation. So if $S$ has $X - Y$ many vertices then edges form an of $G$ contains an independent set of size $X - Y$, and using $p = \frac{1}{d}$ gives $\E\of{X - Y} = \frac{nd}{2}$. \sorry
+Now consider $\E\of{X _ Y}$. This is $pn - \frac{p^2 n d}{2}$ by linearity of expectation. So if $S$ has $X - Y$ many vertices then edges form an of $G$ contains an independent set of size $X - Y$, and using $p = \frac{1}{d}$ gives $\E\of{X - Y} = \frac{nd}{2}$.
+
+% [FILLED] the argument broke off after computing $\E\of{X - Y}$; the conclusion below and the lemma recording it were supplied. Evaluating $pn - p^2 nd / 2$ at $p = 1/d$ gives $n / 2d$, not the $nd / 2$ in the line above; that line is left as written for /check-correctness
+This needs $d \geq 1$ for $p = \frac{1}{d}$ to be a probability at all, and then some $S$ has $X - Y \geq \E\of{X - Y} = \frac{n}{2d}$. Now alter that $S$: for each of the $Y$ edges lying inside it, throw out one of the two endpoints. At most $Y$ vertices go, and no edge of $G$ keeps both its endpoints, so what is left is an independent set of size at least $X - Y \geq \frac{n}{2d}$.
+
+What we have shown is worth recording.
+
+\begin{boxlemma}
+    If $G$ is a graph with $n$ vertices and average degree $d \geq 1$, then $G$ has an independent set of size at least $\frac{n}{2d}$.
+\end{boxlemma}
 
 The above is called the \textbf{method of alterations} - constructing something randomly and then changing based on how it goes.
 
 Consider the graph $G_{n, p}$ for $p = \frac{n^{\varepsilon}}{n}$. For some small $\varepsilon > 0$ (in particular, $\varepsilon << \frac{1}{k}$, we see that
 
+% [FILLED] the display broke off after the union bound; the second line and the paragraph after it were supplied
 \begin{align*} % [CLAUDE] alpha here is the independence number (I think), define somewhere and organise
     \Pr\of{\alpha\of{G_{n, p}} \geq a} &\leq \binom{n}{a} \parenth{1 - p}^{\binom{a}{2}}  \\
-    & \leq \sorry
+    & \leq n^a e^{-p \binom{a}{2}} = \exp\of{a \parenth{\ln n - \frac{p \parenth{a - 1}}{2}}}
 \end{align*}
+using $\binom{n}{a} \leq n^a$ and $1 - p \leq e^{-p}$. Take $a = \ceil{\frac{n}{2k}}$, so that $a - 1 \geq \frac{n}{2k} - 1$ and hence $\frac{p \parenth{a - 1}}{2} \geq \frac{n^{\eps}}{4k} - \frac{1}{2}$. Any positive power of $n$ eventually beats $\ln n$, so the bracket is negative for $n$ large enough and the whole thing tends to $0$: that is, $\Pr\of{\alpha\of{G_{n, p}} \geq \frac{n}{2k}} \to 0$ as $n \to \infty$.
 
 Now, let $X$ be the number of short cycles. That is, cycles of length $\leq k$. Then,
 \begin{align*}
