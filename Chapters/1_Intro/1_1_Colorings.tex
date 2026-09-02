@@ -93,6 +93,8 @@ We can ask ourselves the following question: \textbf{``Which $3$-uniform hypergr
 
 For each $k$, define $m(k)$ to be the smallest $m$ such that $\exists$ some $k$-uniform hypergraph with $m$ edges that is not $2$-colorable. We can show that $m(2) = 3$. But what is $m(3)$? That is, how many $3$-edges do I need to prevent $2$-colorability?
 
+\subsection{The Value of $m(3)$}
+
 Let $H$ be a $3$-uniform hypergraph that's not $2$-colorable. Assume, further, that $H$ has at most $6$ edges (each being a subset of size $3$).
 
 First, we'll show that we can reduce, without loss of generality, to the case where $H$ has exactly $6$ vertices. Indeed, if $H$ has vertices $x, y$ that are not in any common edge, then I can define $H'$ by ``merging'' $x$ and $y$. So $H'$ has one fewer vertex than $H$. This $H'$ cannot be $2$-colorable: if it were, then that coloring would extend to $H$ by using the color of the merged vertex at both $x$ and $y$, which would make $H$ $2$-colorable. And when $H$ has more than $6$ vertices, such a pair always exists.
