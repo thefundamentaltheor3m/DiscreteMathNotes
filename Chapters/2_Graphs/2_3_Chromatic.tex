@@ -1,6 +1,6 @@
 \section{Chromatic Number}
 
-Back to coloring vertices, and this time we are not rationed to two colors. \Cref{Ch1:CH} opened by asking which graphs can be colored with two of them; the question now is how many colors a graph needs in general, and how far that number can be pushed away from the obvious lower bound.
+Back to coloring vertices, and this time we are not rationed to two colors. \Cref{Ch2:CH} opened by asking which graphs can be colored with two of them; the question now is how many colors a graph needs in general, and how far that number can be pushed away from the obvious lower bound.
 
 \begin{boxdefinition}[Chromatic Number]
     The \textbf{chromatic number} of a graph $G$, denoted $\chi(G)$, is the smallest number of colors I need to color $G$.
@@ -120,7 +120,7 @@ $G_4$ is already hard to take in, but the shape of the construction survives in 
 
 These have exactly the property we want.
 
-\begin{boxproposition} \label{Ch1:Prop:Zykov}
+\begin{boxproposition} \label{Ch2:Prop:Zykov}
     For every $k \geq 1$, $G_k$ has no triangles and $\chi(G_k) = k$.
 \end{boxproposition}
 \begin{proof}
@@ -131,7 +131,7 @@ These have exactly the property we want.
 
 \subsection{Graphs of Large Girth}
 
-The graphs of \Cref{Ch1:Prop:Zykov} have no triangles, but nothing stops them having cycles of length four or five---$G_3$ is one. It is natural to ask whether forbidding all short cycles finally holds the chromatic number down, and the answer is that it does not.
+The graphs of \Cref{Ch2:Prop:Zykov} have no triangles, but nothing stops them having cycles of length four or five---$G_3$ is one. It is natural to ask whether forbidding all short cycles finally holds the chromatic number down, and the answer is that it does not.
 
 \begin{boxdefinition}[Girth]
     The \textbf{girth} of $G$, denoted $\girth(G)$, is the length of the shortest cycle in $G$.
@@ -145,7 +145,7 @@ The girth of a graph with no cycles is infinite.
 % of length $\leq k$, so its girth is not $k$ but greater, and it bounds the chromatic number below without pinning it
 % down; and no simple graph has girth $1$ or $2$. The exact version does follow for $k \geq 3$ (delete vertices until
 % $\chi = k$, then add a disjoint $C_k$), but that is not what is proved here.
-\begin{boxtheorem}[\Erdos] \label{Ch1:Thm:Erdos_Girth}
+\begin{boxtheorem}[\Erdos] \label{Ch2:Thm:Erdos_Girth}
     For any $k$, there are graphs of girth at least $k$ and chromatic number at least $k$.
 \end{boxtheorem}
 
@@ -188,14 +188,9 @@ What we have shown is worth recording.
 
 The above is called the \textbf{method of alterations}---constructing something randomly and then changing based on how it goes.
 
-The proof of \Cref{Ch1:Thm:Erdos_Girth} plays the same trick, but with a random graph in place of a random set of vertices.
+The proof of \Cref{Ch2:Thm:Erdos_Girth} plays the same trick, but with a random graph (\Cref{Ch1:Def:Random_Graph}) in place of a random set of vertices.
 
-% Not from the lecture: the lecture used $G_{n, p}$ without defining it, and the definition below was supplied.
-\begin{boxdefinition}[Random Graph] \label{Ch1:Def:Random_Graph}
-    For $n \in \N$ and $p \in [0, 1]$, the \textbf{random graph} $G_{n, p}$ is the graph on the vertex set $[n]$ in which each of the $\binom{n}{2}$ possible edges is present independently with probability $p$.
-\end{boxdefinition}
-
-\begin{proof}[Proof of \Cref{Ch1:Thm:Erdos_Girth}]
+\begin{proof}[Proof of \Cref{Ch2:Thm:Erdos_Girth}]
     Fix $k \geq 3$; for $k \leq 2$ a single edge already does. Consider the graph $G_{n, p}$ for $p = \frac{n^{\varepsilon}}{n}$. For some small $\varepsilon > 0$ (in particular, $\varepsilon \ll \frac{1}{k}$), we see that
     % [CLAUDE] Blocked on the author, so skip this unless the condition below is met. The directive here was:
     % "you may need to replace some of what you've written with what we did today (4 September 2026)".
@@ -219,7 +214,7 @@ The proof of \Cref{Ch1:Thm:Erdos_Girth} plays the same trick, but with a random 
     % [CORRECTED] was: "as $\eps \to 0$" after the display --- with $n$ and $k$ fixed and $\eps \to 0$ the bound tends to
     % $k / n$, not $0$; it is $n \to \infty$ with $\eps k < 1$ fixed that sends $k n^{\eps k - 1}$ to $0$, and that is the
     % limit "for sufficiently large $n$" in the next sentence uses.
-    By Markov's inequality,
+    By Markov's inequality (\Cref{Ch1:Thm:Markov}),
     \begin{align*}
         \Pr\of{X \geq \frac{n}{2}} \leq \frac{\E(X)}{n / 2} \to 0
     \end{align*}

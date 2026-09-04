@@ -25,7 +25,7 @@ The question is: how big can an intersecting $k$-uniform hypergraph on $n$ verti
 
 The middle of that list is the general answer, and the bottom of it is why $n \geq 2k$ has to be assumed to get one.
 
-\begin{boxtheorem}[\Erdos-Ko-Rado] \label{Ch2:Thm:EKR}
+\begin{boxtheorem}[\Erdos-Ko-Rado] \label{Ch3:Thm:EKR}
     If $n \geq 2k$, and $H$ is an intersecting $k$-uniform hypergraph on $n$ vertices, then the number of hyper-edges of $H$ is $\leq \binom{n-1}{k-1}$. Moreover, if $n \geq 2k + 1$, then the (``unique'') extremal example is given by all $k$-subsets containing a fixed vertex.
 \end{boxtheorem}
 
@@ -72,7 +72,7 @@ There are $n$ intervals in $\calF_{\pi}$, one starting at each vertex, and---thi
 % intersecting edges in $F$, $C$ must be the collection of all edges that include some fixed vertex." --- the second
 % half needs $n \geq 2k + 1$, which that sentence does not carry. At $n = 2k$ it fails for every $k \geq 3$; the
 % counterexample recorded after the proof is the smallest one.
-\begin{boxlemma} \label{Ch2:Lemma:Intersecting_Intervals}
+\begin{boxlemma} \label{Ch3:Lemma:Intersecting_Intervals}
     Let $n \geq 2k$. Any collection $\calC \subseteq \calF_{\pi}$ of pairwise intersecting $k$-intervals has $\abs{\calC} \leq k$. Moreover, if $n \geq 2k + 1$ and $\abs{\calC} = k$, then $\calC$ is the collection of all the $k$-intervals containing some one vertex.
 \end{boxlemma}
 % [FILLED] the lecture asserted both halves of this without proof; the proof below was supplied
@@ -88,12 +88,12 @@ There are $n$ intervals in $\calF_{\pi}$, one starting at each vertex, and---thi
 
 The hypothesis $n \geq 2k + 1$ does real work in that second half: on $C_6$ the three $3$-intervals $\set{1, 2, 3}$, $\set{3, 4, 5}$ and $\set{5, 6, 1}$ pairwise intersect, and there are $k = 3$ of them, but no vertex lies in all three.
 
-\begin{proof}[Proof of the bound in \Cref{Ch2:Thm:EKR}]
+\begin{proof}[Proof of the bound in \Cref{Ch3:Thm:EKR}]
     Choose $\pi \in S_n$ uniformly at random and set
     \begin{align*}
         X = \abs{\setst{h \in \H}{h \in \calF_{\pi}}}
     \end{align*}
-    The intervals being counted here are hyper-edges of $H$, so they pairwise intersect, and by \Cref{Ch2:Lemma:Intersecting_Intervals} it is always true that $X \leq k$. Now, let's compute the expectation of $X$.
+    The intervals being counted here are hyper-edges of $H$, so they pairwise intersect, and by \Cref{Ch3:Lemma:Intersecting_Intervals} it is always true that $X \leq k$. Now, let's compute the expectation of $X$.
     % [FILLED] the lecture broke off at ``let's compute the expectation of $X$''; the computation and the conclusion below were supplied
     \begin{align*}
         \E\of{X} = \sum_{h \in \H} \Pr\of{h \in \calF_{\pi}}
@@ -114,13 +114,13 @@ The hypothesis $n \geq 2k + 1$ does real work in that second half: on $C_6$ the 
 
 \subsection{The Extremal Case}
 
-That argument has slack in exactly one place, and at $\abs{\H} = \binom{n-1}{k-1}$ there is none left: $X$ is then equal to $k$ for every ordering rather than merely on average. Once $n \geq 2k + 1$, so that the second half of \Cref{Ch2:Lemma:Intersecting_Intervals} is available, every ordering of the cycle hands us a run of $k$ intervals all of which are hyper-edges---and that pins $\H$ down completely. The following is the ``moreover'' of \Cref{Ch2:Thm:EKR}, made precise.
+That argument has slack in exactly one place, and at $\abs{\H} = \binom{n-1}{k-1}$ there is none left: $X$ is then equal to $k$ for every ordering rather than merely on average. Once $n \geq 2k + 1$, so that the second half of \Cref{Ch3:Lemma:Intersecting_Intervals} is available, every ordering of the cycle hands us a run of $k$ intervals all of which are hyper-edges---and that pins $\H$ down completely. The following is the ``moreover'' of \Cref{Ch3:Thm:EKR}, made precise.
 
 % [CORRECTED] was: "If $\abs{\H} = \binom{n-1}{k-1}$ and $n \geq 2k + 1$, then the extremal example ...", with no
 % hypothesis on $H$ at all. Read as the free-standing statement a boxed theorem is, that is false: it would make any
 % $\binom{n-1}{k-1}$ subsets of $[n]$ a star. Both hypotheses are load-bearing --- without $k$-uniformity the
 % cardinality is no longer the star's, and without intersecting nothing forces a common vertex.
-\begin{boxtheorem} \label{Ch2:Thm:EKR_Extremal}
+\begin{boxtheorem} \label{Ch3:Thm:EKR_Extremal}
     Let $H$ be an intersecting $k$-uniform hypergraph on $n$ vertices. If $\abs{\H} = \binom{n-1}{k-1}$ and $n \geq 2k + 1$, then the extremal example is the obvious one: there is a vertex $x$ such that $\H$ consists of precisely the $k$-subsets of $[n]$ that contain $x$.
 \end{boxtheorem}
 
@@ -153,12 +153,12 @@ Here is the picture to keep in mind. Swapping two neighbors on the cycle disturb
 
 Here $n = 11$ and $k = 4$. The two dashed intervals are the ones the swap of positions $q$ and $q + 1$ disturbs; one of them is among the four hyper-edges through $x$ and the other is not, and the remaining three arcs are untouched.
 
-\begin{proof}[Proof of \Cref{Ch2:Thm:EKR_Extremal}]
+\begin{proof}[Proof of \Cref{Ch3:Thm:EKR_Extremal}]
     Run the argument above again, this time at equality. If $\abs{\H} = \binom{n-1}{k-1}$, then
     \begin{align*}
         \E\of{X} = \binom{n-1}{k-1} \cdot \frac{n}{\binom{n}{k}} = k
     \end{align*}
-    and we already know that $X \leq k$ whatever $\pi$ is. There are finitely many $\pi$ and each is equally likely, so a mean of $k$ under a ceiling of $k$ leaves nothing to spare: $X = k$ for every single $\pi$. However we lay the $n$ vertices out around a cycle, then, exactly $k$ of that cycle's $k$-intervals are hyper-edges of $H$, and by \Cref{Ch2:Lemma:Intersecting_Intervals} those $k$ intervals are the intervals through a single vertex---one vertex and no more, since the outermost two of them share only it. Write $x_{\pi}$ for that vertex. For $k = 1$ an intersecting family is a single hyper-edge and the theorem is immediate, so assume from here that $k \geq 2$.
+    and we already know that $X \leq k$ whatever $\pi$ is. There are finitely many $\pi$ and each is equally likely, so a mean of $k$ under a ceiling of $k$ leaves nothing to spare: $X = k$ for every single $\pi$. However we lay the $n$ vertices out around a cycle, then, exactly $k$ of that cycle's $k$-intervals are hyper-edges of $H$, and by \Cref{Ch3:Lemma:Intersecting_Intervals} those $k$ intervals are the intervals through a single vertex---one vertex and no more, since the outermost two of them share only it. Write $x_{\pi}$ for that vertex. For $k = 1$ an intersecting family is a single hyper-edge and the theorem is immediate, so assume from here that $k \geq 2$.
 
     It remains to see that $x_{\pi}$ does not depend on $\pi$, and one adjacent transposition at a time is enough. Fix an ordering, put $x = x_{\pi}$ at position $0$ and number the other positions $1, \ldots, n - 1$ round the circle, and let $I_j$ be the interval occupying \emph{positions} $j, j + 1, \ldots, j + k - 1$, indices read modulo $n$. The intervals through position $c$ are $I_{c-k+1}, \ldots, I_{c}$, so the hyper-edges of this ordering are exactly $I_{-(k-1)}, \ldots, I_{0}$. Transposing the vertices at adjacent positions $q$ and $q + 1$, neither of them position $0$, changes which vertices occupy $I_j$ exactly when $I_j$ holds one of those two positions and not the other---which happens for $j = q + 1$ and for $j = q - k + 1$, and for no other $j$.
 
