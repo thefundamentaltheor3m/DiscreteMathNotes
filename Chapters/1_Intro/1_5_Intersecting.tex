@@ -131,6 +131,24 @@ That argument has slack in exactly one place, and at $\abs{\H} = \binom{n-1}{k-1
 Whatever order we lay the vertices out in, the picture looks like the one above: the hyper-edges we can see on the cycle are the $k$ intervals through one distinguished vertex, drawn here as concentric arcs. All the work is in showing that the distinguished vertex does not move when the order changes.
 
 % [FILLED] the statement broke off mid-sentence and the lecture sketched the proof in a line; the completion above and the argument below were supplied
+
+Here is the picture to keep in mind. Swapping two neighbors on the cycle disturbs only two of its $n$ intervals---the one ending at the first of them and the one starting at the second, each of which holds exactly one of the pair---and every other interval keeps its vertices. So at least $k - 1$ of the $k$ arcs through $x$ are still hyper-edges and still intervals after the swap, and $k - 1$ consecutive arcs leave the new fan almost no room to sit anywhere else. The proof below is the bookkeeping that turns ``almost'' into ``none''.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \cyclefan[1.5]{11}{4}{1}
+        \node[anchor = north] at (90:1.34) {$x$};
+        \draw[thick, dashed, blue] ({90 - 360 / 11}:1.22) arc ({90 - 360 / 11}:{90 + 360 * 2 / 11}:1.22);
+        \draw[thick, dashed, blue] ({90 + 360 * 3 / 11}:1.22) arc ({90 + 360 * 3 / 11}:{90 + 360 * 6 / 11}:1.22);
+        \draw[<->, thick, gray] ({90 + 360 * 2 / 11}:1.38) arc ({90 + 360 * 2 / 11}:{90 + 360 * 3 / 11}:1.38);
+        \node at ({90 + 360 * 2 / 11}:0.95) {$q$};
+        \node at ({90 + 360 * 3 / 11}:0.9) {$q + 1$};
+    \end{tikzpicture}
+\end{figure}
+
+Here $n = 11$ and $k = 4$. The two dashed intervals are the ones the swap of positions $q$ and $q + 1$ disturbs; one of them is among the four hyper-edges through $x$ and the other is not, and the remaining three arcs are untouched.
+
 \begin{proof}[Proof of \Cref{Ch1:Thm:EKR_Extremal}]
     Run the argument above again, this time at equality. If $\abs{\H} = \binom{n-1}{k-1}$, then
     \begin{align*}
@@ -140,7 +158,7 @@ Whatever order we lay the vertices out in, the picture looks like the one above:
 
     It remains to see that $x_{\pi}$ does not depend on $\pi$, and one adjacent transposition at a time is enough. Fix an ordering, put $x = x_{\pi}$ at position $0$ and number the other positions $1, \ldots, n - 1$ round the circle, and let $I_j$ be the interval occupying \emph{positions} $j, j + 1, \ldots, j + k - 1$, indices read modulo $n$. The intervals through position $c$ are $I_{c-k+1}, \ldots, I_{c}$, so the hyper-edges of this ordering are exactly $I_{-(k-1)}, \ldots, I_{0}$. Transposing the vertices at adjacent positions $q$ and $q + 1$, neither of them position $0$, changes which vertices occupy $I_j$ exactly when $I_j$ holds one of those two positions and not the other---which happens for $j = q + 1$ and for $j = q - k + 1$, and for no other $j$.
 
-    So the new ordering's hyper-edges, again the intervals through a single position $c$, agree with $I_{-(k-1)}, \ldots, I_{0}$ outside those two indices. But two runs of $k$ consecutive indices whose right-hand ends sit $c$ apart differ in $2\min\of{\abs{c}, k}$ places, where $\abs{c}$ is the distance from $c$ to $0$ measured around the circle, so $c \neq 0$ would force $\abs{c} = 1$, and the two indices they differ in are then $\set{-(k-1), 1}$ if $c = 1$ and $\set{-k, 0}$ if $c = -1$. Either set would have to be $\set{q - k + 1, q + 1}$. Both pairs differ by $k$, and matching them in the only order that does not ask for $-k \equiv k \pmod{n}$---impossible, as $n > 2k$---gives $q = 0$ in the first case and $q = -1$ in the second. Both are excluded, so $c = 0$: the distinguished vertex is the one at position $0$, which the transposition left where it was.
+    So the new ordering's hyper-edges, again the intervals through a single position $c$, agree with $I_{-(k-1)}, \ldots, I_{0}$ outside those two indices. But two runs of $k$ consecutive indices whose right-hand ends sit $c$ apart differ in $2\min\of{\abs{c}, k}$ places, where $\abs{c}$ is the distance from $c$ to $0$ measured around the circle, so $c \neq 0$ would force $\abs{c} = 1$, and the two indices they differ in are then $\set{-(k-1), 1}$ if $c = 1$ and $\set{-k, 0}$ if $c = -1$. Either set would have to be $\set{q - k + 1, q + 1}$. Both pairs differ by $k$, and matching them in the only order that does not ask for $-k \equiv k \pmod{n}$ (which is impossible, as $n > 2k$) gives $q = 0$ in the first case and $q = -1$ in the second. Both are excluded, so $c = 0$: the distinguished vertex is the one at position $0$, which the transposition left where it was.
 
     Adjacent transpositions avoiding position $0$ generate every arrangement of the other $n - 1$ vertices around the circle, and each one leaves the distinguished vertex at position $0$ for the next to start from, so the paragraph above applies afresh along the whole chain. Rotating or reflecting a layout leaves its intervals, and hence $x_{\pi}$, alone---so every $\pi$ can first be turned until $x$ sits at position $0$, and $x_{\pi} = x$ for all of them. Take any $k$-subset $h$ of $[n]$ containing $x$, and lay the vertices out with the elements of $h$ consecutive: then $h$ is an interval containing $x$, so $h \in \H$. There are $\binom{n-1}{k-1}$ such $h$, which is exactly $\abs{\H}$, so they are all of it.
 \end{proof}

@@ -340,6 +340,23 @@
     \fill[magenta] (\angx:#1) circle (3pt);
 }
 
+\newcommand{\coloredcyclegraph}[3][1]{  % [radius]{n}{colors}: the cycle graph on n vertices, with its vertices colored in turn by the n colors in the comma-separated list
+    \stepedges[#1]{#2}{1}
+    \foreach \c [count = \i] in {#3}{
+        \pgfmathsetmacro{\angthis}{90 + 360 * (\i - 1) / #2}
+        \fill[\c] (\angthis:#1) circle (3pt);
+    }
+}
+
+\newcommand{\coloredstargraph}[4][1]{  % [radius]{n}{hub color}{leaf color}: the star graph with n edges, its hub and its leaves colored as named
+    \foreach \i in {1, ..., #2}{
+        \pgfmathsetmacro{\angthis}{90 + 360 * (\i - 1) / #2}
+        \draw[thick] (0, 0) -- (\angthis:#1);
+        \fill[#4] (\angthis:#1) circle (3pt);
+    }
+    \fill[#3] (0, 0) circle (3pt);
+}
+
 \newcommand{\BigO}[1]{\operatorname{O}\of{#1}}
 
 \newcommand{\Adj}{\operatorname{Adj}}
@@ -347,6 +364,7 @@
 \newcommand{\ssq}{\subseteq}
 
 \newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}[1]{\operatorname{Var}\of{#1}}
 
 \newcommand{\bipartiteparts}[3][0.9]{  % [spacing]{m}{n}: the two parts of a bipartite graph, as columns of m and n vertices named (A1), ..., (Am) and (B1), ..., (Bn), ready to be joined by \draw (A1) -- (B2);
     \foreach \i in {1, ..., #2}{
@@ -360,3 +378,5 @@
 }
 
 \newcommand{\Erdos}{Erd\Hacute{o}s}
+\newcommand{\girth}{\operatorname{girth}}
+\newcommand{\eps}{\varepsilon}

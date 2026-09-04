@@ -67,6 +67,26 @@ What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
         -- uniquely a star once n >= 2k+1                  [supplied]
       the extremal case: |H| = binom(n-1,k-1) forces a star, by transposing
         adjacent vertices of the cycle one at a time       [supplied]
+
+1.6 Chromatic Number                                [2026-09-02]
+    Comes back to coloring graphs, and asks how many colors a graph needs
+    and how far that can be from the obvious lower bound.
+      chi(G), and the trivial bounds omega(G) <= chi(G) <= Delta + 1
+    1.6.1 Trivial Bounds                            [2026-09-02]
+      cliques and the clique number
+      the star (Delta large, chi = 2) and the odd cycle (omega = 2, chi = 3)
+    1.6.2 Perfect Graphs                            [2026-09-02]
+      induced subgraphs                                         [supplied]
+      perfect graphs, defined and not pursued
+      Zykov's construction: triangle-free with chi(G_k) = k, proved
+        by induction                                            [supplied]
+    1.6.3 Graphs of Large Girth                     [2026-09-02]
+      girth; Erdos: girth >= k and chi >= k at once
+      independent sets and alpha(G)
+      alpha(G) >= n/2d for average degree d >= 1, by the method
+        of alterations                                          [supplied]
+      G_{n,p} at p = n^{eps - 1}: alpha <= n/2k and fewer than n/2
+        short cycles, whp; delete a vertex per short cycle
 ```
 
 Entries marked `[supplied]` are arguments this repository's skills worked out,
@@ -137,6 +157,22 @@ Hilton-Milner                    not named 2026-08-31, but it is the standard
                                  a second proof of the extremal theorem. The
                                  proof in the notes goes the other way, through
                                  the cycle, and needs nothing external.
+perfect graphs                   defined 2026-09-02 and then left: the lecture named
+                                 the class in which omega = chi holds hereditarily
+                                 and went straight to how badly it can fail.
+chi(G) >= |V(G)| / alpha(G)      used 2026-09-02 with "thus" at the end of the Erdos
+                                 proof. True because each color class is an
+                                 independent set; the notes do not say it.
+Markov's inequality              used 2026-09-02 by name, not stated.
+girth exactly k, chi exactly k   the lecture stated Erdos's theorem with equalities;
+                                 the proof gives girth > k and chi >= k, and the
+                                 statement now says "at least". The exact form does
+                                 follow for k >= 3 (delete vertices until chi = k,
+                                 then add a disjoint C_k); recorded in a CORRECTED
+                                 comment in 1.6.3, not in the notes.
+G_{n, p}                         used 2026-09-02 without definition; a boxed
+                                 definition was supplied in 1.6.3 and marked as not
+                                 from the lecture.
 ```
 
 ## Unplaced
@@ -201,6 +237,26 @@ The "moreover" of Erdos-Ko-Rado is stated twice in 1.5, once inside the theorem
     the author's -- both were written in the lecture -- and /integrate may not
     delete a statement, so both stand, with the second cross-referenced as the
     first made precise. Merging them is /organize's call. [noted 2026-08-31]
+
+1.6 Chromatic Number is a coloring section sitting after three sections of extremal
+    set theory. It continues 1.1's question -- how many colors does a graph need --
+    and its Zykov graphs and Erdos's theorem read most naturally right after 1.1 and
+    1.2, before the notes leave coloring for hypergraph set systems. It was appended
+    as 1.6 because /integrate may not renumber 1.3-1.5 to make room. This is the
+    fourth thing for /organize to weigh with the chapter title (flagged 2026-08-28,
+    2026-08-31): a chapter that opens and closes with coloring around a set-systems
+    middle wants either reordering or splitting. [noted 2026-09-02]
+
+The author wrote \section{Chromatic Number} and \section{Perfect Graphs}, and asked
+    in a comment whether each deserved a section or a subsection. Integrated as one
+    section with three subsections, the second of them carrying the author's
+    "Perfect Graphs" heading demoted to a subsection and its tail (girth, Erdos)
+    split into a third. Reason: ORGANIZATION.md's section test is one line of
+    enquiry with a destination, and everything here walks toward Erdos's theorem
+    -- perfect graphs are named only as the case the rest of the section shows
+    can fail arbitrarily badly. If a later lecture develops perfect graphs on
+    their own (the strong perfect graph theorem, say), that subsection is the
+    seed of a section and /organize should lift it. [noted 2026-09-02]
 ```
 
 ## Template scaffolding
