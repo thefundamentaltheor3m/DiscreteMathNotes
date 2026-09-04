@@ -1,6 +1,6 @@
 \section{Chromatic Number}
 
-Coloring is back, and this time we are not rationed to two colors. \Cref{Ch1:CH} opened by asking which graphs can be colored with two colors; the question now is how many colors a graph needs in general, and how far that number can be pushed away from the obvious lower bound.
+Back to coloring vertices, and this time we are not rationed to two colors. \Cref{Ch1:CH} opened by asking which graphs can be colored with two of them; the question now is how many colors a graph needs in general, and how far that number can be pushed away from the obvious lower bound.
 
 \begin{boxdefinition}[Chromatic Number]
     The \textbf{chromatic number} of a graph $G$, denoted $\chi(G)$, is the smallest number of colors I need to color $G$.
@@ -52,6 +52,8 @@ First, the graphs for which the lower bound is exact---and stays exact when we t
     A graph $G$ is \textbf{perfect} if $\chi(H) = \omega(H)$ for all induced subgraphs $H$ of $G$.
 \end{boxdefinition}
 
+\subsection{Zykov's Construction}
+
 At the opposite extreme are graphs with $\omega = 2$ and $\chi$ as large as we like, and we can build them by hand.
 
 Let's now construct a sequence $(G_n)_{n \in \N}$. Start with $G_1$ a single vertex. Given $G_1, \ldots, G_{k-1}$, take disjoint copies of all of them, and for every way of choosing one vertex $v_i$ from each $G_i$ add a new vertex adjacent to $v_1, \ldots, v_{k-1}$ and to nothing else; the result is $G_k$. In the pictures below the copies of the earlier graphs sit on top and the new vertices along the bottom, so that each bottom vertex sends exactly one edge into each of the graphs above it. There are $\abs{G_1} \cdots \abs{G_{k-1}}$ new vertices, so $G_2$ has $1 + 1 = 2$ vertices and is a single edge, $G_3$ has $1 + 2 + 2 = 5$ and is the $5$-cycle, and $G_4$ has $1 + 2 + 5 + 10 = 18$ (the construction is due to Zykov).
@@ -78,6 +80,41 @@ Let's now construct a sequence $(G_n)_{n \in \N}$. Start with $G_1$ a single ver
             \draw (a3) -- (e3) -- (c3);
             \node[anchor = north] at (0.15, -1.4) {$G_3$};
         \end{scope}
+    \end{tikzpicture}
+\end{figure}
+
+$G_4$ is already hard to take in, but the shape of the construction survives in it: the three earlier graphs across the top, and below them one new vertex for each of the $1 \cdot 2 \cdot 5 = 10$ ways of picking one vertex from each. The edges into the copies are drawn faintly, so that the copies themselves stay visible.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale = 0.95]
+        \node[circle, fill = black, inner sep = 1.5pt] (u) at (0, 1) {};
+        \node[anchor = south] at (0, 1.5) {$G_1$};
+        \node[circle, fill = black, inner sep = 1.5pt] (v1) at (1.6, 0.55) {};
+        \node[circle, fill = black, inner sep = 1.5pt] (v2) at (1.6, 1.45) {};
+        \node[anchor = south] at (1.6, 1.75) {$G_2$};
+        \foreach \k in {1, ..., 5}{
+            \pgfmathsetmacro{\ang}{90 + 72 * (\k - 1)}
+            \pgfmathsetmacro{\wx}{4.6 + 0.85 * cos(\ang)}
+            \pgfmathsetmacro{\wy}{1 + 0.85 * sin(\ang)}
+            \node[circle, fill = black, inner sep = 1.5pt] (w\k) at (\wx, \wy) {};
+        }
+        \node[anchor = south] at (4.6, 1.95) {$G_3$};
+        \foreach \j in {1, 2}{
+            \foreach \k in {1, ..., 5}{
+                \pgfmathtruncatemacro{\i}{5 * (\j - 1) + \k}
+                \pgfmathsetmacro{\x}{-0.6 + 0.8 * (\i - 1)}
+                \node[circle, fill = black, inner sep = 1.5pt] (x\i) at (\x, -1.5) {};
+                \draw[gray!55, thin] (x\i) -- (u);
+                \draw[gray!55, thin] (x\i) -- (v\j);
+                \draw[gray!55, thin] (x\i) -- (w\k);
+            }
+        }
+        \draw (v1) -- (v2);
+        \foreach \k in {1, ..., 5}{
+            \pgfmathtruncatemacro{\next}{mod(\k, 5) + 1}
+            \draw (w\k) -- (w\next);
+        }
     \end{tikzpicture}
 \end{figure}
 

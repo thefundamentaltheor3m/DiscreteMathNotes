@@ -40,7 +40,7 @@ Keep it refreshed when making substantive content changes.
 `\REPONAME`) that are consumed by the title block and by the "latest version" URLs.
 These are set for the real course — 21-701 Discrete Mathematics, CMU, Fall 2026.
 The template's placeholder chapters were cleared on 2026-08-24 (`TOPICS.md` records
-which, and why). What remains under `Chapters/` is `1_Intro/`, which is real, and
+which, and why). What remains under `Chapters/` is `1_Intro/` and `2_Set_Systems/`, which are real, and
 `Appendices/`, which is still a placeholder with its `\input` commented out in
 `main.tex` — kept deliberately, since three of the four sibling repositories keep an
 `Appendices/` directory and two of those keep it commented out.
