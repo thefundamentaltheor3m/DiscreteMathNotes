@@ -25,7 +25,7 @@ Any odd cycle graph can't be 2-colored. That is, any graph that looks like
 
 Let's study when odd cycles exist.
 
-\begin{boxlemma}\label{Ch1:Lemma:Odd_Closed_Walk}
+\begin{boxlemma}\label{Ch2:Lemma:Odd_Closed_Walk}
     If $G$ has an odd closed walk, then $G$ has an odd cycle.
 \end{boxlemma}
 Recall that a closed walk need not be a cycle: walks can contain repetitions. So even line graphs can have closed walks (start from one vertex, go to its neighbor, return).
@@ -58,7 +58,7 @@ Here's a cool result.
 
     Indeed, suppose it is not. Then, there must be some $u, v \in V$ such that $u \sim v$ and $c(u) = c(v)$. Now let's consider the two possible cases on the color.
 
-    Suppose $c(u) = c(v) = 1$ for adjacent $u, v$. Then, there is a path of even length between $v$ and $v_0$ and another path of even length between $u$ and $v_0$. Concatenating the path from $v$ to $v_0$ with the one from $v_0$ to $u$, and closing up with the edge $uv$, we get a closed walk of length even $+$ even $+ 1$. This is odd, so by \Cref{Ch1:Lemma:Odd_Closed_Walk}, $G$ has an odd cycle.
+    Suppose $c(u) = c(v) = 1$ for adjacent $u, v$. Then, there is a path of even length between $v$ and $v_0$ and another path of even length between $u$ and $v_0$. Concatenating the path from $v$ to $v_0$ with the one from $v_0$ to $u$, and closing up with the edge $uv$, we get a closed walk of length even $+$ even $+ 1$. This is odd, so by \Cref{Ch2:Lemma:Odd_Closed_Walk}, $G$ has an odd cycle.
 
     The case $c(u) = c(v) = 2$ is identical: the two paths are now of odd length, so the closed walk they form with the edge $uv$ has length odd $+$ odd $+ 1$, which is odd again.
 
@@ -69,7 +69,7 @@ Here's a cool result.
 
 Coloring is not really a question about graphs. All the definition above asks of $G$ is that we know which pairs of vertices may not share a color, and nothing stops us forbidding larger sets instead.
 
-\begin{boxdefinition}[Hypergraph] \label{Ch1:Def:Hypergraph}
+\begin{boxdefinition}[Hypergraph] \label{Ch2:Def:Hypergraph}
     Given a vertex set $V$, a \textbf{hypergraph} is a pair $H = \parenth{V, \H}$, where $\H$ is a collection of subsets of $V$. The sets in $\H$ are called \textbf{hyper-edges}.
 \end{boxdefinition}
 
@@ -146,7 +146,7 @@ Every vertex lies on exactly three lines, any two vertices lie on exactly one li
 
 Pinning down $m(3)$ took a page of case analysis, and doing the same for $m(4)$ is out of the question. What we can do for every $k$ at once is bound it, and the lower bound falls out of an idea that will keep coming back: color at random, and show that a bad coloring is improbable.
 
-\begin{boxtheorem}\label{Ch1:Thm:mk_Lower_Bound}
+\begin{boxtheorem}\label{Ch2:Thm:mk_Lower_Bound}
     $m(k) \geq 2^{k - 1}$. In other words, any $k$-uniform hypergraph with $< 2^{k - 1}$ edges is $2$-colorable.
 \end{boxtheorem}
 \begin{proof}
@@ -175,7 +175,7 @@ In the other direction, the truth is only a factor of about $k^2$ away.
 % trying to stop them" --- a breaker win only keeps maker's class free of an edge; breaker's own class may contain one,
 % so the play does not build a proper $2$-coloring. "Far more demanding" does stand: breaker winning implies
 % $2$-colorability, by setting breaker's second-player strategy against the first-player one it yields.
-\Cref{Ch1:Thm:mk_Lower_Bound} says that a hypergraph with few enough edges has a proper $2$-coloring somewhere among all the colorings of its vertices. It turns out that the very same threshold survives a far more demanding requirement: that one of two players, claiming vertices one at a time, be able to stop the other from ever owning a whole edge. Winning that does not by itself produce a proper $2$-coloring, since the winner's own class may contain a monochromatic edge. It does force one to exist all the same: a breaker who can win going second can also win going first, by holding a spare vertex in reserve, and setting those two strategies against each other leaves neither class containing an edge.
+\Cref{Ch2:Thm:mk_Lower_Bound} says that a hypergraph with few enough edges has a proper $2$-coloring somewhere among all the colorings of its vertices. It turns out that the very same threshold survives a far more demanding requirement: that one of two players, claiming vertices one at a time, be able to stop the other from ever owning a whole edge. Winning that does not by itself produce a proper $2$-coloring, since the winner's own class may contain a monochromatic edge. It does force one to exist all the same: a breaker who can win going second can also win going first, by holding a spare vertex in reserve, and setting those two strategies against each other leaves neither class containing an edge.
 
 Here's a fun fact: a ``maker-breaker'' game is a game where the ``maker'' wins if they are able to achieve an objective and the ``breaker'' wins if they are able to stop the maker from winning. So if you set up a ``maker-breaker'' version of tic-tac-toe, where only the crosses can win by making three in a row and the noughts can only win by stopping the crosses, the crosses will always win (assuming the crosses play first). This is, of course, different from tic-tac-toe, which, as our own studies from when we were a kid have shown, can always be drawn.
 

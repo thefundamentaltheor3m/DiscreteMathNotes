@@ -1,25 +1,3 @@
 % Inbox for the lecture in progress. Type today's raw notes here: the file is
 % \input from the chapter file, so the Overleaf preview builds as you go, and
 % /integrate empties it again once the material has been placed.
-
-Let $X$ be the number of triangles in $G_{n, p}$. We get
-\begin{align*}
-    \E(X) &= \binom{n}{3} p^3
-\end{align*}
-
-If $p = \frac{\omega(1)}{n}$ then $\E(X) \to \infty$, so $G_{n, p}$ is likely to have a triangle.
-
-If $p = o\of{\frac{1}{n}}$, then $\E(X) \to 0$, so the probability that $G_{n, p}$ has a triangle goes to $0$.
-
-None of this actually tells us whether $G_{n, p}$ actually has a triangle or not. We need something more sophisticated than the expectation, so we turn to the variance.
-
-% [CLAUDE] refactor all of today's notes so that this stuff about variance and chebyshev (and previous stuff about markov) is at the very beginning of these notes, in some sort of "Terse Review" section. Would also be nice to have proofs of markov and chebyshev, but nothing too complicated. at the very least, prove chebyshev from markov.
-
-Recall that $\Var{X} = \E\of{\parenth{X - \E(X)}^2} = \E\of{X^2} - \E(X)^2$. Chebyshev's inequality says that for all $a \geq 0$,
-\begin{align*}
-    \Pr\of{\abs{X - \E(X)} \geq a} \leq \frac{\Var{X}}{a^2}
-\end{align*}
-So, in particular, if $\frac{\Var{X}}{\E(X)^2} \to 0$, then $\Pr(X \ne 0) \to 1$.
-
-Consider, for instance, the problem of flipping $n$ coins: bound $\Pr\of{\abs{X - \frac{n}{2}} \geq \eps_n} \leq \frac{\Var{X}}{\eps^2 n^2}$. % [CLAUDE] after your refactor, prove this.
-
