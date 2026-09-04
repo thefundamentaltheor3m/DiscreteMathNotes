@@ -105,6 +105,29 @@ What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
         them through x                                              [supplied]
 ```
 
+## 3. The Probabilistic Method  ->  `Chapters/3_Probabilistic/`
+
+```
+3.1 A Terse Review of Probability                   [2026-09-04]
+    Collects the two deviation inequalities the chapter runs on, and the
+    consequence of the second that the lecture actually reached for.
+      Markov, proved by comparison against the variable equal to a
+        on X >= a and 0 elsewhere                                   [supplied]
+      variance; the E(X^2) - E(X)^2 form, and additivity over
+        independent summands                                        [supplied]
+      Chebyshev, proved from Markov applied to (X - E(X))^2 at a^2  [supplied]
+      Var/E^2 -> 0 forces Pr(X != 0) -> 1                           [supplied]
+      n fair coins: Pr(|X - n/2| >= eps n) <= 1/(4 eps^2 n)         [supplied]
+
+3.2 Triangles in Random Graphs                      [2026-09-04]
+    Asks for which p the random graph contains a triangle, and gets as far as
+    reducing that to a computation of the variance.
+      E(X) = binom(n, 3) p^3 for the triangle count
+      p = o(1/n): no triangle, with probability -> 1, by Markov at a = 1
+      p = omega(1)/n: E(X) -> infinity, which only suggests a triangle
+      the second-moment reduction; Var(X) for the triangle count is a \sorry
+```
+
 Entries marked `[supplied]` are arguments this repository's skills worked out,
 not arguments the lecturer gave; each carries a `% [FILLED]`, `% [CLAUDE]`-derived
 or `% Not from the lecture` comment at its site.
@@ -191,6 +214,23 @@ Hilton-Milner                    not named 2026-08-31, but it is the standard
                                  a second proof of the extremal theorem. The
                                  proof in the notes goes the other way, through
                                  the cycle, and needs nothing external.
+Var(X) for the triangle count    the lecture of 2026-09-04 set the second-moment
+                                 argument up and stopped before computing the
+                                 variance. Carries a \sorry at the end of 3.2.
+the second moment method         named as the thing "more sophisticated than the
+                                 expectation" 2026-09-04, and used once. If a
+                                 lecture develops it as a method, 3.1's corollary
+                                 is the seed.
+the densest subgraph threshold   not said in the lecture. Recorded in a CORRECTED
+                                 comment in 3.2, because it is why a diverging
+                                 expectation does not settle the question: a
+                                 subgraph count's threshold is set by the densest
+                                 subgraph, not by where the expectation passes 1.
+the girth half of Erdos's proof  noticed 2026-09-04 during review. The proof of
+                                 the theorem in 1.3.4 spells out only the
+                                 chromatic-number half; the girth conclusion
+                                 follows from deleting a vertex per short cycle
+                                 but is never stated. Incomplete, not incorrect.
 perfect graphs                   defined 2026-09-02 and then left: the lecture named
                                  the class in which omega = chi holds hereditarily
                                  and went straight to how badly it can fail. If a
@@ -200,6 +240,8 @@ chi(G) >= |V(G)| / alpha(G)      used 2026-09-02 with "thus" at the end of the E
                                  proof. True because each color class is an
                                  independent set; the notes do not say it.
 Markov's inequality              used 2026-09-02 by name, not stated.
+                                 REACHED 2026-09-04: stated and proved as the
+                                 first result of 3.1.
 girth exactly k, chi exactly k   the lecture stated Erdos's theorem with equalities;
                                  the proof gives girth > k and chi >= k, and the
                                  statement now says "at least". The exact form does
@@ -217,6 +259,22 @@ Nothing.
 Observations for `/organize`, recorded rather than acted on.
 
 ```
+Chapter 3 states the tools after their first uses. Markov and Chebyshev are
+    stated and proved in 3.1, but Markov is used in 1.3.4 and a union bound over
+    random colorings in 1.1.4, both earlier in the document. The author's
+    directive of 2026-09-04 asked for the review at "the very beginning of these
+    notes"; read narrowly that means the beginning of that lecture's material,
+    which is what was done, but the wider reading is a preliminaries chapter
+    ahead of chapter 1. /integrate may not do that -- it renumbers every chapter
+    and rewrites every Ch<N>: label prefix -- so it is /organize's call whether
+    chapter 3 moves to the front. [noted 2026-09-04]
+
+G_{n, p} is defined in 1.3.4 and used in 3.2. The definition sits inside a
+    section about chromatic number, which is where the lecture of 2026-09-02
+    needed it, but it belongs with the random-graph material. Moving it
+    renumbers 1.3.4's results, so it was left where it is and 3.2 now \Cref's
+    it. [noted 2026-09-04]
+
 1.1.5 Maker-Breaker Games is a game inside a section about colorings.
     It earns its place for now: Erdos-Selfridge is the same 2^(k-1) threshold as
     1.1.4, so the subsection continues that line of enquiry rather than opening
