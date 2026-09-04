@@ -40,9 +40,9 @@ Keep it refreshed when making substantive content changes.
 `\REPONAME`) that are consumed by the title block and by the "latest version" URLs.
 These are set for the real course — 21-701 Discrete Mathematics, CMU, Fall 2026.
 The template's placeholder chapters were cleared on 2026-08-24 (`TOPICS.md` records
-which, and why). What remains under `Chapters/` is `1_Intro/` and `2_Set_Systems/`, which are real, and
-`Appendices/`, which is still a placeholder with its `\input` commented out in
-`main.tex` — kept deliberately, since three of the four sibling repositories keep an
+which, and why). What remains under `Chapters/` is `1_Intro/`, `2_Graphs/` and `3_Set_Systems/`,
+which are real, and `Appendices/`, which is still a placeholder with its `\input`
+commented out in `main.tex` — kept deliberately, since three of the four sibling repositories keep an
 `Appendices/` directory and two of those keep it commented out.
 
 `main.tex` then `\input`s the four preamble files in a fixed order, and they are not
@@ -78,7 +78,9 @@ Numbering: `theorem` and everything sharing its counter number per *section*;
 `remark`, `solution`, `convention`, `notation`, `warning`, `abbreviation` are unnumbered.
 Cross-reference with `cleveref` — **always `\Cref`, never `\cref`** — and label as
 `Ch<N>:<Kind>:<Name>`, with chapters as `Ch<N>:CH`
-(see `Chapters/1_Intro/1_Intro.tex`).
+(see `Chapters/1_Intro/1_Intro.tex`). Note that `1_Intro/` is chapter 1's directory
+whatever chapter 1 is called — as of 2026-09-04 it holds *The Probabilistic Method*,
+and the graph theory lives in `2_Graphs/`.
 
 Two reference files under `.claude/` carry the conventions, and the skills point at
 them rather than restating them:
