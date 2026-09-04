@@ -83,6 +83,41 @@ Let's now construct a sequence $(G_n)_{n \in \N}$. Start with $G_1$ a single ver
     \end{tikzpicture}
 \end{figure}
 
+$G_4$ is already hard to take in, but the shape of the construction survives in it: the three earlier graphs across the top, and below them one new vertex for each of the $1 \cdot 2 \cdot 5 = 10$ ways of picking one vertex from each. The edges into the copies are drawn faintly, so that the copies themselves stay visible.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale = 0.95]
+        \node[circle, fill = black, inner sep = 1.5pt] (u) at (0, 1) {};
+        \node[anchor = south] at (0, 1.5) {$G_1$};
+        \node[circle, fill = black, inner sep = 1.5pt] (v1) at (1.6, 0.55) {};
+        \node[circle, fill = black, inner sep = 1.5pt] (v2) at (1.6, 1.45) {};
+        \node[anchor = south] at (1.6, 1.75) {$G_2$};
+        \foreach \k in {1, ..., 5}{
+            \pgfmathsetmacro{\ang}{90 + 72 * (\k - 1)}
+            \pgfmathsetmacro{\wx}{4.6 + 0.85 * cos(\ang)}
+            \pgfmathsetmacro{\wy}{1 + 0.85 * sin(\ang)}
+            \node[circle, fill = black, inner sep = 1.5pt] (w\k) at (\wx, \wy) {};
+        }
+        \node[anchor = south] at (4.6, 1.95) {$G_3$};
+        \foreach \j in {1, 2}{
+            \foreach \k in {1, ..., 5}{
+                \pgfmathtruncatemacro{\i}{5 * (\j - 1) + \k}
+                \pgfmathsetmacro{\x}{-0.6 + 0.8 * (\i - 1)}
+                \node[circle, fill = black, inner sep = 1.5pt] (x\i) at (\x, -1.5) {};
+                \draw[gray!55, thin] (x\i) -- (u);
+                \draw[gray!55, thin] (x\i) -- (v\j);
+                \draw[gray!55, thin] (x\i) -- (w\k);
+            }
+        }
+        \draw (v1) -- (v2);
+        \foreach \k in {1, ..., 5}{
+            \pgfmathtruncatemacro{\next}{mod(\k, 5) + 1}
+            \draw (w\k) -- (w\next);
+        }
+    \end{tikzpicture}
+\end{figure}
+
 These have exactly the property we want.
 
 \begin{boxproposition} \label{Ch1:Prop:Zykov}
