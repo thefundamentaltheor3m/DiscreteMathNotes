@@ -1,0 +1,185 @@
+\section{Chromatic Number}
+
+Coloring is back, and this time we are not rationed to two colors. \Cref{Ch1:CH} opened by asking which graphs can be colored with two colors; the question now is how many colors a graph needs in general, and how far that number can be pushed away from the obvious lower bound.
+
+\begin{boxdefinition}[Chromatic Number]
+    The \textbf{chromatic number} of a graph $G$, denoted $\chi(G)$, is the smallest number of colors I need to color $G$.
+\end{boxdefinition}
+
+\subsection{Trivial Bounds}
+
+There are some trivial bounds on $\chi(G)$.
+
+% [CORRECTED] was: "a fully connected subgraph" --- "connected" already means path-connected in these notes (the proof
+% of the $2$-coloring theorem in 1.1.1 colors each component separately), and on that reading every path would be a clique in itself, so $\omega(P_n) = n$
+% while $\chi(P_n) = 2$ and the inequality below fails. What $\omega \leq \chi$ needs is pairwise adjacency.
+\begin{boxdefinition}[Clique]
+    A \textbf{clique} in $G$ is a complete subgraph, ie, a set of vertices any two of which are adjacent. The \textbf{clique number} of a graph, denoted $\omega(G)$, is the number of vertices in the largest clique.
+\end{boxdefinition}
+
+It isn't hard to see that $\omega(G) \leq \chi(G)$ always. Similarly, it is clear that $\chi(G) \leq \Delta + 1$, where $\Delta$ is the maximum degree.
+
+The upper-bound is absolutely not tight, for instance we can have a ``star graph'' with one vertex in the middle connected to a number of other vertices. This has high $\Delta$ but $\chi(G) = 2$.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \coloredstargraph[1.15]{8}{red}{blue}
+    \end{tikzpicture}
+\end{figure}
+
+Similarly, the lower-bound is also not tight. For example, any odd cycle on more than $3$ vertices (eg, the $5$-cycle) has clique number $2$ but chromatic number $3$.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \coloredcyclegraph[1.15]{5}{red, blue, red, blue, green!60!black}
+    \end{tikzpicture}
+\end{figure}
+
+In fact, we will show that $\chi(G)$ can be much bigger than $\omega(G)$.
+
+\subsection{Perfect Graphs}
+
+First, the graphs for which the lower bound is exact---and stays exact when we throw vertices away. That needs a word for what is left when we do.
+
+% [FILLED] the lecture used the term without defining it; the definition below was supplied
+\begin{boxdefinition}[Induced Subgraph]
+    Given a graph $G = \parenth{V, E}$ and a subset $W \ssq V$, the subgraph of $G$ \textbf{induced} by $W$, denoted $G[W]$, is the graph with vertex set $W$ whose edges are precisely the edges of $G$ with both endpoints in $W$. An \textbf{induced subgraph} of $G$ is any subgraph of the form $G[W]$.
+\end{boxdefinition}
+
+\begin{boxdefinition}[Perfect Graph]
+    A graph $G$ is \textbf{perfect} if $\chi(H) = \omega(H)$ for all induced subgraphs $H$ of $G$.
+\end{boxdefinition}
+
+At the opposite extreme are graphs with $\omega = 2$ and $\chi$ as large as we like, and we can build them by hand.
+
+Let's now construct a sequence $(G_n)_{n \in \N}$. Start with $G_1$ a single vertex. Given $G_1, \ldots, G_{k-1}$, take disjoint copies of all of them, and for every way of choosing one vertex $v_i$ from each $G_i$ add a new vertex adjacent to $v_1, \ldots, v_{k-1}$ and to nothing else; the result is $G_k$. In the pictures below the copies of the earlier graphs sit on top and the new vertices along the bottom, so that each bottom vertex sends exactly one edge into each of the graphs above it. There are $\abs{G_1} \cdots \abs{G_{k-1}}$ new vertices, so $G_2$ has $1 + 1 = 2$ vertices and is a single edge, $G_3$ has $1 + 2 + 2 = 5$ and is the $5$-cycle, and $G_4$ has $1 + 2 + 5 + 10 = 18$ (the construction is due to Zykov).
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \node[circle, fill = black, inner sep = 1.5pt] (a1) at (0, 0) {};
+        \node[anchor = north] at (0, -1.4) {$G_1$};
+        \begin{scope}[xshift = 2.5cm]
+            \node[circle, fill = black, inner sep = 1.5pt] (a2) at (0, 0.6) {};
+            \node[circle, fill = black, inner sep = 1.5pt] (b2) at (0, -0.6) {};
+            \draw (a2) -- (b2);
+            \node[anchor = north] at (0, -1.4) {$G_2$};
+        \end{scope}
+        \begin{scope}[xshift = 6cm]
+            \node[circle, fill = black, inner sep = 1.5pt] (a3) at (-1.2, 0.6) {};
+            \node[circle, fill = black, inner sep = 1.5pt] (b3) at (0.3, 0.6) {};
+            \node[circle, fill = black, inner sep = 1.5pt] (c3) at (1.5, 0.6) {};
+            \node[circle, fill = black, inner sep = 1.5pt] (d3) at (-0.6, -0.6) {};
+            \node[circle, fill = black, inner sep = 1.5pt] (e3) at (0.6, -0.6) {};
+            \draw (b3) -- (c3);
+            \draw (a3) -- (d3) -- (b3);
+            \draw (a3) -- (e3) -- (c3);
+            \node[anchor = north] at (0.15, -1.4) {$G_3$};
+        \end{scope}
+    \end{tikzpicture}
+\end{figure}
+
+These have exactly the property we want.
+
+\begin{boxproposition} \label{Ch1:Prop:Zykov}
+    For every $k \geq 1$, $G_k$ has no triangles and $\chi(G_k) = k$.
+\end{boxproposition}
+\begin{proof}
+    Both by induction on $k$, and both trivial for $G_1$. The new vertices of $G_k$ form an independent set, and the neighbors of any one of them lie one in each of $G_1, \ldots, G_{k-1}$, so no two of them are adjacent. A triangle can therefore contain at most one new vertex, and if it contains one then its other two vertices are adjacent neighbors of that vertex, which do not exist. So every triangle of $G_k$ lies inside some $G_i$, and by induction there are none.
+
+    For $\chi(G_k) \leq k$, color each $G_i$ with $i \leq k - 1$ colors, which we can by induction, and give every new vertex color $k$. For $\chi(G_k) \geq k$, suppose $c$ is a proper $(k-1)$-coloring of $G_k$. Its restriction to $G_i$ is a proper coloring of $G_i$, and so uses at least $\chi(G_i) = i$ colors. Pick $v_1 \in G_1$; $G_2$ uses at least two colors, so pick $v_2 \in G_2$ with $c(v_2) \neq c(v_1)$; $G_3$ uses at least three, so pick $v_3 \in G_3$ with $c(v_3) \notin \set{c(v_1), c(v_2)}$; and so on, at each step choosing $v_i \in G_i$ to avoid the $i - 1$ colors chosen so far. After $k - 1$ steps, $c(v_1), \ldots, c(v_{k-1})$ are $k - 1$ distinct colors, which is all of them, and the new vertex attached to $v_1, \ldots, v_{k-1}$ has no color left.
+\end{proof}
+
+\subsection{Graphs of Large Girth}
+
+The graphs of \Cref{Ch1:Prop:Zykov} have no triangles, but nothing stops them having cycles of length four or five---$G_3$ is one. It is natural to ask whether forbidding all short cycles finally holds the chromatic number down, and the answer is that it does not.
+
+\begin{boxdefinition}[Girth]
+    The \textbf{girth} of $G$, denoted $\girth(G)$, is the length of the shortest cycle in $G$.
+\end{boxdefinition}
+
+% [CORRECTED] was: "The girth of a cycle is infinite." --- the girth of $C_n$ is $n$; it is a graph with no cycles at
+% all whose girth the definition leaves open, and $\infty$ is the standard value there.
+The girth of a graph with no cycles is infinite.
+
+% [CORRECTED] was: "graphs of girth $k$ and chromatic number $k$" --- the argument below produces a graph with no cycle
+% of length $\leq k$, so its girth is not $k$ but greater, and it bounds the chromatic number below without pinning it
+% down; and no simple graph has girth $1$ or $2$. The exact version does follow for $k \geq 3$ (delete vertices until
+% $\chi = k$, then add a disjoint $C_k$), but that is not what is proved here.
+\begin{boxtheorem}[\Erdos] \label{Ch1:Thm:Erdos_Girth}
+    For any $k$, there are graphs of girth at least $k$ and chromatic number at least $k$.
+\end{boxtheorem}
+
+The proof runs through independent sets rather than through colorings directly.
+
+\begin{boxdefinition}[Independence Number]
+    A set $S$ of vertices of $G$ is \textbf{independent} if no two of its elements are adjacent. The \textbf{independence number} of $G$, denoted $\alpha(G)$, is the size of the largest independent set in $G$.
+\end{boxdefinition}
+
+We know we can construct graphs of average degree $d$ with $\frac{nd}{2}$ edges. We want to prove that such a graph has a ``large'' independent set.
+
+As a first attempt, let's choose a set $S$ randomly by including each vertex of $G$ independently with probability $p$. Write $e(S)$ for the number of edges of $G$ with both endpoints in $S$, so that $S$ is independent exactly when $e(S) = 0$. Then,
+\begin{align*}
+    \E\of{\abs{S}} &= pn \\
+    \E\of{e(S)} &= \frac{p^2 n d}{2}
+\end{align*}
+% [CORRECTED] was: "$\E\of{e(S)} \approx \sqrt{n / d}$" at the end of this paragraph --- at $p = \sqrt{2 / dn}$ the
+% expected number of edges inside $S$ is exactly $1$, by the choice of $p$; it is $\E\of{\abs{S}} = \sqrt{2n / d}$ that
+% comes out at about $\sqrt{n / d}$, and it is a size that the next sentence compares against $n / (d + 1)$.
+the second line because each of the $\frac{nd}{2}$ edges lands inside $S$ with probability $p^2$. We want $S$ large and $e(S)$ small, and the two pull against each other: the expected size grows like $p$ but the expected number of edges inside like $p^2$. So we take $p$ as large as we can while keeping the expected number of edges inside $S$ down to about one. I would want $p \simeq \sqrt{\frac{2}{dn}}$. In that case we would get something like $\E\of{\abs{S}} \approx \sqrt{\frac{n}{d}}$. This is a poor return: a disjoint union of copies of $K_{d + 1}$ has average degree $d$ and an independent set of size $\frac{n}{d + 1}$, and the trouble is that we have insisted on $S$ coming out independent all by itself.
+
+Now, let's make another attempt. Still choose $S$ randomly, including each vertex with probability $p$.
+
+Let $X = \abs{S}$ and $Y = e(S)$.
+
+% [CORRECTED] was: "So if $S$ has $X - Y$ many vertices then edges form an of $G$ contains an independent set of size
+% $X - Y$", and "$\E\of{X - Y} = \frac{nd}{2}$" --- the first has no reading that is both well-formed and does the work
+% (with $X = \abs{S}$ its hypothesis forces $Y = 0$); the second is the value at $p = 1/d$ of $pn - p^2 nd / 2$, which
+% is $n / d - n / 2d = n / 2d$, and $nd / 2$ exceeds $n \geq X - Y$ as soon as $d > 2$.
+Now consider $\E\of{X - Y}$. This is $pn - \frac{p^2 n d}{2}$ by linearity of expectation. So if $S$ has $X$ vertices and $Y$ edges inside it, then $G$ contains an independent set of size at least $X - Y$, and using $p = \frac{1}{d}$ gives $\E\of{X - Y} = \frac{n}{2d}$.
+
+% [FILLED] the argument broke off after computing $\E\of{X - Y}$; the conclusion below and the lemma recording it were supplied
+This needs $d \geq 1$ for $p = \frac{1}{d}$ to be a probability at all, and then some $S$ has $X - Y \geq \E\of{X - Y} = \frac{n}{2d}$. Now alter that $S$: for each of the $Y$ edges lying inside it, throw out one of the two endpoints. At most $Y$ vertices go, and no edge of $G$ keeps both its endpoints, so what is left is an independent set of size at least $X - Y \geq \frac{n}{2d}$.
+
+What we have shown is worth recording.
+
+\begin{boxlemma}
+    If $G$ is a graph with $n$ vertices and average degree $d \geq 1$, then $G$ has an independent set of size at least $\frac{n}{2d}$.
+\end{boxlemma}
+
+The above is called the \textbf{method of alterations}---constructing something randomly and then changing based on how it goes.
+
+The proof of \Cref{Ch1:Thm:Erdos_Girth} plays the same trick, but with a random graph in place of a random set of vertices.
+
+% Not from the lecture: the lecture used $G_{n, p}$ without defining it, and the definition below was supplied.
+\begin{boxdefinition}[Random Graph]
+    For $n \in \N$ and $p \in [0, 1]$, the \textbf{random graph} $G_{n, p}$ is the graph on the vertex set $[n]$ in which each of the $\binom{n}{2}$ possible edges is present independently with probability $p$.
+\end{boxdefinition}
+
+\begin{proof}[Proof of \Cref{Ch1:Thm:Erdos_Girth}]
+    Fix $k \geq 3$; for $k \leq 2$ a single edge already does. Consider the graph $G_{n, p}$ for $p = \frac{n^{\varepsilon}}{n}$. For some small $\varepsilon > 0$ (in particular, $\varepsilon \ll \frac{1}{k}$), we see that
+    % [FILLED] the display broke off after the union bound; the second line and the paragraph after it were supplied
+    \begin{align*}
+        \Pr\of{\alpha\of{G_{n, p}} \geq a} &\leq \binom{n}{a} \parenth{1 - p}^{\binom{a}{2}}  \\
+        & \leq n^a e^{-p \binom{a}{2}} = \exp\of{a \parenth{\ln n - \frac{p \parenth{a - 1}}{2}}}
+    \end{align*}
+    using $\binom{n}{a} \leq n^a$ and $1 - p \leq e^{-p}$. Take $a = \ceil{\frac{n}{2k}}$, so that $a - 1 \geq \frac{n}{2k} - 1$ and hence $\frac{p \parenth{a - 1}}{2} \geq \frac{n^{\eps}}{4k} - \frac{1}{2}$. Any positive power of $n$ eventually beats $\ln n$, so the bracket is negative for $n$ large enough and the whole thing tends to $0$: that is, $\Pr\of{\alpha\of{G_{n, p}} \geq \frac{n}{2k}} \to 0$ as $n \to \infty$.
+
+    Now, let $X$ be the number of short cycles. That is, cycles of length $\leq k$. Then,
+    \begin{align*}
+        \E(X) &= \sum_{\ell = 3}^{k} \frac{\binom{n}{\ell} \cdot \ell !}{2\ell} p^{\ell} \\
+        &\leq \frac{1}{2} \sum_{\ell = 3}^{k} n^{\ell} p^{\ell} \\
+        &\leq \parenth{k - 2} \frac{1}{2} n^k p^k \\
+        &\leq \frac{k}{2} n^{\eps k}
+    \end{align*}
+    % [CORRECTED] was: "as $\eps \to 0$" after the display --- with $n$ and $k$ fixed and $\eps \to 0$ the bound tends to
+    % $k / n$, not $0$; it is $n \to \infty$ with $\eps k < 1$ fixed that sends $k n^{\eps k - 1}$ to $0$, and that is the
+    % limit "for sufficiently large $n$" in the next sentence uses.
+    By Markov's inequality,
+    \begin{align*}
+        \Pr\of{X \geq \frac{n}{2}} \leq \frac{\E(X)}{n / 2} \to 0
+    \end{align*}
+    as $n \to \infty$. So, there is some graph $G$ with $n$ vertices, for sufficiently large $n$, such that $X \leq \frac{n}{2}$ and $\alpha(G) \leq \frac{n}{2k}$. Construct a new graph $G'$ by deleting one vertex from each short cycle. This new graph has at least $\frac{n}{2}$ vertices, independence number at most $\frac{n}{2k}$, and thus chromatic number at least $\frac{n/2}{n/2k} \geq k$.
+\end{proof}
