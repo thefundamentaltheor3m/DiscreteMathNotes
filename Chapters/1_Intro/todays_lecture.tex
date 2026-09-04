@@ -2,24 +2,70 @@
 % \input from the chapter file, so the Overleaf preview builds as you go, and
 % /integrate empties it again once the material has been placed.
 
-Let $X$ be the number of triangles in $G_{n, p}$. We get
+Everything today runs on two inequalities, so we collect them first. Both bound the probability that a random variable strays, and both are proved in a line.
+
+\begin{boxtheorem}[Markov's Inequality] \label{Ch1:Thm:Markov}
+    Let $X$ be a non-negative random variable and let $a > 0$. Then,
+    \begin{align*}
+        \Pr\of{X \geq a} \leq \frac{\E(X)}{a}
+    \end{align*}
+\end{boxtheorem}
+\begin{proof}
+    Compare $X$ with the random variable taking the value $a$ when $X \geq a$ and $0$ otherwise. As $X$ is non-negative, $X$ is everywhere at least as large, so its expectation is at least $a \Pr\of{X \geq a}$. Divide by $a$.
+\end{proof}
+
+The second inequality needs one more moment than the first.
+
+\begin{boxdefinition}[Variance]
+    The \textbf{variance} of a random variable $X$ is
+    \begin{align*}
+        \Var{X} = \E\of{\parenth{X - \E(X)}^2}
+    \end{align*}
+\end{boxdefinition}
+
+Expanding the square and using linearity gives $\Var{X} = \E\of{X^2} - \E(X)^2$, which is usually the form to compute with. Expectation is linear whatever the variables do, but variance is only additive over independent ones: for $X_1, \ldots, X_n$ independent,
+\begin{align*}
+    \Var{X_1 + \cdots + X_n} = \Var{X_1} + \cdots + \Var{X_n}
+\end{align*}
+
+\begin{boxtheorem}[Chebyshev's Inequality] \label{Ch1:Thm:Chebyshev}
+    Let $X$ be a random variable of finite variance and let $a > 0$. Then,
+    \begin{align*}
+        \Pr\of{\abs{X - \E(X)} \geq a} \leq \frac{\Var{X}}{a^2}
+    \end{align*}
+\end{boxtheorem}
+\begin{proof}
+    The event $\abs{X - \E(X)} \geq a$ is the event $\parenth{X - \E(X)}^2 \geq a^2$, and $\parenth{X - \E(X)}^2$ is non-negative with expectation $\Var{X}$. So \Cref{Ch1:Thm:Markov}, applied to it at $a^2$, is the bound.
+\end{proof}
+
+What gets used in practice is not Chebyshev itself but the following consequence of it, which turns smallness of the variance into the statement that $X$ is not zero.
+
+\begin{boxcorollary} \label{Ch1:Cor:Second_Moment}
+    Let $\parenth{X_n}_{n \in \N}$ be random variables with $\E(X_n) > 0$ for each $n$. If $\frac{\Var{X_n}}{\E(X_n)^2} \to 0$, then $\Pr\of{X_n \neq 0} \to 1$.
+\end{boxcorollary}
+\begin{proof}
+    If $X_n = 0$ then $\abs{X_n - \E(X_n)} = \E(X_n)$, so $\Pr\of{X_n = 0} \leq \Pr\of{\abs{X_n - \E(X_n)} \geq \E(X_n)}$, and \Cref{Ch1:Thm:Chebyshev} at $a = \E(X_n)$ bounds that by $\frac{\Var{X_n}}{\E(X_n)^2}$, which tends to $0$.
+\end{proof}
+
+Chebyshev already says something worth seeing on its own.
+
+\begin{boxexample}
+    Flip $n$ fair coins and let $X$ be the number of heads. Then $\E(X) = \frac{n}{2}$, and as $X$ is a sum of $n$ independent variables of variance $\frac{1}{4}$ each, $\Var{X} = \frac{n}{4}$. So \Cref{Ch1:Thm:Chebyshev} at $a = \eps n$ gives
+    \begin{align*}
+        \Pr\of{\abs{X - \frac{n}{2}} \geq \eps n} \leq \frac{\Var{X}}{\eps^2 n^2} = \frac{1}{4 \eps^2 n}
+    \end{align*}
+    which tends to $0$ for every fixed $\eps > 0$: the proportion of heads is within $\eps$ of a half with probability tending to $1$.
+\end{boxexample}
+
+Now to put them to work. Let $X$ be the number of triangles in $G_{n, p}$. We get
 \begin{align*}
     \E(X) &= \binom{n}{3} p^3
 \end{align*}
 
 If $p = \frac{\omega(1)}{n}$ then $\E(X) \to \infty$, so $G_{n, p}$ is likely to have a triangle.
 
-If $p = o\of{\frac{1}{n}}$, then $\E(X) \to 0$, so the probability that $G_{n, p}$ has a triangle goes to $0$.
+If $p = o\of{\frac{1}{n}}$, then $\E(X) \to 0$, so the probability that $G_{n, p}$ has a triangle goes to $0$; this direction is \Cref{Ch1:Thm:Markov} at $a = 1$.
 
 None of this actually tells us whether $G_{n, p}$ actually has a triangle or not. We need something more sophisticated than the expectation, so we turn to the variance.
 
-% [CLAUDE] refactor all of today's notes so that this stuff about variance and chebyshev (and previous stuff about markov) is at the very beginning of these notes, in some sort of "Terse Review" section. Would also be nice to have proofs of markov and chebyshev, but nothing too complicated. at the very least, prove chebyshev from markov.
-
-Recall that $\Var{X} = \E\of{\parenth{X - \E(X)}^2} = \E\of{X^2} - \E(X)^2$. Chebyshev's inequality says that for all $a \geq 0$,
-\begin{align*}
-    \Pr\of{\abs{X - \E(X)} \geq a} \leq \frac{\Var{X}}{a^2}
-\end{align*}
-So, in particular, if $\frac{\Var{X}}{\E(X)^2} \to 0$, then $\Pr(X \ne 0) \to 1$.
-
-Consider, for instance, the problem of flipping $n$ coins: bound $\Pr\of{\abs{X - \frac{n}{2}} \geq \eps_n} \leq \frac{\Var{X}}{\eps^2 n^2}$. % [CLAUDE] after your refactor, prove this.
-
+\Cref{Ch1:Cor:Second_Moment} is what the first regime wants: show $\frac{\Var{X}}{\E(X)^2} \to 0$ when $p = \frac{\omega(1)}{n}$, and $G_{n, p}$ has a triangle with probability tending to $1$. That leaves $\Var{X}$ for the triangle count to be computed. \sorry
