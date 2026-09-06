@@ -1,6 +1,6 @@
 \section{Sperner Systems}
 
-A hypergraph is a vertex set together with a family of subsets of it, and the last question this chapter asks about one is how large that family can be. Unrestricted the question is dull---all $2^n$ subsets of $[n]$ form a hypergraph---so we forbid the cheapest way of making a family large, which is to pile sets up inside one another.
+A hypergraph is a vertex set together with a family of subsets of it, and the next question this chapter asks about one is how large that family can be. Unrestricted the question is dull---all $2^n$ subsets of $[n]$ form a hypergraph---so we forbid the cheapest way of making a family large, which is to pile sets up inside one another.
 
 \begin{boxdefinition}[Sperner System]
     A collection of subsets of $[n]$ such that none is a subset of another is called a Sperner system.
@@ -39,7 +39,7 @@ How large can a Sperner system be?
 % equal size only when $n = 2k + 1$, so a matching saturating both sides fails already at $k = 0$. What exists for
 % every $k < n/2$ is a complete matching of the smaller, lower layer, the two layers spanning a biregular graph with
 % $d_1 = n - k$ and $d_2 = k + 1$.
-An intuitive way of arguing is to find complete matchings of the $k$th layer into the $(k + 1)$th layer (cf. \Cref{Ch1:Cor:Biregular}), but at some point, this starts to break down. And at what point is that? Before $k$ exceeds $n / 2$.
+An intuitive way of arguing is to find complete matchings of the $k$th layer into the $(k + 1)$th layer (cf. \Cref{Ch2:Cor:Biregular}), but at some point, this starts to break down. And at what point is that? Before $k$ exceeds $n / 2$.
 
 \begin{proof}
     Let $\H$ be a Sperner system on $[n]$. Define
