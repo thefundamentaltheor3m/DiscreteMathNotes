@@ -61,8 +61,10 @@ Variance is not linear, but it is additive on independent random variables: if $
 Feeding the squared deviation into \Cref{Ch3:Thm:Markov} gives Chebyshev's inequality.
 
 % Not from the lecture: the lecture stated Chebyshev's inequality and did not prove it; the proof below was supplied.
+% [CORRECTED] was: "let $a \geq 0$" --- at $a = 0$ the right-hand side is $\Var{X} / 0$, and the proof applies
+% Markov at the threshold $a^2 = 0$, which Markov's own hypothesis excludes. Nothing in the notes uses $a = 0$.
 \begin{boxtheorem}[Chebyshev's Inequality] \label{Ch3:Thm:Chebyshev}
-    Let $X$ be a random variable and let $a \geq 0$. Then,
+    Let $X$ be a random variable and let $a > 0$. Then,
     \begin{align*}
         \Pr\of{\abs{X - \E(X)} \geq a} \leq \frac{\Var{X}}{a^2}
     \end{align*}
@@ -173,15 +175,23 @@ Our goal is to show that once the expected number of $J$s goes to infinity ($J$ 
 
 \section{Chernoff's Bound}
 
-Consider a random graph $G_{n, p}$ with $n$ vertices and edges chosen uniformly at random with probability $p$.
+% [CORRECTED] was: the paragraph left $p$ free --- the expected degree of a vertex of $G_{n, p}$ is $(n-1)p$, and
+% every number in this discussion (the interval $(0.49n, 0.51n)$, the $\delta = 0.01$, the variance below) is the
+% one belonging to $p = \frac{1}{2}$.
+Consider a random graph $G_{n, p}$ with $n$ vertices and edges chosen uniformly at random with probability $p$, and take $p = \frac{1}{2}$ for this discussion.
 
 The expected degree of a vertex is $\frac{n-1}{2}$.
 
 How many vertices have degrees lying in $(0.49n, 0.51n)$? We can actually show that
+% [CORRECTED] was: "$\to 1$" at the end of the display --- $n$ is bound by the limit, so there is no index left for
+% an arrow to run along; what the display asserts is that the limit exists and equals $1$.
 \begin{align*}
-    \lim_{n \to \infty} \Pr\of{\text{every vertex in $G_{n, p}$ has degree in $(0.49n, 0.51n)$}} \to 1
+    \lim_{n \to \infty} \Pr\of{\text{every vertex in $G_{n, p}$ has degree in $(0.49n, 0.51n)$}} = 1
 \end{align*}
-Indeed, fix a vertex $x$. $\deg(x)$ is a binomial random variable, counting the $n - 1$ possible edges at $x$, each present independently. $\E\of{\deg(x)} = \frac{n-1}{2}$ and $\Var{\deg(x)} = \frac{n-1}{2}$.
+% [CORRECTED] was: "$\Var{\deg(x)} = \frac{n-1}{2}$" --- that is the expectation written twice. A sum of $n - 1$
+% independent Bernoulli$\parenth{\frac{1}{2}}$ variables has variance $\frac{n-1}{4}$, which is what the Chebyshev
+% display below already uses.
+Indeed, fix a vertex $x$. $\deg(x)$ is a binomial random variable, counting the $n - 1$ possible edges at $x$, each present independently. $\E\of{\deg(x)} = \frac{n-1}{2}$ and $\Var{\deg(x)} = \frac{n-1}{4}$.
 
 Applying Chebyshev gives us
 \begin{align*}
@@ -194,11 +204,17 @@ We can consider taking higher moment bounds: bounding using not the second power
 
 What's one thing that beats \textit{all} of these? An exponential!
 
-Consider the following setup. Let $\xi_1, \ldots, \xi_n$ be independent Bernoulli random variables take values $\pm 1$ with probability $\frac{1}{2}$. Define the binomial random variable $\eta := \sum_{i=1}^{n} \xi_n$.
+% [CORRECTED] was: "$\eta := \sum_{i=1}^{n} \xi_n$" --- the summand does not depend on the index, so that sum is
+% $n \xi_n$, a single scaled coin flip of variance $n^2$; the theorem below, and its factorization over $i$, need
+% the walk $\sum_i \xi_i$.
+Consider the following setup. Let $\xi_1, \ldots, \xi_n$ be independent Bernoulli random variables take values $\pm 1$ with probability $\frac{1}{2}$. Define the binomial random variable $\eta := \sum_{i=1}^{n} \xi_i$.
 
+% [CORRECTED] was: "$\Pr\of{\eta > a} = \Pr\of{\beta^2 > \beta^a} \leq \E\of{\beta^2}$" --- $\beta^2$ is a constant, so
+% the middle probability is $0$ or $1$ and says nothing about $\eta$; and Markov's inequality divides by the
+% threshold, which had been dropped.
 Note that because $x < y \iff e^x < e^y$, we get that
 \begin{align*}
-    \Pr\of{\eta > a} = \Pr\of{\beta^2 > \beta^a} \leq \E\of{\beta^2}
+    \Pr\of{\eta \geq a} = \Pr\of{\beta^{\eta} \geq \beta^a} \leq \frac{\E\of{\beta^{\eta}}}{\beta^a}
 \end{align*}
 by Markov's inequality (where $\beta$ denotes $e^t$ for $t > 0$, a bit like how $q$ denotes $e^{2 \pi i z}$).
 
@@ -220,18 +236,25 @@ Optimizing over $t$ turns that into a bound that decays in $a$ faster than any p
         = \parenth{\frac{e^{-t} + e^{t}}{2}}^{n}
     \end{align*}
     % Not from the lecture: the lecture asserted the bound on the display below; the comparison of the two series was supplied.
+    % [CORRECTED] was: an equality at the end of the display below --- $\E\of{e^{t\eta}} = \parenth{\cosh t}^n$ is
+    % strictly less than $e^{t^2 n / 2}$ for every $t \neq 0$, and the step is the inequality just established.
     the third equality by independence. Comparing the series termwise, $\frac{e^{t} + e^{-t}}{2} = \sum_{k \geq 0} \frac{t^{2k}}{(2k)!} \leq \sum_{k \geq 0} \frac{t^{2k}}{2^k k!} = e^{\frac{t^2}{2}}$, since $(2k)! \geq 2^k k!$. We therefore conclude that
     \begin{align*}
         \Pr\of{\eta \geq a}
         = \Pr\of{e^{t\eta} \geq e^{ta}}
         \leq \frac{\E\of{e^{t \eta}}}{e^{ta}}
-        = e^{\frac{t^2 n}{2} - ta}
+        \leq e^{\frac{t^2 n}{2} - ta}
     \end{align*}
-    Can we optimise this? Ie, can we find the $n$ that minimises this? It turns out, we can: by some calculus nonsense, we get that the optimal value is $e^{-\frac{a^2}{2n}}$.
+    % [CORRECTED] was: "the $n$ that minimises this" --- $n$ is fixed by the statement and the exponent is increasing
+    % in it; the free parameter is $t$, and $t = \frac{a}{n}$ is what gives $e^{-a^2 / 2n}$.
+    Can we optimise this? Ie, can we find the $t$ that minimises this? It turns out, we can: by some calculus nonsense, we get that the optimal value is $e^{-\frac{a^2}{2n}}$.
 \end{proof}
 
 The same bound holds if the $\xi_i$ are independent and for all $i$, $\abs{\xi_i} \leq 1$ and $\E\of{\xi_i} = 0$.
 
+% [CORRECTED] was: "let $\eta$ denote their product" --- the display immediately below factorizes $\E\of{e^{t\eta}}$
+% over $i$, which is the exponential turning a sum into a product, and a bound of the shape $e^{-a^2/2n}$ only has
+% content for a sum.
 For instance, consider the case where
 \begin{align*}
     \xi_i =
@@ -240,7 +263,7 @@ For instance, consider the case where
         -1 & \text{ with probability } \frac{1}{4}
     \end{cases}
 \end{align*}
-and as before, let $\eta$ denote their product. By the same sort of technology we used above,
+and as before, let $\eta$ denote their sum. By the same sort of technology we used above,
 \begin{align*}
     \E\of{e^{t \eta}} = \prod_{i=1}^{n} \E\of{e^{t\xi_i}}
 \end{align*}
