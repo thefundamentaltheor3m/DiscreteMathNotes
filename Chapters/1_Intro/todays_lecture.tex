@@ -26,7 +26,7 @@ An \textbf{event} is a measurable set (ie, an element of $\mathcal{F}$), and a r
 % $X$ uniform on $\set{1, 2}$ and $Y = X + 2$ pass, yet $\E(XY) \neq \E(X)\E(Y)$. And pairwise independence does
 % not give the $n$-fold product rule below ($\xi_3 = \xi_1 \xi_2$ is the standard counterexample), which the
 % factorization in the proof of \Cref{Ch3:Thm:Chernoff} needs.
-We say two events $A$ and $B$ are \textbf{independent} if $\Pr\of{A \cap B} = \Pr(A) \cdot \Pr(B)$. We say that random variables $X_1, \ldots, X_n$ are independent if for all Borel sets $A_1, \ldots, A_n \ssq \R$ the events $X_1\inv\brac{A_1}, \ldots, X_n\inv\brac{A_n}$ (all of which lie in $\mathcal{F}$ because the $X_i$ are measurable) satisfy $\Pr\of{X_1\inv\brac{A_1} \cap \cdots \cap X_n\inv\brac{A_n}} = \Pr\of{X_1\inv\brac{A_1}} \cdots \Pr\of{X_n\inv\brac{A_n}}$. The expectation is the integral of a random variable over the probability space with respect to the probability measure.
+We say two events $A$ and $B$ are \textbf{independent} if $\Pr\of{A \cap B} = \Pr(A) \cdot \Pr(B)$. We say that random variables $X_1, \ldots, X_n$ are independent if for all Borel sets $A_1, \ldots, A_n \ssq \R$ the events $X_1\inv\brac{A_1}, \ldots, X_n\inv\brac{A_n}$ (all of which lie in $\mathcal{F}$ because the $X_i$ are measurable) satisfy $\Pr\of{X_1\inv\brac{A_1} \cap \cdots \cap X_n\inv\brac{A_n}} = \Pr\of{X_1\inv\brac{A_1}} \cdots \Pr\of{X_n\inv\brac{A_n}}$, and an infinite family is independent if every finite subfamily is. The expectation is the integral of a random variable over the probability space with respect to the probability measure.
 
 In this course, $\Omega$ will usually be finite, $\mathcal{F}$ will usually be the $\mathcal{P}\of{\Omega}$, and all functions $\Omega \to \R$ will be random variables.
 
@@ -221,6 +221,11 @@ What's one thing that beats \textit{all} of these? An exponential!
 % [CORRECTED] was: "$\eta := \sum_{i=1}^{n} \xi_n$" --- the summand does not depend on the index, so that sum is
 % $n \xi_n$, a single scaled coin flip of variance $n^2$; the theorem below, and its factorization over $i$, need
 % the walk $\sum_i \xi_i$.
+% [SUSPECT] "the binomial random variable $\eta$" below: $\eta = 2B - n$ for $B$ binomial, so its support is
+% $\set{-n, -n+2, \ldots, n}$ and it is not binomial. Two independent reviewers called this wrong and I left it,
+% on the grounds that naming a variable after the distribution it is an affine image of is loose rather than
+% false --- and because $\deg(x)$ two pages earlier is binomial in the literal sense, so the word is doing two
+% jobs. One word, and it is the author's to change.
 Consider the following setup. Let $\xi_1, \ldots, \xi_n$ be independent Bernoulli random variables take values $\pm 1$ with probability $\frac{1}{2}$. Define the binomial random variable $\eta := \sum_{i=1}^{n} \xi_i$.
 
 % [CORRECTED] was: "$\Pr\of{\eta > a} = \Pr\of{\beta^2 > \beta^a} \leq \E\of{\beta^2}$" --- $\beta^2$ is a constant, so
@@ -293,7 +298,7 @@ We can show that
     = h(0)
     = \frac{e^t + e^{-t}}{2}
 \end{align*}
-The first inequality is the whole content of the extension: $h$ is the chord of $x \mapsto e^{tx}$ across $[-1, 1]$, and since $e^{tx}$ is convex it lies below that chord on the whole interval, which is where $\abs{\xi_i} \leq 1$ is used. The second equality is linearity, which is where $\E\of{\xi_i} = 0$ is used.
+The first inequality is the whole content of the extension: $h$ is the chord of $x \mapsto e^{tx}$ across $[-1, 1]$, and since $e^{tx}$ is convex it lies below that chord on the whole interval, which is where $\abs{\xi_i} \leq 1$ is used. The first equality is linearity, since $h$ is affine, and the second is where $\E\of{\xi_i} = 0$ is used.
 
 \begin{figure}[H]
     \centering
