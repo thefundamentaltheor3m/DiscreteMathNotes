@@ -191,13 +191,12 @@ The above is called the \textbf{method of alterations}---constructing something 
 The proof of \Cref{Ch1:Thm:Erdos_Girth} plays the same trick, but with a random graph in place of a random set of vertices.
 
 % Not from the lecture: the lecture used $G_{n, p}$ without defining it, and the definition below was supplied.
-\begin{boxdefinition}[Random Graph]
+\begin{boxdefinition}[Random Graph] \label{Ch1:Def:Random_Graph}
     For $n \in \N$ and $p \in [0, 1]$, the \textbf{random graph} $G_{n, p}$ is the graph on the vertex set $[n]$ in which each of the $\binom{n}{2}$ possible edges is present independently with probability $p$.
 \end{boxdefinition}
 
 \begin{proof}[Proof of \Cref{Ch1:Thm:Erdos_Girth}]
     Fix $k \geq 3$; for $k \leq 2$ a single edge already does. Consider the graph $G_{n, p}$ for $p = \frac{n^{\varepsilon}}{n}$. For some small $\varepsilon > 0$ (in particular, $\varepsilon \ll \frac{1}{k}$), we see that
-    % [CLAUDE] you may need to replace some of what you've written with what we did today (4 September 2026)
     % [FILLED] the display broke off after the union bound; the second line and the paragraph after it were supplied
     \begin{align*}
         \Pr\of{\alpha\of{G_{n, p}} \geq a} &\leq \binom{n}{a} \parenth{1 - p}^{\binom{a}{2}}  \\
@@ -215,7 +214,7 @@ The proof of \Cref{Ch1:Thm:Erdos_Girth} plays the same trick, but with a random 
     % [CORRECTED] was: "as $\eps \to 0$" after the display --- with $n$ and $k$ fixed and $\eps \to 0$ the bound tends to
     % $k / n$, not $0$; it is $n \to \infty$ with $\eps k < 1$ fixed that sends $k n^{\eps k - 1}$ to $0$, and that is the
     % limit "for sufficiently large $n$" in the next sentence uses.
-    By Markov's inequality,
+    By Markov's inequality (\Cref{Ch3:Thm:Markov}, which we get round to stating only in \Cref{Ch3:CH}),
     \begin{align*}
         \Pr\of{X \geq \frac{n}{2}} \leq \frac{\E(X)}{n / 2} \to 0
     \end{align*}

@@ -1,0 +1,76 @@
+\section{Second Moment Methods}
+
+Let $X$ be the number of triangles in the random graph $G_{n, p}$ of \Cref{Ch1:Def:Random_Graph}. We get
+\begin{align*}
+    \E(X) &= \binom{n}{3} p^3
+\end{align*}
+
+If $p = \frac{\omega(1)}{n}$ then $\E(X) \to \infty$, so $G_{n, p}$ is likely to have a triangle.
+
+If $p = o\of{\frac{1}{n}}$, then $\E(X) \to 0$, so the probability that $G_{n, p}$ has a triangle goes to $0$.
+
+None of this actually tells us whether $G_{n, p}$ actually has a triangle or not. We need something more sophisticated than the expectation, so we turn to the variance, and \Cref{Ch3:Cor:Second_Moment} turns the computation into exactly the one we want.
+
+% Not from the lecture: the lecture turned to the variance and then moved on to the general question below without carrying out the triangle computation; the theorem and proof here were supplied to close it.
+\begin{boxtheorem} \label{Ch3:Thm:Triangle_Threshold}
+    If $np \to \infty$, then with high probability $G_{n, p}$ contains a triangle.
+\end{boxtheorem}
+\begin{proof}
+    For a triple $T$ of vertices write $I_T$ for the indicator of the event that $T$ spans a triangle, so that $X = \sum_T I_T$ and $\E(X) = \binom{n}{3} p^3$. Expanding the variance,
+    \begin{align*}
+        \Var{X} = \sum_{T, T'} \parenth{\E\of{I_T I_{T'}} - \E\of{I_T} \E\of{I_{T'}}}
+    \end{align*}
+    where the sum runs over ordered pairs of triples. A pair with $\abs{T \cap T'} \leq 1$ contributes nothing: $T$ and $T'$ then have no pair of vertices in common, so $I_T$ and $I_{T'}$ are determined by disjoint sets of edges and are independent. There are at most $n^3$ pairs with $T = T'$, each contributing $p^3 - p^6 \leq p^3$. And a pair with $\abs{T \cap T'} = 2$ shares exactly one edge, so $T \cup T'$ spans $5$ edges and $\E\of{I_T I_{T'}} = p^5$; there are at most $3n^4$ such pairs, since $T'$ is determined by $T$, which of the $3$ pairs inside $T$ is shared, and the remaining vertex. Hence
+    \begin{align*}
+        \Var{X} \leq n^3 p^3 + 3 n^4 p^5
+    \end{align*}
+    For $n \geq 6$ we have $\binom{n}{3} \geq \frac{n^3}{12}$, so $\E(X)^2 \geq \frac{n^6 p^6}{144}$ and
+    \begin{align*}
+        \frac{\Var{X}}{\E(X)^2} \leq \frac{144}{\parenth{np}^3} + \frac{432}{n \cdot np}
+    \end{align*}
+    Both terms tend to $0$ when $np \to \infty$, and \Cref{Ch3:Cor:Second_Moment} finishes it.
+\end{proof}
+
+% The development below was reconstructed from the author's handwritten notes: the laptop died
+% partway through the lecture of 4 September 2026 and the rest of that lecture was written by hand.
+Can we apply this probabilistic approach in the following more general situation: what is the threshold for a random graph $G_{n, p}$ to contain $H$ as a subgraph, where $H$ is an arbitrary fixed graph?
+
+What controls the answer is not the size of $H$ but the density of its densest part.
+
+\begin{boxdefinition}[Maximum Density]
+    Let $H$ be a graph with at least one edge, and for a graph $J$ write $e(J)$ and $v(J)$ for its numbers of edges and of vertices. The \textbf{maximum density} of $H$ is
+    \begin{align*}
+        \eps(H) := \max_{J \ssq H, \; v(J) > 0} \frac{e(J)}{v(J)}
+    \end{align*}
+    the maximum being over all subgraphs $J$ of $H$ with at least one vertex.
+\end{boxdefinition}
+
+This is some sort of ``edge density'' or whatever. Think Szemer\'{e}di.
+
+Markov's inequality already settles one side of the threshold.
+
+% Not from the lecture: the lecture stated the theorem and broke off after the first line of the proof; the rest of the proof was supplied.
+\begin{boxtheorem} \label{Ch3:Thm:Subgraph_Threshold}
+    Let $H$ be a fixed graph with at least one edge. If $p = o\of{\frac{1}{n^{\frac{1}{\eps(H)}}}}$, then with high probability\footnote{for instance, the limit of the probability goes to $1$ as $n \to \infty$} $G_{n, p}$ contains no $H$ subgraph.
+\end{boxtheorem}
+\begin{proof}
+    Let $J \ssq H$ attain the maximum in the definition of $\eps(H)$, and write $v = v(J)$ and $e = e(J)$, so that $\frac{1}{\eps(H)} = \frac{v}{e}$. Every copy of $H$ in $G_{n, p}$ contains a copy of $J$, so it is enough to show that with high probability there is no copy of $J$.
+
+    Let $X$ be the number of copies of $J$ in $G_{n, p}$. A copy is determined by an injection $V(J) \to [n]$, and different injections may give the same copy, so there are at most $n^{v}$ of them; each is present precisely when its $e$ edges all are, which happens with probability $p^{e}$. Hence
+    \begin{align*}
+        \E(X) \leq n^{v} p^{e}
+    \end{align*}
+    Now $p = o\of{n^{-v/e}}$, so $p^{e} = o\of{n^{-v}}$ and $\E(X) = o(1)$. By \Cref{Ch3:Thm:Markov}, $\Pr\of{X \geq 1} \leq \E(X) \to 0$.
+\end{proof}
+
+The bound is sharp in the sense that at $p = n^{-1/\eps(H)}$ itself the first moment stops deciding anything, which is where the second moment has to come in.
+
+\begin{boxexample}
+    Let $J$ be $K_4$ without one edge, so $v(J) = 4$ and $e(J) = 5$. Its subgraphs are sparser than it is---a triangle has density $1$, a single edge $\frac{1}{2}$---so $\eps(J) = \frac{5}{4}$ and the threshold sits at $p = \frac{1}{n^{4/5}}$. At exactly that $p$, each $4$-set of vertices carries $\frac{4!}{\abs{\Aut{J}}} = 6$ copies of $J$, so the number $X$ of copies has
+    \begin{align*}
+        \E(X) = \binom{n}{4} \cdot 6 \cdot p^5 = \binom{n}{4} \cdot 6 \cdot \frac{1}{n^4} \to \frac{1}{4}
+    \end{align*}
+    Markov's inequality bounds $\Pr\of{X \geq 1}$ by about $\frac{1}{4}$ and says nothing at all about whether $X$ is ever positive.
+\end{boxexample}
+
+Our goal is to show that once the expected number of $J$s goes to infinity ($J$ being the densest part of $H$), we have a copy of $H$.

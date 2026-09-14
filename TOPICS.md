@@ -11,7 +11,11 @@ What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
      permutations in 2.2 and 2.3, random sets and random graphs in 1.3.4 -- and if a
      lecture ever treats it as a subject rather than a tool, it is the obvious seed
      for a chapter of its own. The next run should feel free to disagree with all of
-     this. -->
+     this.
+     UPDATE 2026-09-11: that is what lectures 6-8 did -- concentration inequalities
+     as the subject, with graphs as the examples -- so the probabilistic method is
+     now chapter 3 rather than a thread. On eight lectures the shape reads as a
+     toolkit that arrived third and is wanted first; see Structural pressure. -->
 
 ## 1. Graphs and Colorings  ->  `Chapters/1_Intro/`
 
@@ -105,6 +109,49 @@ What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
         them through x                                              [supplied]
 ```
 
+## 3. Moments and Concentration  ->  `Chapters/3_Moments/`
+
+```
+3.1 A Terse Review of Probability                   [2026-09-04, 2026-09-11]
+    Collects the probability the rest of the chapter needs, and proves the two
+    inequalities the course has been using by name without stating.
+      probability spaces, events, random variables, independence, expectation
+      the two facts about independent variables: images stay independent,
+        and expectation is multiplicative
+      Markov's inequality, stated and proved                       [supplied]
+      variance, and its additivity on independent variables        [supplied]
+      Chebyshev's inequality, proved from Markov                   [supplied]
+      Var/E^2 -> 0 gives Pr(X != 0) -> 1, as a corollary           [supplied]
+      n fair coins, bounded by Chebyshev                           [supplied]
+
+3.2 Second Moment Methods                           [2026-09-04, 2026-09-09]
+    Asks when a random graph contains a fixed graph at all, which is the
+    question the first moment cannot answer.
+      triangles in G_{n,p}: E(X) -> 0 and E(X) -> infinity, and why
+        neither settles anything                                   (preamble)
+      np -> infinity gives a triangle whp, by the second moment    [supplied]
+      the threshold for an arbitrary H as a subgraph               [handwritten]
+      eps(H) = max over subgraphs J of e(J)/v(J)                   [handwritten]
+      p = o(n^{-1/eps(H)}) gives no H, by Markov on the densest
+        part of H                                                  [supplied]
+      K_4 minus an edge: eps = 5/4, and E(X) -> 1/4 at the
+        threshold, where the first moment stops deciding           [supplied]
+
+3.3 Chernoff's Bound                                [2026-09-11]
+    Goes past the second moment: how to bound a deviation when every power
+    of X - E(X) is too weak.
+      degrees in G_{n,1/2}, and why Chebyshev's 2500/n is useless
+      higher moments, and the exponential that beats all of them
+      Chernoff: Pr(eta >= a) <= e^{-a^2/2n} for a +/-1 walk
+      the same bound for |xi_i| <= 1 and E(xi_i) = 0, via the chord
+        of e^{tx} across [-1, 1]
+      the picture of e^{tx} under its chord                        [supplied]
+```
+
+Material marked `[handwritten]` came from the author's handwritten notes rather
+than the typed ones: the laptop died partway through the lecture of 4 September
+2026 and the rest of that lecture was written by hand.
+
 Entries marked `[supplied]` are arguments this repository's skills worked out,
 not arguments the lecturer gave; each carries a `% [FILLED]`, `% [CLAUDE]`-derived
 or `% Not from the lecture` comment at its site.
@@ -191,6 +238,24 @@ Hilton-Milner                    not named 2026-08-31, but it is the standard
                                  a second proof of the extremal theorem. The
                                  proof in the notes goes the other way, through
                                  the cycle, and needs nothing external.
+the converse threshold            "our goal is to show that once the expected
+                                 number of Js goes to infinity, we have a copy
+                                 of H" --- stated 2026-09-09 as the destination of
+                                 3.2 and not reached. It is the second-moment
+                                 half of the threshold theorem, and 3.1's
+                                 corollary plus 3.2's triangle proof are the
+                                 two pieces it needs.
+Szemeredi                        named in passing 2026-09-04, in the handwritten
+                                 notes, as what eps(H) is "some sort of edge
+                                 density for". Nothing further.
+Hoeffding's extension            asserted 2026-09-11: the same bound for
+                                 independent xi_i with |xi_i| <= 1 and mean 0.
+                                 The chord argument for a single factor is
+                                 written out; the deduction of the full bound
+                                 from it is not.
+fourth moment bounds             mentioned 2026-09-11 as enough for the degrees
+                                 of G_{n,1/2}, "but that won't always be the
+                                 case". Not carried out.
 perfect graphs                   defined 2026-09-02 and then left: the lecture named
                                  the class in which omega = chi holds hereditarily
                                  and went straight to how badly it can fail. If a
@@ -224,6 +289,16 @@ Observations for `/organize`, recorded rather than acted on.
     tic-tac-toe in this course". If a later lecture returns to positional games,
     this wants lifting out into a section of its own. [noted 2026-08-26,
     re-examined and left 2026-09-02]
+
+Chapter 3 should probably be chapter 1, and the author said so. The directives
+    of 2026-09-11 asked for the probability review "at the very beginning of
+    these notes", and /integrate may not renumber existing chapters, so it went
+    to the end instead. The cost is real and visible: Markov's inequality is
+    stated in 3.1 and used by name in the proof of Erdos's girth theorem in
+    1.3.4, twenty pages earlier, which now carries a forward \Cref saying so.
+    Moving chapter 3 to the front renumbers every result in the notes, which is
+    exactly the kind of diff that belongs on its own.
+    Run /organize. [noted 2026-09-11]
 
 The "moreover" of Erdos-Ko-Rado is stated twice in 2.3, once inside the theorem
     and once as the extremal theorem that actually proves it. The duplication is
