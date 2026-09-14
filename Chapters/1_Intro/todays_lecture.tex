@@ -6,7 +6,10 @@
 
 \subsection{Conditional Expectation}
 
-Given an event $A$ and a random variable $X$, we can define
+% [CORRECTED] was: "Given an event $A$ and a random variable $X$" --- at $\Pr(A) = 0$ the display below is $\frac{0}{0}$
+% (every singleton in a null event is null, so the numerator vanishes too), so it defines nothing there, and the
+% second display needs the same hypothesis, $\Pr\of{X = r \mid A}$ dividing by $\Pr(A)$ in its turn.
+Given an event $A$ with $\Pr(A) \neq 0$ and a random variable $X$, we can define
 \begin{align*}
     \E\of{X \mid A} = \frac{1}{\Pr(A)} \sum_{x \in A} X(x) \cdot p(x)
 \end{align*}
@@ -14,9 +17,12 @@ where $p(x)$ is the density function. It is easy to show that
 \begin{align*}
     \E\of{X \mid A} = \sum_{r \in X[\Omega]} r \cdot \Pr\of{X = r \mid A}
 \end{align*}
+% [CORRECTED] was: "$y_0 \mapsto \E\of{X \mid Y = y_0}$" in the display below --- that map has domain $\R$, not $\Omega$,
+% so it is not a random variable in the sense of 3.1 and the outer $\E$ of the tower property has nothing to
+% integrate against $\Pr$. Composing with $Y$ is what the next sentence claims has been done.
 Given \textit{two} random variables $X$ and $Y$, we denote by $\E\of{X \mid Y}$ the \textbf{random variable}
 \begin{align*}
-    y_0 \mapsto \E\of{X \mid Y = y_0}
+    \omega \mapsto \E\of{X \mid Y = Y(\omega)}
 \end{align*}
 
 \begin{boxtheorem}[Tower Property of Conditional Expectation]
@@ -38,9 +44,14 @@ Throughout this section, fix random variables $X_0, X_1, X_2, \ldots$ on some pr
         \item for all $n \in \N$, $\abs{X_{n+1} - X_n} \leq 1$
         % [FILLED] the lecture's second condition was illegible in the raw notes; the requirement below is the one the third condition needs, since $\E\of{X \mid A}$ divides by $\Pr(A)$
         \item the condition below is imposed only where $\Pr\of{X_0 = x_0, \, \ldots, \, X_n = x_n} \neq 0$, the conditional expectation being undefined otherwise
+        % [CORRECTED] was: "$\E\of{X_{i + 1} \mid X_0 = x_0, \, X_1 = x_1, \, \cdots, \, X_{n-1} = x_{n-1}} = x_n$" --- $i$ is
+        % free, and conditioning only as far as $x_{n-1}$ leaves the right-hand side $x_n$ undetermined by the event
+        % on the left, so the condition reads "for all $x_n \in \R$, some fixed number equals $x_n$" and no
+        % nondegenerate sequence can satisfy it. The tree above averages each node from the two beneath it, which
+        % is this condition with the history conditioned on in full.
         \item for all $n \in \N$ and $x_0, \ldots, x_n \in \R$,
         \begin{align*}
-            \E\of{X_{i + 1} \mid X_0 = x_0, \, X_1 = x_1, \, \cdots, \, X_{n-1} = x_{n-1}} = x_n
+            \E\of{X_{n + 1} \mid X_0 = x_0, \, X_1 = x_1, \, \cdots, \, X_n = x_n} = x_n
         \end{align*}
     \end{enumerate}
 \end{boxdefinition}
@@ -109,12 +120,12 @@ Define the following martingale:
 Then, $X_0, X_1, X_2, X_3$ is a martingale, and it is exactly what the tree draws: $X_k$ is the number written at the node reached by exposing $e_1, \ldots, e_k$. Its increments are never more than $\frac{1}{2}$, so the first condition is met with room to spare; $X_0$ is the $2$ at the root, and $X_3 = X$ is the chromatic number itself. Setting $X_k = X$ for $k > 3$ extends it to the infinite sequence the definition asks for, nothing being left to expose.
 
 % [FILLED] the sentence broke off at the conditional expectation; everything from here to the end of the section was supplied, the statement of Azuma's inequality as the directive asked and the corollary as what the whole construction was for
-We can adapt this to the general $G_{n, \frac{1}{2}}$ case. Define $Y_i$ and $X_i$ as above. Then, we can compute the conditional expectation of $\chi\of{G_{n, \frac{1}{2}}}$ on observing edges incident on vertices $1, \ldots, k$: take $Y_k$ to record which of the edges from vertex $k$ to vertices $1, \ldots, k-1$ are present and, now writing $X$ for $\chi\of{G_{n, \frac{1}{2}}}$, take $X_k = \E\of{X \mid Y_1, \ldots, Y_k}$, so that $X_1 = \E(X)$ and $X_n = X$. This exposes the graph a vertex at a time rather than an edge at a time, and it is what makes the first condition hold: two graphs differing only in the edges at a single vertex have chromatic numbers differing by at most $1$, since a proper coloring of either becomes a proper coloring of the other once that vertex is given a color of its own, and averaging that over everything not yet exposed bounds $\abs{X_{k+1} - X_k}$ by $1$ too.
+We can adapt this to the general $G_{n, \frac{1}{2}}$ case. Define $Y_i$ and $X_i$ as above. Then, we can compute the conditional expectation of $\chi\of{G_{n, \frac{1}{2}}}$ on observing edges incident on vertices $1, \ldots, k$: take $Y_k$ to record which of the edges from vertex $k$ to vertices $1, \ldots, k-1$ are present and, now writing $X$ for $\chi\of{G_{n, \frac{1}{2}}}$, take $X_k = \E\of{X \mid Y_1, \ldots, Y_k}$, so that $X_n = X$ and, vertex $1$ having nothing behind it to expose, $X_1 = \E(X)$; put $X_0 = \E(X)$ as well, and $X_k = X$ for $k > n$, so that the sequence is one the definition covers. This exposes the graph a vertex at a time rather than an edge at a time, and it is what makes the first condition hold: two graphs differing only in the edges at a single vertex have chromatic numbers differing by at most $1$, since a proper coloring of either becomes a proper coloring of the other once that vertex is given a color of its own, and averaging that over everything not yet exposed bounds $\abs{X_{k+1} - X_k}$ by $1$ too.
 
 The point of insisting on that condition is the following, which says that a martingale cannot get far from where it started---and by the same margin \Cref{Ch3:Thm:Chernoff} gives a $\pm 1$ walk, which is the martingale all the others are measured against.
 
 \begin{boxtheorem}[Azuma's Inequality] \label{Ch3:Thm:Azuma}
-    Let $X_0, X_1, \ldots, X_m$ be a martingale. Then for every $\lambda > 0$,
+    Let $X_0, X_1, \ldots$ be a martingale and let $m \in \N$. Then for every $\lambda > 0$,
     \begin{align*}
         \Pr\of{X_m - X_0 \geq \lambda \sqrt{m}} \leq e^{-\frac{\lambda^2}{2}}
     \end{align*}
@@ -131,5 +142,5 @@ What it says about the chromatic number is that $\chi\of{G_{n, \frac{1}{2}}}$ si
     \end{align*}
 \end{boxcorollary}
 \begin{proof}
-    The martingale above has $X_1 = \E\of{\chi\of{G_{n, \frac{1}{2}}}}$ and $X_n = \chi\of{G_{n, \frac{1}{2}}}$, so \Cref{Ch3:Thm:Azuma} applied to $X_1, \ldots, X_n$ bounds $\Pr\of{X_n - X_1 \geq \lambda \sqrt{n-1}}$ by $e^{-\frac{\lambda^2}{2}}$, and $\sqrt{n-1} \leq \sqrt{n}$. Applying it to $-X_1, \ldots, -X_n$, a martingale for the same reasons, bounds the other tail.
+    The martingale above has $X_0 = \E\of{\chi\of{G_{n, \frac{1}{2}}}}$ and $X_n = \chi\of{G_{n, \frac{1}{2}}}$, so \Cref{Ch3:Thm:Azuma} at $m = n$ bounds $\Pr\of{X_n - X_0 \geq \lambda \sqrt{n}}$ by $e^{-\frac{\lambda^2}{2}}$. Applying it to $-X_0, -X_1, \ldots$, a martingale for the same reasons, bounds the other tail.
 \end{proof}
