@@ -36,7 +36,8 @@ Throughout this section, fix random variables $X_0, X_1, X_2, \ldots$ on some pr
     We say $X_0, X_1, \ldots$ is a \textbf{martingale} if the following all hold:
     \begin{enumerate}
         \item for all $n \in \N$, $\abs{X_{n+1} - X_n} \leq 1$
-        \item \sorry % [CLAUDE] some sort of equal-to-zero or not-equal-to-zero property? Can't see clearly unfortunately: fill this in yourself
+        % [FILLED] the lecture's second condition was illegible in the raw notes; the requirement below is the one the third condition needs, since $\E\of{X \mid A}$ divides by $\Pr(A)$
+        \item the condition below is imposed only where $\Pr\of{X_0 = x_0, \, \ldots, \, X_n = x_n} \neq 0$, the conditional expectation being undefined otherwise
         \item for all $n \in \N$ and $x_0, \ldots, x_n \in \R$,
         \begin{align*}
             \E\of{X_{i + 1} \mid X_0 = x_0, \, X_1 = x_1, \, \cdots, \, X_{n-1} = x_{n-1}} = x_n
@@ -51,17 +52,44 @@ Let's study the expected value of chromatic numbers. Consider the family of rand
 We can heuristically see that the expected chromatic number is two based on the following figure:
 % [CLAUDE] draw a binary tree with each note representing a family of graphs. At the top, the graph with no edges. Left descendent: graph with exactly one edge. Right descendent: graph with at most one edge. Left descendent of left: exactly two edges. Right descendent of left: between 1 and 2 edges. Etc. In each case, list, underneath the note, the expected chromatic number of a graph that looks like that. Then, add a paragraph describing the construction of this tree (adapt what I've written here) and explain your diagram.
 
-Define the following martingale: % [CLAUDE] /fill-sorries below
-\begin{align*}
-    X &= \sorry \\
-    Y_0 &= \sorry \\
-    & \,\,\, \vdots \\
-    Y_n &= \sorry \\
-    X_1 &= \E(X) \\
-    X_2 &= \E\of{X \mid Y_1} \\
-    X_3 &= \E\of{X \mid Y_1, Y_2} \\
-    & \,\,\, \vdots \\
-\end{align*}
-Then, $X_0, X_1, X_2, \ldots$ is a martingale.
+Write $G$ for $G_{3, \frac{1}{2}}$ and $e_1, e_2, e_3$ for its three possible edges, in some fixed order.
 
-We can adapt this to the general $G_{n, \frac{1}{2}}$ case. Define $Y_i$ and $X_i$ as above. Then, we can compute the conditional expectation of $\chi\of{G_{n, \frac{1}{2}}}$ on observing edges incident on vertices $1, \ldots, k$... \sorry % [CLAUDE] finish this up with a statement of Azuma's Inequality
+Define the following martingale: % [CLAUDE] /fill-sorries below
+% [FILLED] the six right-hand sides were \sorry. The indices on the left were renumbered so that the display defines the sequence the sentence after it names: the author's $Y_0$ was never conditioned on, and the author's $X_1 = \E(X)$ left the $X_0$ of that sentence undefined. The $\vdots$ rows went with them, three vertices having exactly three possible edges.
+\begin{align*}
+    X &= \chi(G) \\
+    Y_1 &= \ind{e_1 \in G} \\
+    Y_2 &= \ind{e_2 \in G} \\
+    Y_3 &= \ind{e_3 \in G} \\
+    X_0 &= \E(X) \\
+    X_1 &= \E\of{X \mid Y_1} \\
+    X_2 &= \E\of{X \mid Y_1, Y_2} \\
+    X_3 &= \E\of{X \mid Y_1, Y_2, Y_3}
+\end{align*}
+Then, $X_0, X_1, X_2, X_3$ is a martingale, and it is exactly what the tree draws: $X_k$ is the number written at the node reached by exposing $e_1, \ldots, e_k$. Its increments are never more than $\frac{1}{2}$, so the first condition is met with room to spare; $X_0$ is the $2$ at the root, and $X_3 = X$ is the chromatic number itself. Setting $X_k = X$ for $k > 3$ extends it to the infinite sequence the definition asks for, nothing being left to expose.
+
+% [FILLED] the sentence broke off at the conditional expectation; everything from here to the end of the section was supplied, the statement of Azuma's inequality as the directive asked and the corollary as what the whole construction was for
+We can adapt this to the general $G_{n, \frac{1}{2}}$ case. Define $Y_i$ and $X_i$ as above. Then, we can compute the conditional expectation of $\chi\of{G_{n, \frac{1}{2}}}$ on observing edges incident on vertices $1, \ldots, k$: take $Y_k$ to record which of the edges from vertex $k$ to vertices $1, \ldots, k-1$ are present and, now writing $X$ for $\chi\of{G_{n, \frac{1}{2}}}$, take $X_k = \E\of{X \mid Y_1, \ldots, Y_k}$, so that $X_1 = \E(X)$ and $X_n = X$. This exposes the graph a vertex at a time rather than an edge at a time, and it is what makes the first condition hold: two graphs differing only in the edges at a single vertex have chromatic numbers differing by at most $1$, since a proper coloring of either becomes a proper coloring of the other once that vertex is given a color of its own, and averaging that over everything not yet exposed bounds $\abs{X_{k+1} - X_k}$ by $1$ too.
+
+The point of insisting on that condition is the following, which says that a martingale cannot get far from where it started---and by the same margin \Cref{Ch3:Thm:Chernoff} gives a $\pm 1$ walk, which is the martingale all the others are measured against.
+
+\begin{boxtheorem}[Azuma's Inequality] \label{Ch3:Thm:Azuma}
+    Let $X_0, X_1, \ldots, X_m$ be a martingale. Then for every $\lambda > 0$,
+    \begin{align*}
+        \Pr\of{X_m - X_0 \geq \lambda \sqrt{m}} \leq e^{-\frac{\lambda^2}{2}}
+    \end{align*}
+\end{boxtheorem}
+
+We won't prove it: the argument is the one behind \Cref{Ch3:Thm:Chernoff}, with the chord bound of that section applied to each increment $X_{k+1} - X_k$ conditionally on what has been exposed, which is legitimate precisely because the increments are bounded by $1$ and have conditional mean $0$.
+
+What it says about the chromatic number is that $\chi\of{G_{n, \frac{1}{2}}}$ sits in a window of width about $\sqrt{n}$ around its mean---rather narrower than $\chi$ itself, which grows like $\frac{n}{\log n}$, a fact from outside the course that we take on trust here.
+
+\begin{boxcorollary} \label{Ch3:Cor:Chromatic_Concentration}
+    For every $\lambda > 0$,
+    \begin{align*}
+        \Pr\of{\abs{\chi\of{G_{n, \frac{1}{2}}} - \E\of{\chi\of{G_{n, \frac{1}{2}}}}} \geq \lambda \sqrt{n}} \leq 2 e^{-\frac{\lambda^2}{2}}
+    \end{align*}
+\end{boxcorollary}
+\begin{proof}
+    The martingale above has $X_1 = \E\of{\chi\of{G_{n, \frac{1}{2}}}}$ and $X_n = \chi\of{G_{n, \frac{1}{2}}}$, so \Cref{Ch3:Thm:Azuma} applied to $X_1, \ldots, X_n$ bounds $\Pr\of{X_n - X_1 \geq \lambda \sqrt{n-1}}$ by $e^{-\frac{\lambda^2}{2}}$, and $\sqrt{n-1} \leq \sqrt{n}$. Applying it to $-X_1, \ldots, -X_n$, a martingale for the same reasons, bounds the other tail.
+\end{proof}
