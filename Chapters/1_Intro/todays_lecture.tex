@@ -35,7 +35,7 @@ Given \textit{two} random variables $X$ and $Y$, we denote by $\E\of{X \mid Y}$ 
 The above type-checks because $\E\of{X \mid Y}$ is a random variable.
 
 % Not from the lecture: the lecture defined the notation for one conditioning variable and then used it for several; the extension below was supplied.
-Several random variables at once are no different: $\E\of{X \mid Y_1, \, \ldots, \, Y_k}$ is the random variable $\omega \mapsto \E\of{X \mid Y_1 = Y_1(\omega), \, \ldots, \, Y_k = Y_k(\omega)}$, conditioning on the one event that records what all of them did.
+Several random variables at once are no different: $\E\of{X \mid Y_1, \, \ldots, \, Y_k}$ is the random variable $\omega \mapsto \E\of{X \mid Y_1 = Y_1(\omega), \, \ldots, \, Y_k = Y_k(\omega)}$, conditioning on the one event that records what all of them did. Both this and $\E\of{X \mid Y}$ need each of those events to have nonzero probability, which on a finite $\Omega$ whose outcomes all have positive probability---the only case we use---every $\omega$ supplies.
 
 \section{Martingales}
 
