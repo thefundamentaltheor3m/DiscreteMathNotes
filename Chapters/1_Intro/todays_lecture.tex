@@ -1,3 +1,67 @@
 % Inbox for the lecture in progress. Type today's raw notes here: the file is
 % \input from the chapter file, so the Overleaf preview builds as you go, and
 % /integrate empties it again once the material has been placed.
+
+% [CLAUDE] put this in the probability review. Split that section up into subsections. Actually, maybe the entire probability review should be a separate chapter, and each of these things should be a section or subsection within that. So conditional expectation would be a subsection of something on expectation. Then Martingales are a section in their own right. You get?
+
+\subsection{Conditional Expectation}
+
+Given an event $A$ and a random variable $X$, we can define
+\begin{align*}
+    \E\of{X \mid A} = \frac{1}{\Pr(A)} \sum_{x \in A} X(x) \cdot p(x)
+\end{align*}
+where $p(x)$ is the density function. It is easy to show that
+\begin{align*}
+    \E\of{X \mid A} = \sum_{r \in X[\Omega]} r \cdot \Pr\of{X = r \mid A}
+\end{align*}
+Given \textit{two} random variables $X$ and $Y$, we denote by $\E\of{X \mid Y}$ the \textbf{random variable}
+\begin{align*}
+    y_0 \mapsto \E\of{X \mid Y = y_0}
+\end{align*}
+
+\begin{boxtheorem}[Tower Property of Conditional Expectation]
+    For all random variables $X$ and $Y$,
+    \begin{align*}
+        \E\of{\E\of{X \mid Y}} = \E(X)
+    \end{align*}
+\end{boxtheorem}
+
+The above type-checks because $\E\of{X \mid Y}$ is a random variable.
+
+\section{Martingales}
+
+Throughout this section, fix random variables $X_0, X_1, X_2, \ldots$ on some probability space $(\Omega, \mathcal{P}(\Omega), \Pr)$.
+
+\begin{boxdefinition}[Martingale]
+    We say $X_0, X_1, \ldots$ is a \textbf{martingale} if the following all hold:
+    \begin{enumerate}
+        \item for all $n \in \N$, $\abs{X_{n+1} - X_n} \leq 1$
+        \item \sorry % [CLAUDE] some sort of equal-to-zero or not-equal-to-zero property? Can't see clearly unfortunately: fill this in yourself
+        \item for all $n \in \N$ and $x_0, \ldots, x_n \in \R$,
+        \begin{align*}
+            \E\of{X_{i + 1} \mid X_0 = x_0, \, X_1 = x_1, \, \cdots, \, X_{n-1} = x_{n-1}} = x_n
+        \end{align*}
+    \end{enumerate}
+\end{boxdefinition}
+
+% [CLAUDE] the following should not be part of the probability review
+
+Let's study the expected value of chromatic numbers. Consider the family of random graphs $G_{3, \frac{1}{2}}$ of graphs on $3$ vertices with the probability of an edge between them being $\frac{1}{2}$. This makes $\chi\of{G_{3, \frac{1}{2}}}$ a random variable. What would we expect its expectation to be?
+
+We can heuristically see that the expected chromatic number is two based on the following figure:
+% [CLAUDE] draw a binary tree with each note representing a family of graphs. At the top, the graph with no edges. Left descendent: graph with exactly one edge. Right descendent: graph with at most one edge. Left descendent of left: exactly two edges. Right descendent of left: between 1 and 2 edges. Etc. In each case, list, underneath the note, the expected chromatic number of a graph that looks like that. Then, add a paragraph describing the construction of this tree (adapt what I've written here) and explain your diagram.
+
+Define the following martingale: % [CLAUDE] /fill-sorries below
+\begin{align*}
+    X &= \sorry \\
+    Y_0 &= \sorry \\
+    & \,\,\, \vdots \\
+    Y_n &= \sorry \\
+    X_1 &= \E(X) \\
+    X_2 &= \E\of{X \mid Y_1} \\
+    X_3 &= \E\of{X \mid Y_1, Y_2} \\
+    & \,\,\, \vdots \\
+\end{align*}
+Then, $X_0, X_1, X_2, \ldots$ is a martingale.
+
+We can adapt this to the general $G_{n, \frac{1}{2}}$ case. Define $Y_i$ and $X_i$ as above. Then, we can compute the conditional expectation of $\chi\of{G_{n, \frac{1}{2}}}$ on observing edges incident on vertices $1, \ldots, k$... \sorry % [CLAUDE] finish this up with a statement of Azuma's Inequality
