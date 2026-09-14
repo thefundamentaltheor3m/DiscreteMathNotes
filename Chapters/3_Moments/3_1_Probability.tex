@@ -97,4 +97,41 @@ Here is the smallest example worth doing, and the only one in which we will get 
     for every $\eps > 0$, which tends to $0$ as $n \to \infty$. So all but a vanishing proportion of the outcomes have between $\parenth{\frac{1}{2} - \eps} n$ and $\parenth{\frac{1}{2} + \eps} n$ heads.
 \end{boxexample}
 
+One notion remains, and \Cref{Ch3:Sec:Martingales} leans on it rather harder than on anything above.
+
+\subsection{Conditional Expectation}
+
+% [CORRECTED] was: "Given an event $A$ and a random variable $X$" --- at $\Pr(A) = 0$ the display below is $\frac{0}{0}$
+% (every singleton in a null event is null, so the numerator vanishes too), so it defines nothing there, and the
+% second display needs the same hypothesis, $\Pr\of{X = r \mid A}$ dividing by $\Pr(A)$ in its turn.
+Given an event $A$ with $\Pr(A) \neq 0$ and a random variable $X$, we can define
+\begin{align*}
+    \E\of{X \mid A} = \frac{1}{\Pr(A)} \sum_{x \in A} X(x) \cdot p(x)
+\end{align*}
+where $p(x)$ is the density function. It is easy to show that
+\begin{align*}
+    \E\of{X \mid A} = \sum_{r \in X[\Omega]} r \cdot \Pr\of{X = r \mid A}
+\end{align*}
+% [CORRECTED] was: "$y_0 \mapsto \E\of{X \mid Y = y_0}$" in the display below --- that map has domain $\R$, not $\Omega$,
+% so it is not a random variable in the sense of the opening of this section, and the outer $\E$ of the tower
+% property has nothing to integrate against $\Pr$. Composing with $Y$ is what the next sentence claims has been done.
+Given \textit{two} random variables $X$ and $Y$, we denote by $\E\of{X \mid Y}$ the \textbf{random variable}
+\begin{align*}
+    \omega \mapsto \E\of{X \mid Y = Y(\omega)}
+\end{align*}
+
+The point of packaging it as a random variable rather than as a list of numbers is that it can then be averaged again.
+
+\begin{boxtheorem}[Tower Property of Conditional Expectation]
+    For all random variables $X$ and $Y$,
+    \begin{align*}
+        \E\of{\E\of{X \mid Y}} = \E(X)
+    \end{align*}
+\end{boxtheorem}
+
+The above type-checks because $\E\of{X \mid Y}$ is a random variable.
+
+% Not from the lecture: the lecture defined the notation for one conditioning variable and then used it for several; the extension below was supplied.
+Several random variables at once are no different: $\E\of{X \mid Y_1, \, \ldots, \, Y_k}$ is the random variable $\omega \mapsto \E\of{X \mid Y_1 = Y_1(\omega), \, \ldots, \, Y_k = Y_k(\omega)}$, conditioning on the one event that records what all of them did. Both this and $\E\of{X \mid Y}$ need each of those events to have nonzero probability, which on a finite $\Omega$ whose outcomes all have positive probability---the only case we use---every $\omega$ supplies.
+
 With this we end our terse review.

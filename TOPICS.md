@@ -112,7 +112,7 @@ What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
 ## 3. Moments and Concentration  ->  `Chapters/3_Moments/`
 
 ```
-3.1 A Terse Review of Probability                   [2026-09-04, 2026-09-11]
+3.1 A Terse Review of Probability          [2026-09-04, 2026-09-11, 2026-09-14]
     Collects the probability the rest of the chapter needs, and proves the two
     inequalities the course has been using by name without stating.
       probability spaces, events, random variables, independence, expectation
@@ -123,6 +123,12 @@ What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
       Chebyshev's inequality, proved from Markov                   [supplied]
       Var/E^2 -> 0 gives Pr(X != 0) -> 1, as a corollary           [supplied]
       n fair coins, bounded by Chebyshev                           [supplied]
+    3.1.1 Conditional Expectation                   [2026-09-14]
+      E(X | A), for an event A of nonzero probability, and the same
+        written as a sum over the image of X
+      E(X | Y) as a random variable on Omega
+      the tower property, stated and not proved
+      E(X | Y_1, ..., Y_k), for several variables at once          [supplied]
 
 3.2 Second Moment Methods                           [2026-09-04, 2026-09-09]
     Asks when a random graph contains a fixed graph at all, which is the
@@ -146,6 +152,25 @@ What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
       the same bound for |xi_i| <= 1 and E(xi_i) = 0, via the chord
         of e^{tx} across [-1, 1]
       the picture of e^{tx} under its chord                        [supplied]
+
+3.4 Martingales                                     [2026-09-14]
+    Takes concentration off sums altogether: a quantity revealed a little at a
+    time, each revelation moving the expectation only slightly, concentrates as
+    sharply as a random walk does.
+      martingales, defined                                         (preamble)
+      the second of the three conditions, illegible in the raw
+        notes                                                      [supplied]
+    3.4.1 Exposing a Random Graph                   [2026-09-14]
+      chi(G_{3,1/2}), and its expectation of 2
+      the edge-exposure tree, with the conditional expectation
+        written at each node                                       [supplied]
+      the edge-exposure martingale                                 [supplied]
+      the vertex-exposure martingale for G_{n,1/2}, and why its
+        increments are bounded by 1                                [supplied]
+    3.4.2 Azuma's Inequality                        [2026-09-14]
+      Azuma: Pr(X_m - X_0 >= lambda sqrt m) <= e^{-lambda^2/2},
+        stated and not proved                                      [supplied]
+      chi(G_{n,1/2}) within lambda sqrt n of its mean              [supplied]
 ```
 
 Material marked `[handwritten]` came from the author's handwritten notes rather
@@ -256,6 +281,17 @@ Hoeffding's extension            asserted 2026-09-11: the same bound for
 fourth moment bounds             mentioned 2026-09-11 as enough for the degrees
                                  of G_{n,1/2}, "but that won't always be the
                                  case". Not carried out.
+Azuma's inequality               stated 2026-09-14 and not proved. The notes say
+                                 what the proof is --- 3.3's exponential-moment
+                                 argument applied to each increment
+                                 conditionally --- and do not carry it out.
+the tower property               stated 2026-09-14, and the second display of
+                                 3.1.1 with it, under one "it is easy to show".
+                                 Neither is proved.
+chi(G_{n,1/2}) ~ n / log n       asserted 2026-09-14 in 3.4.2, as the thing the
+                                 sqrt(n) window is narrow compared to. From
+                                 outside the course, and flagged as such where
+                                 it is used.
 perfect graphs                   defined 2026-09-02 and then left: the lecture named
                                  the class in which omega = chi holds hereditarily
                                  and went straight to how badly it can fail. If a
@@ -299,6 +335,18 @@ Chapter 3 should probably be chapter 1, and the author said so. The directives
     Moving chapter 3 to the front renumbers every result in the notes, which is
     exactly the kind of diff that belongs on its own.
     Run /organize. [noted 2026-09-11]
+
+3.1 is now a long untitled preamble followed by one subsection, which is the
+    shape the directive of 2026-09-14 was complaining about. That directive
+    asked for the probability review to be split into subsections, and wondered
+    whether it should be a chapter in its own right. The second half is already
+    true -- it is chapter 3 -- and was presumably written before the author saw
+    the last pass. The first half is /organize's: 3.1's existing content is
+    settled material and /integrate may not carve it up, so only the new
+    Conditional Expectation subsection got a heading and everything above it
+    stayed a preamble. The natural split is Markov, variance and Chebyshev, and
+    conditional expectation, which is close to what the directive proposed.
+    Run /organize. [noted 2026-09-14]
 
 The "moreover" of Erdos-Ko-Rado is stated twice in 2.3, once inside the theorem
     and once as the extremal theorem that actually proves it. The duplication is

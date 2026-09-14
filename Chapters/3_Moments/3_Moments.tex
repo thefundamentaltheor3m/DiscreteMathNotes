@@ -3,8 +3,11 @@
 
 The probabilistic method has been a tool in both chapters so far---a random coloring for the lower bound on $m(k)$, a random permutation for Sperner's theorem and for \Erdos-Ko-Rado, a random set and then a random graph for \Cref{Ch1:Thm:Erdos_Girth}---and every one of those arguments has the same shape: compute an expectation, and read a structure off it. This chapter is about what to do when that is not enough. Knowing $\E(X)$ is large says nothing on its own about whether $X$ is ever nonzero, so we bring in the variance, which is enough to settle when a random graph has a triangle and, more generally, when it has a copy of any fixed graph we like. When the variance in turn is too crude---and for the degrees of a random graph it is hopeless---we go past it to the exponential moments, and get a bound that beats every power of $X - \E(X)$ at once.
 
+The last section takes that idea off sums altogether. A quantity that is not a sum of anything---the chromatic number of a random graph, say---concentrates just as sharply provided it can be revealed a little at a time, and the sequence of guesses we make as it is revealed is a martingale.
+
 The first section collects the probability the rest of it needs. Very little of that is new, and none of it is proved at length.
 
 \input{Chapters/3_Moments/3_1_Probability.tex}
 \input{Chapters/3_Moments/3_2_Second_Moment.tex}
 \input{Chapters/3_Moments/3_3_Chernoff.tex}
+\input{Chapters/3_Moments/3_4_Martingales.tex}
