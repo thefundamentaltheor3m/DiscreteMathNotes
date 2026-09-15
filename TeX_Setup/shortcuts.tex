@@ -360,6 +360,30 @@
     \fill[#3] (0, 0) circle (3pt);
 }
 
+% {e_1}{e_2}{e_3}{label}: a graph on three vertices with the given label underneath, for the
+% exposure tree of 3.4.1. Unlike the graph macros above this one is a whole picture rather than
+% a fragment, because it is used as the contents of a node in a larger tikzpicture. Each edge is
+% `unexposed' (not looked at yet, so there with probability a half: drawn dashed), `present'
+% (drawn solid) or `absent' (not drawn at all); $e_1$ joins the two bottom vertices, $e_2$ the
+% left one to the apex, $e_3$ the right one.
+\newcommand{\exposedtriad}[4]{%
+    \shortstack{%
+        \begin{tikzpicture}[
+            present/.style = {thick, black},
+            unexposed/.style = {dashed, black!55, dash pattern = on 1.6pt off 1.4pt},
+            absent/.style = {draw = none},
+            dot/.style = {circle, fill = black, inner sep = 1.1pt}]
+            \node[dot] (tl) at (0, 0) {};
+            \node[dot] (tr) at (0.7, 0) {};
+            \node[dot] (ta) at (0.35, 0.55) {};
+            \draw[#1] (tl) -- (tr);
+            \draw[#2] (tl) -- (ta);
+            \draw[#3] (tr) -- (ta);
+        \end{tikzpicture}%
+        \\[1pt] $#4$%
+    }%
+}
+
 \newcommand{\BigO}[1]{\operatorname{O}\of{#1}}
 
 \newcommand{\Adj}{\operatorname{Adj}}

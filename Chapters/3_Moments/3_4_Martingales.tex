@@ -36,60 +36,60 @@ We can heuristically see that the expected chromatic number is two based on the 
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[every node/.style = {font = \small, inner sep = 1.5pt}]
-        \node (R)   at ( 0.000, 3.9) {$2$};
-        \node (A)   at (-2.300, 2.6) {$\frac{9}{4}$};
-        \node (B)   at ( 2.300, 2.6) {$\frac{7}{4}$};
-        \node (AA)  at (-3.450, 1.3) {$\frac{5}{2}$};
-        \node (AB)  at (-1.150, 1.3) {$2$};
-        \node (BA)  at ( 1.150, 1.3) {$2$};
-        \node (BB)  at ( 3.450, 1.3) {$\frac{3}{2}$};
-        \node (AAA) at (-4.025, 0.0) {$3$};
-        \node (AAB) at (-2.875, 0.0) {$2$};
-        \node (ABA) at (-1.725, 0.0) {$2$};
-        \node (ABB) at (-0.575, 0.0) {$2$};
-        \node (BAA) at ( 0.575, 0.0) {$2$};
-        \node (BAB) at ( 1.725, 0.0) {$2$};
-        \node (BBA) at ( 2.875, 0.0) {$2$};
-        \node (BBB) at ( 4.025, 0.0) {$1$};
-        \node[anchor = east, gray] at (-4.7, 3.9) {$X_0$};
-        \node[anchor = east, gray] at (-4.7, 2.6) {$X_1$};
-        \node[anchor = east, gray] at (-4.7, 1.3) {$X_2$};
-        \node[anchor = east, gray] at (-4.7, 0.0) {$X_3$};
+    \begin{tikzpicture}[every node/.style = {font = \small, inner sep = 2pt}]
+        \node (R)   at ( 0.00, 6.3) {\exposedtriad{unexposed}{unexposed}{unexposed}{2}};
+        \node (A)   at (-3.00, 4.2) {\exposedtriad{present}{unexposed}{unexposed}{\frac{9}{4}}};
+        \node (B)   at ( 3.00, 4.2) {\exposedtriad{absent}{unexposed}{unexposed}{\frac{7}{4}}};
+        \node (AA)  at (-4.50, 2.1) {\exposedtriad{present}{present}{unexposed}{\frac{5}{2}}};
+        \node (AB)  at (-1.50, 2.1) {\exposedtriad{present}{absent}{unexposed}{2}};
+        \node (BA)  at ( 1.50, 2.1) {\exposedtriad{absent}{present}{unexposed}{2}};
+        \node (BB)  at ( 4.50, 2.1) {\exposedtriad{absent}{absent}{unexposed}{\frac{3}{2}}};
+        \node (AAA) at (-5.25, 0.0) {\exposedtriad{present}{present}{present}{3}};
+        \node (AAB) at (-3.75, 0.0) {\exposedtriad{present}{present}{absent}{2}};
+        \node (ABA) at (-2.25, 0.0) {\exposedtriad{present}{absent}{present}{2}};
+        \node (ABB) at (-0.75, 0.0) {\exposedtriad{present}{absent}{absent}{2}};
+        \node (BAA) at ( 0.75, 0.0) {\exposedtriad{absent}{present}{present}{2}};
+        \node (BAB) at ( 2.25, 0.0) {\exposedtriad{absent}{present}{absent}{2}};
+        \node (BBA) at ( 3.75, 0.0) {\exposedtriad{absent}{absent}{present}{2}};
+        \node (BBB) at ( 5.25, 0.0) {\exposedtriad{absent}{absent}{absent}{1}};
+        \node[anchor = east, gray] at (-6.1, 6.3) {$X_0$};
+        \node[anchor = east, gray] at (-6.1, 4.2) {$X_1$};
+        \node[anchor = east, gray] at (-6.1, 2.1) {$X_2$};
+        \node[anchor = east, gray] at (-6.1, 0.0) {$X_3$};
         \draw (R) -- (A) node[midway, above left, inner sep = 1pt] {$e_1 \in G$};
-        \draw[dashed] (R) -- (B) node[midway, above right, inner sep = 1pt] {$e_1 \notin G$};
+        \draw (R) -- (B) node[midway, above right, inner sep = 1pt] {$e_1 \notin G$};
         \draw (A) -- (AA);
-        \draw[dashed] (A) -- (AB);
+        \draw (A) -- (AB);
         \draw (B) -- (BA);
-        \draw[dashed] (B) -- (BB);
+        \draw (B) -- (BB);
         \draw (AA) -- (AAA);
-        \draw[dashed] (AA) -- (AAB);
+        \draw (AA) -- (AAB);
         \draw (AB) -- (ABA);
-        \draw[dashed] (AB) -- (ABB);
+        \draw (AB) -- (ABB);
         \draw (BA) -- (BAA);
-        \draw[dashed] (BA) -- (BAB);
+        \draw (BA) -- (BAB);
         \draw (BB) -- (BBA);
-        \draw[dashed] (BB) -- (BBB);
+        \draw (BB) -- (BBB);
     \end{tikzpicture}
 \end{figure}
 
-Fix an order $e_1, e_2, e_3$ on the three possible edges and look at them one at a time. The root of the tree stands for the whole family, before anything has been looked at; its left child for the graphs in which $e_1$ is present and its right child---the dashed branch---for those in which it is absent. Those two split the same way on $e_2$, and their children on $e_3$, so that the eight leaves are the eight graphs on three vertices and every node is the family of graphs agreeing with the exposures made along the way down to it. At each node we have written the expected chromatic number of a graph drawn from the family it stands for, which for a leaf is just the chromatic number of the one graph there: $1$ for the empty graph, $2$ for anything with one or two edges, and $3$ for the triangle. Every node is the average of the two beneath it, so the $2$ at the root really is $\E\of{\chi\of{G_{3, \frac{1}{2}}}}$, and reading the tree downwards is watching that expectation be refined one edge at a time.
+Fix an order $e_1, e_2, e_3$ on the three possible edges and look at them one at a time. An edge we have not looked at yet is drawn dashed, since it is there with probability $\frac{1}{2}$; one we have looked at is drawn solid if it turned out to be there and rubbed out if it turned out not to be. The root is all three dashed, nothing having been looked at; its left child is the picture in which $e_1$ has turned out to be present and its right child the one in which $e_1$ has turned out to be absent; those two split the same way on $e_2$, and their children on $e_3$, so that the eight leaves are the eight graphs on three vertices with no dashes left. Every node is thus the family of graphs agreeing with its picture wherever that picture has committed itself, and underneath each we have written the expected chromatic number of a graph drawn from that family---which at a leaf is just the chromatic number of the one graph there: $1$ for the empty graph, $2$ for anything with one or two edges, and $3$ for the triangle. Every number is the average of the two beneath it, so the $2$ at the root really is $\E\of{\chi\of{G_{3, \frac{1}{2}}}}$, and reading the tree downwards is watching that expectation be refined one edge at a time.
 
-Write $G$ for $G_{3, \frac{1}{2}}$.
+Write $G$ for $G_{3, \frac{1}{2}}$ and $e_1, \ldots, e_m$ for the $m = \binom{3}{2}$ possible edges.
 
 Define the following martingale:
-% [FILLED] the six right-hand sides were \sorry. The indices on the left were renumbered so that the display defines the sequence the sentence after it names: the author's $Y_0$ was never conditioned on, and the author's $X_1 = \E(X)$ left the $X_0$ of that sentence undefined. The $\vdots$ rows went with them, three vertices having exactly three possible edges.
+% [FILLED] the eight right-hand sides were \sorry. The indices on the left were renumbered so that the display defines the sequence the sentence after it names: the author's $Y_0$ was never conditioned on, and the author's $X_1 = \E(X)$ left the $X_0$ of that sentence undefined.
 \begin{align*}
     X &= \chi(G) \\
     Y_1 &= \ind{e_1 \in G} \\
-    Y_2 &= \ind{e_2 \in G} \\
-    Y_3 &= \ind{e_3 \in G} \\
+    & \,\,\, \vdots \\
+    Y_m &= \ind{e_m \in G} \\
     X_0 &= \E(X) \\
     X_1 &= \E\of{X \mid Y_1} \\
     X_2 &= \E\of{X \mid Y_1, Y_2} \\
-    X_3 &= \E\of{X \mid Y_1, Y_2, Y_3}
+    & \,\,\, \vdots
 \end{align*}
-Then, $X_0, X_1, X_2, X_3$ is a martingale, and it is exactly what the tree draws: $X_k$ is the number written at the node reached by exposing $e_1, \ldots, e_k$. Its increments are never more than $\frac{1}{2}$, so the first condition is met with room to spare; $X_0$ is the $2$ at the root, and $X_3 = X$ is the chromatic number itself. Setting $X_k = X$ for $k > 3$ extends it to the infinite sequence the definition asks for, nothing being left to expose.
+Then, $X_0, X_1, X_2, \ldots$ is a martingale, and it is exactly what the tree draws: $X_k$ is the number written under the picture at the node reached by exposing $e_1, \ldots, e_k$. Its increments are never more than $\frac{1}{2}$, so the first condition is met with room to spare; $X_0$ is the $2$ at the root, and $X_m = X$ is the chromatic number itself, every $X_k$ past that being $X$ over again with nothing left to expose.
 
 % [FILLED] the sentence broke off at the conditional expectation; everything from here to the end of the section was supplied, the statement of Azuma's inequality as the directive asked and the corollary as what the whole construction was for
 We can adapt this to the general $G_{n, \frac{1}{2}}$ case. Define $Y_i$ and $X_i$ as above. Then, we can compute the conditional expectation of $\chi\of{G_{n, \frac{1}{2}}}$ on observing edges incident on vertices $1, \ldots, k$: take $Y_k$ to record which of the edges from vertex $k$ to vertices $1, \ldots, k-1$ are present and, now writing $X$ for $\chi\of{G_{n, \frac{1}{2}}}$, take $X_k = \E\of{X \mid Y_1, \ldots, Y_k}$, so that $X_n = X$ and, vertex $1$ having nothing behind it to expose, $X_1 = \E(X)$; put $X_0 = \E(X)$ as well, and $X_k = X$ for $k > n$, so that the sequence is one the definition covers. This exposes the graph a vertex at a time rather than an edge at a time, and it is what makes the first condition hold: two graphs differing only in the edges at a single vertex have chromatic numbers differing by at most $1$, since a proper coloring of either becomes a proper coloring of the other once that vertex is given a color of its own. That survives the averaging: $X_k$ is the average of the possible values of $X_{k+1}$, and any two of those differ by at most $1$, because pairing each unexposed configuration under one value of $Y_{k+1}$ with the very same configuration under another matches up two graphs differing only at vertex $k+1$. So $\abs{X_{k+1} - X_k} \leq 1$.
