@@ -1,6 +1,6 @@
-\section{Martingales} \label{Ch3:Sec:Martingales}
+\section{Martingales} \label{Ch4:Sec:Martingales}
 
-\Cref{Ch3:Thm:Chernoff} got its strength from a very particular structure: a sum of independent contributions, each of them small. Plenty of quantities we care about have no such structure---the chromatic number of a random graph is not a sum of anything---and concentrate just as sharply anyway. What they do have is that they can be revealed a little at a time, with each revelation moving the expectation only slightly, and that is enough.
+\Cref{Ch4:Thm:Chernoff} got its strength from a very particular structure: a sum of independent contributions, each of them small. Plenty of quantities we care about have no such structure---the chromatic number of a random graph is not a sum of anything---and concentrate just as sharply anyway. What they do have is that they can be revealed a little at a time, with each revelation moving the expectation only slightly, and that is enough.
 
 Throughout this section, fix random variables $X_0, X_1, X_2, \ldots$ on some probability space $(\Omega, \mathcal{P}(\Omega), \Pr)$.
 
@@ -30,7 +30,7 @@ The sequence to have in mind is the one where $X_k$ is our best guess at some qu
 
 \subsection{Exposing a Random Graph}
 
-Let's study the expected value of chromatic numbers (cf. \Cref{Ch1:Def:Chromatic_Number}). Consider the family of random graphs $G_{3, \frac{1}{2}}$ of graphs on $3$ vertices with the probability of an edge between them being $\frac{1}{2}$ (cf. \Cref{Ch1:Def:Random_Graph}). This makes $\chi\of{G_{3, \frac{1}{2}}}$ a random variable. What would we expect its expectation to be?
+Let's study the expected value of chromatic numbers (cf. \Cref{Ch2:Def:Chromatic_Number}). Consider the family of random graphs $G_{3, \frac{1}{2}}$ of graphs on $3$ vertices with the probability of an edge between them being $\frac{1}{2}$ (cf. \Cref{Ch2:Def:Random_Graph}). This makes $\chi\of{G_{3, \frac{1}{2}}}$ a random variable. What would we expect its expectation to be?
 
 We can heuristically see that the expected chromatic number is two based on the following figure:
 
@@ -96,25 +96,25 @@ We can adapt this to the general $G_{n, \frac{1}{2}}$ case. Define $Y_i$ and $X_
 
 \subsection{Azuma's Inequality}
 
-The point of insisting on that condition is the following, which says that a martingale cannot get far from where it started---and by the same margin \Cref{Ch3:Thm:Chernoff} gives a $\pm 1$ walk, which is the martingale all the others are measured against.
+The point of insisting on that condition is the following, which says that a martingale cannot get far from where it started---and by the same margin \Cref{Ch4:Thm:Chernoff} gives a $\pm 1$ walk, which is the martingale all the others are measured against.
 
-\begin{boxtheorem}[Azuma's Inequality] \label{Ch3:Thm:Azuma}
+\begin{boxtheorem}[Azuma's Inequality] \label{Ch4:Thm:Azuma}
     Let $X_0, X_1, \ldots$ be a martingale and let $m$ be a positive integer. Then for every $\lambda > 0$,
     \begin{align*}
         \Pr\of{X_m - X_0 \geq \lambda \sqrt{m}} \leq e^{-\frac{\lambda^2}{2}}
     \end{align*}
 \end{boxtheorem}
 
-We won't prove it: the argument is the one behind \Cref{Ch3:Thm:Chernoff}, with the chord bound of that section applied to each increment $X_{k+1} - X_k$ conditionally on what has been exposed, which is legitimate precisely because the increments are bounded by $1$ and have conditional mean $0$.
+We won't prove it: the argument is the one behind \Cref{Ch4:Thm:Chernoff}, with the chord bound of that section applied to each increment $X_{k+1} - X_k$ conditionally on what has been exposed, which is legitimate precisely because the increments are bounded by $1$ and have conditional mean $0$.
 
 What it says about the chromatic number is that $\chi\of{G_{n, \frac{1}{2}}}$ sits in a window of width about $\sqrt{n}$ around its mean---rather narrower than $\chi$ itself, which grows like $\frac{n}{\log n}$, a fact from outside the course that we take on trust here.
 
-\begin{boxcorollary} \label{Ch3:Cor:Chromatic_Concentration}
+\begin{boxcorollary} \label{Ch4:Cor:Chromatic_Concentration}
     For every $n \geq 1$ and every $\lambda > 0$,
     \begin{align*}
         \Pr\of{\abs{\chi\of{G_{n, \frac{1}{2}}} - \E\of{\chi\of{G_{n, \frac{1}{2}}}}} \geq \lambda \sqrt{n}} \leq 2 e^{-\frac{\lambda^2}{2}}
     \end{align*}
 \end{boxcorollary}
 \begin{proof}
-    The martingale above has $X_0 = \E\of{\chi\of{G_{n, \frac{1}{2}}}}$ and $X_n = \chi\of{G_{n, \frac{1}{2}}}$, so \Cref{Ch3:Thm:Azuma} at $m = n$ bounds $\Pr\of{X_n - X_0 \geq \lambda \sqrt{n}}$ by $e^{-\frac{\lambda^2}{2}}$. Applying it to $-X_0, -X_1, \ldots$, a martingale for the same reasons, bounds the other tail.
+    The martingale above has $X_0 = \E\of{\chi\of{G_{n, \frac{1}{2}}}}$ and $X_n = \chi\of{G_{n, \frac{1}{2}}}$, so \Cref{Ch4:Thm:Azuma} at $m = n$ bounds $\Pr\of{X_n - X_0 \geq \lambda \sqrt{n}}$ by $e^{-\frac{\lambda^2}{2}}$. Applying it to $-X_0, -X_1, \ldots$, a martingale for the same reasons, bounds the other tail.
 \end{proof}

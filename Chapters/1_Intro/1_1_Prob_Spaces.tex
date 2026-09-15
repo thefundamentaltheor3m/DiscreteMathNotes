@@ -1,0 +1,23 @@
+\section{Probability Spaces}
+
+Almost everything in these notes is probabilistic, so it is worth setting down what we are going to use before we use it. None of this section goes beyond a first course, and we will take the measure theory on trust.
+
+Recall the following: if $(\Omega, \mathcal{F}, \Pr)$ is a probability space, this means
+\begin{itemize}
+    \item $\Omega$ is a set of outcomes, called a \textbf{sample space};
+    \item $\mathcal{F}$ is a sigma-algebra on $\Omega$;
+    % [CORRECTED] was: no normalization --- a measure into $[0, 1]$ need not be a probability measure (the zero
+    % measure is one), and $\Pr\of{\Omega} = 1$ is what every argument in these notes that produces an object out
+    % of a probability actually uses.
+    \item $\Pr : \mathcal{F} \to [0, \infty)$ is a measure that only takes values in $[0, 1]$, with $\Pr\of{\Omega} = 1$.
+\end{itemize}
+An \textbf{event} is a measurable set (ie, an element of $\mathcal{F}$), and a random variable is a measurable $\Omega \to \R$ function.
+
+% [CORRECTED] was: "$X$ and $Y$ are independent if for all $a \in \R$, $X\inv[a]$ and $Y\inv[a]$ are independent
+% events" --- one quantifier serves both variables, so any pair with disjoint ranges satisfies it vacuously:
+% $X$ uniform on $\set{1, 2}$ and $Y = X + 2$ pass, yet $\E(XY) \neq \E(X)\E(Y)$. And pairwise independence does
+% not give the $n$-fold product rule of 1.2 ($\xi_3 = \xi_1 \xi_2$ is the standard
+% counterexample), which the factorization in the proof of \Cref{Ch4:Thm:Chernoff} needs.
+We say two events $A$ and $B$ are \textbf{independent} if $\Pr\of{A \cap B} = \Pr(A) \cdot \Pr(B)$. We say that random variables $X_1, \ldots, X_n$ are independent if for all Borel sets $A_1, \ldots, A_n \ssq \R$ the events $X_1\inv\brac{A_1}, \ldots, X_n\inv\brac{A_n}$ (all of which lie in $\mathcal{F}$ because the $X_i$ are measurable) satisfy $\Pr\of{X_1\inv\brac{A_1} \cap \cdots \cap X_n\inv\brac{A_n}} = \Pr\of{X_1\inv\brac{A_1}} \cdots \Pr\of{X_n\inv\brac{A_n}}$, and an infinite family is independent if every finite subfamily is.
+
+In this course, $\Omega$ will usually be finite, $\mathcal{F}$ will usually be the $\mathcal{P}\of{\Omega}$, and all functions $\Omega \to \R$ will be random variables.
