@@ -1,0 +1,124 @@
+\section{Martingales} \label{Ch4:Sec:Martingales}
+
+\Cref{Ch4:Thm:Chernoff} got its strength from a very particular structure: a sum of independent contributions, each of them small. Plenty of quantities we care about have no such structure---the chromatic number of a random graph is not a sum of anything---and concentrate just as sharply anyway. What they do have is that they can be revealed a little at a time, with each revelation moving the expectation only slightly, and that is enough.
+
+Throughout this section, fix random variables $X_0, X_1, X_2, \ldots$ on some probability space $(\Omega, \mathcal{P}(\Omega), \Pr)$.
+
+The sequence to have in mind is the one where $X_k$ is our best guess at some quantity after $k$ things have been revealed, so that each term is the average of the term after it.
+
+\begin{boxdefinition}[Martingale]
+    We say $X_0, X_1, \ldots$ is a \textbf{martingale} if the following all hold:
+    \begin{enumerate}
+        % [CORRECTED] was: "for all $n \in \N$" in this item and in item 3 --- $\N$ starts at $1$ everywhere else in
+        % these notes (the Zykov sequence $(G_n)_{n \in \N}$ of 1.3.3 starts at $G_1$), which leaves the step from
+        % $X_0$ to $X_1$ governed by nothing: $X_0 = 0$ with $X_k = 10^6$ for $k \geq 1$ would qualify. The tree
+        % below averages the root from its two children, which is item 3 at $n = 0$.
+        \item for all integers $n \geq 0$, $\abs{X_{n+1} - X_n} \leq 1$
+        % [FILLED] the lecture's second condition was illegible in the raw notes; the requirement below is the one the third condition needs, since $\E\of{X \mid A}$ divides by $\Pr(A)$
+        \item the condition below is imposed only where $\Pr\of{X_0 = x_0, \, \ldots, \, X_n = x_n} \neq 0$, the conditional expectation being undefined otherwise
+        % [CORRECTED] was: "$\E\of{X_{i + 1} \mid X_0 = x_0, \, X_1 = x_1, \, \cdots, \, X_{n-1} = x_{n-1}} = x_n$" --- $i$ is
+        % free, and conditioning only as far as $x_{n-1}$ leaves the right-hand side $x_n$ undetermined by the event
+        % on the left, so the condition reads "for all $x_n \in \R$, some fixed number equals $x_n$" and no
+        % nondegenerate sequence can satisfy it. The tree below averages each node from the two beneath it, which
+        % is this condition with the history conditioned on in full.
+        \item for all integers $n \geq 0$ and all $x_0, \ldots, x_n \in \R$,
+        \begin{align*}
+            \E\of{X_{n + 1} \mid X_0 = x_0, \, X_1 = x_1, \, \cdots, \, X_n = x_n} = x_n
+        \end{align*}
+    \end{enumerate}
+\end{boxdefinition}
+
+\subsection{Exposing a Random Graph}
+
+Let's study the expected value of chromatic numbers (cf. \Cref{Ch2:Def:Chromatic_Number}). Consider the family of random graphs $G_{3, \frac{1}{2}}$ of graphs on $3$ vertices with the probability of an edge between them being $\frac{1}{2}$ (cf. \Cref{Ch2:Def:Random_Graph}). This makes $\chi\of{G_{3, \frac{1}{2}}}$ a random variable. What would we expect its expectation to be?
+
+We can heuristically see that the expected chromatic number is two based on the following figure:
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[every node/.style = {font = \small, inner sep = 2pt}]
+        \node (R)   at ( 0.00, 6.3) {\exposedtriad{unexposed}{unexposed}{unexposed}{2}};
+        \node (A)   at (-3.00, 4.2) {\exposedtriad{present}{unexposed}{unexposed}{\frac{9}{4}}};
+        \node (B)   at ( 3.00, 4.2) {\exposedtriad{absent}{unexposed}{unexposed}{\frac{7}{4}}};
+        \node (AA)  at (-4.50, 2.1) {\exposedtriad{present}{present}{unexposed}{\frac{5}{2}}};
+        \node (AB)  at (-1.50, 2.1) {\exposedtriad{present}{absent}{unexposed}{2}};
+        \node (BA)  at ( 1.50, 2.1) {\exposedtriad{absent}{present}{unexposed}{2}};
+        \node (BB)  at ( 4.50, 2.1) {\exposedtriad{absent}{absent}{unexposed}{\frac{3}{2}}};
+        \node (AAA) at (-5.25, 0.0) {\exposedtriad{present}{present}{present}{3}};
+        \node (AAB) at (-3.75, 0.0) {\exposedtriad{present}{present}{absent}{2}};
+        \node (ABA) at (-2.25, 0.0) {\exposedtriad{present}{absent}{present}{2}};
+        \node (ABB) at (-0.75, 0.0) {\exposedtriad{present}{absent}{absent}{2}};
+        \node (BAA) at ( 0.75, 0.0) {\exposedtriad{absent}{present}{present}{2}};
+        \node (BAB) at ( 2.25, 0.0) {\exposedtriad{absent}{present}{absent}{2}};
+        \node (BBA) at ( 3.75, 0.0) {\exposedtriad{absent}{absent}{present}{2}};
+        \node (BBB) at ( 5.25, 0.0) {\exposedtriad{absent}{absent}{absent}{1}};
+        \node[anchor = east, gray] at (-6.1, 6.3) {$X_0$};
+        \node[anchor = east, gray] at (-6.1, 4.2) {$X_1$};
+        \node[anchor = east, gray] at (-6.1, 2.1) {$X_2$};
+        \node[anchor = east, gray] at (-6.1, 0.0) {$X_3$};
+        \draw (R) -- (A) node[midway, above left, inner sep = 1pt] {$e_1 \in G$};
+        \draw (R) -- (B) node[midway, above right, inner sep = 1pt] {$e_1 \notin G$};
+        \draw (A) -- (AA);
+        \draw (A) -- (AB);
+        \draw (B) -- (BA);
+        \draw (B) -- (BB);
+        \draw (AA) -- (AAA);
+        \draw (AA) -- (AAB);
+        \draw (AB) -- (ABA);
+        \draw (AB) -- (ABB);
+        \draw (BA) -- (BAA);
+        \draw (BA) -- (BAB);
+        \draw (BB) -- (BBA);
+        \draw (BB) -- (BBB);
+    \end{tikzpicture}
+\end{figure}
+
+Fix an order $e_1, e_2, e_3$ on the three possible edges and look at them one at a time. An edge not yet looked at is drawn dashed, since it is there with probability $\frac{1}{2}$; one already looked at is drawn solid if it is there and rubbed out if it is not. So the root has all three dashed, its two children split on $e_1$, theirs on $e_2$, and the eight leaves are the eight graphs on three vertices.
+
+Under each picture is the expected chromatic number of a graph from the family it stands for---at a leaf, just that graph's: $1$ for the empty graph, $2$ for one or two edges, $3$ for the triangle. Each is the average of the two below it, so the $2$ at the root is $\E\of{\chi\of{G_{3, \frac{1}{2}}}}$.
+
+Write $G$ for $G_{3, \frac{1}{2}}$ and $e_1, \ldots, e_m$ for the $m = \binom{3}{2}$ possible edges.
+
+Define the following martingale:
+% [FILLED] the eight right-hand sides were \sorry. The indices on the left were renumbered so that the display defines the sequence the sentence after it names: the author's $Y_0$ was never conditioned on, and the author's $X_1 = \E(X)$ left the $X_0$ of that sentence undefined.
+\begin{align*}
+    X &= \chi(G) \\
+    Y_1 &= \ind{e_1 \in G} \\
+    & \,\,\, \vdots \\
+    Y_m &= \ind{e_m \in G} \\
+    X_0 &= \E(X) \\
+    X_1 &= \E\of{X \mid Y_1} \\
+    X_2 &= \E\of{X \mid Y_1, Y_2} \\
+    & \,\,\, \vdots
+\end{align*}
+Then, $X_0, X_1, X_2, \ldots$ is a martingale, and it is exactly what the tree draws: $X_k$ is the number written under the picture at the node reached by exposing $e_1, \ldots, e_k$. Its increments are never more than $\frac{1}{2}$, so the first condition is met with room to spare; $X_0$ is the $2$ at the root, and $X_m = X$ is the chromatic number itself, every $X_k$ past that being $X$ over again with nothing left to expose.
+
+% [FILLED] the sentence broke off at the conditional expectation; everything from here to the end of the section was supplied, the statement of Azuma's inequality as the directive asked and the corollary as what the whole construction was for
+We can adapt this to the general $G_{n, \frac{1}{2}}$ case. Define $Y_i$ and $X_i$ as above. Then, we can compute the conditional expectation of $\chi\of{G_{n, \frac{1}{2}}}$ on observing edges incident on vertices $1, \ldots, k$: write $X$ for $\chi\of{G_{n, \frac{1}{2}}}$, let $Y_k$ record the edges from vertex $k$ back to $1, \ldots, k-1$, and set $X_k = \E\of{X \mid Y_1, \ldots, Y_k}$. Since $Y_1$ records nothing, $X_0 = X_1 = \E(X)$; and $X_n = X$, with $X_k = X$ beyond that as before.
+
+We are now exposing a vertex at a time rather than an edge at a time, which is what bounds the increments. Two graphs differing only at one vertex have chromatic numbers differing by at most $1$: give that vertex a color of its own. Pairing each unexposed configuration with itself under a different value of $Y_{k+1}$, the possible values of $X_{k+1}$ differ pairwise by at most $1$, and $X_k$ is their average, so $\abs{X_{k+1} - X_k} \leq 1$.
+
+\subsection{Azuma's Inequality}
+
+That condition is what buys us the following: a martingale cannot get far from where it started, and by the same margin \Cref{Ch4:Thm:Chernoff} gives a $\pm 1$ walk.
+
+\begin{boxtheorem}[Azuma's Inequality] \label{Ch4:Thm:Azuma}
+    Let $X_0, X_1, \ldots$ be a martingale and let $m$ be a positive integer. Then for every $\lambda > 0$,
+    \begin{align*}
+        \Pr\of{X_m - X_0 \geq \lambda \sqrt{m}} \leq e^{-\frac{\lambda^2}{2}}
+    \end{align*}
+\end{boxtheorem}
+
+We won't prove it: it is the argument behind \Cref{Ch4:Thm:Chernoff}, with the chord bound applied to each increment conditionally on what has been exposed---which is what the bound on the increments is there to license.
+
+So $\chi\of{G_{n, \frac{1}{2}}}$ sits in a window of width about $\sqrt{n}$ around its mean---much narrower than $\chi$ itself, which grows like $\frac{n}{\log n}$ (not something we will prove).
+
+\begin{boxcorollary} \label{Ch4:Cor:Chromatic_Concentration}
+    For every $n \geq 1$ and every $\lambda > 0$,
+    \begin{align*}
+        \Pr\of{\abs{\chi\of{G_{n, \frac{1}{2}}} - \E\of{\chi\of{G_{n, \frac{1}{2}}}}} \geq \lambda \sqrt{n}} \leq 2 e^{-\frac{\lambda^2}{2}}
+    \end{align*}
+\end{boxcorollary}
+\begin{proof}
+    The martingale above has $X_0 = \E\of{\chi\of{G_{n, \frac{1}{2}}}}$ and $X_n = \chi\of{G_{n, \frac{1}{2}}}$, so \Cref{Ch4:Thm:Azuma} at $m = n$ bounds $\Pr\of{X_n - X_0 \geq \lambda \sqrt{n}}$ by $e^{-\frac{\lambda^2}{2}}$. Applying it to $-X_0, -X_1, \ldots$, a martingale for the same reasons, bounds the other tail.
+\end{proof}

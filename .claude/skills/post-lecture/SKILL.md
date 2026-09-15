@@ -92,7 +92,7 @@ git status --short && git diff -- Chapters/ TeX_Setup/   # not yet committed
 
 **The author's own markers narrow it.** Raw notes usually carry something that says
 where the lecture starts — a leading `% 26 Aug 2026`, a `\subsection{Ramsey Numbers}`
-written live, the reusable inbox at `Chapters/1_Intro/todays_lecture.tex`. Use them,
+written live, the reusable inbox at `Chapters/todays_lecture.tex`. Use them,
 because they are the only thing that can separate two lectures that arrived inside one
 diff window, and because the date on one is the sharpest indicator of which lecture
 this is. But use them **as corroboration, not as the definition**: they are

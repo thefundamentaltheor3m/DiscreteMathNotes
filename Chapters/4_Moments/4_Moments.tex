@@ -1,0 +1,12 @@
+\chapter{Moments and Concentration} \label{Ch4:CH}
+\thispagestyle{empty}
+
+The probabilistic method has been a tool in the two chapters before this one---a random coloring for the lower bound on $m(k)$, a random permutation for Sperner's theorem and for \Erdos-Ko-Rado, a random set and then a random graph for \Cref{Ch2:Thm:Erdos_Girth}---and every one of those arguments has the same shape: compute an expectation, and read a structure off it. This chapter is about what to do when that is not enough. Knowing $\E(X)$ is large says nothing on its own about whether $X$ is ever nonzero, so we bring in the variance, which is enough to settle when a random graph has a triangle and, more generally, when it has a copy of any fixed graph we like. When the variance in turn is too crude---and for the degrees of a random graph it is hopeless---we go past it to the exponential moments, and get a bound that beats every power of $X - \E(X)$ at once.
+
+The last section takes that idea off sums altogether. A quantity that is not a sum of anything---the chromatic number of a random graph, say---concentrates just as sharply provided it can be revealed a little at a time, and the sequence of guesses we make as it is revealed is a martingale.
+
+Everything here is built on \Cref{Ch1:CH}, and on \Cref{Ch1:Thm:Markov} and \Cref{Ch1:Thm:Chebyshev} in particular; nothing else from outside is needed.
+
+\input{Chapters/4_Moments/4_1_Second_Moment.tex}
+\input{Chapters/4_Moments/4_2_Chernoff.tex}
+\input{Chapters/4_Moments/4_3_Martingales.tex}

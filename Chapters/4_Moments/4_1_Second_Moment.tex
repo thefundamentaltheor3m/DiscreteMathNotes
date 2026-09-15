@@ -1,6 +1,6 @@
 \section{Second Moment Methods}
 
-Let $X$ be the number of triangles in the random graph $G_{n, p}$ of \Cref{Ch1:Def:Random_Graph}. We get
+Let $X$ be the number of triangles in the random graph $G_{n, p}$ of \Cref{Ch2:Def:Random_Graph}. We get
 \begin{align*}
     \E(X) &= \binom{n}{3} p^3
 \end{align*}
@@ -9,10 +9,10 @@ If $p = \frac{\omega(1)}{n}$ then $\E(X) \to \infty$, so $G_{n, p}$ is likely to
 
 If $p = o\of{\frac{1}{n}}$, then $\E(X) \to 0$, so the probability that $G_{n, p}$ has a triangle goes to $0$.
 
-None of this actually tells us whether $G_{n, p}$ actually has a triangle or not. We need something more sophisticated than the expectation, so we turn to the variance, and \Cref{Ch3:Cor:Second_Moment} turns the computation into exactly the one we want.
+None of this actually tells us whether $G_{n, p}$ actually has a triangle or not. We need something more sophisticated than the expectation, so we turn to the variance, and \Cref{Ch1:Cor:Second_Moment} turns the computation into exactly the one we want.
 
 % Not from the lecture: the lecture turned to the variance and then moved on to the general question below without carrying out the triangle computation; the theorem and proof here were supplied to close it.
-\begin{boxtheorem} \label{Ch3:Thm:Triangle_Threshold}
+\begin{boxtheorem} \label{Ch4:Thm:Triangle_Threshold}
     If $np \to \infty$, then with high probability $G_{n, p}$ contains a triangle.
 \end{boxtheorem}
 \begin{proof}
@@ -28,7 +28,7 @@ None of this actually tells us whether $G_{n, p}$ actually has a triangle or not
     \begin{align*}
         \frac{\Var{X}}{\E(X)^2} \leq \frac{144}{\parenth{np}^3} + \frac{432}{n \cdot np}
     \end{align*}
-    Both terms tend to $0$ when $np \to \infty$, and \Cref{Ch3:Cor:Second_Moment} finishes it.
+    Both terms tend to $0$ when $np \to \infty$, and \Cref{Ch1:Cor:Second_Moment} finishes it.
 \end{proof}
 
 % The development below was reconstructed from the author's handwritten notes: the laptop died
@@ -50,7 +50,7 @@ This is some sort of ``edge density'' or whatever. Think Szemer\'{e}di.
 Markov's inequality already settles one side of the threshold.
 
 % Not from the lecture: the lecture stated the theorem and broke off after the first line of the proof; the rest of the proof was supplied.
-\begin{boxtheorem} \label{Ch3:Thm:Subgraph_Threshold}
+\begin{boxtheorem} \label{Ch4:Thm:Subgraph_Threshold}
     Let $H$ be a fixed graph with at least one edge. If $p = o\of{\frac{1}{n^{\frac{1}{\eps(H)}}}}$, then with high probability\footnote{for instance, the limit of the probability goes to $1$ as $n \to \infty$} $G_{n, p}$ contains no $H$ subgraph.
 \end{boxtheorem}
 \begin{proof}
@@ -60,7 +60,7 @@ Markov's inequality already settles one side of the threshold.
     \begin{align*}
         \E(X) \leq n^{v} p^{e}
     \end{align*}
-    Now $p = o\of{n^{-v/e}}$, so $p^{e} = o\of{n^{-v}}$ and $\E(X) = o(1)$. By \Cref{Ch3:Thm:Markov}, $\Pr\of{X \geq 1} \leq \E(X) \to 0$.
+    Now $p = o\of{n^{-v/e}}$, so $p^{e} = o\of{n^{-v}}$ and $\E(X) = o(1)$. By \Cref{Ch1:Thm:Markov}, $\Pr\of{X \geq 1} \leq \E(X) \to 0$.
 \end{proof}
 
 The bound is sharp in the sense that at $p = n^{-1/\eps(H)}$ itself the first moment stops deciding anything, which is where the second moment has to come in.

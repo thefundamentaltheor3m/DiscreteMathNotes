@@ -82,17 +82,24 @@ if the two disagree, ask: one of them is a typo and guessing picks the wrong one
 
 ### The staging file, when there is one
 
-The author keeps a reusable inbox in whichever chapter is current:
+The author keeps a reusable inbox beside the chapter directories, belonging to none of
+them:
 
 ```
-Chapters/1_Intro/todays_lecture.tex
+Chapters/todays_lecture.tex
 ```
 
-It is `\input` from its chapter file, so the notes always compile and the Overleaf
-preview builds live during the lecture. When the new material is in there, **empty the
-file rather than deleting it**: the author reuses it every lecture, and deleting it or
-its `\input` line would break the preview and force them to recreate it. Leave behind
-only a short header comment saying what the file is for.
+`main.tex` `\input`s it after every chapter, so the notes always compile and the
+Overleaf preview builds live during the lecture, and a lecture that will end up split
+across three chapters does not have to pretend to belong to one of them in the
+meantime. When the new material is in there, **empty the file rather than deleting
+it**: the author reuses it every lecture, and deleting it or its `\input` line would
+break the preview and force them to recreate it. Leave behind only a short header
+comment saying what the file is for.
+
+It lived at `Chapters/1_Intro/todays_lecture.tex` until 2026-09-15; a lecture typed
+there rendered under chapter 1 whatever it was about. If you meet that path in an old
+commit, this is the file it became.
 
 This file is a convenience, not the definition of the input. Do not require it, do not
 assume the material is confined to it, and do not stop because it is absent or empty
@@ -310,10 +317,11 @@ Then, mechanically:
 - Remember results are numbered per *section*, so moving a theorem across a section
   boundary renumbers it. Grep for stale `\Cref`s to anything you moved.
 - Empty the inbox last, once every ledger item is placed: leave the file, a short
-  header comment saying what it is for, and its `\input` line. Delete neither the file
-  nor the line — the author reuses it every lecture and the Overleaf preview depends
-  on it. Material that came from somewhere other than the inbox leaves that file as it
-  finds it, minus what moved.
+  header comment saying what it is for, and its `\input` line in `main.tex`. Delete
+  neither the file nor the line — the author reuses it every lecture and the Overleaf
+  preview depends on it — and do not move the file into a chapter directory, which is
+  the arrangement it was taken out of. Material that came from somewhere other than
+  the inbox leaves that file as it finds it, minus what moved.
 
 ### 5. Append to TOPICS.md
 
