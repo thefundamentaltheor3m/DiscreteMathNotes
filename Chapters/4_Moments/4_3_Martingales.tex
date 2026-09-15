@@ -73,7 +73,9 @@ We can heuristically see that the expected chromatic number is two based on the 
     \end{tikzpicture}
 \end{figure}
 
-Fix an order $e_1, e_2, e_3$ on the three possible edges and look at them one at a time. An edge we have not looked at yet is drawn dashed, since it is there with probability $\frac{1}{2}$; one we have looked at is drawn solid if it turned out to be there and rubbed out if it turned out not to be. The root is all three dashed, nothing having been looked at; its left child is the picture in which $e_1$ has turned out to be present and its right child the one in which $e_1$ has turned out to be absent; those two split the same way on $e_2$, and their children on $e_3$, so that the eight leaves are the eight graphs on three vertices with no dashes left. Every node is thus the family of graphs agreeing with its picture wherever that picture has committed itself, and underneath each we have written the expected chromatic number of a graph drawn from that family---which at a leaf is just the chromatic number of the one graph there: $1$ for the empty graph, $2$ for anything with one or two edges, and $3$ for the triangle. Every number is the average of the two beneath it, so the $2$ at the root really is $\E\of{\chi\of{G_{3, \frac{1}{2}}}}$, and reading the tree downwards is watching that expectation be refined one edge at a time.
+Fix an order $e_1, e_2, e_3$ on the three possible edges and look at them one at a time. An edge not yet looked at is drawn dashed, since it is there with probability $\frac{1}{2}$; one already looked at is drawn solid if it is there and rubbed out if it is not. So the root has all three dashed, its two children split on $e_1$, theirs on $e_2$, and the eight leaves are the eight graphs on three vertices.
+
+Under each picture is the expected chromatic number of a graph from the family it stands for---at a leaf, just that graph's: $1$ for the empty graph, $2$ for one or two edges, $3$ for the triangle. Each is the average of the two below it, so the $2$ at the root is $\E\of{\chi\of{G_{3, \frac{1}{2}}}}$.
 
 Write $G$ for $G_{3, \frac{1}{2}}$ and $e_1, \ldots, e_m$ for the $m = \binom{3}{2}$ possible edges.
 
@@ -92,11 +94,13 @@ Define the following martingale:
 Then, $X_0, X_1, X_2, \ldots$ is a martingale, and it is exactly what the tree draws: $X_k$ is the number written under the picture at the node reached by exposing $e_1, \ldots, e_k$. Its increments are never more than $\frac{1}{2}$, so the first condition is met with room to spare; $X_0$ is the $2$ at the root, and $X_m = X$ is the chromatic number itself, every $X_k$ past that being $X$ over again with nothing left to expose.
 
 % [FILLED] the sentence broke off at the conditional expectation; everything from here to the end of the section was supplied, the statement of Azuma's inequality as the directive asked and the corollary as what the whole construction was for
-We can adapt this to the general $G_{n, \frac{1}{2}}$ case. Define $Y_i$ and $X_i$ as above. Then, we can compute the conditional expectation of $\chi\of{G_{n, \frac{1}{2}}}$ on observing edges incident on vertices $1, \ldots, k$: take $Y_k$ to record which of the edges from vertex $k$ to vertices $1, \ldots, k-1$ are present and, now writing $X$ for $\chi\of{G_{n, \frac{1}{2}}}$, take $X_k = \E\of{X \mid Y_1, \ldots, Y_k}$, so that $X_n = X$ and, vertex $1$ having nothing behind it to expose, $X_1 = \E(X)$; put $X_0 = \E(X)$ as well, and $X_k = X$ for $k > n$, so that the sequence is one the definition covers. This exposes the graph a vertex at a time rather than an edge at a time, and it is what makes the first condition hold: two graphs differing only in the edges at a single vertex have chromatic numbers differing by at most $1$, since a proper coloring of either becomes a proper coloring of the other once that vertex is given a color of its own. That survives the averaging: $X_k$ is the average of the possible values of $X_{k+1}$, and any two of those differ by at most $1$, because pairing each unexposed configuration under one value of $Y_{k+1}$ with the very same configuration under another matches up two graphs differing only at vertex $k+1$. So $\abs{X_{k+1} - X_k} \leq 1$.
+We can adapt this to the general $G_{n, \frac{1}{2}}$ case. Define $Y_i$ and $X_i$ as above. Then, we can compute the conditional expectation of $\chi\of{G_{n, \frac{1}{2}}}$ on observing edges incident on vertices $1, \ldots, k$: write $X$ for $\chi\of{G_{n, \frac{1}{2}}}$, let $Y_k$ record the edges from vertex $k$ back to $1, \ldots, k-1$, and set $X_k = \E\of{X \mid Y_1, \ldots, Y_k}$. Since $Y_1$ records nothing, $X_0 = X_1 = \E(X)$; and $X_n = X$, with $X_k = X$ beyond that as before.
+
+We are now exposing a vertex at a time rather than an edge at a time, which is what bounds the increments. Two graphs differing only at one vertex have chromatic numbers differing by at most $1$: give that vertex a color of its own. Pairing each unexposed configuration with itself under a different value of $Y_{k+1}$, the possible values of $X_{k+1}$ differ pairwise by at most $1$, and $X_k$ is their average, so $\abs{X_{k+1} - X_k} \leq 1$.
 
 \subsection{Azuma's Inequality}
 
-The point of insisting on that condition is the following, which says that a martingale cannot get far from where it started---and by the same margin \Cref{Ch4:Thm:Chernoff} gives a $\pm 1$ walk, which is the martingale all the others are measured against.
+That condition is what buys us the following: a martingale cannot get far from where it started, and by the same margin \Cref{Ch4:Thm:Chernoff} gives a $\pm 1$ walk.
 
 \begin{boxtheorem}[Azuma's Inequality] \label{Ch4:Thm:Azuma}
     Let $X_0, X_1, \ldots$ be a martingale and let $m$ be a positive integer. Then for every $\lambda > 0$,
@@ -105,9 +109,9 @@ The point of insisting on that condition is the following, which says that a mar
     \end{align*}
 \end{boxtheorem}
 
-We won't prove it: the argument is the one behind \Cref{Ch4:Thm:Chernoff}, with the chord bound of that section applied to each increment $X_{k+1} - X_k$ conditionally on what has been exposed, which is legitimate precisely because the increments are bounded by $1$ and have conditional mean $0$.
+We won't prove it: it is the argument behind \Cref{Ch4:Thm:Chernoff}, with the chord bound applied to each increment conditionally on what has been exposed---which is what the bound on the increments is there to license.
 
-What it says about the chromatic number is that $\chi\of{G_{n, \frac{1}{2}}}$ sits in a window of width about $\sqrt{n}$ around its mean---rather narrower than $\chi$ itself, which grows like $\frac{n}{\log n}$, a fact from outside the course that we take on trust here.
+So $\chi\of{G_{n, \frac{1}{2}}}$ sits in a window of width about $\sqrt{n}$ around its mean---much narrower than $\chi$ itself, which grows like $\frac{n}{\log n}$ (not something we will prove).
 
 \begin{boxcorollary} \label{Ch4:Cor:Chromatic_Concentration}
     For every $n \geq 1$ and every $\lambda > 0$,
