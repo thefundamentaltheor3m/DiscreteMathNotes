@@ -168,7 +168,7 @@ What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
         of e^{tx} across [-1, 1]
       the picture of e^{tx} under its chord                         [supplied]
 
-4.3 Martingales                                     [2026-09-14]
+4.3 Martingales                               [2026-09-14, 2026-09-16]
     Takes concentration off sums altogether: a quantity revealed a little at a
     time, each revelation moving the expectation only slightly, concentrates as
     sharply as a random walk does.
@@ -186,6 +186,18 @@ What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
       Azuma: Pr(X_m - X_0 >= lambda sqrt m) <= e^{-lambda^2/2},
         stated and not proved                                       [supplied]
       chi(G_{n,1/2}) within lambda sqrt n of its mean               [supplied]
+    4.3.3 The Doob Martingale                       [2026-09-16]
+      X_0 = E(X) and X_i = E(X | Y_1, ..., Y_i), of which 4.3.1's
+        two exposure martingales are instances
+      that it always averages, and is a martingale in the sense of
+        4.3 only once its increments are bounded
+    4.3.4 McDiarmid's Inequality                    [2026-09-16]
+      k-coordinatewise-Lipschitz, for a map out of a product
+      McDiarmid: Pr(X >= E(X) + a) <= e^{-a^2/2n}, for a
+        1-coordinatewise-Lipschitz f of independent coordinates
+      its proof, begun and broken off at g_i                        [sorry]
+      the Smiley Face Lemma of Frieze and Pegden, stated and not
+        proved, as what McDiarmid is for
 ```
 
 Material marked `[handwritten]` came from the author's handwritten notes rather
@@ -337,6 +349,28 @@ girth exactly k, chi exactly k   the lecture stated Erdos's theorem with equalit
                                  follow for k >= 3 (delete vertices until chi = k,
                                  then add a disjoint C_k); recorded in a CORRECTED
                                  comment in 2.3.4, not in the notes.
+McDiarmid's proof                begun 2026-09-16 and broken off at the
+                                 definition of g_i. Left \sorry on the author's
+                                 instruction: Wes is to post notes on Azuma and
+                                 McDiarmid, to be integrated with attribution.
+the Smiley Face Lemma            stated 2026-09-16 as an application of
+                                 McDiarmid, from Frieze and Pegden, "Separating
+                                 subadditive Euclidean functionals", RSA 51
+                                 (2017) 375-403. Not proved, and carrying a
+                                 SUSPECT: as written it is false for every
+                                 bounded D, since a fixed region of finite area
+                                 collects only O(1) of the n points. The name is
+                                 the lecturer's; it is not attested in the
+                                 paper's indexed text.
+2-colorability from the LLL      posed 2026-09-16 as the motivation for the local
+                                 lemma: what condition on k makes a k-uniform
+                                 hypergraph whose edges each meet at most D
+                                 others 2-colorable? The bad events and their
+                                 probability 2^{-(k-1)} are set up; the answer
+                                 needs the local lemma, whose proof is next
+                                 lecture's. It generalizes 2.1.4's union bound.
+the Lovasz Local Lemma's proof   promised 2026-09-16 for next lecture, in the
+                                 author's own words on the \sorry.
 Azuma's inequality               stated 2026-09-14 and not proved. The notes say
                                  what the proof is --- 4.2's exponential-moment
                                  argument applied to each increment
@@ -352,7 +386,20 @@ chi(G_{n,1/2}) ~ n / log n       asserted 2026-09-14 in 4.3.2, as the thing the
 
 ## Unplaced
 
-Nothing.
+```
+The Lovasz Local Lemma, held in Chapters/todays_lecture.tex   [2026-09-16]
+    Not unplaceable --- unplaced on instruction. The raw notes carry "% [CLAUDE]
+    we will do this next time, leave the local lemma and this theorem in this
+    file for now" on the theorem's \sorry, so the inbox ends this run non-empty,
+    which is the one circumstance in which it should. It holds the motivating
+    question (what condition on k makes a k-uniform hypergraph whose edges each
+    meet at most D others 2-colorable), the dependency graph, the ~ notation for
+    dependence, and the local lemma itself with its proof left open. The author
+    asked whether it should be a section and it now is one, which puts it at 4.4:
+    a holding position, since the inbox is \input after every chapter and a
+    subsection there would have rendered under 4.3 Martingales instead. Next
+    lecture places it properly.
+```
 
 ## Structural pressure
 
@@ -373,6 +420,24 @@ The "moreover" of Erdos-Ko-Rado is stated twice in 3.3, once inside the theorem
     nor /organize may delete a statement, so both stand, with the second
     cross-referenced as the first made precise. Merging them is the author's
     call. [noted 2026-08-31, left 2026-09-02, 2026-09-15]
+
+The Lovasz Local Lemma is a new body of theory parked at the end of a chapter
+    about concentration. It is in the inbox rather than in chapter 4, so it is not
+    yet a structural fact, but it is the shape of one: avoiding a family of bad
+    events is not what "Moments and Concentration" names, and the lemma brings its
+    own vocabulary --- dependency graphs, the x_A weights, the ~ relation. If next
+    lecture's proof and applications land as expected this wants a chapter of its
+    own rather than a fifth section of chapter 4, and the union bound of 2.1.4 that
+    it generalizes is two chapters back. Do not act on this until the material has
+    somewhere to be. [noted 2026-09-16]
+
+4.3 Martingales is four subsections and the only section in chapter 4 with any,
+    which is a sign it is carrying two lines of enquiry rather than one: 4.3.1 and
+    4.3.2 build a martingale and bound it, 4.3.3 and 4.3.4 generalize the
+    construction and read a second inequality off it. Both halves are about the
+    same object, so it is left as one section, and the corpus tolerates four
+    subsections comfortably. Worth re-examining if a lecture adds a third
+    inequality of this kind. [noted 2026-09-16]
 
 1.3 Deviation from the Mean and chapter 4 both bound deviations, and a reader
     could reasonably ask why Markov and Chebyshev are not in chapter 4 with
