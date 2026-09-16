@@ -7,12 +7,22 @@ It turns out that the martingale we constructed for the chromatic number problem
 
 \begin{boxdefinition}[Doob Martingale]
     For random variables $X, Y_1, Y_2, \ldots$ on some probability space, define
+    % [CORRECTED] was: "$X_0 := X$" --- a Doob martingale runs from no information to all of it, so $X$ belongs at
+    % the far end and the near end is the average over everything. With $X_0 = X$ the third condition of
+    % \Cref{Ch4:Def:Martingale} fails already at $n = 0$: for $X$ uniform on $\set{0, 1}$ and $Y_1$ independent of
+    % it, $\E\of{X_1 \mid X_0 = 0} = \frac{1}{2} \neq 0$. The construction of 4.3.1, which this one generalizes,
+    % sets $X_0 = \E(X)$, and that is the $i = 0$ case of the display beside it with nothing conditioned on.
     \begin{align*}
-        X_0 := X
+        X_0 := \E\of{X}
         \qquad
         \forall i \geq 1, \, X_i := \E\of{X \mid Y_1, \ldots, Y_i}
     \end{align*}
-    It is possible to show that $X_0, X_1, X_2, \ldots$ is a martingale, called the \textbf{Doob Martingale}.
+    % [CORRECTED] was: "It is possible to show that $X_0, X_1, X_2, \ldots$ is a martingale, called the \textbf{Doob
+    % Martingale}." --- \Cref{Ch4:Def:Martingale} makes $\abs{X_{n+1} - X_n} \leq 1$ part of the word "martingale",
+    % and that is not free here: $X = 10 Y_1$ with $Y_1 = \pm 1$ gives $\abs{X_1 - X_0} = 10$. The averaging
+    % condition does hold for every $X$ and every $Y_i$; the increment bound is a hypothesis, which is what the
+    % sentence after this box and the $1$-coordinatewise-Lipschitz condition below both go on to supply.
+    It is possible to show that $X_0, X_1, X_2, \ldots$ always satisfies the averaging condition of \Cref{Ch4:Def:Martingale}; once its increments are bounded by $1$ it is therefore a martingale, called the \textbf{Doob Martingale}.
 \end{boxdefinition}
 
 What makes this worth having is that its increments are controlled as soon as $X$ depends on no one of the $Y_i$ too heavily.
@@ -28,7 +38,12 @@ Such an $f$, fed through the Doob martingale of its arguments, concentrates as s
     \begin{align*}
         \Pr\of{X \geq \E\of{X} + a} \leq e^{-\frac{a^2}{2n}}
     \end{align*}
-    for all $a \in \R$.
+    % [CORRECTED] was: "for all $a \in \R$" --- at $a < 0$ the bound is below $1$ while the probability tends to
+    % $1$, and it fails for every admissible $f$: chaining the Lipschitz condition through $n$ single-coordinate
+    % changes gives $X \geq \E(X) - n$ always, so at $a = -n$ the left-hand side is $1$ and the right-hand side is
+    % $e^{-n/2}$. \Cref{Ch4:Thm:Chernoff} carries the same restriction, and Azuma's $\lambda > 0$ is where it
+    % comes from.
+    for all $a \geq 0$.
 \end{boxproposition}
 \begin{proof}
     Consider the Doob Martingale $X_i = \E\of{X \mid Y_1, \ldots, Y_i}$. Suppose we've fixed $y_1, \ldots, y_{i - 1}$. Define
@@ -40,23 +55,33 @@ Such an $f$, fed through the Doob martingale of its arguments, concentrates as s
 
 One application of McDiarmid's Lemma is something called the Smiley Face Lemma, from a paper of Alan Frieze and Wes~\cite{FriezePegdenSubadditive}.
 
-For a finite set $S$, any $\eps > 0$, and any $D \ssq \R$, an $\eps$-$D$ copy of $S$ in $\R^2$ is some embedding of $S$ into $D$ such that distinct points can be separated by $\eps$-balls.
+% [CORRECTED] was: "$D \ssq \R$" --- $D$ is the codomain of the embedding and the copy is said to lie in $\R^2$,
+% so $D$ is a region of the plane. Under $\ssq \R$ the embedding lands on a line, which $n$ points drawn from a
+% square miss with probability $1$, and the lemma below would be false for every $\delta > 0$ rather than merely
+% vacuous.
+% [SUSPECT] "any $D \ssq \R^2$" is still too generous for the lemma below: the same measure-zero argument kills
+% any $D$ that is a finite set or a curve, so $D$ wants nonempty interior --- a region rather than a subset. Left
+% as written pending the author and the cited paper.
+For a finite set $S$, any $\eps > 0$, and any $D \ssq \R^2$, an $\eps$-$D$ copy of $S$ in $\R^2$ is some embedding of $S$ into $D$ such that distinct points can be separated by $\eps$-balls.
 
 Scattering $n$ points at random over a square of area $n$ leaves linearly many such copies.
 
 \begin{boxlemma}[Smiley Face Lemma, \cite{FriezePegdenSubadditive}]
-    For any fixed $S, \eps, D$ as above, there is some $\delta > 0$ such that $n$ random points ina  $\sqrt{n} \times \sqrt{n}$ square have $\delta n$ many $\eps$-$D$ copies of $S$ (with high probability).
+    For any fixed $S, \eps, D$ as above, there is some $\delta > 0$ such that $n$ random points in a $\sqrt{n} \times \sqrt{n}$ square have $\delta n$ many $\eps$-$D$ copies of $S$ (with high probability).
 \end{boxlemma}
 
 \section{The \protect\Lovasz Local Lemma}
 
-Suppose $B_1, \ldots, B_n$ are independent events with $\Pr\of{B_i} \leq 1$. It's pretty easy to see that $\Pr\of{\bigcap B_i^C} > 0$. Essentially, we think of the $B_i$ as \textit{bad events}: events we \textit{don't} want to see happen.
+% [CORRECTED] was: "$\Pr\of{B_i} \leq 1$" --- that holds of every event whatsoever, so it is no hypothesis, and
+% $B_1 = \Omega$ refutes the sentence after it. With $\Pr\of{B_i} < 1$ the claim is not just true but exact:
+% $\Pr\of{\bigcap B_i^C} = \prod\parenth{1 - \Pr\of{B_i}}$, which is positive precisely when every factor is.
+Suppose $B_1, \ldots, B_n$ are independent events with $\Pr\of{B_i} < 1$. It's pretty easy to see that $\Pr\of{\bigcap B_i^C} > 0$. Essentially, we think of the $B_i$ as \textit{bad events}: events we \textit{don't} want to see happen.
 
 We want to extend this. In what way exactly? Here's a motivating question.
 
 In a $k$-uniform hypergraph where each edge intersects at most $D$ others, what condition on $k$ makes the hypergraph $2$-colourable?
 
-What we'd want to do is randomly colour vertices: each edge of $f$ is monochromatic with probability $\Pr\of{B_f} = \frac{1}{2^{k-1}}$. We would then like to apply some version of the fact that $\Pr\of{\bigcap B_i^C} > 0$.
+What we'd want to do is randomly colour vertices: each edge $f$ is monochromatic with probability $\Pr\of{B_f} = \frac{1}{2^{k-1}}$. We would then like to apply some version of the fact that $\Pr\of{\bigcap B_i^C} > 0$.
 
 Two edges sharing a vertex are plainly not independent, so what we ask instead is that each bad event depend on only a few of the others---and a graph is the natural place to record which.
 
@@ -73,7 +98,11 @@ Another way of phrasing this is that adjacency represents dependence (ie, lack o
 The extension we were after weighs each event against the ones it depends on.
 
 \begin{boxtheorem}[\Lovasz Local Lemma]
-    Given a collection $\mathcal{A}$ of events and real numbers $0 < x_A \leq 1$ such that for all $A \in \mathcal{A}$,
+    % [CORRECTED] was: "$0 < x_A \leq 1$" --- at $x_A = 1$ on an event with no neighbors the hypothesis reads
+    % $\Pr(A) \leq 1$, which is no hypothesis at all, and $A = \Omega$ then refutes the conclusion. Strictness is
+    % load-bearing twice in the proof: it keeps $\prod_{B \sim A}\parenth{1 - x_B}$ nonzero, so the conditional
+    % probabilities are defined, and it is the whole of the final $\prod_{A}\parenth{1 - x_A} > 0$.
+    Given a collection $\mathcal{A}$ of events and real numbers $0 < x_A < 1$ such that for all $A \in \mathcal{A}$,
     \begin{align*}
         \Pr\of{A} \leq x_A \prod_{B \sim A} \parenth{1 - x_B}
     \end{align*}
