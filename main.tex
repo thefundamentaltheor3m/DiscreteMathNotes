@@ -73,15 +73,15 @@
 
 % These lecture notes are based heavily on the following references:~\cite{ErdmannWildon}
 
-% Dormant while References.bib is empty. With no entries, \nocite{*} leaves biblatex asking
-% for a biber rerun on every build and \addcontentsline puts a Bibliography in the table of
-% contents pointing at a blank page. Uncomment all four lines, and \nocite{*} above, as soon
-% as the notes acquire a reference.
+% Woken on 2026-09-16, when the Smiley Face Lemma gave the notes their first reference.
+% \nocite{*} stays commented: there is a real \cite now, so nothing needs forcing into the
+% bibliography, and \defbibnote with it --- these notes are not based on Frieze and Pegden,
+% they cite them once, so the prenote would misdescribe the list.
 % \defbibnote{mybibnote}{These lecture notes are based heavily on the following references:}
 %
-% \printbibliography[prenote=mybibnote]
-% \addcontentsline{toc}{chapter}{Bibliography}
-% \thispagestyle{empty}
+\printbibliography
+\addcontentsline{toc}{chapter}{Bibliography}
+\thispagestyle{empty}
 
 Visit~\url{https://thefundamentaltheor3m.github.io/\REPONAME/main.pdf} for the latest version of these notes. If you have any suggestions or corrections, please feel free to fork and make a pull request to the \href{https://github.com/thefundamentaltheor3m/\REPONAME}{associated GitHub repository}.
 
