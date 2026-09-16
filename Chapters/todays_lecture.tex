@@ -15,11 +15,13 @@ It turns out that the martingale we constructed for the chromatic number problem
     It is possible to show that $X_0, X_1, X_2, \ldots$ is a martingale, called the \textbf{Doob Martingale}.
 \end{boxdefinition}
 
-% [CLAUDE] add some nice (but BRIEF!) fillers between the boxed environments.
+What makes this worth having is that its increments are controlled as soon as $X$ depends on no one of the $Y_i$ too heavily.
 
 \begin{boxdefinition}[Coordinatewise Lipschitz]
     Given metric spaces $\parenth{X_i, d_i}_{i=1}^{n}$ and $(Y, u)$, we say a function $f : X_1 \times \cdots \times X_n  \to Y$ is \textbf{$k$-coordinatewise-Lipschitz} if $u\of{f\of{\mathbf{a}}, f\of{\mathbf{b}}} \leq k$ if $\mathbf{a}$ and $\mathbf{b}$ differ in exactly one coordinate.
 \end{boxdefinition}
+
+Such an $f$, fed through the Doob martingale of its arguments, concentrates as sharply as a sum would.
 
 \begin{boxproposition}[McDiarmid's Inequality]
     Suppose $Y_1, \ldots, Y_n$ are independent random variables on domains $\mathcal{Y}_1, \ldots, \mathcal{Y}_n$. Suppose $f : \mathcal{Y}_1 \times \cdots \times \mathcal{Y}_n \to \R$ is $1$-coordinatewise-Lipschitz. Denoting $X = f\of{Y_1, \ldots, Y_n}$, we have that
@@ -36,15 +38,17 @@ It turns out that the martingale we constructed for the chromatic number problem
     \sorry % [CLAUDE] there is no need to fill this \sorry for now: it is a placeholder. At some point, Wes will post notes about Azuma and McDiarmid, which I will give you to integrate into these notes (WITH ATTRIBUTION).
 \end{proof}
 
-One application of McDiarmid's Lemma is something called the Smiley Face Lemma, from a paper of Allen Frieze and Wes. % [CLAUDE] find reference
+One application of McDiarmid's Lemma is something called the Smiley Face Lemma, from a paper of Alan Frieze and Wes~\cite{FriezePegdenSubadditive}.
 
 For a finite set $S$, any $\eps > 0$, and any $D \ssq \R$, an $\eps$-$D$ copy of $S$ in $\R^2$ is some embedding of $S$ into $D$ such that distinct points can be separated by $\eps$-balls.
 
-\begin{boxlemma}[Smiley Face Lemma, \sorry] % [CLAUDE] add citation in place of \sorry
+Scattering $n$ points at random over a square of area $n$ leaves linearly many such copies.
+
+\begin{boxlemma}[Smiley Face Lemma, \cite{FriezePegdenSubadditive}]
     For any fixed $S, \eps, D$ as above, there is some $\delta > 0$ such that $n$ random points ina  $\sqrt{n} \times \sqrt{n}$ square have $\delta n$ many $\eps$-$D$ copies of $S$ (with high probability).
 \end{boxlemma}
 
-\subsection{Lovasz Local Lemma} % [CLAUDE] maybe make this a section?
+\section{The \protect\Lovasz Local Lemma}
 
 Suppose $B_1, \ldots, B_n$ are independent events with $\Pr\of{B_i} \leq 1$. It's pretty easy to see that $\Pr\of{\bigcap B_i^C} > 0$. Essentially, we think of the $B_i$ as \textit{bad events}: events we \textit{don't} want to see happen.
 
@@ -53,6 +57,8 @@ We want to extend this. In what way exactly? Here's a motivating question.
 In a $k$-uniform hypergraph where each edge intersects at most $D$ others, what condition on $k$ makes the hypergraph $2$-colourable?
 
 What we'd want to do is randomly colour vertices: each edge of $f$ is monochromatic with probability $\Pr\of{B_f} = \frac{1}{2^{k-1}}$. We would then like to apply some version of the fact that $\Pr\of{\bigcap B_i^C} > 0$.
+
+Two edges sharing a vertex are plainly not independent, so what we ask instead is that each bad event depend on only a few of the others---and a graph is the natural place to record which.
 
 \begin{boxdefinition}[Dependency Graph]
     Given a collection $\mathcal{A}$ of events, a \textbf{dependency graph on $\mathcal{A}$} is a graph with vertices $\setst{v_A}{A \in \mathcal{A}}$ such that $v_A \not\sim v_{B_1}, \ldots, v_{B_n}$ implies that $A$ is independent of $B_1, \ldots, B_n$.
@@ -64,7 +70,9 @@ Another way of phrasing this is that adjacency represents dependence (ie, lack o
     Borrowing from our use of $\sim$ for adjacency, we will denote that events $A$ and $B$ are dependent (ie, not independent) by $A \sim B$.
 \end{boxlnotation}
 
-\begin{boxtheorem}[Lovasz Local Lemma]
+The extension we were after weighs each event against the ones it depends on.
+
+\begin{boxtheorem}[\Lovasz Local Lemma]
     Given a collection $\mathcal{A}$ of events and real numbers $0 < x_A \leq 1$ such that for all $A \in \mathcal{A}$,
     \begin{align*}
         \Pr\of{A} \leq x_A \prod_{B \sim A} \parenth{1 - x_B}
