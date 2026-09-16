@@ -115,17 +115,24 @@ sharpest signal, since only `/integrate` and `/organize` do), diffs from there t
 wherever the notes were typed, and the lecture date comes from the commit rather than
 from a comment that may or may not be there.
 
-There is a reusable inbox for convenience, in whichever chapter is current:
+There is a reusable inbox for convenience:
 
 ```
-Chapters/1_Intro/todays_lecture.tex
+Chapters/todays_lecture.tex
 ```
 
-It is `\input` from its chapter file like any other section, so the document always
-compiles and the Overleaf preview builds live during the lecture. `/integrate`
-**empties it rather than deleting it**, leaving a header comment and the `\input` line
-so the same file is ready next time. It is a convenience, not the definition of the
-input: material typed elsewhere is found just the same.
+It sits beside the chapter directories rather than inside one, and `main.tex` `\input`s
+it **after every chapter**, so that a lecture's raw notes always compile and the
+Overleaf preview builds live without the file having to pick a chapter first. That is
+the point of the location: one lecture's material is normally spread across several
+chapters by `/integrate`, so the file it arrives in should not belong to any of them.
+`/integrate` **empties it rather than deleting it**, leaving a header comment and the
+`\input` line so the same file is ready next time. It is a convenience, not the
+definition of the input: material typed elsewhere is found just the same.
+
+(It lived at `Chapters/1_Intro/todays_lecture.tex` until 2026-09-15, `\input` from
+chapter 1's chapter file. A lecture whose material went to chapter 3 still rendered
+under chapter 1 until it was integrated, which is what the move fixes.)
 
 Two failure modes to avoid: never treat the inbox as settled content when it has
 something in it, and never treat it as scaffolding to clear when it is empty — an empty

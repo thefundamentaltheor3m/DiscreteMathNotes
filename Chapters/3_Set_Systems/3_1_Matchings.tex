@@ -1,6 +1,6 @@
 \section{Matchings in Bipartite Graphs}
 
-Hypergraphs came up in \Cref{Ch1:Def:Hypergraph} as the setting in which the coloring question gets hard, and \Cref{Ch1:CH} set them aside again once it had its answer. The first thing this chapter asks of them is this: given a hypergraph, can we pick one vertex out of each edge, all of them different? Getting to the answer means first noticing that a hypergraph, a $0,1$ matrix and a bipartite graph are three views of the same data.
+Hypergraphs came up in \Cref{Ch2:Def:Hypergraph} as the setting in which the coloring question gets hard, and \Cref{Ch2:CH} set them aside again once it had its answer. The first thing this chapter asks of them is this: given a hypergraph, can we pick one vertex out of each edge, all of them different? Getting to the answer means first noticing that a hypergraph, a $0,1$ matrix and a bipartite graph are three views of the same data.
 
 \subsection{Adjacency Matrices}
 
@@ -106,7 +106,7 @@ Recall, now, the most important result about bipartite graphs.
 % [CORRECTED] was: "Given a bipartite graph with parts $A$ and $B$" --- with $A$ infinite the "if" direction is false:
 % join $a_0$ to every $b_i$ and $a_i$ to $b_i$ alone, and Hall's condition holds while $a_0$ has nowhere to go. The
 % induction below is on $\abs{A}$ and needs it. $B$ is never counted, so it may stay arbitrary.
-\begin{boxtheorem}[Hall's Marriage Theorem] \label{Ch2:Thm:Hall}
+\begin{boxtheorem}[Hall's Marriage Theorem] \label{Ch3:Thm:Hall}
     Given a bipartite graph with parts $A$ and $B$, with $A$ finite, there is a complete matching of $A$ iff $\forall S \subseteq A$,
     \begin{align*}
         \abs{\Gamma(S)} \geq \abs{S}
@@ -159,7 +159,7 @@ Hall's condition asks something of every subset of $A$, which is a lot to check.
 
 % [CORRECTED] was: "with $d_2 \leq d_1$" --- $d_1 = d_2 = 0$ satisfies that, and an edgeless graph with $A$ nonempty has
 % no complete matching. The proof divides by $d_2$, so $d_2 \geq 1$ is what it uses.
-\begin{boxtheorem} \label{Ch2:Cor:Biregular}
+\begin{boxtheorem} \label{Ch3:Cor:Biregular}
     If $G$ is a bipartite graph with parts $A$ and $B$, if all degrees in $A$ are $d_1$ and all degrees in $B$ are $d_2$, with $1 \leq d_2 \leq d_1$, then there is a complete matching of $A$.
 \end{boxtheorem}
 
@@ -182,5 +182,5 @@ Such a graph is a good deal more rigid than a bipartite graph with Hall's condit
     \begin{align*}
         \abs{\Gamma(S)} \geq \frac{d_1\abs{S}}{d_2} \geq \abs{S}
     \end{align*}
-    so we can just apply \Cref{Ch2:Thm:Hall}.
+    so we can just apply \Cref{Ch3:Thm:Hall}.
 \end{proof}

@@ -1,0 +1,66 @@
+\section{Deviation from the Mean}
+
+Knowing what a random variable averages to is not the same as knowing what it does, and most of what we want from a random object is of the second kind. Two inequalities get us most of the way, and the whole of \Cref{Ch4:CH} is what to do when they do not.
+
+The first says that a nonnegative random variable cannot often be much larger than its mean.
+
+% Not from the lecture: Markov's inequality was used by name in the proof of \Cref{Ch2:Thm:Erdos_Girth} and never stated; the statement and proof below were supplied.
+\begin{boxtheorem}[Markov's Inequality] \label{Ch1:Thm:Markov}
+    Let $X$ be a nonnegative random variable and let $a > 0$. Then,
+    \begin{align*}
+        \Pr\of{X \geq a} \leq \frac{\E(X)}{a}
+    \end{align*}
+\end{boxtheorem}
+\begin{proof}
+    Let $A$ be the event that $X \geq a$. Because $X$ is nonnegative, $X \geq a \ind{A}$ everywhere on $\Omega$: off $A$ the right-hand side is $0$, and on $A$ it is $a$, which is at most $X$. Taking expectations gives $\E(X) \geq a \Pr(A)$.
+\end{proof}
+
+Applied to $X$ itself this is usually all we want, but applied to some other nonnegative random variable built out of $X$ it is much sharper. The standard choice is the squared deviation.
+
+\begin{boxdefinition}[Variance]
+    The \textbf{variance} of a random variable $X$ is
+    \begin{align*}
+        \Var{X} = \E\of{\parenth{X - \E(X)}^2} = \E\of{X^2} - \E(X)^2
+    \end{align*}
+\end{boxdefinition}
+
+% Not from the lecture: additivity of the variance is used in the coin-flipping example below and in 4.2, and the lecture did not state it.
+Variance is not linear, but it is additive on independent random variables: if $X_1, \ldots, X_n$ are independent then $\Var{\sum_i X_i} = \sum_i \Var{X_i}$, because every cross term $\E\of{X_i X_j} - \E\of{X_i} \E\of{X_j}$ with $i \neq j$ vanishes.
+
+Feeding the squared deviation into \Cref{Ch1:Thm:Markov} gives Chebyshev's inequality.
+
+% Not from the lecture: the lecture stated Chebyshev's inequality and did not prove it; the proof below was supplied.
+% [CORRECTED] was: "let $a \geq 0$" --- at $a = 0$ the right-hand side is $\Var{X} / 0$, and the proof applies
+% Markov at the threshold $a^2 = 0$, which Markov's own hypothesis excludes. Nothing in the notes uses $a = 0$.
+\begin{boxtheorem}[Chebyshev's Inequality] \label{Ch1:Thm:Chebyshev}
+    Let $X$ be a random variable and let $a > 0$. Then,
+    \begin{align*}
+        \Pr\of{\abs{X - \E(X)} \geq a} \leq \frac{\Var{X}}{a^2}
+    \end{align*}
+\end{boxtheorem}
+\begin{proof}
+    The random variable $Y = \parenth{X - \E(X)}^2$ is nonnegative and has $\E(Y) = \Var{X}$, and $\abs{X - \E(X)} \geq a$ exactly when $Y \geq a^2$. So \Cref{Ch1:Thm:Markov}, applied to $Y$ at $a^2$, gives what we want.
+\end{proof}
+
+The reason this is worth having is that it says something the expectation cannot. Knowing $\E(X)$ is large tells us nothing about whether $X$ is ever nonzero; knowing in addition that $X$ does not stray far from $\E(X)$ does.
+
+% Not from the lecture: the lecture asserted this in one line; the statement and proof below were supplied.
+\begin{boxcorollary} \label{Ch1:Cor:Second_Moment}
+    Let $X_1, X_2, \ldots$ be random variables with $\E\of{X_n} > 0$ for every $n$. If $\frac{\Var{X_n}}{\E\of{X_n}^2} \to 0$, then $\Pr\of{X_n \neq 0} \to 1$.
+\end{boxcorollary}
+\begin{proof}
+    If $X_n = 0$ then $\abs{X_n - \E\of{X_n}} = \E\of{X_n}$, so $\Pr\of{X_n = 0} \leq \Pr\of{\abs{X_n - \E\of{X_n}} \geq \E\of{X_n}}$, which is at most $\frac{\Var{X_n}}{\E\of{X_n}^2}$ by \Cref{Ch1:Thm:Chebyshev}.
+\end{proof}
+
+Here is the smallest example worth doing, and the only one in which we will get a good bound out of Chebyshev alone.
+
+% Not from the lecture: the lecture wrote down the bound and did not derive it; the derivation below was supplied.
+\begin{boxexample}
+    Flip $n$ fair coins and let $X$ be the number of heads, so that $X$ is a sum of $n$ independent random variables each taking the value $1$ or $0$ with probability $\frac{1}{2}$. Each of them has mean $\frac{1}{2}$ and variance $\frac{1}{4}$, so $\E(X) = \frac{n}{2}$ and, by additivity, $\Var{X} = \frac{n}{4}$. \Cref{Ch1:Thm:Chebyshev} at $a = \eps n$ then gives
+    \begin{align*}
+        \Pr\of{\abs{X - \frac{n}{2}} \geq \eps n} \leq \frac{\Var{X}}{\eps^2 n^2} = \frac{1}{4 \eps^2 n}
+    \end{align*}
+    for every $\eps > 0$, which tends to $0$ as $n \to \infty$. So all but a vanishing proportion of the outcomes have between $\parenth{\frac{1}{2} - \eps} n$ and $\parenth{\frac{1}{2} + \eps} n$ heads.
+\end{boxexample}
+
+With this we end our terse review.
