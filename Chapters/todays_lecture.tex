@@ -77,3 +77,61 @@ Another way of phrasing this is that adjacency represents dependence (ie, lack o
 \begin{proof}
     \sorry % [CLAUDE] we will do this next time, leave the local lemma and this theorem in this file for now
 \end{proof}
+
+% 21 Sep 2026
+
+\begin{boxdefinition}[Unit Distance Graph]
+    The \textbf{unit distance graph} on $V = \R^2$ is given by the adjacency relation $u \sim v$ iff $\norm{u - v} = 1$.
+\end{boxdefinition}
+
+What is $\chi(G)$?
+
+One clear lower-bound on $\chi(G)$ is $3$: $V$ contains the equilateral triangle with side length $1$ as a subgraph.
+
+It turns out that there is a subgraph of $G$ with chromatic number $4$, known as Moser's Spindle.
+% [CLAUDE] draw a figure
+We thus conclude that $\chi(G) \geq 4$.
+
+We can actually show that $\chi(G) \leq 7$. Indeed, consider the hexagonal tessellation of the plane. The point is that for a tessellation with hexagons of some diameter,
+\begin{enumerate}
+    \item all points in any given hexagon are of the same colour
+    \item each hexagon and its $6$ neighbours have different colours
+\end{enumerate}
+Then, we can repeat colours \textit{after} a unit of $7$ (consisting of a hexagon and its neighbours).
+% [CLAUDE] draw a figure
+
+Now for a topological detour!
+
+Recall that a space is compact iff the closet sets satisfy the finite intersection property: for closed sets $Y_{\alpha}$, with $\alpha \in I$, if $\bigcap_{\alpha \in J} Y_{\alpha}$ is nonempty for all finite $J \ssq I$, then $\bigcap_{\alpha \in I} Y_{\alpha}$ is nonempty as well.
+
+We'll use this property (and Tychonoff) to prove a `compactness theorem' for the chromatic number of the plane.
+
+\begin{boxtheorem}
+    For any graph $G$,
+    \begin{align*}
+        \chi(G) = \sup\setst{\chi(H)}{H \ssq G \text{ and } H \text{ is finite}}
+    \end{align*}
+\end{boxtheorem}
+
+Apart from topology, our argument will involve binary sequences. First, a theorem.
+
+\begin{boxtheorem}
+    For all $\eps > 0$, there exists some $N_{\eps}$ and an infinite binary sequence in which any two identical blocks of length $n > N_{\eps}$ are separated by distance $(2 - \eps)^n$.
+\end{boxtheorem}
+
+First, a lemma.
+
+\begin{boxlemma}
+    If every finite subgraph $B$ of $G$ is $k$-colourable, then so is $G$.
+\end{boxlemma}
+\begin{proof}
+    Consider $[k]$ with the discrete topology and $[k]^{V(G)}$ with the product topology. Note that $[k]^{V(G)}$ is the set of all (not necessarily proper) colourings of $G$.
+
+    For all $e \in E(G)$, define
+    \begin{align*}
+        P_e = \setst{c \in [k]^{V(G)}}{c(u) \ne c(v) \text{ for } e = \set{u, v}}
+    \end{align*}
+    It is possible to show that $P_e$ is clopen in $[k]^{V(G)}$.
+
+    If every finite subgraph can be $k$-coloured, then for all finite $J$ and $e \in J$, $P_{e} \ne \emptyset$ 
+\end{proof}
