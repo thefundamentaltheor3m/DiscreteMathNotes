@@ -89,7 +89,23 @@ What is $\chi(G)$?
 One clear lower-bound on $\chi(G)$ is $3$: $V$ contains the equilateral triangle with side length $1$ as a subgraph.
 
 It turns out that there is a subgraph of $G$ with chromatic number $4$, known as Moser's Spindle.
-% [CLAUDE] draw a figure
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale = 2.2]
+        \node[circle, fill = black, inner sep = 1.5pt] (a) at (0, 0) {};
+        \node[circle, fill = black, inner sep = 1.5pt] (p1) at (76.7787:1) {};
+        \node[circle, fill = black, inner sep = 1.5pt] (q1) at (136.7787:1) {};
+        \node[circle, fill = black, inner sep = 1.5pt] (t1) at (106.7787:1.7321) {};
+        \node[circle, fill = black, inner sep = 1.5pt] (p2) at (43.2213:1) {};
+        \node[circle, fill = black, inner sep = 1.5pt] (q2) at (103.2213:1) {};
+        \node[circle, fill = black, inner sep = 1.5pt] (t2) at (73.2213:1.7321) {};
+        \draw (a) -- (p1) -- (q1) -- (a);
+        \draw (p1) -- (t1) -- (q1);
+        \draw (a) -- (p2) -- (q2) -- (a);
+        \draw (p2) -- (t2) -- (q2);
+        \draw (t1) -- (t2);
+    \end{tikzpicture}
+\end{figure}
 We thus conclude that $\chi(G) \geq 4$.
 
 We can actually show that $\chi(G) \leq 7$. Indeed, consider the hexagonal tessellation of the plane. The point is that for a tessellation with hexagons of some diameter,
@@ -98,7 +114,30 @@ We can actually show that $\chi(G) \leq 7$. Indeed, consider the hexagonal tesse
     \item each hexagon and its $6$ neighbours have different colours
 \end{enumerate}
 Then, we can repeat colours \textit{after} a unit of $7$ (consisting of a hexagon and its neighbours).
-% [CLAUDE] draw a figure
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \def\hexfills{{"red!35", "orange!45", "yellow!55", "green!35", "cyan!35", "blue!30", "violet!35"}}
+        \clip (-4.2, -2.3) rectangle (4.2, 2.3);
+        \foreach \hq in {-8, ..., 8}{
+            \foreach \hr in {-4, ..., 4}{
+                \pgfmathsetmacro{\x}{0.866 * (\hq + 0.5 * \hr)}
+                \pgfmathsetmacro{\y}{0.75 * \hr}
+                \pgfmathtruncatemacro{\hexc}{mod(mod(\hq + 3 * \hr, 7) + 7, 7)}
+                \pgfmathtruncatemacro{\hexnum}{\hexc + 1}
+                \pgfmathparse{\hexfills[\hexc]}
+                \edef\hexfill{\pgfmathresult}
+                \filldraw[fill = \hexfill, draw = black!60, shift = {(\x, \y)}] (30:0.5) -- (90:0.5) -- (150:0.5) -- (210:0.5) -- (270:0.5) -- (330:0.5) -- cycle;
+                \node[font = \scriptsize] at (\x, \y) {$\hexnum$};
+            }
+        }
+        \foreach \hq/\hr in {0/0, 1/0, -1/0, 0/1, 0/-1, 1/-1, -1/1}{
+            \pgfmathsetmacro{\x}{0.866 * (\hq + 0.5 * \hr)}
+            \pgfmathsetmacro{\y}{0.75 * \hr}
+            \draw[very thick, shift = {(\x, \y)}] (30:0.5) -- (90:0.5) -- (150:0.5) -- (210:0.5) -- (270:0.5) -- (330:0.5) -- cycle;
+        }
+    \end{tikzpicture}
+\end{figure}
 
 Now for a topological detour!
 
