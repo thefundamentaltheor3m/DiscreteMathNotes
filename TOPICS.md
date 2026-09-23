@@ -102,6 +102,22 @@ What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
       G_{n,p}, defined                                              [supplied]
       G_{n,p} at p = n^{eps - 1}: alpha <= n/2k and fewer than n/2
         short cycles, whp; delete a vertex per short cycle
+
+2.4 The Chromatic Number of the Plane               [2026-09-21]
+    Colors the plane itself, two points adjacent when they are a unit apart:
+    traps its chromatic number between 4 and 7, and then shows that only its
+    finite subgraphs matter.
+    2.4.1 The Unit Distance Graph                   [2026-09-21]
+      the unit distance graph on R^2
+      chi >= 3 from the unit triangle, chi >= 4 from Moser's spindle
+      chi <= 7 from a 7-colored hexagonal tessellation; the diameter
+        that makes it work is not given                             \sorry
+      the spindle and the tessellation, drawn                       [supplied]
+    2.4.2 Compactness                               [2026-09-21]
+      compactness as the finite intersection property for closed sets
+      chi(G) = sup of chi(H) over finite subgraphs H, via Tychonoff
+      every finite subgraph k-colorable => G k-colorable; the proof
+        breaks off after P_e is shown clopen                        \sorry
 ```
 
 ## 3. Set Systems  ->  `Chapters/3_Set_Systems/`
@@ -348,11 +364,33 @@ chi(G_{n,1/2}) ~ n / log n       asserted 2026-09-14 in 4.3.2, as the thing the
                                  sqrt(n) window is narrow compared to. From
                                  outside the course, and flagged as such where
                                  it is used.
+Moser's spindle has chi = 4      asserted 2026-09-21 ("it turns out") and not
+                                 proved. The spindle is drawn to scale in 2.4.1;
+                                 why it has no 3-coloring is not in the notes.
+the de Bruijn-Erdos theorem      the compactness theorem of 2.4.2, 2026-09-21,
+                                 not named in the lecture. Its content is the
+                                 lemma after it, whose proof breaks off (\sorry).
+Beck's theorem                   stated 2026-09-21, not named and not proved:
+                                 an infinite binary sequence whose identical
+                                 blocks of length n are at least (2 - eps)^n
+                                 apart. "Our argument will involve binary
+                                 sequences" says the lecture means to prove it,
+                                 presumably by the local lemma on finite words
+                                 and then compactness. See Unplaced.
 ```
 
 ## Unplaced
 
-Nothing.
+```
+Beck's theorem [2026-09-21]      parked in Chapters/todays_lecture.tex, after
+                                 the local lemma of 2026-09-16 (whose own pass
+                                 is PR #23), with the sentence that introduces
+                                 it. It is the local lemma's application rather
+                                 than a step in 2.4.2's compactness theorem, and
+                                 the local lemma itself is held in the inbox on
+                                 the author's instruction until the lecture
+                                 returns to it. It moves when that does.
+```
 
 ## Structural pressure
 
@@ -381,6 +419,13 @@ The "moreover" of Erdos-Ko-Rado is stated twice in 3.3, once inside the theorem
     concentration is the subject. That line is defensible but it is a line, and
     it is worth re-examining the first time a lecture proves something new about
     Markov or Chebyshev rather than merely using them. [noted 2026-09-15]
+
+2.4.2 Compactness is about every graph, and sits under the plane only because
+    the lecture introduced it for the plane: the lemma is de Bruijn-Erdos, for
+    any G. Beck's theorem, parked beside the local lemma, will need the same
+    compactness step for sequences rather than colorings. If the course keeps
+    passing from finite to infinite this way, the compactness argument may want
+    a home of its own, nearer the local lemma than the plane. [noted 2026-09-21]
 ```
 
 Resolved by the `/organize` pass of 2026-09-15, kept as a record:
