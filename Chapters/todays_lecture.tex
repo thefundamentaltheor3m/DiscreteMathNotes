@@ -141,7 +141,7 @@ Then, we can repeat colours \textit{after} a unit of $7$ (consisting of a hexago
 
 Now for a topological detour!
 
-Recall that a space is compact iff the closet sets satisfy the finite intersection property: for closed sets $Y_{\alpha}$, with $\alpha \in I$, if $\bigcap_{\alpha \in J} Y_{\alpha}$ is nonempty for all finite $J \ssq I$, then $\bigcap_{\alpha \in I} Y_{\alpha}$ is nonempty as well.
+Recall that a space is compact iff the closed sets satisfy the finite intersection property: for closed sets $Y_{\alpha}$, with $\alpha \in I$, if $\bigcap_{\alpha \in J} Y_{\alpha}$ is nonempty for all finite $J \ssq I$, then $\bigcap_{\alpha \in I} Y_{\alpha}$ is nonempty as well.
 
 We'll use this property (and Tychonoff) to prove a `compactness theorem' for the chromatic number of the plane.
 
@@ -154,8 +154,11 @@ We'll use this property (and Tychonoff) to prove a `compactness theorem' for the
 
 Apart from topology, our argument will involve binary sequences. First, a theorem.
 
+% [CORRECTED] was: "separated by distance $(2 - \eps)^n$" --- read as an exact distance, this is false in every
+% sequence: some block of length $n$ occurs at three positions $p < q < r$, and $r - p = (q - p) + (r - q)$ cannot equal
+% the other two. The theorem (Beck's) is that identical blocks are at least that far apart.
 \begin{boxtheorem}
-    For all $\eps > 0$, there exists some $N_{\eps}$ and an infinite binary sequence in which any two identical blocks of length $n > N_{\eps}$ are separated by distance $(2 - \eps)^n$.
+    For all $\eps > 0$, there exists some $N_{\eps}$ and an infinite binary sequence in which any two identical blocks of length $n > N_{\eps}$ are separated by distance at least $(2 - \eps)^n$.
 \end{boxtheorem}
 
 First, a lemma.
