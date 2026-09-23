@@ -470,7 +470,8 @@ The Lovasz Local Lemma is a new body of theory parked at the end of a chapter
     it generalizes is two chapters back. Do not act on this until the material has
     somewhere to be. [noted 2026-09-16; ACTED ON 2026-09-23, when the author
     asked for the inbox to be emptied: the local lemma is now chapter 5, whose
-    introduction points back at 2.1.4's union bound]
+    introduction points back at 2.1.4's union bound. The author confirmed chapter
+    5 as its home the same day]
 
 4.3 Martingales is four subsections and the only section in chapter 4 with any,
     which is a sign it is carrying two lines of enquiry rather than one: 4.3.1 and

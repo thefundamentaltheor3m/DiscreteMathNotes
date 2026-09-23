@@ -12,7 +12,7 @@ The graph in question has a vertex for every point of the plane.
 
 Write $G$ for this graph. What is $\chi(G)$?
 
-One clear lower-bound on $\chi(G)$ is $3$: $V$ contains the equilateral triangle with side length $1$ as a subgraph.
+One clear lower-bound on $\chi(G)$ is $3$: $G$ contains the equilateral triangle with side length $1$ as a subgraph.
 
 It turns out that there is a subgraph of $G$ with chromatic number $4$, known as Moser's Spindle.
 \begin{figure}[H]
@@ -95,6 +95,6 @@ First, a lemma.
     \end{align*}
     It is possible to show that $P_e$ is clopen in $[k]^{V(G)}$.
 
-    If every finite subgraph can be $k$-colored, then for all finite $J$ and $e \in J$, $P_{e} \ne \emptyset$ \sorry
-    % The sorry above: the proof stops here. The step wanted is that $\bigcap_{e \in J} P_e \ne \emptyset$ for every finite $J \ssq E(G)$ (color the finite subgraph spanned by $J$ properly and extend arbitrarily); the finite intersection property then gives $\bigcap_{e \in E(G)} P_e \ne \emptyset$, and any element of that is a proper $k$-coloring of $G$.
+    If every finite subgraph can be $k$-colored, then for all finite $J \ssq E(G)$, $\bigcap_{e \in J} P_{e} \ne \emptyset$ \sorry
+    % The sorry above: the proof stops here. What is missing is why that intersection is nonempty (color the finite subgraph spanned by $J$ properly and extend arbitrarily), and the conclusion: the finite intersection property then gives $\bigcap_{e \in E(G)} P_e \ne \emptyset$, and any element of that is a proper $k$-coloring of $G$.
 \end{proof}
