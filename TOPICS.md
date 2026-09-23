@@ -102,6 +102,22 @@ What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
       G_{n,p}, defined                                              [supplied]
       G_{n,p} at p = n^{eps - 1}: alpha <= n/2k and fewer than n/2
         short cycles, whp; delete a vertex per short cycle
+
+2.4 The Chromatic Number of the Plane               [2026-09-21]
+    Colors the plane itself, two points adjacent when they are a unit apart:
+    traps its chromatic number between 4 and 7, and then shows that only its
+    finite subgraphs matter.
+    2.4.1 The Unit Distance Graph                   [2026-09-21]
+      the unit distance graph on R^2
+      chi >= 3 from the unit triangle, chi >= 4 from Moser's spindle
+      chi <= 7 from a 7-colored hexagonal tessellation; the diameter
+        that makes it work is not given                             \sorry
+      the spindle and the tessellation, drawn                       [supplied]
+    2.4.2 Compactness                               [2026-09-21]
+      compactness as the finite intersection property for closed sets
+      chi(G) = sup of chi(H) over finite subgraphs H, via Tychonoff
+      every finite subgraph k-colorable => G k-colorable; the proof
+        breaks off after P_e is shown clopen                        \sorry
 ```
 
 ## 3. Set Systems  ->  `Chapters/3_Set_Systems/`
@@ -168,7 +184,7 @@ What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
         of e^{tx} across [-1, 1]
       the picture of e^{tx} under its chord                         [supplied]
 
-4.3 Martingales                                     [2026-09-14]
+4.3 Martingales                               [2026-09-14, 2026-09-16]
     Takes concentration off sums altogether: a quantity revealed a little at a
     time, each revelation moving the expectation only slightly, concentrates as
     sharply as a random walk does.
@@ -186,6 +202,39 @@ What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
       Azuma: Pr(X_m - X_0 >= lambda sqrt m) <= e^{-lambda^2/2},
         stated and not proved                                       [supplied]
       chi(G_{n,1/2}) within lambda sqrt n of its mean               [supplied]
+    4.3.3 The Doob Martingale                       [2026-09-16]
+      X_0 = E(X) and X_i = E(X | Y_1, ..., Y_i), of which 4.3.1's
+        two exposure martingales are instances
+      that it always averages, and is a martingale in the sense of
+        4.3 only once its increments are bounded
+    4.3.4 McDiarmid's Inequality                    [2026-09-16]
+      k-coordinatewise-Lipschitz, for a map out of a product
+      McDiarmid: Pr(X >= E(X) + a) <= e^{-a^2/2n}, for a
+        1-coordinatewise-Lipschitz f of independent coordinates
+      its proof, begun and broken off at g_i                        [sorry]
+      the Smiley Face Lemma of Frieze and Pegden, stated and not
+        proved, as what McDiarmid is for
+```
+
+## 5. The Local Lemma  ->  `Chapters/5_Local_Lemma/`
+
+```
+5.1 The Lovasz Local Lemma                          [2026-09-16]
+    Asks when a random object can avoid every one of a family of bad events,
+    each allowed to depend on a few of the others, where the union bound of
+    2.1.4 needs them rare enough to avoid all at once.
+      independent bad events of probability < 1 are all avoided   (preamble)
+      the motivating question: k-uniform hypergraphs whose edges each
+        meet at most D others, and when they are 2-colorable
+      dependency graphs                                           [SUSPECT]
+      A ~ B for adjacency in a fixed dependency graph
+      the local lemma, for a finite family and weights 0 < x_A < 1;
+        its proof promised for next lecture                        \sorry
+
+5.2 Nonrepetitive Sequences                         [2026-09-21]
+    An infinite binary sequence whose identical blocks are exponentially far
+    apart: the first application of the local lemma in view.
+      Beck's theorem, stated and not proved, not named in the lecture
 ```
 
 Material marked `[handwritten]` came from the author's handwritten notes rather
@@ -337,6 +386,28 @@ girth exactly k, chi exactly k   the lecture stated Erdos's theorem with equalit
                                  follow for k >= 3 (delete vertices until chi = k,
                                  then add a disjoint C_k); recorded in a CORRECTED
                                  comment in 2.3.4, not in the notes.
+McDiarmid's proof                begun 2026-09-16 and broken off at the
+                                 definition of g_i. Left \sorry on the author's
+                                 instruction: Wes is to post notes on Azuma and
+                                 McDiarmid, to be integrated with attribution.
+the Smiley Face Lemma            stated 2026-09-16 as an application of
+                                 McDiarmid, from Frieze and Pegden, "Separating
+                                 subadditive Euclidean functionals", RSA 51
+                                 (2017) 375-403. Not proved, and carrying a
+                                 SUSPECT: as written it is false for every
+                                 bounded D, since a fixed region of finite area
+                                 collects only O(1) of the n points. The name is
+                                 the lecturer's; it is not attested in the
+                                 paper's indexed text.
+2-colorability from the LLL      posed 2026-09-16 as the motivation for the local
+                                 lemma: what condition on k makes a k-uniform
+                                 hypergraph whose edges each meet at most D
+                                 others 2-colorable? The bad events and their
+                                 probability 2^{-(k-1)} are set up; the answer
+                                 needs the local lemma, whose proof is next
+                                 lecture's. It generalizes 2.1.4's union bound.
+the Lovasz Local Lemma's proof   promised 2026-09-16 for next lecture, in the
+                                 author's own words on the \sorry.
 Azuma's inequality               stated 2026-09-14 and not proved. The notes say
                                  what the proof is --- 4.2's exponential-moment
                                  argument applied to each increment
@@ -348,11 +419,26 @@ chi(G_{n,1/2}) ~ n / log n       asserted 2026-09-14 in 4.3.2, as the thing the
                                  sqrt(n) window is narrow compared to. From
                                  outside the course, and flagged as such where
                                  it is used.
+Moser's spindle has chi = 4      asserted 2026-09-21 ("it turns out") and not
+                                 proved. The spindle is drawn to scale in 2.4.1;
+                                 why it has no 3-coloring is not in the notes.
+the de Bruijn-Erdos theorem      the compactness theorem of 2.4.2, 2026-09-21,
+                                 not named in the lecture. Its content is the
+                                 lemma after it, whose proof breaks off (\sorry).
+Beck's theorem                   stated 2026-09-21, not named and not proved:
+                                 an infinite binary sequence whose identical
+                                 blocks of length n are at least (2 - eps)^n
+                                 apart. "Our argument will involve binary
+                                 sequences" says the lecture means to prove it,
+                                 presumably by the local lemma on finite words
+                                 and then compactness. Now 5.2.
 ```
 
 ## Unplaced
 
-Nothing.
+Nothing. The local lemma of 2026-09-16 and Beck's theorem of 2026-09-21 were
+held in the inbox, the first on the author's instruction, until the author asked
+on 2026-09-23 for the inbox to be emptied; they are now chapter 5.
 
 ## Structural pressure
 
@@ -374,6 +460,27 @@ The "moreover" of Erdos-Ko-Rado is stated twice in 3.3, once inside the theorem
     cross-referenced as the first made precise. Merging them is the author's
     call. [noted 2026-08-31, left 2026-09-02, 2026-09-15]
 
+The Lovasz Local Lemma is a new body of theory parked at the end of a chapter
+    about concentration. It is in the inbox rather than in chapter 4, so it is not
+    yet a structural fact, but it is the shape of one: avoiding a family of bad
+    events is not what "Moments and Concentration" names, and the lemma brings its
+    own vocabulary --- dependency graphs, the x_A weights, the ~ relation. If next
+    lecture's proof and applications land as expected this wants a chapter of its
+    own rather than a fifth section of chapter 4, and the union bound of 2.1.4 that
+    it generalizes is two chapters back. Do not act on this until the material has
+    somewhere to be. [noted 2026-09-16; ACTED ON 2026-09-23, when the author
+    asked for the inbox to be emptied: the local lemma is now chapter 5, whose
+    introduction points back at 2.1.4's union bound. The author confirmed chapter
+    5 as its home the same day]
+
+4.3 Martingales is four subsections and the only section in chapter 4 with any,
+    which is a sign it is carrying two lines of enquiry rather than one: 4.3.1 and
+    4.3.2 build a martingale and bound it, 4.3.3 and 4.3.4 generalize the
+    construction and read a second inequality off it. Both halves are about the
+    same object, so it is left as one section, and the corpus tolerates four
+    subsections comfortably. Worth re-examining if a lecture adds a third
+    inequality of this kind. [noted 2026-09-16]
+
 1.3 Deviation from the Mean and chapter 4 both bound deviations, and a reader
     could reasonably ask why Markov and Chebyshev are not in chapter 4 with
     Chernoff and Azuma. The line drawn is use: 1.3 holds the two inequalities
@@ -381,6 +488,13 @@ The "moreover" of Erdos-Ko-Rado is stated twice in 3.3, once inside the theorem
     concentration is the subject. That line is defensible but it is a line, and
     it is worth re-examining the first time a lecture proves something new about
     Markov or Chebyshev rather than merely using them. [noted 2026-09-15]
+
+2.4.2 Compactness is about every graph, and sits under the plane only because
+    the lecture introduced it for the plane: the lemma is de Bruijn-Erdos, for
+    any G. Beck's theorem, now 5.2, will need the same
+    compactness step for sequences rather than colorings. If the course keeps
+    passing from finite to infinite this way, the compactness argument may want
+    a home of its own, nearer the local lemma than the plane. [noted 2026-09-21]
 ```
 
 Resolved by the `/organize` pass of 2026-09-15, kept as a record:

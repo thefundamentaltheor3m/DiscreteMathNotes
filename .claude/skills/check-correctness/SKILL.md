@@ -1,6 +1,6 @@
 ---
 name: check-correctness
-description: Check that the mathematics in these lecture notes is actually correct, and fix what is not — a quantifier over the wrong set, a bound off by a factor of two, a hypothesis the lecture said aloud but nobody wrote down, a sentence with two readings of which only one is true. Every candidate correction is put to an independent agent for adjudication before it is applied, and every run that changes anything is reviewed by two further independent agents on the pull request. Use when the user says "/check-correctness", "/fix-correctness", "check my maths", "check the mathematics", "is what I wrote correct", "sanity-check the lecture", or points at a passage and asks whether it is right.
+description: Check that the mathematics in these lecture notes is actually correct, and fix what is not — a slip that names the wrong object, a quantifier over the wrong set, a bound off by a factor of two, a hypothesis the lecture said aloud but nobody wrote down, a sentence with two readings of which only one is true. Every candidate correction is put to an independent agent for adjudication before it is applied, and every run that changes anything is reviewed by two further independent agents on the pull request. Use when the user says "/check-correctness", "/fix-correctness", "check my maths", "check the mathematics", "is what I wrote correct", "sanity-check the lecture", or points at a passage and asks whether it is right.
 ---
 
 # Checking the mathematics
@@ -70,8 +70,10 @@ compression as an error. Before anything becomes a candidate, rule out all of th
   a result asserted and never proved: incomplete is not incorrect. Report it and
   suggest a `\sorry` site. Do not fill it, and do not fix the surrounding statement
   to make the missing part unnecessary.
-- **Anything true under any reasonable reading.** If the sentence is true as written,
-  it is not a candidate, however you would have phrased it.
+- **Anything true under any reasonable reading, and meant as written.** If the
+  sentence says what the author meant, and what it says is true, it is not a
+  candidate, however you would have phrased it. Both halves of that test matter: a
+  sentence can be true and still be a slip, and slips *are* candidates (see below).
 
 [t]: https://github.com/thefundamentaltheor3m/TopologyNotes
 [l]: https://github.com/thefundamentaltheor3m/LogicNotes
@@ -80,13 +82,29 @@ compression as an error. Before anything becomes a candidate, rule out all of th
 
 ## What is
 
-Three tiers, and the tier decides how much you may move.
+Four tiers, and the tier decides how much you may move.
 
 | Tier | What it is | What you do |
 | --- | --- | --- |
+| **Slip** | What is written is not what was meant, and what was meant is plain from the passage: a typo, a letter or symbol standing for the wrong object ($V$ where $G$ is meant, $\xi_n$ where $\xi_i$ is), a word naming the wrong thing, a quantifier left doing no work because a symbol went missing. What is written may even be true. | Fix it, always, with the smallest edit that makes it say what was meant. No source marker. One line in the report, calling it what it is. |
 | **Ambiguity** | The text admits two readings, and one of them is false or the two prove different things. A quantifier whose scope is unclear; a symbol reused for two objects; "this" with two antecedents. | Disambiguate towards the reading that makes the surrounding argument work, with the smallest insertion that closes the other reading off. Say in the report that you chose, and what the other reading was. |
-| **Inaccuracy** | One reading, and it is wrong in a way that does not break the argument: a constant, an index, an inequality direction, a missing hypothesis, a cross-reference pointing at the wrong result, a number that does not come out. | Repair it in place, tier 1 or 2 above. The argument is the author's and survives intact. |
+| **Inaccuracy** | One reading, and it is wrong in a way that does not break the argument: a constant, an index, an inequality direction, a missing hypothesis, a cross-reference pointing at the wrong result, a number that does not come out. | Repair it in place, with a one-token repair or an inserted clause (1 or 2 in the list above). The argument is the author's and survives intact. |
 | **Flaw** | The statement is false, or the proof does not prove it, or two passages contradict each other. | Fix it properly if you can see how — and mark it, because you have changed the mathematics. If you cannot see how, **flag it and change nothing.** |
+
+**Slips are the commonest thing this skill finds, and they are always fixed.** One
+left in place is harmless today and confusing in six months, when the author reads $V$
+and has to work out which object was meant. Being true is no defense: "$V$ contains
+the equilateral triangle as a subgraph" is true of the point set in a loose sense, and
+still names the wrong object. Nor is fixing a slip a liberty with the author's text.
+A slip is a place where the page failed to say what the author meant; the author's
+notation, terminology and choices are never slips, however unusual, and the corpus's
+idioms above are how to tell the two apart. When you cannot tell a slip from a
+choice, it is a choice: leave it, and mention it in the report.
+
+**Keep slips in proportion.** A slip is one token and one line in the report, not a
+marker, a paragraph or a tier it has not earned. Never write one up as an inaccuracy
+or a flaw to make the run look more substantial, and never leave one unfixed because
+it is too small to bother with.
 
 **Flaws are unlikely.** These notes are taken by someone who knows the material from
 a lecturer who knows it better. If your sweep turns up several, the probability is
@@ -113,9 +131,9 @@ git archaeology:
 % [CORRECTED] was: $\Delta = \max_{v \in H} \dots$ — the maximum is over vertices, and $\Phi_i$ took a bound argument
 ```
 
-**Pure notational slips do not.** A `\subseteq` that should be an `\in` where no
-reading of the original was true does not need a comment line in the source; a line
-in the report is enough. Markers exist so the author can find the places where the
+**Slips do not.** A `\subseteq` that should be an `\in`, a $V$ that should be a $G$,
+a typo: none of them needs a comment line in the source, and a line in the report is
+enough. Markers exist so the author can find the places where the
 mathematics is no longer theirs, and burying those among a dozen typo notices defeats
 the purpose.
 
@@ -208,7 +226,7 @@ What the brief must **not** contain, in any form:
 | **Your reading is correct** | Apply the smallest edit that makes the notes say it, per the tiers above. |
 | **Both are wrong** | The agent's statement is now itself a candidate. Adjudicate it with a *fresh* agent before you write a word of it. |
 | **A convention, not a discrepancy** | Change nothing — unless the notes use both conventions in one argument, in which case make them consistent, preferring the author's more frequent usage, and report it. |
-| **Undecidable** | The tier-1 ambiguity case. Disambiguate towards the reading that makes the surrounding argument work, with the smallest insertion, and report the choice. If neither reading makes it work, that is a flaw you cannot fix: `% [SUSPECT]` and flag. |
+| **Undecidable** | The ambiguity case. Disambiguate towards the reading that makes the surrounding argument work, with the smallest insertion, and report the choice. If neither reading makes it work, that is a flaw you cannot fix: `% [SUSPECT]` and flag. |
 
 **Never apply a correction that no adjudicator ruled for.** Not the obvious ones, not
 the trivial ones, and not the one you are quite sure about. The whole design is that
@@ -369,7 +387,10 @@ reviewer's own words go up, and the block says plainly that it is round one of a
 independent review by an agent with no prior context.
 
 **Then answer it in the same thread.** Finding by finding: agree and fix, or disagree
-and give the mathematical reason. Push the fixes as their own commit — a finding you
+and give the mathematical reason. A reviewer's finding that something in scope is a
+slip is not declined because the statement meant is true: that is what makes it a
+slip, not a defense against one. Put it to a fresh adjudicator like any other finding
+against the author's text, and fix it if ruled for. Push the fixes as their own commit — a finding you
 accepted and did not push is a finding you ignored. Reply in-thread rather than
 opening a new one, so the exchange reads as an exchange:
 
@@ -418,6 +439,8 @@ Corrections first, one entry each, in document order:
 
 Then:
 
+- **Slips fixed**, one line each: what it said and what it says now. Keep this list
+  short and plain; it is housekeeping, not a finding.
 - **False alarms** — every candidate an adjudicator ruled against, with what misled
   you. Do not omit these to make the run look cleaner: they are how the notes' real
   conventions get learned, and a run of nothing but false alarms is a good run.

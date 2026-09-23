@@ -1,0 +1,10 @@
+\section{Nonrepetitive Sequences}
+
+The first application of the local lemma we have in view is to binary sequences, and apart from the lemma itself its argument will need topology (cf. \Cref{Ch2:Lemma:Compactness}).
+
+% [CORRECTED] was: "separated by distance $(2 - \eps)^n$" --- read as an exact distance, this is false in every
+% sequence: some block of length $n$ occurs at three positions $p < q < r$, and $r - p = (q - p) + (r - q)$ cannot equal
+% the other two. The theorem (Beck's) is that identical blocks are at least that far apart.
+\begin{boxtheorem}
+    For all $\eps > 0$, there exists some $N_{\eps}$ and an infinite binary sequence in which any two identical blocks of length $n > N_{\eps}$ are separated by distance at least $(2 - \eps)^n$.
+\end{boxtheorem}

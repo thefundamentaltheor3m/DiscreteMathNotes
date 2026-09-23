@@ -1,0 +1,69 @@
+\section{The \protect\Lovasz{} Local Lemma}
+
+% [CORRECTED] was: "$\Pr\of{B_i} \leq 1$" --- that holds of every event whatsoever, so it is no hypothesis, and
+% $B_1 = \Omega$ refutes the sentence after it. With $\Pr\of{B_i} < 1$ the claim is not just true but exact:
+% $\Pr\of{\bigcap B_i^C} = \prod\parenth{1 - \Pr\of{B_i}}$, which is positive precisely when every factor is.
+Suppose $B_1, \ldots, B_n$ are independent events with $\Pr\of{B_i} < 1$. It's pretty easy to see that $\Pr\of{\bigcap B_i^C} > 0$. Essentially, we think of the $B_i$ as \textit{bad events}: events we \textit{don't} want to see happen.
+
+We want to extend this. In what way exactly? Here's a motivating question.
+
+In a $k$-uniform hypergraph where each edge intersects at most $D$ others, what condition on $k$ makes the hypergraph $2$-colorable?
+
+What we'd want to do is randomly color vertices: each edge $f$ is monochromatic with probability $\Pr\of{B_f} = \frac{1}{2^{k-1}}$. We would then like to apply some version of the fact that $\Pr\of{\bigcap B_i^C} > 0$.
+
+Two edges sharing a vertex are plainly not independent, so what we ask instead is that each bad event depend on only a few of the others---and a graph is the natural place to record which.
+
+% [SUSPECT] "$A$ is independent of $B_1, \ldots, B_n$" is not a notion these notes define. 1.1 defines
+% independence of two events, and independence of a family of random variables; neither reaches one event against
+% a family, and the two readings a reader can build from it are wrong in opposite directions. Pairwise --- the
+% only one 1.1 licenses for events --- leaves the local lemma below false: for $\xi_1, \xi_2$ independent fair
+% bits and $\xi_3 = 1 \oplus \xi_1 \oplus \xi_2$, the events $\set{\xi_i = 1}$ are pairwise independent, so the
+% empty graph qualifies as a dependency graph, every product is empty, and $x_{A_i} = \frac{1}{2}$ satisfies the
+% hypothesis while the three complements cannot all hold. Mutual independence of $\set{A, B_1, \ldots, B_n}$ is
+% too strong for the hypergraph question five lines up: two edges can each miss a third and still meet each
+% other. What is wanted is that $A$ be independent of every event built out of $B_1, \ldots, B_n$, ie of the
+% sigma-algebra they generate --- which 1.1 has no vocabulary for. Left as written: two independent reviewers
+% converged on this after the corrections in this file were settled, the repair needs a definition added to
+% chapter 1, and the lecture is coming back to the local lemma next time in any case.
+\begin{boxdefinition}[Dependency Graph]
+    Given a collection $\mathcal{A}$ of events, a \textbf{dependency graph on $\mathcal{A}$} is a graph with vertices $\setst{v_A}{A \in \mathcal{A}}$ such that $v_A \not\sim v_{B_1}, \ldots, v_{B_n}$ implies that $A$ is independent of $B_1, \ldots, B_n$.
+\end{boxdefinition}
+
+% [CORRECTED] was: "Another way of phrasing this is that adjacency represents dependence (ie, lack of
+% independence)." --- that is the converse of the definition above, which asks that dependence force adjacency and
+% says nothing about adjacent events having to depend on each other.
+Another way of phrasing this is that dependence forces adjacency: a dependency graph may join more than it has to, but it may not leave a dependence unrecorded.
+
+% [CORRECTED] was: "Borrowing from our use of $\sim$ for adjacency, we will denote that events $A$ and $B$ are
+% dependent (ie, not independent) by $A \sim B$." --- read that way, $\sim$ is pairwise dependence, and the local
+% lemma below is then false. For $\xi_1, \xi_2$ independent fair bits and $\xi_3 = 1 \oplus \xi_1 \oplus \xi_2$, the
+% events $A_i = \set{\xi_i = 1}$ are pairwise independent, so every product below is empty; $x_{A_i} = \frac{1}{2}$
+% satisfies the hypothesis, yet $A_1^C \cap A_2^C \cap A_3^C = \emptyset$. What the lemma needs is adjacency in a
+% dependency graph, where a non-neighbor is independent of $A$ as a family and not one at a time.
+\begin{boxlnotation}[Dependence]
+    Fix a dependency graph on $\mathcal{A}$. Borrowing from our use of $\sim$ for adjacency, we will write $A \sim B$ for $v_A \sim v_B$, and read it as saying that $A$ and $B$ are permitted to depend on each other.
+\end{boxlnotation}
+
+The extension we were after weighs each event against the ones it depends on.
+
+\begin{boxtheorem}[\Lovasz{} Local Lemma]
+    % [CORRECTED] was: "$0 < x_A \leq 1$" --- at $x_A = 1$ on an event with no neighbors the hypothesis reads
+    % $\Pr(A) \leq 1$, which is no hypothesis at all, and $A = \Omega$ then refutes the conclusion. Strictness is
+    % load-bearing twice in the proof: it keeps $\prod_{B \sim A}\parenth{1 - x_B}$ nonzero, so the conditional
+    % probabilities are defined, and it is the whole of the final $\prod_{A}\parenth{1 - x_A} > 0$.
+    % [CORRECTED] was: "a collection $\mathcal{A}$ of events" --- the conclusion needs $\mathcal{A}$ finite. On
+    % $\set{0, 1}^{\N}$ with fair coins, $A_n = \setst{\omega}{\omega_n = 1}$ are independent, so every product is
+    % empty and $x_{A_n} = \frac{1}{2}$ satisfies the hypothesis; but $\bigcap A_n^C$ is one sequence, of
+    % probability $0$. Finiteness is spent in the same last step as strictness, on $\prod_A \parenth{1 - x_A} > 0$.
+    Given a finite collection $\mathcal{A}$ of events and real numbers $0 < x_A < 1$ such that for all $A \in \mathcal{A}$,
+    \begin{align*}
+        \Pr\of{A} \leq x_A \prod_{B \sim A} \parenth{1 - x_B}
+    \end{align*}
+    we can conclude that
+    \begin{align*}
+        \Pr\of{\bigcap_{A \in \mathcal{A}} A^C} > 0
+    \end{align*}
+\end{boxtheorem}
+\begin{proof}
+    \sorry % [CLAUDE] we will do this next time
+\end{proof}
