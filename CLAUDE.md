@@ -188,7 +188,10 @@ comment, so the notes stay honest about which arguments came from the lecturer.
 
 The other is `/check-correctness` (`.claude/skills/check-correctness/`), which asks
 whether what is written is *true* — a quantifier over the wrong set, a bound off by a
-factor of two, a hypothesis the lecture said aloud but nobody wrote down. It leaves two
+factor of two, a hypothesis the lecture said aloud but nobody wrote down. It also fixes
+slips (a typo, a $V$ written where $G$ was meant) whenever it finds them, even where
+the slip is harmless, and reports them as slips rather than as errors; the author's
+notation and choices are never slips. It leaves two
 markers of its own: `% [CORRECTED]`, carrying the original text of anything whose
 mathematical content it changed, and `% [SUSPECT]`, on something it believes is wrong
 and did not know how to fix. Treat a `% [SUSPECT]` like a `\sorry` — an honest flag
