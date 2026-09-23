@@ -216,6 +216,27 @@ What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
         proved, as what McDiarmid is for
 ```
 
+## 5. The Local Lemma  ->  `Chapters/5_Local_Lemma/`
+
+```
+5.1 The Lovasz Local Lemma                          [2026-09-16]
+    Asks when a random object can avoid every one of a family of bad events,
+    each allowed to depend on a few of the others, where the union bound of
+    2.1.4 needs them rare enough to avoid all at once.
+      independent bad events of probability < 1 are all avoided   (preamble)
+      the motivating question: k-uniform hypergraphs whose edges each
+        meet at most D others, and when they are 2-colorable
+      dependency graphs                                           [SUSPECT]
+      A ~ B for adjacency in a fixed dependency graph
+      the local lemma, for a finite family and weights 0 < x_A < 1;
+        its proof promised for next lecture                        \sorry
+
+5.2 Nonrepetitive Sequences                         [2026-09-21]
+    An infinite binary sequence whose identical blocks are exponentially far
+    apart: the first application of the local lemma in view.
+      Beck's theorem, stated and not proved, not named in the lecture
+```
+
 Material marked `[handwritten]` came from the author's handwritten notes rather
 than the typed ones: the laptop died partway through the lecture of 4 September
 2026 and the rest of that lecture was written by hand. An independent reviewer of
@@ -410,34 +431,14 @@ Beck's theorem                   stated 2026-09-21, not named and not proved:
                                  apart. "Our argument will involve binary
                                  sequences" says the lecture means to prove it,
                                  presumably by the local lemma on finite words
-                                 and then compactness. See Unplaced.
+                                 and then compactness. Now 5.2.
 ```
 
 ## Unplaced
 
-```
-The Lovasz Local Lemma, held in Chapters/todays_lecture.tex   [2026-09-16]
-    Not unplaceable --- unplaced on instruction. The raw notes carry "% [CLAUDE]
-    we will do this next time, leave the local lemma and this theorem in this
-    file for now" on the theorem's \sorry, so the inbox ends this run non-empty,
-    which is the one circumstance in which it should. It holds the motivating
-    question (what condition on k makes a k-uniform hypergraph whose edges each
-    meet at most D others 2-colorable), the dependency graph, the ~ notation for
-    dependence, and the local lemma itself with its proof left open. The author
-    asked whether it should be a section and it now is one, which puts it at 4.4:
-    a holding position, since the inbox is \input after every chapter and a
-    subsection there would have rendered under 4.3 Martingales instead. Next
-    lecture places it properly.
-
-Beck's theorem [2026-09-21]      parked in Chapters/todays_lecture.tex, after
-                                 the local lemma of 2026-09-16 (whose own pass
-                                 is PR #23), with the sentence that introduces
-                                 it. It is the local lemma's application rather
-                                 than a step in 2.4.2's compactness theorem, and
-                                 the local lemma itself is held in the inbox on
-                                 the author's instruction until the lecture
-                                 returns to it. It moves when that does.
-```
+Nothing. The local lemma of 2026-09-16 and Beck's theorem of 2026-09-21 were
+held in the inbox, the first on the author's instruction, until the author asked
+on 2026-09-23 for the inbox to be emptied; they are now chapter 5.
 
 ## Structural pressure
 
@@ -467,7 +468,9 @@ The Lovasz Local Lemma is a new body of theory parked at the end of a chapter
     lecture's proof and applications land as expected this wants a chapter of its
     own rather than a fifth section of chapter 4, and the union bound of 2.1.4 that
     it generalizes is two chapters back. Do not act on this until the material has
-    somewhere to be. [noted 2026-09-16]
+    somewhere to be. [noted 2026-09-16; ACTED ON 2026-09-23, when the author
+    asked for the inbox to be emptied: the local lemma is now chapter 5, whose
+    introduction points back at 2.1.4's union bound]
 
 4.3 Martingales is four subsections and the only section in chapter 4 with any,
     which is a sign it is carrying two lines of enquiry rather than one: 4.3.1 and
@@ -487,7 +490,7 @@ The Lovasz Local Lemma is a new body of theory parked at the end of a chapter
 
 2.4.2 Compactness is about every graph, and sits under the plane only because
     the lecture introduced it for the plane: the lemma is de Bruijn-Erdos, for
-    any G. Beck's theorem, parked beside the local lemma, will need the same
+    any G. Beck's theorem, now 5.2, will need the same
     compactness step for sequences rather than colorings. If the course keeps
     passing from finite to infinite this way, the compactness argument may want
     a home of its own, nearer the local lemma than the plane. [noted 2026-09-21]
