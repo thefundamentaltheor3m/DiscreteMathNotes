@@ -2,3 +2,56 @@
 % this file after every chapter, so the Overleaf preview builds as you go without the
 % material having to belong to a chapter yet, and /integrate empties it again once
 % the material has been spread across whichever chapters it belongs in.
+
+% 25 September
+
+\begin{boxtheorem}[\Erdos-Szekeres]
+    If $n \geq \parenth{r - 1}\parenth{s - 1} + 1$, then any real sequence $a_1, \ldots, a_n$ has a non-decreasing sequence of length $r$ or a decreasing sequence of lengths $a_1, a_2, a_3, a_4, \ldots$. % [CLAUDE] make this "decreasing sequence of lengths" more precise.
+\end{boxtheorem}
+
+% Point of sating this is to motivate hypergraph Ramsey
+
+\begin{boxdefinition}[Complete Uniform Hypergraph]
+    Define the \textbf{complete $r$-uniform hypergraph on $n$ vertices}, denoted $K_{(r)}(n)$, to be the $r$-hypergraph on $n$ vertices with all possible hyper-edges.
+\end{boxdefinition}
+
+\begin{boxdefinition}[$k$-clique]
+    Given a hypergraph and a colouring on that hypergraph, a \textbf{$k$-clique of some colour} is a set  of $k$ vertices such that all possible hyper-edges on that vertex set are monochromatic, of that colour. The \textbf{size} of a $k$-clique is the number of edges. % [CLAUDE] is that correct? If not, correct it.
+\end{boxdefinition}
+
+\begin{boxdefinition}[Hypergraph Ramsey Number]
+    Given $r, k, \ell \in \N$, we define $R_{(r)}(k, \ell)$ to be the least $n$ such that any red/blue colouring of $K_{(r)}(n)$ contains a red $k$-c;oqie or a blue $\ell$-clique.
+\end{boxdefinition}
+
+% [CLAUDE] draw some examples
+
+One easy fact to see is the following.
+
+\begin{boxlemma}
+    $R_{(1)}(k, \ell) = k + \ell - 1$.
+\end{boxlemma}
+\begin{proof}
+    \sorry % [CLAUDE] be brief, this is not super important
+\end{proof}
+
+We can compute a similar bound to what we know about Ramsey numbers on graphs.
+
+\begin{boxtheorem}
+    For all $r, k, \ell$, we have
+    \begin{align*}
+        R_{(r)}(k, \ell) \le R_{(r - 1)}\of{R_{(r)}\of{k - 1, \ell}, R_{(r)}\of{k, \ell - 1}} + 1
+    \end{align*}
+\end{boxtheorem}
+\begin{proof}
+    Consider $K_{(r}(n)$, the complete $r$-uniform hypergraph on $[n]$. Consider any red/blue colouring of its edges. Fix $v \in V\of{K_{(r)}(n)}$. It has $R_{(n - 1)}\of{A, B}$ neighbours.
+
+    Denote by $H$ the $(r - 1)$-uniform hypergraph made by removing $v$ from every edge. Define a ``shadow colouring'' of $H$ to be the colour of the ``shadow edge'' $F \setminus \set{v}$ is just the colour of $f$.
+
+    By induction/definition of $R_{(r - 1)}$, the shadow contains either a red $(r - 1)$-clique of size $A$ or a blue $(r - 1)$-clique of size $B$.
+
+    \begin{description}
+        \item[\underline{Case A: Shadow colouring has a red $(r - 1)$-clique}] 
+    \end{description}
+
+    % [CLAUDE] finish filling in this argument.
+\end{proof}
