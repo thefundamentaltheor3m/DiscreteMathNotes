@@ -100,11 +100,13 @@ We can compute a similar bound to what we know about Ramsey numbers on graphs.
 \begin{proof}
     Write $A = R_{(r)}(k - 1, \ell)$ and $B = R_{(r)}(k, \ell - 1)$, and take $n = R_{(r - 1)}(A, B) + 1$.
 
-    Consider $K_{(r)}(n)$, the complete $r$-uniform hypergraph on $[n]$. Consider any red/blue colouring of its edges. Fix $v \in V\of{K_{(r)}(n)}$. It has $R_{(r - 1)}\of{A, B}$ neighbours.
+    % [CORRECTED] was: "It has $R_{(r - 1)}\of{A, B}$ neighbours.", and $H$ with no vertex set named --- when $n < r$, as at
+    % $r = 3$ and $k = \ell = 2$, $K_{(r)}(n)$ has no hyper-edges and $v$ no neighbours; what the proof uses is the $n - 1$ other vertices.
+    Consider $K_{(r)}(n)$, the complete $r$-uniform hypergraph on $[n]$. Consider any red/blue colouring of its edges. Fix $v \in V\of{K_{(r)}(n)}$. There are $R_{(r - 1)}\of{A, B}$ other vertices.
 
     % [CORRECTED] was: "removing $v$ from every edge" --- the edges missing $v$ would survive with $r$ vertices, so $H$ would
     % not be $(r - 1)$-uniform, and $R_{(r - 1)}$ could not be applied to it.
-    Denote by $H$ the $(r - 1)$-uniform hypergraph made by removing $v$ from every edge containing $v$. Define a ``shadow colouring'' of $H$ by letting the colour of the ``shadow edge'' $f \setminus \set{v}$ be just the colour of $f$.
+    Denote by $H$ the $(r - 1)$-uniform hypergraph on those vertices made by removing $v$ from every edge containing $v$. Define a ``shadow colouring'' of $H$ by letting the colour of the ``shadow edge'' $f \setminus \set{v}$ be just the colour of $f$.
 
     By induction/definition of $R_{(r - 1)}$, the shadow contains either a red clique of size $A$ or a blue clique of size $B$.
 
