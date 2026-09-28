@@ -16,8 +16,9 @@
 \end{boxdefinition}
 
 % [CORRECTED] was: "a colouring on that hypergraph", and "any red/blue colouring of $K_{(r)}(n)$" in the next box ---
-% a coloring of a hypergraph colors its vertices in these notes (2.1.2), and read that way $R_{(r)}(k, \ell)$ would
-% be $k + \ell - 1$ whenever $k, \ell \geq r$, whatever $r$ is; the proof below colors hyper-edges, and $R_{(2)}(k, k)$ is $R(k)$ only if they are.
+% a coloring of a hypergraph colors its vertices in these notes (the definition in 2.1.2, Colorings of
+% Hypergraphs), and read that way $R_{(r)}(k, \ell)$ would be $k + \ell - 1$ whenever $k, \ell \geq r$, whatever
+% $r$ is; the proof below colors hyper-edges, and $R_{(2)}(k, k)$ is $R(k)$ only if they are.
 % [CORRECTED] was: "The \textbf{size} of a $k$-clique is the number of edges." --- every use of size counts vertices:
 % the arguments of $R_{(r)}$ do, and the clique of size $A = R_{(r)}(k - 1, \ell)$ in the proof below is what $R_{(r - 1)}$
 % produces, which is $A$ vertices and $\binom{A}{r - 1}$ hyper-edges.
@@ -88,8 +89,8 @@ One easy fact to see is the following.
 
 We can compute a similar bound to what we know about Ramsey numbers on graphs.
 
-% [CORRECTED] was: "For all $r, k, \ell$" --- the right-hand side needs $R_{(r - 1)}$ and $R_{(r)}$ at $k - 1$ and $\ell - 1$,
-% none of which these definitions give when $r$, $k$ or $\ell$ is $1$.
+% [CORRECTED] was: "For all $r, k, \ell$" --- the right-hand side needs $R_{(r - 1)}$, $R_{(r)}(k - 1, \cdot)$ and $R_{(r)}(\cdot, \ell - 1)$,
+% and these definitions give the first only for $r \geq 2$ and the others only for $k, \ell \geq 2$.
 \begin{boxtheorem}
     For all $r, k, \ell \geq 2$, we have
     \begin{align*}
