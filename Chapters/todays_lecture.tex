@@ -6,7 +6,7 @@
 % 25 September
 
 \begin{boxtheorem}[\Erdos-Szekeres]
-    If $n \geq \parenth{r - 1}\parenth{s - 1} + 1$, then any real sequence $a_1, \ldots, a_n$ has a non-decreasing sequence of length $r$ or a decreasing subsequence of length $s$.
+    If $n \geq \parenth{r - 1}\parenth{s - 1} + 1$, then any real sequence $a_1, \ldots, a_n$ has a non-decreasing subsequence of length $r$ or a decreasing subsequence of length $s$.
 \end{boxtheorem}
 
 % Point of sating this is to motivate hypergraph Ramsey - we will not prove Erdos Szekeres today, so leave statement as-is
@@ -15,15 +15,18 @@
     Define the \textbf{complete $r$-uniform hypergraph on $n$ vertices}, denoted $K_{(r)}(n)$, to be the $r$-hypergraph on $n$ vertices with all possible hyper-edges.
 \end{boxdefinition}
 
+% [CORRECTED] was: "a colouring on that hypergraph", and "any red/blue colouring of $K_{(r)}(n)$" in the next box ---
+% a coloring of a hypergraph colors its vertices in these notes (2.1.2), and read that way $R_{(r)}(k, \ell)$ would
+% be $k + \ell - 1$ whenever $k, \ell \geq r$, whatever $r$ is; the proof below colors hyper-edges, and $R_{(2)}(k, k)$ is $R(k)$ only if they are.
 % [CORRECTED] was: "The \textbf{size} of a $k$-clique is the number of edges." --- every use of size counts vertices:
 % the arguments of $R_{(r)}$ do, and the clique of size $A = R_{(r)}(k - 1, \ell)$ in the proof below is what $R_{(r - 1)}$
 % produces, which is $A$ vertices and $\binom{A}{r - 1}$ hyper-edges.
 \begin{boxdefinition}[$k$-clique]
-    Given a hypergraph and a colouring on that hypergraph, a \textbf{$k$-clique of some colour} is a set  of $k$ vertices such that all possible hyper-edges on that vertex set are monochromatic, of that colour. The \textbf{size} of a $k$-clique is its number of vertices, $k$.
+    Given a hypergraph and a colouring of its hyper-edges, a \textbf{$k$-clique of some colour} is a set  of $k$ vertices such that all possible hyper-edges on that vertex set are monochromatic, of that colour. The \textbf{size} of a $k$-clique is its number of vertices, $k$.
 \end{boxdefinition}
 
 \begin{boxdefinition}[Hypergraph Ramsey Number]
-    Given $r, k, \ell \in \N$, we define $R_{(r)}(k, \ell)$ to be the least $n$ such that any red/blue colouring of $K_{(r)}(n)$ contains a red $k$-c;oqie or a blue $\ell$-clique.
+    Given $r, k, \ell \in \N$, we define $R_{(r)}(k, \ell)$ to be the least $n$ such that any red/blue colouring of the hyper-edges of $K_{(r)}(n)$ contains a red $k$-clique or a blue $\ell$-clique.
 \end{boxdefinition}
 
 For small $r$ these are familiar objects. $K_{(2)}(n)$ is just $K_n$, so $R_{(2)}(k, k)$ is the Ramsey number $R(k)$ from before, and in $K_{(1)}(n)$ each vertex is a hyper-edge by itself. Below are $K_{(1)}(4)$, $K_{(2)}(4)$ and $K_{(3)}(4)$, the last with its four hyper-edges drawn as triangles: three shaded ones, and the outline of the fourth around them.
@@ -85,8 +88,10 @@ One easy fact to see is the following.
 
 We can compute a similar bound to what we know about Ramsey numbers on graphs.
 
+% [CORRECTED] was: "For all $r, k, \ell$" --- the right-hand side needs $R_{(r - 1)}$ and $R_{(r)}$ at $k - 1$ and $\ell - 1$,
+% none of which these definitions give when $r$, $k$ or $\ell$ is $1$.
 \begin{boxtheorem}
-    For all $r, k, \ell$, we have
+    For all $r, k, \ell \geq 2$, we have
     \begin{align*}
         R_{(r)}(k, \ell) \le R_{(r - 1)}\of{R_{(r)}\of{k - 1, \ell}, R_{(r)}\of{k, \ell - 1}} + 1
     \end{align*}
@@ -94,15 +99,17 @@ We can compute a similar bound to what we know about Ramsey numbers on graphs.
 \begin{proof}
     Write $A = R_{(r)}(k - 1, \ell)$ and $B = R_{(r)}(k, \ell - 1)$, and take $n = R_{(r - 1)}(A, B) + 1$.
 
-    Consider $K_{(r}(n)$, the complete $r$-uniform hypergraph on $[n]$. Consider any red/blue colouring of its edges. Fix $v \in V\of{K_{(r)}(n)}$. It has $R_{(n - 1)}\of{A, B}$ neighbours.
+    Consider $K_{(r)}(n)$, the complete $r$-uniform hypergraph on $[n]$. Consider any red/blue colouring of its edges. Fix $v \in V\of{K_{(r)}(n)}$. It has $R_{(r - 1)}\of{A, B}$ neighbours.
 
-    Denote by $H$ the $(r - 1)$-uniform hypergraph made by removing $v$ from every edge. Define a ``shadow colouring'' of $H$ to be the colour of the ``shadow edge'' $F \setminus \set{v}$ is just the colour of $f$.
+    % [CORRECTED] was: "removing $v$ from every edge" --- the edges missing $v$ would survive with $r$ vertices, so $H$ would
+    % not be $(r - 1)$-uniform, and $R_{(r - 1)}$ could not be applied to it.
+    Denote by $H$ the $(r - 1)$-uniform hypergraph made by removing $v$ from every edge containing $v$. Define a ``shadow colouring'' of $H$ by letting the colour of the ``shadow edge'' $f \setminus \set{v}$ be just the colour of $f$.
 
-    By induction/definition of $R_{(r - 1)}$, the shadow contains either a red $(r - 1)$-clique of size $A$ or a blue $(r - 1)$-clique of size $B$.
+    By induction/definition of $R_{(r - 1)}$, the shadow contains either a red clique of size $A$ or a blue clique of size $B$.
 
     \begin{description}
-        \item[\underline{Case A: Shadow colouring has a red $(r - 1)$-clique}] Let $W$ be its vertex set, so that $\abs{W} = A = R_{(r)}(k - 1, \ell)$ and every $r$-set $S \cup \set{v}$ with $S$ an $(r - 1)$-subset of $W$ is red. The original coloring of the $r$-subsets of $W$ is a red/blue coloring of a copy of $K_{(r)}(A)$, so $W$ contains either a blue $\ell$-clique, and we are done, or a red $(k - 1)$-clique $U$. In the second case $U \cup \set{v}$ is a red $k$-clique: an $r$-subset of it either lies inside $U$, and is red because $U$ is a red clique, or is $S \cup \set{v}$ for an $(r - 1)$-subset $S$ of $U \ssq W$, and is red because $W$ is a red clique of the shadow.
-        \item[\underline{Case B: Shadow coloring has a blue $(r - 1)$-clique}] The same argument with the colors exchanged: its vertex set has $B = R_{(r)}(k, \ell - 1)$ vertices, so it contains either a red $k$-clique, and we are done, or a blue $(\ell - 1)$-clique $U$, and then $U \cup \set{v}$ is a blue $\ell$-clique.
+        \item[\underline{Case A: Shadow colouring has a red clique of size $A$.}] Let $W$ be its vertex set, so that $\abs{W} = A = R_{(r)}(k - 1, \ell)$ and every $r$-set $S \cup \set{v}$ with $S$ an $(r - 1)$-subset of $W$ is red. The original coloring of the $r$-subsets of $W$ is a red/blue coloring of a copy of $K_{(r)}(A)$, so $W$ contains either a blue $\ell$-clique, and we are done, or a red $(k - 1)$-clique $U$. In the second case $U \cup \set{v}$ is a red $k$-clique: an $r$-subset of it either lies inside $U$, and is red because $U$ is a red clique, or is $S \cup \set{v}$ for an $(r - 1)$-subset $S$ of $U \ssq W$, and is red because $W$ is a red clique of the shadow.
+        \item[\underline{Case B: Shadow coloring has a blue clique of size $B$.}] The same argument with the colors exchanged: its vertex set has $B = R_{(r)}(k, \ell - 1)$ vertices, so it contains either a red $k$-clique, and we are done, or a blue $(\ell - 1)$-clique $U$, and then $U \cup \set{v}$ is a blue $\ell$-clique.
     \end{description}
 
     Either way, the coloring has a red $k$-clique or a blue $\ell$-clique, so $R_{(r)}(k, \ell) \leq n = R_{(r - 1)}(A, B) + 1$.
