@@ -100,7 +100,7 @@ We can compute a similar bound to what we know about Ramsey numbers on graphs.
 \begin{proof}
     Write $A = R_{(r)}(k - 1, \ell)$ and $B = R_{(r)}(k, \ell - 1)$, and take $n = R_{(r - 1)}(A, B) + 1$.
 
-    % [CORRECTED] was: "It has $R_{(r - 1)}\of{A, B}$ neighbours.", and $H$ with no vertex set named --- when $n < r$, as at
+    % [CORRECTED] was: "It has $R_{(n - 1)}\of{A, B}$ neighbours." (the $n - 1$ a slip for $r - 1$), and $H$ with no vertex set named --- when $n < r$, as at
     % $r = 3$ and $k = \ell = 2$, $K_{(r)}(n)$ has no hyper-edges and $v$ no neighbours; what the proof uses is the $n - 1$ other vertices.
     Consider $K_{(r)}(n)$, the complete $r$-uniform hypergraph on $[n]$. Consider any red/blue colouring of its edges. Fix $v \in V\of{K_{(r)}(n)}$. There are $R_{(r - 1)}\of{A, B}$ other vertices.
 
