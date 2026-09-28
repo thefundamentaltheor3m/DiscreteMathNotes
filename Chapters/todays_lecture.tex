@@ -31,7 +31,8 @@ One easy fact to see is the following.
     $R_{(1)}(k, \ell) = k + \ell - 1$.
 \end{boxlemma}
 \begin{proof}
-    \sorry % [CLAUDE] be brief, this is not super important
+    % [FILLED] proof supplied here; the lecture stated the lemma without proving it
+    In $K_{(1)}(n)$ every hyper-edge is a single vertex, so coloring the hyper-edges colors the vertices, and a red $k$-clique is just $k$ red vertices. If $n \geq k + \ell - 1$, then fewer than $k$ red vertices leaves at least $\ell$ blue ones. If $n \leq k + \ell - 2$, coloring at most $k - 1$ vertices red and at most $\ell - 1$ blue gives neither.
 \end{proof}
 
 We can compute a similar bound to what we know about Ramsey numbers on graphs.
