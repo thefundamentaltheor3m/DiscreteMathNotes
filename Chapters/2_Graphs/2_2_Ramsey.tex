@@ -30,6 +30,17 @@ Other known Ramsey numbers are $R(2) = 2$ and $R(4) = 18$. The rest are unknown,
     2^{\frac{k}{2}} \leq R(k) \leq 3.8^k
 \end{align*}
 
+Upper bounds of this kind come from a recursion, which is cleanest stated for the off-diagonal Ramsey number $R(k, \ell)$: the smallest $n \in \N$ such that any red/blue coloring of the edges of $K_n$ gives a red $K_k$ or a blue $K_\ell$, so that $R(k) = R(k, k)$.
+
+\begin{boxtheorem} \label{Ch2:Thm:Ramsey_Recursion}
+    For all $k, \ell \geq 2$, we have
+    \begin{align*}
+        R(k, \ell) \leq R(k - 1, \ell) + R(k, \ell - 1)
+    \end{align*}
+\end{boxtheorem}
+
+See undergraduate graph theory notes. \todo{add cross-ref to Michele's notes}
+
 \subsection{Hypergraph Ramsey Numbers}
 
 Nothing in the question needs the things being colored to be the edges of a graph, and our motivation for going further is the following result about sequences, which we state without proof.
@@ -122,7 +133,7 @@ One easy fact to see is the following.
 
 \subsection{A Recursive Upper Bound}
 
-We can compute a similar bound to what we know about Ramsey numbers on graphs.
+We can compute a similar bound to what we know about Ramsey numbers on graphs (\Cref{Ch2:Thm:Ramsey_Recursion}).
 
 % [CORRECTED] was: "For all $r, k, \ell$" --- the right-hand side needs $R_{(r - 1)}$, $R_{(r)}(k - 1, \cdot)$ and $R_{(r)}(\cdot, \ell - 1)$,
 % and these definitions give the first only for $r \geq 2$ and the others only for $k, \ell \geq 2$.

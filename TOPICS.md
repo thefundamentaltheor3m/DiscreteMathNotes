@@ -80,6 +80,8 @@ What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
       R(k), for edge colorings of complete graphs                   (preamble)
       R(3) >= 6, from the two-colored K_5                           (preamble)
       known values and the best known bounds                        (preamble)
+      R(k, l) <= R(k-1, l) + R(k, l-1), stated; proof deferred to
+        undergraduate graph theory notes, cross-ref pending         (preamble)
     2.2.1 Hypergraph Ramsey Numbers                 [2026-09-25]
       Erdos-Szekeres, stated as the motivation and not proved
       K_(r)(n); cliques of a color, their size counted in vertices
@@ -452,8 +454,11 @@ finiteness of R_(r)(k, l)        assumed 2026-09-25 and not shown: R_(r)(k, l)
                                  lemma and R_(r)(1, l) = R_(r)(k, 1) = 1, are not
                                  written. Raised by both reviewers of #25.
 R(k, l) <= R(k-1, l) + R(k, l-1)  "what we know about Ramsey numbers on graphs",
-                                 2026-09-25. The notes never state it; it is 2.2.2
-                                 at r = 2, with the lemma.
+                                 2026-09-25. Now stated in 2.2's preamble on the
+                                 author's instruction (2026-09-29), unproved:
+                                 "See undergraduate graph theory notes", with a
+                                 \todo for the cross-reference to Michele's notes.
+                                 2.2.2 cites it.
 ```
 
 ## Unplaced
