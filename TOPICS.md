@@ -93,6 +93,8 @@ What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
       R_(r)(k, l) <= R_(r-1)(R_(r)(k-1, l), R_(r)(k, l-1)) + 1 for
         r, k, l >= 2, by the shadow coloring at one vertex
       the two cases of the proof, and A, B and n named             [supplied]
+      H a copy of K_(r-1)(n-1); at r = 2 the graph bound above      [supplied]
+      every R_(r)(k, l) exists, by induction on r, then k + l       [supplied]
 
 2.3 Chromatic Number                                [2026-09-02]
     Comes back to coloring graphs, and asks how many colors a graph needs
@@ -452,13 +454,16 @@ finiteness of R_(r)(k, l)        assumed 2026-09-25 and not shown: R_(r)(k, l)
                                  The proof's "by induction" points at the
                                  argument (on r, then k + l), whose bases, the
                                  lemma and R_(r)(1, l) = R_(r)(k, 1) = 1, are not
-                                 written. Raised by both reviewers of #25.
+                                 written. Raised by both reviewers of #25. Now
+                                 the corollary closing 2.2.2, supplied on the
+                                 author's instruction (2026-09-30).
 R(k, l) <= R(k-1, l) + R(k, l-1)  "what we know about Ramsey numbers on graphs",
                                  2026-09-25. Now stated in 2.2's preamble on the
                                  author's instruction (2026-09-29), unproved:
                                  "See undergraduate graph theory notes", with a
                                  \todo for the cross-reference to Michele's notes.
-                                 2.2.2 cites it.
+                                 2.2.2 cites it, and notes that its own bound
+                                 at r = 2, with the lemma, is this one.
 ```
 
 ## Unplaced

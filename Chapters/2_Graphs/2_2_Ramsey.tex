@@ -123,7 +123,7 @@ Once the hyper-edges are colored, a clique of a color is a set of vertices all o
 
 One easy fact to see is the following.
 
-\begin{boxlemma}
+\begin{boxlemma} \label{Ch2:Lemma:Hypergraph_Ramsey_1}
     $R_{(1)}(k, \ell) = k + \ell - 1$.
 \end{boxlemma}
 \begin{proof}
@@ -137,7 +137,7 @@ We can compute a similar bound to what we know about Ramsey numbers on graphs (\
 
 % [CORRECTED] was: "For all $r, k, \ell$" --- the right-hand side needs $R_{(r - 1)}$, $R_{(r)}(k - 1, \cdot)$ and $R_{(r)}(\cdot, \ell - 1)$,
 % and these definitions give the first only for $r \geq 2$ and the others only for $k, \ell \geq 2$.
-\begin{boxtheorem}
+\begin{boxtheorem} \label{Ch2:Thm:Hypergraph_Ramsey_Recursion}
     For all $r, k, \ell \geq 2$, we have
     \begin{align*}
         R_{(r)}(k, \ell) \le R_{(r - 1)}\of{R_{(r)}\of{k - 1, \ell}, R_{(r)}\of{k, \ell - 1}} + 1
@@ -152,7 +152,7 @@ We can compute a similar bound to what we know about Ramsey numbers on graphs (\
 
     % [CORRECTED] was: "removing $v$ from every edge" --- the edges missing $v$ would survive with $r$ vertices, so $H$ would
     % not be $(r - 1)$-uniform, and $R_{(r - 1)}$ could not be applied to it.
-    Denote by $H$ the $(r - 1)$-uniform hypergraph on those vertices made by removing $v$ from every edge containing $v$. Define a ``shadow coloring'' of $H$ by letting the color of the ``shadow edge'' $f \setminus \set{v}$ be just the color of $f$.
+    Denote by $H$ the $(r - 1)$-uniform hypergraph on those vertices made by removing $v$ from every edge containing $v$. Every $(r - 1)$-subset $S$ of those vertices is the shadow $\parenth{S \cup \set{v}} \setminus \set{v}$ of exactly one edge, so $H$ is a copy of $K_{(r - 1)}(n - 1)$. Define a ``shadow coloring'' of $H$ by letting the color of the ``shadow edge'' $f \setminus \set{v}$ be just the color of $f$.
 
     By induction/definition of $R_{(r - 1)}$, the shadow contains either a red clique of size $A$ or a blue clique of size $B$.
 
@@ -162,4 +162,14 @@ We can compute a similar bound to what we know about Ramsey numbers on graphs (\
     \end{description}
 
     Either way, the coloring has a red $k$-clique or a blue $\ell$-clique, so $R_{(r)}(k, \ell) \leq n = R_{(r - 1)}(A, B) + 1$.
+\end{proof}
+
+% [FILLED] this paragraph, the corollary and its proof supplied on the author's request (2026-09-30), not from the lecture
+At $r = 2$ the bound, together with \Cref{Ch2:Lemma:Hypergraph_Ramsey_1}, reads $R(k, \ell) \leq R(k - 1, \ell) + R(k, \ell - 1)$, which is \Cref{Ch2:Thm:Ramsey_Recursion}. More importantly, the recursion is what shows that these numbers exist at all: the definition asks for a least $n$, and nothing so far has produced even one.
+
+\begin{boxcorollary} \label{Ch2:Cor:Hypergraph_Ramsey_Finite}
+    For all $r, k, \ell \in \N$, the Ramsey number $R_{(r)}(k, \ell)$ exists.
+\end{boxcorollary}
+\begin{proof}
+    Induct on $r$. The case $r = 1$ is \Cref{Ch2:Lemma:Hypergraph_Ramsey_1}. For $r \geq 2$, induct on $k + \ell$. If $k = 1$ or $\ell = 1$, then $R_{(r)}(k, \ell) = 1$, since a single vertex has no $r$-subsets and so is vacuously a clique of both colors. Otherwise $k, \ell \geq 2$, so $R_{(r)}(k - 1, \ell)$ and $R_{(r)}(k, \ell - 1)$ exist by the induction on $k + \ell$, $R_{(r - 1)}$ of them exists by the induction on $r$, and the proof of \Cref{Ch2:Thm:Hypergraph_Ramsey_Recursion} exhibits an $n$ with the required property.
 \end{proof}
