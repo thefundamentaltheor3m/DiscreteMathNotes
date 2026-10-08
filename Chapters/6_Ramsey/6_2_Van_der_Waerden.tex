@@ -243,7 +243,7 @@ We can use our recursive bound on colour-focus numbers to prove that colour-focu
 
 The bounds above are enormous. For comparison, here is what the \Lovasz{} local lemma (\Cref{Ch5:Cor:Symmetric_LLL}) gives from below.
 
-% Not from the lecture: the lecture of 7 October quoted this bound as already shown, ``using the Lovasz Local Lemma'', and no earlier lecture in these notes shows it (chapter 5 states the lemma and proves nothing with it yet). The statement and proof were supplied in answer to the author's ``when? where? how?''; the proof originally derived the symmetric form of the local lemma inline, and cites \Cref{Ch5:Cor:Symmetric_LLL} since 2026-10-08.
+% Not from the lecture: the lecture of 7 October quoted this bound as already shown, ``using the Lovasz Local Lemma'', and no earlier lecture in these notes shows it (chapter 5 states the lemma and proves nothing with it but the symmetric form). The statement and proof were supplied in answer to the author's ``when? where? how?''; the proof originally derived the symmetric form of the local lemma inline, and cites \Cref{Ch5:Cor:Symmetric_LLL} since 2026-10-08.
 \begin{boxproposition} \label{Ch6:Prop:VW_Lower_Bound}
     For all $k \geq 2$,
     \begin{align*}
@@ -256,7 +256,7 @@ The bounds above are enormous. For comparison, here is what the \Lovasz{} local 
 
     Colour $[N]$ red or blue uniformly and independently at random. For each $k$-term arithmetic progression $P \ssq [N]$, let $A_P$ be the event that $P$ is monochromatic, so that $\Pr\of{A_P} = 2^{1 - k}$. $A_P$ is determined by the colours of the points of $P$ alone, so joining $A_P$ to $A_Q$ exactly when $P$ and $Q$ share a point gives a dependency graph. A progression through a given point is determined by its common difference, which is at most $\frac{N - 1}{k - 1}$, and by the position of the point in it, so a point lies in at most $\frac{k (N - 1)}{k - 1}$ progressions, and $A_P$ has at most
     \begin{align*}
-        D = \frac{k^2 (N - 1)}{k - 1} - 1 \geq 1
+        D = \frac{k^2 (N - 1)}{k - 1} - 1
     \end{align*}
     neighbours. Now
     \begin{align*}

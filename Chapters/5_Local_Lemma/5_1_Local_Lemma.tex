@@ -90,7 +90,7 @@ In applications the bad events usually all have about the same probability and a
     then $\Pr\of{\bigcap_{A \in \mathcal{A}} A^C} > 0$.
 \end{boxcorollary}
 \begin{proof}
-    If $d = 0$ then each $A \in \mathcal{A}$ is independent of the family of all the others, so $\Pr\of{\bigcap_{A} A^C} = \prod_{A} \parenth{1 - \Pr\of{A}} \geq \parenth{1 - p}^{\abs{\mathcal{A}}} > 0$, as $p \leq \frac{1}{e}$. Otherwise take $x_A = \frac{1}{d + 1} < 1$ for every $A$. Then for every $A \in \mathcal{A}$,
+    If $d < 1$ the graph has no edges, so each $A \in \mathcal{A}$ is independent of the family of all the others, and $\Pr\of{\bigcap_{A} A^C} = \prod_{A} \parenth{1 - \Pr\of{A}} \geq \parenth{1 - p}^{\abs{\mathcal{A}}} > 0$, as $p \leq \frac{1}{e}$. Otherwise take $x_A = \frac{1}{d + 1} \leq \frac{1}{2}$ for every $A$. Then for every $A \in \mathcal{A}$,
     \begin{align*}
         x_A \prod_{B \sim A} \parenth{1 - x_B} \geq \frac{1}{d + 1} \parenth{1 - \frac{1}{d + 1}}^{d} \geq \frac{1}{e \parenth{d + 1}} \geq p \geq \Pr\of{A}
     \end{align*}
