@@ -56,29 +56,26 @@ First, the graphs for which the lower bound is exact---and stays exact when we t
 
 At the opposite extreme are graphs with $\omega = 2$ and $\chi$ as large as we like, and we can build them by hand.
 
-Let's now construct a sequence $(G_n)_{n \in \N}$. Start with $G_1$ a single vertex. Given $G_1, \ldots, G_{k-1}$, take disjoint copies of all of them, and for every way of choosing one vertex $v_i$ from each $G_i$ add a new vertex adjacent to $v_1, \ldots, v_{k-1}$ and to nothing else; the result is $G_k$. In the pictures below the copies of the earlier graphs sit on top and the new vertices along the bottom, so that each bottom vertex sends exactly one edge into each of the graphs above it. There are $\abs{G_1} \cdots \abs{G_{k-1}}$ new vertices, so $G_2$ has $1 + 1 = 2$ vertices and is a single edge, $G_3$ has $1 + 2 + 2 = 5$ and is the $5$-cycle, and $G_4$ has $1 + 2 + 5 + 10 = 18$ (the construction is due to Zykov).
+Let's now construct a sequence $(G_n)_{n \in \N}$. Start with $G_1$ a single vertex. Given $G_1, \ldots, G_{k-1}$, take disjoint copies of all of them, and for every way of choosing one vertex $v_i$ from each $G_i$ add a new vertex adjacent to $v_1, \ldots, v_{k-1}$ and to nothing else; the result is $G_k$. There are $\abs{G_1} \cdots \abs{G_{k-1}}$ new vertices, so $G_2$ has $1 + 1 = 2$ vertices and is a single edge, $G_3$ has $1 + 2 + 2 = 5$ and is the $5$-cycle, and $G_4$ has $1 + 2 + 5 + 10 = 18$ (the construction is due to Zykov).
 
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}
         \node[circle, fill = black, inner sep = 1.5pt] (a1) at (0, 0) {};
-        \node[anchor = north] at (0, -1.4) {$G_1$};
-        \begin{scope}[xshift = 2.5cm]
-            \node[circle, fill = black, inner sep = 1.5pt] (a2) at (0, 0.6) {};
-            \node[circle, fill = black, inner sep = 1.5pt] (b2) at (0, -0.6) {};
+        \node[anchor = north] at (0, -0.5) {$G_1$};
+        \begin{scope}[xshift = 1.75cm]
+            \node[circle, fill = black, inner sep = 1.5pt] (a2) at (0, 0) {};
+            \node[circle, fill = black, inner sep = 1.5pt] (b2) at (1, 0) {};
             \draw (a2) -- (b2);
-            \node[anchor = north] at (0, -1.4) {$G_2$};
+            \node[anchor = north] at (0.5, -0.5) {$G_2$};
         \end{scope}
-        \begin{scope}[xshift = 6cm]
-            \node[circle, fill = black, inner sep = 1.5pt] (a3) at (-1.2, 0.6) {};
-            \node[circle, fill = black, inner sep = 1.5pt] (b3) at (0.3, 0.6) {};
-            \node[circle, fill = black, inner sep = 1.5pt] (c3) at (1.5, 0.6) {};
-            \node[circle, fill = black, inner sep = 1.5pt] (d3) at (-0.6, -0.6) {};
-            \node[circle, fill = black, inner sep = 1.5pt] (e3) at (0.6, -0.6) {};
-            \draw (b3) -- (c3);
-            \draw (a3) -- (d3) -- (b3);
-            \draw (a3) -- (e3) -- (c3);
-            \node[anchor = north] at (0.15, -1.4) {$G_3$};
+        \begin{scope}[xshift = 4.5cm]
+            \foreach \v [count = \i from 0] in {a3, d3, b3, c3, e3}{
+                \node[circle, fill = black, inner sep = 1.5pt] (\v) at (\i, 0) {};
+            }
+            \draw (a3) -- (d3) -- (b3) -- (c3) -- (e3);
+            \draw (a3) to[bend left = 40] (e3);
+            \node[anchor = north] at (2, -0.5) {$G_3$};
         \end{scope}
     \end{tikzpicture}
 \end{figure}
