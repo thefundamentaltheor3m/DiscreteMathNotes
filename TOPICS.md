@@ -1,13 +1,13 @@
 # Topics
 
-Where each topic lives. Owned by `/organize`; `/integrate` appends to it.
-What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
+Where each topic lives. Owned by `/organise`; `/integrate` appends to it.
+What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
 
 <!-- INFERENCE, not a plan. There is no syllabus for this course and none is coming,
      so every line below traces to a lecture. On ten lectures the shape now reads as a
      toolkit and three bodies of theory that use it: probability first, because every
      argument in the notes produces an object by showing a random one works; then
-     coloring graphs and hypergraphs; then set systems; then concentration as a
+     colouring graphs and hypergraphs; then set systems; then concentration as a
      subject in its own right. That ordering was the author's call on 2026-09-15 and
      it resolved the oldest piece of structural pressure on this file -- the
      probability material had been written last and used first, so it sat in
@@ -50,25 +50,25 @@ What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
       n fair coins, bounded by Chebyshev                            [supplied]
 ```
 
-## 2. Graphs and Colorings  ->  `Chapters/2_Graphs/`
+## 2. Graphs and Colourings  ->  `Chapters/2_Graphs/`
 
 ```
-2.1 Colorings                                       [2026-08-24]
-    Asks when a thing can be colored with few colors, of graphs and then of
+2.1 Colourings                                      [2026-08-24]
+    Asks when a thing can be coloured with few colours, of graphs and then of
     the more general hypergraphs.
-      k-colorings of a graph                                        (preamble)
-    2.1.1 2-Colorings of Graphs                     [2026-08-24]
+      k-colourings of a graph                                       (preamble)
+    2.1.1 2-Colourings of Graphs                    [2026-08-24]
       odd closed walks give odd cycles
-      2-colorable <=> no odd cycle
-    2.1.2 Colorings of Hypergraphs                  [2026-08-24]
-      hypergraphs, k-uniformity, proper colorings
+      2-colourable <=> no odd cycle
+    2.1.2 Colourings of Hypergraphs                 [2026-08-24]
+      hypergraphs, k-uniformity, proper colourings
       m(k), and the question "what is m(3)?"
     2.1.3 The Value of m(3)                         [2026-08-24, 2026-08-26]
       the reduction to 6 vertices
-      m(3) = 7: balanced colorings for the lower bound, the
+      m(3) = 7: balanced colourings for the lower bound, the
         Fano plane for the upper                                    [supplied]
     2.1.4 Bounds on m(k)                            [2026-08-26]
-      m(k) >= 2^(k-1), by a union bound over random colorings
+      m(k) >= 2^(k-1), by a union bound over random colourings
       m(k) = O(k^2 2^k), set as an exercise
     2.1.5 Maker-Breaker Games                       [2026-08-26]
       Erdos-Selfridge: breaker wins when m + Delta < 2^k
@@ -76,28 +76,28 @@ What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
 
 2.2 Ramsey Numbers                                  [2026-08-26, 2026-09-25]
     Turns the question around: how large must a structure be before every
-    coloring of it is forced to produce something monochromatic.
-      R(k), for edge colorings of complete graphs                   (preamble)
-      R(3) >= 6, from the two-colored K_5                           (preamble)
+    colouring of it is forced to produce something monochromatic.
+      R(k), for edge colourings of complete graphs                  (preamble)
+      R(3) >= 6, from the two-coloured K_5                          (preamble)
       known values and the best known bounds                        (preamble)
       R(k, l) <= R(k-1, l) + R(k, l-1), stated; proof deferred to
         undergraduate graph theory notes, cross-ref pending         (preamble)
     2.2.1 Hypergraph Ramsey Numbers                 [2026-09-25]
       Erdos-Szekeres, stated as the motivation and not proved
-      K_(r)(n); cliques of a color, their size counted in vertices
-      R_(r)(k, l), for red/blue colorings of hyper-edges
-      K_(1)(4), K_(2)(4), K_(3)(4), and a clique in a colored K_4,
+      K_(r)(n); cliques of a colour, their size counted in vertices
+      R_(r)(k, l), for red/blue colourings of hyper-edges
+      K_(1)(4), K_(2)(4), K_(3)(4), and a clique in a coloured K_4,
         drawn                                                       [supplied]
       R_(1)(k, l) = k + l - 1, by pigeonhole                        [supplied]
     2.2.2 A Recursive Upper Bound                   [2026-09-25]
       R_(r)(k, l) <= R_(r-1)(R_(r)(k-1, l), R_(r)(k, l-1)) + 1 for
-        r, k, l >= 2, by the shadow coloring at one vertex
+        r, k, l >= 2, by the shadow colouring at one vertex
       the two cases of the proof, and A, B and n named             [supplied]
       H a copy of K_(r-1)(n-1); at r = 2 the graph bound above      [supplied]
       every R_(r)(k, l) exists, by induction on r, then k + l       [supplied]
 
 2.3 Chromatic Number                                [2026-09-02]
-    Comes back to coloring graphs, and asks how many colors a graph needs
+    Comes back to colouring graphs, and asks how many colours a graph needs
     and how far that can be from the obvious lower bound.
       chi(G)                                                        (preamble)
     2.3.1 Trivial Bounds                            [2026-09-02]
@@ -119,19 +119,19 @@ What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
         short cycles, whp; delete a vertex per short cycle
 
 2.4 The Chromatic Number of the Plane               [2026-09-21]
-    Colors the plane itself, two points adjacent when they are a unit apart:
+    Colours the plane itself, two points adjacent when they are a unit apart:
     traps its chromatic number between 4 and 7, and then shows that only its
     finite subgraphs matter.
     2.4.1 The Unit Distance Graph                   [2026-09-21]
       the unit distance graph on R^2
       chi >= 3 from the unit triangle, chi >= 4 from Moser's spindle
-      chi <= 7 from a 7-colored hexagonal tessellation; the diameter
+      chi <= 7 from a 7-coloured hexagonal tessellation; the diameter
         that makes it work is not given                             \sorry
       the spindle and the tessellation, drawn                       [supplied]
     2.4.2 Compactness                               [2026-09-21]
       compactness as the finite intersection property for closed sets
       chi(G) = sup of chi(H) over finite subgraphs H, via Tychonoff
-      every finite subgraph k-colorable => G k-colorable; the proof
+      every finite subgraph k-colourable => G k-colourable; the proof
         breaks off after P_e is shown clopen                        \sorry
 ```
 
@@ -139,7 +139,7 @@ What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
 
 ```
 3.1 Matchings in Bipartite Graphs                   [2026-08-28]
-    Turns from coloring a hypergraph to choosing from one: can a vertex be
+    Turns from colouring a hypergraph to choosing from one: can a vertex be
     picked out of each edge, all of them different?
     3.1.1 Adjacency Matrices                        [2026-08-28]
       Adj(H), once vertices and edges are put in some order
@@ -240,7 +240,7 @@ What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
     2.1.4 needs them rare enough to avoid all at once.
       independent bad events of probability < 1 are all avoided   (preamble)
       the motivating question: k-uniform hypergraphs whose edges each
-        meet at most D others, and when they are 2-colorable
+        meet at most D others, and when they are 2-colourable
       dependency graphs                                           [SUSPECT]
       A ~ B for adjacency in a fixed dependency graph
       the local lemma, for a finite family and weights 0 < x_A < 1;
@@ -279,7 +279,7 @@ position in the document.
 
 ## Deliberate deviations
 
-Places where the structure does not yet look like `ORGANIZATION.md` describes,
+Places where the structure does not yet look like `ORGANISATION.md` describes,
 tolerated on purpose, with the condition that ends each one.
 
 ```
@@ -323,9 +323,9 @@ Chapter 1 had one section, where the corpus runs 2-8 (tolerated 2026-08-24).
     ENDED 2026-09-25: the lecture of that date did, with hypergraph Ramsey
     numbers, now 2.2.1 and 2.2.2.
 
-The chapter title "Graphs and Colorings" was a bet on one lecture (2026-08-24).
+The chapter title "Graphs and Colourings" was a bet on one lecture (2026-08-24).
     MET 2026-08-28 and worse by 2026-08-31, when half the chapter was set
-    systems. RESOLVED 2026-09-02 by /organize: the set-systems sections became
+    systems. RESOLVED 2026-09-02 by /organise: the set-systems sections became
     a chapter of their own, and the graphs chapter is again about what its title
     says. That chapter is now chapter 2 and the set systems chapter 3.
 ```
@@ -390,7 +390,7 @@ perfect graphs                   defined 2026-09-02 and then left: the lecture n
                                  lecture develops them, 2.3.2 is the seed of a
                                  section.
 chi(G) >= |V(G)| / alpha(G)      used 2026-09-02 with "thus" at the end of the Erdos
-                                 proof. True because each color class is an
+                                 proof. True because each colour class is an
                                  independent set; the notes do not say it.
 girth exactly k, chi exactly k   the lecture stated Erdos's theorem with equalities;
                                  the proof gives girth > k and chi >= k, and the
@@ -411,13 +411,13 @@ the Smiley Face Lemma            stated 2026-09-16 as an application of
                                  collects only O(1) of the n points. The name is
                                  the lecturer's; it is not attested in the
                                  paper's indexed text.
-2-colorability from the LLL      posed 2026-09-16 as the motivation for the local
+2-colourability from the LLL      posed 2026-09-16 as the motivation for the local
                                  lemma: what condition on k makes a k-uniform
                                  hypergraph whose edges each meet at most D
-                                 others 2-colorable? The bad events and their
+                                 others 2-colourable? The bad events and their
                                  probability 2^{-(k-1)} are set up; the answer
                                  needs the local lemma, whose proof is next
-                                 lecture's. It generalizes 2.1.4's union bound.
+                                 lecture's. It generalises 2.1.4's union bound.
 the Lovasz Local Lemma's proof   promised 2026-09-16 for next lecture, in the
                                  author's own words on the \sorry.
 Azuma's inequality               stated 2026-09-14 and not proved. The notes say
@@ -433,7 +433,7 @@ chi(G_{n,1/2}) ~ n / log n       asserted 2026-09-14 in 4.3.2, as the thing the
                                  it is used.
 Moser's spindle has chi = 4      asserted 2026-09-21 ("it turns out") and not
                                  proved. The spindle is drawn to scale in 2.4.1;
-                                 why it has no 3-coloring is not in the notes.
+                                 why it has no 3-colouring is not in the notes.
 the de Bruijn-Erdos theorem      the compactness theorem of 2.4.2, 2026-09-21,
                                  not named in the lecture. Its content is the
                                  lemma after it, whose proof breaks off (\sorry).
@@ -474,10 +474,10 @@ on 2026-09-23 for the inbox to be emptied; they are now chapter 5.
 
 ## Structural pressure
 
-Observations for `/organize`, recorded rather than acted on.
+Observations for `/organise`, recorded rather than acted on.
 
 ```
-2.1.5 Maker-Breaker Games is a game inside a section about colorings.
+2.1.5 Maker-Breaker Games is a game inside a section about colourings.
     It earns its place for now: Erdos-Selfridge is the same 2^(k-1) threshold as
     2.1.4, so the subsection continues that line of enquiry rather than opening
     a new one, and the lecturer closed it with "we won't say any more about
@@ -488,7 +488,7 @@ Observations for `/organize`, recorded rather than acted on.
 The "moreover" of Erdos-Ko-Rado is stated twice in 3.3, once inside the theorem
     and once as the extremal theorem that actually proves it. The duplication is
     the author's -- both were written in the lecture -- and neither /integrate
-    nor /organize may delete a statement, so both stand, with the second
+    nor /organise may delete a statement, so both stand, with the second
     cross-referenced as the first made precise. Merging them is the author's
     call. [noted 2026-08-31, left 2026-09-02, 2026-09-15]
 
@@ -499,7 +499,7 @@ The Lovasz Local Lemma is a new body of theory parked at the end of a chapter
     own vocabulary --- dependency graphs, the x_A weights, the ~ relation. If next
     lecture's proof and applications land as expected this wants a chapter of its
     own rather than a fifth section of chapter 4, and the union bound of 2.1.4 that
-    it generalizes is two chapters back. Do not act on this until the material has
+    it generalises is two chapters back. Do not act on this until the material has
     somewhere to be. [noted 2026-09-16; ACTED ON 2026-09-23, when the author
     asked for the inbox to be emptied: the local lemma is now chapter 5, whose
     introduction points back at 2.1.4's union bound. The author confirmed chapter
@@ -507,7 +507,7 @@ The Lovasz Local Lemma is a new body of theory parked at the end of a chapter
 
 4.3 Martingales is four subsections and the only section in chapter 4 with any,
     which is a sign it is carrying two lines of enquiry rather than one: 4.3.1 and
-    4.3.2 build a martingale and bound it, 4.3.3 and 4.3.4 generalize the
+    4.3.2 build a martingale and bound it, 4.3.3 and 4.3.4 generalise the
     construction and read a second inequality off it. Both halves are about the
     same object, so it is left as one section, and the corpus tolerates four
     subsections comfortably. Worth re-examining if a lecture adds a third
@@ -524,7 +524,7 @@ The Lovasz Local Lemma is a new body of theory parked at the end of a chapter
 2.4.2 Compactness is about every graph, and sits under the plane only because
     the lecture introduced it for the plane: the lemma is de Bruijn-Erdos, for
     any G. Beck's theorem, now 5.2, will need the same
-    compactness step for sequences rather than colorings. If the course keeps
+    compactness step for sequences rather than colourings. If the course keeps
     passing from finite to infinite this way, the compactness argument may want
     a home of its own, nearer the local lemma than the plane. [noted 2026-09-21]
 
@@ -535,7 +535,7 @@ The Lovasz Local Lemma is a new body of theory parked at the end of a chapter
     2026-09-25]
 ```
 
-Resolved by the `/organize` pass of 2026-09-15, kept as a record:
+Resolved by the `/organise` pass of 2026-09-15, kept as a record:
 
 ```
 Chapter 3 should have been chapter 1, and the author said so twice [noted
@@ -555,16 +555,16 @@ Chapter 3 should have been chapter 1, and the author said so twice [noted
     the Mean. The author specified the middle one.
 ```
 
-Resolved by the `/organize` pass of 2026-09-02, kept as a record:
+Resolved by the `/organise` pass of 2026-09-02, kept as a record:
 
 ```
 The m(3) = 7 development was loose prose at the end of 2.1.2 [noted 2026-08-26].
     Now subsection 2.1.3, The Value of m(3). Results number per section, so
     nothing was renumbered.
 
-Chapter 1 was called "Graphs and Colorings" and half of it was set systems
+Chapter 1 was called "Graphs and Colourings" and half of it was set systems
     [noted 2026-08-28, 2026-08-31, 2026-09-02]. Those sections became their own
-    chapter, Set Systems; Chromatic Number moved next to the coloring it
+    chapter, Set Systems; Chromatic Number moved next to the colouring it
     continues. Everything in the moved sections was renumbered, and five labels
     changed their chapter prefix.
 
@@ -574,7 +574,7 @@ Whether the three set-systems sections were one section, a chapter, or one
     family of sets, and 3.2 and 3.3 share a method but not a question.
 
 The author's \section{Perfect Graphs} was demoted by /integrate and its tail
-    split off [noted 2026-09-02]. /organize went one step further and split
+    split off [noted 2026-09-02]. /organise went one step further and split
     Zykov's construction out of it as 2.3.3, so that "Perfect Graphs" now
     heads only the two definitions and the ToC shows the construction.
 

@@ -48,8 +48,8 @@ which, and why). What remains under `Chapters/` is `1_Intro/` and `2_Set_Systems
 `main.tex` then `\input`s the four preamble files in a fixed order, and they are not
 interchangeable:
 
-- `TeX_Setup/packages.tex` — all `\usepackage` calls, `hyperref` colors, `biblatex` + bib resource, TikZ libraries
-- `TeX_Setup/format.tex` — sans-serif default font, `fancyhdr` headers, 1.5 line spacing, `parskip` (no paragraph indents), color definitions
+- `TeX_Setup/packages.tex` — all `\usepackage` calls, `hyperref` colours, `biblatex` + bib resource, TikZ libraries
+- `TeX_Setup/format.tex` — sans-serif default font, `fancyhdr` headers, 1.5 line spacing, `parskip` (no paragraph indents), colour definitions
 - `TeX_Setup/environments.tex` — `amsthm` theorem declarations and the boxed variants
 - `TeX_Setup/shortcuts.tex` — all custom macros
 
@@ -72,13 +72,17 @@ boxed form in the notes** — that is what the existing content uses.
 - Cyan box: `boxdefinition`
 - Magenta box: `boxconvention`, `boxnotation`, `boxlnotation` (local notation), `boxabbrev`
 - Green/red box: `boxexample`, `boxnexample` (non-example), `boxcexample` (counterexample)
-- Gray/red box: `boxexercise`, `boxproblem`, `boxwarning`
+- Grey/red box: `boxexercise`, `boxproblem`, `boxwarning`
 
 Numbering: `theorem` and everything sharing its counter number per *section*;
 `remark`, `solution`, `convention`, `notation`, `warning`, `abbreviation` are unnumbered.
 Cross-reference with `cleveref` — **always `\Cref`, never `\cref`** — and label as
 `Ch<N>:<Kind>:<Name>`, with chapters as `Ch<N>:CH`
 (see `Chapters/1_Intro/1_Intro.tex`).
+
+Spelling is **British** — *colouring*, *neighbourhood*, *generalise* — in the notes,
+in `TOPICS.md`, and in these instructions alike. `.claude/STYLE.md` has the details,
+including which LaTeX keywords (`\color`, `center`, `gray`) are exempt.
 
 Two reference files under `.claude/` carry the conventions, and the skills point at
 them rather than restating them:
@@ -88,7 +92,7 @@ them rather than restating them:
   author's four sibling lecture-note repositories, which share this template and
   this style and are the corpus to imitate. Read it before writing any prose or
   math into the notes.
-- **`.claude/ORGANIZATION.md`** — where a passage *lives*: the generality ladder that
+- **`.claude/ORGANISATION.md`** — where a passage *lives*: the generality ladder that
   decides what earns a chapter, a section and a subsection, read off those same
   repositories, plus the naming conventions and the format and ownership of
   `TOPICS.md`. Read it before deciding where anything goes.
@@ -103,14 +107,14 @@ than defining them inline.
 
 ## Lecture workflow
 
-Notes are taken linearly but organized by topic, so raw and integrated material are
+Notes are taken linearly but organised by topic, so raw and integrated material are
 kept distinct. Raw notes are typed in Overleaf during the lecture and synced, so they
 arrive as ordinary commits — `feat: Lecture 2`, `Updates from Overleaf` — touching
 whatever files were open.
 
 **`/integrate` finds what is new from the git history, not from a filename or a
 heading.** It establishes a watermark (the last commit that touched `TOPICS.md` is the
-sharpest signal, since only `/integrate` and `/organize` do), diffs from there to
+sharpest signal, since only `/integrate` and `/organise` do), diffs from there to
 `HEAD`, and also checks the working tree for material not yet committed. So it works
 wherever the notes were typed, and the lecture date comes from the commit rather than
 from a comment that may or may not be there.
@@ -140,11 +144,11 @@ inbox is its normal resting state.
 
 Structure the author wrote during a lecture — real headings like
 `\subsection{Ramsey Numbers}` — is deliberate and informative. `/integrate` starts from
-it, may overrule it against `ORGANIZATION.md`, and must say so explicitly when it does;
+it, may overrule it against `ORGANISATION.md`, and must say so explicitly when it does;
 the author has the final say at review.
 
 `TOPICS.md` at the repo root is the running map of topic to chapter/section, and is
-the authority on where new material belongs. `/organize` owns it; `/integrate`
+the authority on where new material belongs. `/organise` owns it; `/integrate`
 appends to it.
 
 **No syllabus of topics exists for this course, and none is coming.** `TOPICS.md` is
@@ -158,9 +162,9 @@ restructuring renumbers results:
 - **`/integrate`** (`.claude/skills/integrate/`) absorbs one lecture's raw notes. It
   may create a heading for material that has nowhere to go, but it does **not**
   restructure what is already written. When it sees that the structure has stopped
-  fitting, it records the pressure in `TOPICS.md` and recommends `/organize`.
-- **`/organize`** (`.claude/skills/organize/`) refactors the existing chapter,
-  section and subsection structure against `ORGANIZATION.md`, and rebuilds
+  fitting, it records the pressure in `TOPICS.md` and recommends `/organise`.
+- **`/organise`** (`.claude/skills/organise/`) refactors the existing chapter,
+  section and subsection structure against `ORGANISATION.md`, and rebuilds
   `TOPICS.md`. It adds no material and deletes none — the same content, better
   arranged.
 
@@ -182,7 +186,7 @@ commented-out content, and do not delete one without addressing it.
 `\sorry` is the other inline marker, and it means something different: not a scoped
 instruction but an unfilled gap — a proof not given, a case not covered, a development
 that broke off. The `/fill-sorries` skill (`.claude/skills/fill-sorries/`) closes them,
-and it is one of the two skills authorized to work the mathematics out for itself
+and it is one of the two skills authorised to work the mathematics out for itself
 rather than following an instruction. It marks what it supplied with a `% [FILLED]`
 comment, so the notes stay honest about which arguments came from the lecturer.
 
@@ -198,7 +202,7 @@ and did not know how to fix. Treat a `% [SUSPECT]` like a `\sorry` — an honest
 waiting for the author — and never delete a `% [CORRECTED]` line without checking what
 it says was there before.
 
-The six skills divide by how much latitude each has:
+The five skills divide by how much latitude each has:
 
 | Skill | Acts on | Latitude |
 | --- | --- | --- |
@@ -206,8 +210,7 @@ The six skills divide by how much latitude each has:
 | `/fill-sorries` | `\sorry` markers | work out the mathematics; decide and report |
 | `/check-correctness` | mathematics that is wrong | fix minimally; adjudicate every fix |
 | `/integrate` | one lecture's raw notes | place new material; never restructure |
-| `/organize` | the notes as they stand | rearrange only; add and delete nothing |
-| `/americanise` | British spellings | spelling only; never the mathematics |
+| `/organise` | the notes as they stand | rearrange only; add and delete nothing |
 
 `/check-correctness` is the only one of them that overwrites the author's own
 mathematics, so it is also the only one wrapped in machinery to stop it doing that
@@ -220,10 +223,10 @@ an assistant correct the notes on its own authority.
 
 `/post-lecture` (`.claude/skills/post-lecture/`) is deliberately not a row in that
 table, because it has no scope of its own. It is a composition: `/fill-sorries`, then
-`/address-comments`, then `/check-correctness`, then `/americanise`, then `/integrate`,
-on one branch, as five commits, in one pull request, scoped to whatever the git diff
-shows is the latest lecture's material. That order is deliberate — write the material,
-then check it, then tidy it, then move it — so the phases that produce text all run
+`/address-comments`, then `/check-correctness`, then `/integrate`, on one branch, as
+four commits, in one pull request, scoped to whatever the git diff shows is the latest
+lecture's material. That order is deliberate — write the material, then check it, then
+move it — so the phases that produce text all run
 before the phases that inspect it, and integration is left redistributing finished
 passages rather than half-finished ones. Use it for the routine after-lecture pass;
 reach for the component skills individually when you want just one of them.

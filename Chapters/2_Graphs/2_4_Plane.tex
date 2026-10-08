@@ -1,6 +1,6 @@
 \section{The Chromatic Number of the Plane}
 
-Every graph so far has been finite. The plane gives us an infinite one to color: we will trap its chromatic number between $4$ and $7$, and then see that only its finite subgraphs matter.
+Every graph so far has been finite. The plane gives us an infinite one to colour: we will trap its chromatic number between $4$ and $7$, and then see that only its finite subgraphs matter.
 
 \subsection{The Unit Distance Graph}
 
@@ -36,11 +36,11 @@ We thus conclude that $\chi(G) \geq 4$.
 
 We can actually show that $\chi(G) \leq 7$. Indeed, consider the hexagonal tessellation of the plane. The point is that for a tessellation with hexagons of some diameter,
 \begin{enumerate}
-    \item all points in any given hexagon are of the same color
-    \item each hexagon and its $6$ neighbors have different colors
+    \item all points in any given hexagon are of the same colour
+    \item each hexagon and its $6$ neighbours have different colours
 \end{enumerate}
-Then, we can repeat colors \textit{after} a unit of $7$ (consisting of a hexagon and its neighbors). \sorry
-% The sorry above: the diameter $d$ of the hexagons is never given. Item 2, read as the seven hexagons of a unit all differing, already puts same-colored hexagons three steps apart, and so at least $\frac{\sqrt{7}}{2} d$ apart; what is missing is $\frac{2}{\sqrt{7}} < d < 1$, together with a convention assigning each boundary point to just one of its hexagons.
+Then, we can repeat colours \textit{after} a unit of $7$ (consisting of a hexagon and its neighbours). \sorry
+% The sorry above: the diameter $d$ of the hexagons is never given. Item 2, read as the seven hexagons of a unit all differing, already puts same-coloured hexagons three steps apart, and so at least $\frac{\sqrt{7}}{2} d$ apart; what is missing is $\frac{2}{\sqrt{7}} < d < 1$, together with a convention assigning each boundary point to just one of its hexagons.
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}
@@ -84,10 +84,10 @@ We'll use this property (and Tychonoff) to prove a `compactness theorem' for the
 First, a lemma.
 
 \begin{boxlemma} \label{Ch2:Lemma:Compactness}
-    If every finite subgraph $B$ of $G$ is $k$-colorable, then so is $G$.
+    If every finite subgraph $B$ of $G$ is $k$-colourable, then so is $G$.
 \end{boxlemma}
 \begin{proof}
-    Consider $[k]$ with the discrete topology and $[k]^{V(G)}$ with the product topology. Note that $[k]^{V(G)}$ is the set of all (not necessarily proper) colorings of $G$.
+    Consider $[k]$ with the discrete topology and $[k]^{V(G)}$ with the product topology. Note that $[k]^{V(G)}$ is the set of all (not necessarily proper) colourings of $G$.
 
     For all $e \in E(G)$, define
     \begin{align*}
@@ -95,6 +95,6 @@ First, a lemma.
     \end{align*}
     It is possible to show that $P_e$ is clopen in $[k]^{V(G)}$.
 
-    If every finite subgraph can be $k$-colored, then for all finite $J \ssq E(G)$, $\bigcap_{e \in J} P_{e} \ne \emptyset$ \sorry
-    % The sorry above: the proof stops here. What is missing is why that intersection is nonempty (color the finite subgraph spanned by $J$ properly and extend arbitrarily), and the conclusion: the finite intersection property then gives $\bigcap_{e \in E(G)} P_e \ne \emptyset$, and any element of that is a proper $k$-coloring of $G$.
+    If every finite subgraph can be $k$-coloured, then for all finite $J \ssq E(G)$, $\bigcap_{e \in J} P_{e} \ne \emptyset$ \sorry
+    % The sorry above: the proof stops here. What is missing is why that intersection is nonempty (colour the finite subgraph spanned by $J$ properly and extend arbitrarily), and the conclusion: the finite intersection property then gives $\bigcap_{e \in E(G)} P_e \ne \emptyset$, and any element of that is a proper $k$-colouring of $G$.
 \end{proof}

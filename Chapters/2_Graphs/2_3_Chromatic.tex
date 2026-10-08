@@ -1,9 +1,9 @@
 \section{Chromatic Number}
 
-Back to coloring vertices, and this time we are not rationed to two colors. \Cref{Ch2:CH} opened by asking which graphs can be colored with two of them; the question now is how many colors a graph needs in general, and how far that number can be pushed away from the obvious lower bound.
+Back to colouring vertices, and this time we are not rationed to two colours. \Cref{Ch2:CH} opened by asking which graphs can be coloured with two of them; the question now is how many colours a graph needs in general, and how far that number can be pushed away from the obvious lower bound.
 
 \begin{boxdefinition}[Chromatic Number] \label{Ch2:Def:Chromatic_Number}
-    The \textbf{chromatic number} of a graph $G$, denoted $\chi(G)$, is the smallest number of colors I need to color $G$.
+    The \textbf{chromatic number} of a graph $G$, denoted $\chi(G)$, is the smallest number of colours I need to colour $G$.
 \end{boxdefinition}
 
 \subsection{Trivial Bounds}
@@ -11,7 +11,7 @@ Back to coloring vertices, and this time we are not rationed to two colors. \Cre
 There are some trivial bounds on $\chi(G)$.
 
 % [CORRECTED] was: "a fully connected subgraph" --- "connected" already means path-connected in these notes (the proof
-% of the $2$-coloring theorem in 1.1.1 colors each component separately), and on that reading every path would be a clique in itself, so $\omega(P_n) = n$
+% of the $2$-colouring theorem in 1.1.1 colours each component separately), and on that reading every path would be a clique in itself, so $\omega(P_n) = n$
 % while $\chi(P_n) = 2$ and the inequality below fails. What $\omega \leq \chi$ needs is pairwise adjacency.
 \begin{boxdefinition}[Clique]
     A \textbf{clique} in $G$ is a complete subgraph, ie, a set of vertices any two of which are adjacent. The \textbf{clique number} of a graph, denoted $\omega(G)$, is the number of vertices in the largest clique.
@@ -24,7 +24,7 @@ The upper-bound is absolutely not tight, for instance we can have a ``star graph
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}
-        \coloredstargraph[1.15]{8}{red}{blue}
+        \colouredstargraph[1.15]{8}{red}{blue}
     \end{tikzpicture}
 \end{figure}
 
@@ -33,7 +33,7 @@ Similarly, the lower-bound is also not tight. For example, any odd cycle on more
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}
-        \coloredcyclegraph[1.15]{5}{red, blue, red, blue, green!60!black}
+        \colouredcyclegraph[1.15]{5}{red, blue, red, blue, green!60!black}
     \end{tikzpicture}
 \end{figure}
 
@@ -124,9 +124,9 @@ These have exactly the property we want.
     For every $k \geq 1$, $G_k$ has no triangles and $\chi(G_k) = k$.
 \end{boxproposition}
 \begin{proof}
-    Both by induction on $k$, and both trivial for $G_1$. The new vertices of $G_k$ form an independent set, and the neighbors of any one of them lie one in each of $G_1, \ldots, G_{k-1}$, so no two of them are adjacent. A triangle can therefore contain at most one new vertex, and if it contains one then its other two vertices are adjacent neighbors of that vertex, which do not exist. So every triangle of $G_k$ lies inside some $G_i$, and by induction there are none.
+    Both by induction on $k$, and both trivial for $G_1$. The new vertices of $G_k$ form an independent set, and the neighbours of any one of them lie one in each of $G_1, \ldots, G_{k-1}$, so no two of them are adjacent. A triangle can therefore contain at most one new vertex, and if it contains one then its other two vertices are adjacent neighbours of that vertex, which do not exist. So every triangle of $G_k$ lies inside some $G_i$, and by induction there are none.
 
-    For $\chi(G_k) \leq k$, color each $G_i$ with $i \leq k - 1$ colors, which we can by induction, and give every new vertex color $k$. For $\chi(G_k) \geq k$, suppose $c$ is a proper $(k-1)$-coloring of $G_k$. Its restriction to $G_i$ is a proper coloring of $G_i$, and so uses at least $\chi(G_i) = i$ colors. Pick $v_1 \in G_1$; $G_2$ uses at least two colors, so pick $v_2 \in G_2$ with $c(v_2) \neq c(v_1)$; $G_3$ uses at least three, so pick $v_3 \in G_3$ with $c(v_3) \notin \set{c(v_1), c(v_2)}$; and so on, at each step choosing $v_i \in G_i$ to avoid the $i - 1$ colors chosen so far. After $k - 1$ steps, $c(v_1), \ldots, c(v_{k-1})$ are $k - 1$ distinct colors, which is all of them, and the new vertex attached to $v_1, \ldots, v_{k-1}$ has no color left.
+    For $\chi(G_k) \leq k$, colour each $G_i$ with $i \leq k - 1$ colours, which we can by induction, and give every new vertex colour $k$. For $\chi(G_k) \geq k$, suppose $c$ is a proper $(k-1)$-colouring of $G_k$. Its restriction to $G_i$ is a proper colouring of $G_i$, and so uses at least $\chi(G_i) = i$ colours. Pick $v_1 \in G_1$; $G_2$ uses at least two colours, so pick $v_2 \in G_2$ with $c(v_2) \neq c(v_1)$; $G_3$ uses at least three, so pick $v_3 \in G_3$ with $c(v_3) \notin \set{c(v_1), c(v_2)}$; and so on, at each step choosing $v_i \in G_i$ to avoid the $i - 1$ colours chosen so far. After $k - 1$ steps, $c(v_1), \ldots, c(v_{k-1})$ are $k - 1$ distinct colours, which is all of them, and the new vertex attached to $v_1, \ldots, v_{k-1}$ has no colour left.
 \end{proof}
 
 \subsection{Graphs of Large Girth}
@@ -149,7 +149,7 @@ The girth of a graph with no cycles is infinite.
     For any $k$, there are graphs of girth at least $k$ and chromatic number at least $k$.
 \end{boxtheorem}
 
-The proof runs through independent sets rather than through colorings directly.
+The proof runs through independent sets rather than through colourings directly.
 
 \begin{boxdefinition}[Independence Number]
     A set $S$ of vertices of $G$ is \textbf{independent} if no two of its elements are adjacent. The \textbf{independence number} of $G$, denoted $\alpha(G)$, is the size of the largest independent set in $G$.

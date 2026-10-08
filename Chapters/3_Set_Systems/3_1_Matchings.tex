@@ -1,6 +1,6 @@
 \section{Matchings in Bipartite Graphs}
 
-Hypergraphs came up in \Cref{Ch2:Def:Hypergraph} as the setting in which the coloring question gets hard, and \Cref{Ch2:CH} set them aside again once it had its answer. The first thing this chapter asks of them is this: given a hypergraph, can we pick one vertex out of each edge, all of them different? Getting to the answer means first noticing that a hypergraph, a $0,1$ matrix and a bipartite graph are three views of the same data.
+Hypergraphs came up in \Cref{Ch2:Def:Hypergraph} as the setting in which the colouring question gets hard, and \Cref{Ch2:CH} set them aside again once it had its answer. The first thing this chapter asks of them is this: given a hypergraph, can we pick one vertex out of each edge, all of them different? Getting to the answer means first noticing that a hypergraph, a $0,1$ matrix and a bipartite graph are three views of the same data.
 
 \subsection{Adjacency Matrices}
 
@@ -116,9 +116,9 @@ Recall, now, the most important result about bipartite graphs.
 \begin{iffproof}
     \onlyifdir Let $M$ be a complete matching of $A$ and let $S \subseteq A$. The partners under $M$ of the elements of $S$ are $\abs{S}$ distinct vertices of $B$, each adjacent to something in $S$, so $\Gamma(S)$ has at least $\abs{S}$ elements.
 
-    \ifdir We induct on $\abs{A}$. If $\abs{A} = 1$, then Hall's condition applied to $A$ itself says that the one vertex of $A$ has a neighbor, and matching it to one is a complete matching. So suppose $\abs{A} > 1$, and let's do some casework.
+    \ifdir We induct on $\abs{A}$. If $\abs{A} = 1$, then Hall's condition applied to $A$ itself says that the one vertex of $A$ has a neighbour, and matching it to one is a complete matching. So suppose $\abs{A} > 1$, and let's do some casework.
     \begin{itemize}
-        \item \underline{Case 1:} Assume that in fact, $\forall S \subsetneq A$ nonempty, $\abs{\Gamma(S)} \geq \abs{S} + 1$. Arbitrarily match some pair: pick any $a \in A$ and any $b \in \Gamma(\set{a})$, which is nonempty by hypothesis. After deleting this edge---and with it the vertices $a$ and $b$ and every other edge at either of them---the rest satisfies the desired result, since a nonempty $T \subseteq A \setminus \set{a}$ is a nonempty proper subset of $A$ and so had at least $\abs{T} + 1$ neighbors to begin with, of which deleting $b$ can take away only one. What is left has $\abs{A} - 1$ vertices on the left, so we are done by induction: it has a complete matching of $A \setminus \set{a}$, and adding the edge $ab$ to that matching completes it to one of $A$.
+        \item \underline{Case 1:} Assume that in fact, $\forall S \subsetneq A$ nonempty, $\abs{\Gamma(S)} \geq \abs{S} + 1$. Arbitrarily match some pair: pick any $a \in A$ and any $b \in \Gamma(\set{a})$, which is nonempty by hypothesis. After deleting this edge---and with it the vertices $a$ and $b$ and every other edge at either of them---the rest satisfies the desired result, since a nonempty $T \subseteq A \setminus \set{a}$ is a nonempty proper subset of $A$ and so had at least $\abs{T} + 1$ neighbours to begin with, of which deleting $b$ can take away only one. What is left has $\abs{A} - 1$ vertices on the left, so we are done by induction: it has a complete matching of $A \setminus \set{a}$, and adding the edge $ab$ to that matching completes it to one of $A$.
 
             \item \underline{Case 2:} Now assume the opposite, ie, that $\exists S \subsetneq A$ nonempty such that $\abs{\Gamma(S)} = \abs{S}$. We will apply induction again, on $\abs{A}$ as before.
 
@@ -133,7 +133,7 @@ Recall, now, the most important result about bipartite graphs.
 
             % Not from the lecture: the verification of Hall's condition on A' and B' below, and
             % the assembly of the two matchings, were supplied to close the gap the lecture left here.
-            Writing $\Gamma'$ for the neighborhood taken in that smaller graph, we have $\Gamma'(T) = \Gamma(T) \setminus \Gamma(S)$ for every $T \subseteq A'$, and $\Gamma(S \cup T) = \Gamma(S) \cup \Gamma(T)$ as it does for any two sets, so
+            Writing $\Gamma'$ for the neighbourhood taken in that smaller graph, we have $\Gamma'(T) = \Gamma(T) \setminus \Gamma(S)$ for every $T \subseteq A'$, and $\Gamma(S \cup T) = \Gamma(S) \cup \Gamma(T)$ as it does for any two sets, so
             \begin{align*}
                 \abs{\Gamma'(T)} = \abs{\Gamma(S) \cup \Gamma(T)} - \abs{\Gamma(S)} = \abs{\Gamma(S \cup T)} - \abs{S} \geq \abs{S \cup T} - \abs{S} = \abs{T}
             \end{align*}

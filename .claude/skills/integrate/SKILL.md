@@ -5,7 +5,7 @@ description: Absorb the latest lecture's raw notes into the structured chapter/s
 
 # Integrating a lecture into the notes
 
-Raw notes are taken linearly, in lecture order. The notes themselves are organized
+Raw notes are taken linearly, in lecture order. The notes themselves are organised
 by topic. This skill is the translation between the two: it takes one lecture's
 worth of unsorted material and distributes it into the right chapters, sections and
 subsections, writing whatever connecting prose is needed to make the result read as
@@ -17,10 +17,10 @@ Read these first; everything below assumes them.
 - `.claude/STYLE.md` — the voice, the LaTeX mechanics, the label scheme and the macro
   conventions, with pointers into the author's other notes repositories when a
   question is not settled there.
-- `.claude/ORGANIZATION.md` — what earns a chapter, a section and a subsection, and
+- `.claude/ORGANISATION.md` — what earns a chapter, a section and a subsection, and
   the format of `TOPICS.md`. Here it is a **constraint**, not a target: it tells you
   whether this lecture's material fits an existing section or has earned one of its
-  own. Making the document match it is `/organize`'s job, not yours.
+  own. Making the document match it is `/organise`'s job, not yours.
 
 ## Finding the new material
 
@@ -38,7 +38,7 @@ committed at all yet.
 ### Establish the watermark
 
 Find where integration last reached. `TOPICS.md` is the sharpest signal available,
-because `/integrate` and `/organize` are the only things that touch it:
+because `/integrate` and `/organise` are the only things that touch it:
 
 ```bash
 git log --oneline -- TOPICS.md            # the last few integration passes
@@ -111,7 +111,7 @@ If every signal is empty — no commits since the watermark, nothing unstaged, a
 inbox — then there is nothing to integrate. Say so and stop; do not go hunting.
 
 **If the notes contain nothing to integrate *into*** — a first lecture, or a repository
-still all template placeholders — then the right skill is `/organize`: the task is
+still all template placeholders — then the right skill is `/organise`: the task is
 arranging one lecture's material sensibly, not folding it into an existing arrangement.
 Say so and stop.
 
@@ -119,7 +119,7 @@ Say so and stop.
 
 The author writes real headings as the lecture happens — `\subsection{Ramsey Numbers}`
 — rather than dumping unstructured prose. **Assume every bit of that structure is
-deliberate and meant to help you.** It is the judgment of the person who was actually
+deliberate and meant to help you.** It is the judgement of the person who was actually
 in the room, and it tells you things the text alone does not: what they considered one
 idea, where they felt a topic began, which results they saw as belonging together.
 
@@ -128,7 +128,7 @@ proposal about where the material goes. Start from that proposal. Most of the ti
 will be right, and following it costs you nothing.
 
 **You may overrule it.** These are choices made mid-lecture, at speed, without knowing
-what the rest of the course holds, and `ORGANIZATION.md` is still the standard: a
+what the rest of the course holds, and `ORGANISATION.md` is still the standard: a
 heading that splits one line of enquiry in two, or fuses two into one, or reaches for a
 fourth level of depth, should be changed. The author expects that — it is why the notes
 get integrated at all rather than just accumulating.
@@ -150,7 +150,7 @@ always wrong here, because it destroys information the author cannot get back.
 
 **No list of topics for the course will ever be provided.** Nobody knows what
 `Chapters/` should eventually look like — not the user, not you. That single fact
-drives most of the judgment calls in this skill:
+drives most of the judgement calls in this skill:
 
 - `TOPICS.md` is a **record of what the lectures have actually covered**, not a plan
   derived from a syllabus. Never invent sections for topics no lecture has reached
@@ -167,10 +167,10 @@ drives most of the judgment calls in this skill:
 
 ## Scope: this skill does not restructure
 
-`/integrate` and `/organize` share their format, their guiding principles and their
+`/integrate` and `/organise` share their format, their guiding principles and their
 respect for the author's mathematics. They do not share a scope.
 
-| | `/integrate` | `/organize` |
+| | `/integrate` | `/organise` |
 | --- | --- | --- |
 | Input | whatever the history shows is new | the notes as they already stand |
 | Adds material | yes, that is the point | never |
@@ -181,21 +181,21 @@ respect for the author's mathematics. They do not share a scope.
 **Restructuring what already exists is out of scope here.** Concretely, you may:
 
 - create a new section or subsection for material that has nowhere to go, sized
-  according to `ORGANIZATION.md`;
+  according to `ORGANISATION.md`;
 - adjust a heading title that *this lecture's material* has made inaccurate;
 - add a cross-reference in either direction between new and existing material.
 
 You may not: move settled material between sections or chapters, split or merge
 existing headings, rename or split a chapter, promote a subsection to a section, or
-renumber anything that was already in place. Those are `/organize`'s, and they are
+renumber anything that was already in place. Those are `/organise`'s, and they are
 out of scope even when they are obviously right, because they renumber results and
 the author has to review the fallout.
 
-When you see one — a chapter called *Graphs and Colorings* that has quietly acquired
+When you see one — a chapter called *Graphs and Colourings* that has quietly acquired
 three lectures of extremal combinatorics, a section doing the work of three —
-**record it and recommend `/organize`**. Note it under a `## Structural pressure`
+**record it and recommend `/organise`**. Note it under a `## Structural pressure`
 heading in `TOPICS.md` and raise it in the report. A wedged-in placement that you have
-flagged is recoverable; a unilateral reorganization buried in an integration diff is
+flagged is recoverable; a unilateral reorganisation buried in an integration diff is
 not.
 
 ## Procedure
@@ -219,7 +219,7 @@ something, and the inbox is emptied at the end, so an unledgered item is a lost 
 ### 2. Read the surrounding notes
 
 - `TOPICS.md` — the running topic map (see below). The primary placement authority.
-- `.claude/ORGANIZATION.md` — the generality ladder, which decides whether this
+- `.claude/ORGANISATION.md` — the generality ladder, which decides whether this
   lecture's material joins an existing section or earns a new one. The question is
   conceptual, not dimensional: material that continues an existing line of enquiry
   becomes a subsection of that section however much of it there is, and only material
@@ -241,13 +241,13 @@ for each ledger item, where it goes and why; then separately lists
 - new sections or subsections to create, with their titles,
 - **every heading the author wrote that you are keeping**, and
 - **every one you are overruling** — quoting theirs, giving yours, and saying which
-  rule in `ORGANIZATION.md` makes the change necessary. This list is the one the
-  author will read first, because it is where your judgment overrides theirs,
+  rule in `ORGANISATION.md` makes the change necessary. This list is the one the
+  author will read first, because it is where your judgement overrides theirs,
 - existing material to be moved, quoting what and from where to where,
 - new linking prose to be written, with a sentence on what each passage will argue,
 - anything you cannot place confidently.
 
-Placement is editorial judgment and the user is the editor. Never skip this step,
+Placement is editorial judgement and the user is the editor. Never skip this step,
 even when the answer looks obvious.
 
 For items you genuinely cannot place, prefer parking them over guessing: leave them
@@ -279,15 +279,15 @@ parts that bite hardest during an integration:
 
 - **Every boxed environment gets a one-sentence bridge before it.** This is the most
   visible signature of the notes and the thing a raw lecture file most reliably
-  lacks. "We have a special term for Lie algebras whose derived series stabilizes at
+  lacks. "We have a special term for Lie algebras whose derived series stabilises at
   $0$." / "There is also a less trivial example." / "The following is thus obvious."
   One clause of signposting, then the box. Writing these is most of the work.
 - **First-person plural, colloquial but not chatty.** "We begin by…", "Next, we…",
-  "It turns out that…". Dry humor where it lands naturally ("Here's a cool result.")
-  and nowhere else. American spelling: *coloring*, *neighborhood*, *generalization*.
+  "It turns out that…". Dry humour where it lands naturally ("Here's a cool result.")
+  and nowhere else. British spelling: *colouring*, *neighbourhood*, *generalisation*.
 - **Boxed environments always** — `boxdefinition`, `boxtheorem`, `boxlemma`,
   `boxexample`, … (`CLAUDE.md` has the family). Raw notes are written loosely;
-  converting them is expected. Definitions carry a title, `[Coloring]`; results
+  converting them is expected. Definitions carry a title, `[Colouring]`; results
   usually do not. `\hfill` after `\begin{box…}` or `\begin{proof}` when the body
   opens with a list. `\textbf{}` the term being defined, in the definition body.
 - **`align*` for every display**, even one-liners. One paragraph per source line, no
@@ -325,7 +325,7 @@ Then, mechanically:
 
 ### 5. Append to TOPICS.md
 
-`ORGANIZATION.md` specifies the format and `/organize` owns the file. Your job is to
+`ORGANISATION.md` specifies the format and `/organise` owns the file. Your job is to
 **append, not to rewrite**: a line for each section this lecture put material in,
 dated; new entries under `## Signposted` for what the lecture pointed at without
 reaching; anything you could not place under `## Unplaced`. Leave the outline's shape,
@@ -334,21 +334,21 @@ the inference note and the existing annotations alone.
 If you find yourself wanting to rewrite the outline rather than add to it, that is
 the signal that this lecture has broken the structure. Add your entries where they
 least distort it, note the problem under `## Structural pressure`, and recommend
-`/organize` in the report.
+`/organise` in the report.
 
 Create the file on first run if it is absent, following the format in
-`ORGANIZATION.md`. Every line must be traceable to a lecture: a section exists in
+`ORGANISATION.md`. Every line must be traceable to a lecture: a section exists in
 `TOPICS.md` because a lecture put material in it, or because the lecturer explicitly
 said we would come back to it, never because the topic is one a discrete mathematics
 course would normally reach.
 
 ```
 <!-- No syllabus for this course. Structure is inferred from lectures and revised
-     as they arrive. Currently reads as: graph theory first, with colorability as
+     as they arrive. Currently reads as: graph theory first, with colourability as
      the running thread; extremal/probabilistic material may want its own chapter. -->
 
-## 1. Graphs and Colorings  -> Chapters/1_Intro/
-  1.1 Graph Colorings        [2026-08-24]
+## 1. Graphs and Colourings  -> Chapters/1_Intro/
+  1.1 Graph Colourings        [2026-08-24]
 
 ## Signposted
   m(3) for 3-uniform hypergraphs — posed 2026-08-24, left open
@@ -358,12 +358,12 @@ course would normally reach.
 
 ## Structural pressure
   1.1 is at 340 lines across 6 subsections [noted 2026-09-02] — over the corpus
-  range for a section; probably wants splitting. Run /organize.
+  range for a section; probably wants splitting. Run /organise.
 ```
 
 If this run's material makes the existing structure wrong rather than incomplete,
 record it under `## Structural pressure` with what you observed, and recommend
-`/organize` in the report. Do not act on it here: renaming a chapter renumbers every
+`/organise` in the report. Do not act on it here: renaming a chapter renumbers every
 label under it, and that belongs in a diff of its own.
 
 ### 6. Verify
@@ -441,8 +441,8 @@ Close with:
 - **The date you recorded, and where it came from** — the commit, and whether a date
   written in the file agreed with it.
 - **Every heading of the author's that you overruled**, quoting theirs and giving
-  yours, with the reason. Put this near the top: it is where your judgment overrode
-  the judgment of the person who was in the room, and they have the final say on it
+  yours, with the reason. Put this near the top: it is where your judgement overrode
+  the judgement of the person who was in the room, and they have the final say on it
   when they review the pull request.
 - Where each group of material went.
 - Every existing passage you moved or rewrote, and why.
@@ -463,7 +463,7 @@ still commented out in `main.tex`.
 So there is normally nothing to clear here any more. If some placeholder does turn up
 in your way, offer to clear it — but ask first, and never delete a file that has
 acquired real content. Scaffolding is a structural problem rather than an integration
-one, so otherwise leave it and recommend `/organize`. Note in particular that `Chapters/1_Intro/` is **not** a misnomer for a
-chapter titled *Graphs and Colorings*: `1_Intro` is the author's directory name for
+one, so otherwise leave it and recommend `/organise`. Note in particular that `Chapters/1_Intro/` is **not** a misnomer for a
+chapter titled *Graphs and Colourings*: `1_Intro` is the author's directory name for
 chapter 1 across three of the four sibling repositories, whatever that chapter is
 called. Leave it alone.
