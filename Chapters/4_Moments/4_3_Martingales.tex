@@ -96,7 +96,7 @@ Then, $X_0, X_1, X_2, \ldots$ is a martingale, and it is exactly what the tree d
 % [FILLED] the sentence broke off at the conditional expectation; everything from here to the end of the section was supplied, the statement of Azuma's inequality as the directive asked and the corollary as what the whole construction was for
 We can adapt this to the general $G_{n, \frac{1}{2}}$ case. Define $Y_i$ and $X_i$ as above. Then, we can compute the conditional expectation of $\chi\of{G_{n, \frac{1}{2}}}$ on observing edges incident on vertices $1, \ldots, k$: write $X$ for $\chi\of{G_{n, \frac{1}{2}}}$, let $Y_k$ record the edges from vertex $k$ back to $1, \ldots, k-1$, and set $X_k = \E\of{X \mid Y_1, \ldots, Y_k}$. Since $Y_1$ records nothing, $X_0 = X_1 = \E(X)$; and $X_n = X$, with $X_k = X$ beyond that as before.
 
-We are now exposing a vertex at a time rather than an edge at a time, which is what bounds the increments. Two graphs differing only at one vertex have chromatic numbers differing by at most $1$: give that vertex a color of its own. Pairing each unexposed configuration with itself under a different value of $Y_{k+1}$, the possible values of $X_{k+1}$ differ pairwise by at most $1$, and $X_k$ is their average, so $\abs{X_{k+1} - X_k} \leq 1$.
+We are now exposing a vertex at a time rather than an edge at a time, which is what bounds the increments. Two graphs differing only at one vertex have chromatic numbers differing by at most $1$: give that vertex a colour of its own. Pairing each unexposed configuration with itself under a different value of $Y_{k+1}$, the possible values of $X_{k+1}$ differ pairwise by at most $1$, and $X_k$ is their average, so $\abs{X_{k+1} - X_k} \leq 1$.
 
 \subsection{Azuma's Inequality}
 
@@ -132,7 +132,7 @@ It turns out that the martingale we constructed for the chromatic number problem
     % [CORRECTED] was: "$X_0 := X$" --- a Doob martingale runs from no information to all of it, so $X$ belongs at
     % the far end and the near end is the average over everything. With $X_0 = X$ the third condition of
     % \Cref{Ch4:Def:Martingale} fails already at $n = 0$: for $X$ uniform on $\set{0, 1}$ and $Y_1$ independent of
-    % it, $\E\of{X_1 \mid X_0 = 0} = \frac{1}{2} \neq 0$. The construction of 4.3.1, which this one generalizes,
+    % it, $\E\of{X_1 \mid X_0 = 0} = \frac{1}{2} \neq 0$. The construction of 4.3.1, which this one generalises,
     % sets $X_0 = \E(X)$, and that is the $i = 0$ case of the display beside it with nothing conditioned on.
     % ("4.3.1" there is the subsection, Exposing a Random Graph, not the definition referenced two lines up.)
     \begin{align*}

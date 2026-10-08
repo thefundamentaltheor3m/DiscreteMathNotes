@@ -343,7 +343,7 @@
     \fill[magenta] (\angx:#1) circle (3pt);
 }
 
-\newcommand{\coloredcyclegraph}[3][1]{  % [radius]{n}{colors}: the cycle graph on n vertices, with its vertices colored in turn by the n colors in the comma-separated list
+\newcommand{\colouredcyclegraph}[3][1]{  % [radius]{n}{colours}: the cycle graph on n vertices, with its vertices coloured in turn by the n colours in the comma-separated list
     \stepedges[#1]{#2}{1}
     \foreach \c [count = \i] in {#3}{
         \pgfmathsetmacro{\angthis}{90 + 360 * (\i - 1) / #2}
@@ -351,7 +351,7 @@
     }
 }
 
-\newcommand{\coloredstargraph}[4][1]{  % [radius]{n}{hub color}{leaf color}: the star graph with n edges, its hub and its leaves colored as named
+\newcommand{\colouredstargraph}[4][1]{  % [radius]{n}{hub colour}{leaf colour}: the star graph with n edges, its hub and its leaves coloured as named
     \foreach \i in {1, ..., #2}{
         \pgfmathsetmacro{\angthis}{90 + 360 * (\i - 1) / #2}
         \draw[thick] (0, 0) -- (\angthis:#1);

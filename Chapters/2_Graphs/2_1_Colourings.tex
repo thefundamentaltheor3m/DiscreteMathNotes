@@ -1,14 +1,14 @@
-\section{Colorings}
+\section{Colourings}
 
-\begin{boxdefinition}[Coloring]
-    Given a graph $G = (V, E)$, a $k$-coloring of $G$ is a map $c : V \to [k]$ such that $u \sim v \implies c(u) \ne c(v)$.
+\begin{boxdefinition}[Colouring]
+    Given a graph $G = (V, E)$, a $k$-colouring of $G$ is a map $c : V \to [k]$ such that $u \sim v \implies c(u) \ne c(v)$.
 \end{boxdefinition}
 
-\subsection{$2$-Colorings of Graphs}
+\subsection{$2$-Colourings of Graphs}
 
-Let's start with a motivating question: which graphs can be 2-colored?
+Let's start with a motivating question: which graphs can be 2-coloured?
 
-Any odd cycle graph can't be 2-colored. That is, any graph that looks like
+Any odd cycle graph can't be 2-coloured. That is, any graph that looks like
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}
@@ -28,7 +28,7 @@ Let's study when odd cycles exist.
 \begin{boxlemma}\label{Ch2:Lemma:Odd_Closed_Walk}
     If $G$ has an odd closed walk, then $G$ has an odd cycle.
 \end{boxlemma}
-Recall that a closed walk need not be a cycle: walks can contain repetitions. So even line graphs can have closed walks (start from one vertex, go to its neighbor, return).
+Recall that a closed walk need not be a cycle: walks can contain repetitions. So even line graphs can have closed walks (start from one vertex, go to its neighbour, return).
 % [CORRECTED] was: "there must be some $x_i, x_j$ such that $x_i = x_j$ even though $i \neq j$" --- every closed walk
 % has $x_1 = x_{\ell}$, so that says nothing, and at $i = 1$, $j = \ell$ the two sub-walks below are the length-$0$ walk
 % and $W$ itself, neither shorter, so the minimality contradiction never fires.
@@ -39,12 +39,12 @@ Recall that a closed walk need not be a cycle: walks can contain repetitions. So
 Here's a cool result.
 
 \begin{boxtheorem}
-    A graph $G = (V, E)$ can be $2$-colored if and only if $G$ has no odd cycle.
+    A graph $G = (V, E)$ can be $2$-coloured if and only if $G$ has no odd cycle.
 \end{boxtheorem}
 \begin{iffproof}
-    \onlyifdir We've already seen that odd cycles can't be $2$-colored. So if $G$ can be $2$-colored, it can't have an odd cycle. We've essentially seen this from the examples above.
+    \onlyifdir We've already seen that odd cycles can't be $2$-coloured. So if $G$ can be $2$-coloured, it can't have an odd cycle. We've essentially seen this from the examples above.
 
-    \ifdir We may assume $G$ is connected, since otherwise we can color each component separately. Fix some $v_0 \in V$. Define $c : V \to \set{1, 2}$ by
+    \ifdir We may assume $G$ is connected, since otherwise we can colour each component separately. Fix some $v_0 \in V$. Define $c : V \to \set{1, 2}$ by
     \begin{align*}
         c(u) =
         \begin{cases}
@@ -54,20 +54,20 @@ Here's a cool result.
     \end{align*}
     where $\dist{\cdot, \cdot}$ denotes the shortest number of edges from one vertex to another.
 
-    We claim that this $c$ is a valid $2$-coloring.
+    We claim that this $c$ is a valid $2$-colouring.
 
-    Indeed, suppose it is not. Then, there must be some $u, v \in V$ such that $u \sim v$ and $c(u) = c(v)$. Now let's consider the two possible cases on the color.
+    Indeed, suppose it is not. Then, there must be some $u, v \in V$ such that $u \sim v$ and $c(u) = c(v)$. Now let's consider the two possible cases on the colour.
 
     Suppose $c(u) = c(v) = 1$ for adjacent $u, v$. Then, there is a path of even length between $v$ and $v_0$ and another path of even length between $u$ and $v_0$. Concatenating the path from $v$ to $v_0$ with the one from $v_0$ to $u$, and closing up with the edge $uv$, we get a closed walk of length even $+$ even $+ 1$. This is odd, so by \Cref{Ch2:Lemma:Odd_Closed_Walk}, $G$ has an odd cycle.
 
     The case $c(u) = c(v) = 2$ is identical: the two paths are now of odd length, so the closed walk they form with the edge $uv$ has length odd $+$ odd $+ 1$, which is odd again.
 
-    Either way, $G$ has an odd cycle, contrary to hypothesis. So $c$ must be a valid $2$-coloring.
+    Either way, $G$ has an odd cycle, contrary to hypothesis. So $c$ must be a valid $2$-colouring.
 \end{iffproof}
 
-\subsection{Colorings of Hypergraphs}
+\subsection{Colourings of Hypergraphs}
 
-Coloring is not really a question about graphs. All the definition above asks of $G$ is that we know which pairs of vertices may not share a color, and nothing stops us forbidding larger sets instead.
+Colouring is not really a question about graphs. All the definition above asks of $G$ is that we know which pairs of vertices may not share a colour, and nothing stops us forbidding larger sets instead.
 
 \begin{boxdefinition}[Hypergraph] \label{Ch2:Def:Hypergraph}
     Given a vertex set $V$, a \textbf{hypergraph} is a pair $H = \parenth{V, \H}$, where $\H$ is a collection of subsets of $V$. The sets in $\H$ are called \textbf{hyper-edges}.
@@ -84,20 +84,20 @@ The following is thus obvious.
 \end{boxproposition}
 
 \begin{boxdefinition}
-A proper coloring of a hypergraph $H$ is an assignment $c : V \to [r]$ such that $\forall f \in \H$, $\abs{c(f)} \geq 2$.
+A proper colouring of a hypergraph $H$ is an assignment $c : V \to [r]$ such that $\forall f \in \H$, $\abs{c(f)} \geq 2$.
 \end{boxdefinition}
 
 We say ``no edge is monochromatic''.
 
-We can ask ourselves the following question: \textbf{``Which $3$-uniform hypergraphs are $2$-colorable?}
+We can ask ourselves the following question: \textbf{``Which $3$-uniform hypergraphs are $2$-colourable?}
 
-For each $k$, define $m(k)$ to be the smallest $m$ such that $\exists$ some $k$-uniform hypergraph with $m$ edges that is not $2$-colorable. We can show that $m(2) = 3$. But what is $m(3)$? That is, how many $3$-edges do I need to prevent $2$-colorability?
+For each $k$, define $m(k)$ to be the smallest $m$ such that $\exists$ some $k$-uniform hypergraph with $m$ edges that is not $2$-colourable. We can show that $m(2) = 3$. But what is $m(3)$? That is, how many $3$-edges do I need to prevent $2$-colourability?
 
 \subsection{The Value of $m(3)$}
 
-Let $H$ be a $3$-uniform hypergraph that's not $2$-colorable. Assume, further, that $H$ has at most $6$ edges (each being a subset of size $3$).
+Let $H$ be a $3$-uniform hypergraph that's not $2$-colourable. Assume, further, that $H$ has at most $6$ edges (each being a subset of size $3$).
 
-First, we'll show that we can reduce, without loss of generality, to the case where $H$ has exactly $6$ vertices. Indeed, if $H$ has vertices $x, y$ that are not in any common edge, then I can define $H'$ by ``merging'' $x$ and $y$. So $H'$ has one fewer vertex than $H$. This $H'$ cannot be $2$-colorable: if it were, then that coloring would extend to $H$ by using the color of the merged vertex at both $x$ and $y$, which would make $H$ $2$-colorable. And when $H$ has more than $6$ vertices, such a pair always exists.
+First, we'll show that we can reduce, without loss of generality, to the case where $H$ has exactly $6$ vertices. Indeed, if $H$ has vertices $x, y$ that are not in any common edge, then I can define $H'$ by ``merging'' $x$ and $y$. So $H'$ has one fewer vertex than $H$. This $H'$ cannot be $2$-colourable: if it were, then that colouring would extend to $H$ by using the colour of the merged vertex at both $x$ and $y$, which would make $H$ $2$-colourable. And when $H$ has more than $6$ vertices, such a pair always exists.
 
 An edge has $3$ vertices, so it covers the $\binom{3}{2} = 3$ pairs among them, and $H$ has at most $6$ edges, so at most
 \begin{align*}
@@ -105,11 +105,11 @@ An edge has $3$ vertices, so it covers the $\binom{3}{2} = 3$ pairs among them, 
 \end{align*}
 pairs are covered in total. But if $H$ has $n \geq 7$ vertices, there are $\binom{n}{2} \geq \binom{7}{2} = 21$ pairs to cover. So some pair is left uncovered, and merging it brings us one vertex closer to $6$.
 
-So now assume that $H$ has exactly $6$ edges and $6$ vertices and is not $2$-colorable.
+So now assume that $H$ has exactly $6$ edges and $6$ vertices and is not $2$-colourable.
 
-There is no loss in the vertex count in the other direction either: a hypergraph with fewer than $6$ vertices can be handed as many extra vertices as it likes, and vertices lying in no edge change nothing about which colorings are proper.
+There is no loss in the vertex count in the other direction either: a hypergraph with fewer than $6$ vertices can be handed as many extra vertices as it likes, and vertices lying in no edge change nothing about which colourings are proper.
 
-Now count colorings. Among all the ways of coloring $6$ vertices with two colors, consider only the balanced ones, which split $V$ into two sets of three; there are $\frac{1}{2}\binom{6}{3} = 10$ of these. Such a coloring fails exactly when some edge is monochromatic, and an edge of $H$ has three vertices, so it is monochromatic under a balanced coloring precisely when it is one of the two color classes. Each edge $f$ therefore rules out exactly one of the ten balanced colorings, namely the one splitting $V$ into $f$ and $V \setminus f$. Six edges rule out at most six of the ten, so at least four survive, and any one of them is a proper $2$-coloring of $H$. This contradicts our assumption, so no such $H$ exists and
+Now count colourings. Among all the ways of colouring $6$ vertices with two colours, consider only the balanced ones, which split $V$ into two sets of three; there are $\frac{1}{2}\binom{6}{3} = 10$ of these. Such a colouring fails exactly when some edge is monochromatic, and an edge of $H$ has three vertices, so it is monochromatic under a balanced colouring precisely when it is one of the two colour classes. Each edge $f$ therefore rules out exactly one of the ten balanced colourings, namely the one splitting $V$ into $f$ and $V \setminus f$. Six edges rule out at most six of the ten, so at least four survive, and any one of them is a proper $2$-colouring of $H$. This contradicts our assumption, so no such $H$ exists and
 \begin{align*}
     m(3) \geq 7
 \end{align*}
@@ -132,25 +132,25 @@ That bound is attained, and the hypergraph attaining it is a familiar object.
 Every vertex lies on exactly three lines, any two vertices lie on exactly one line together, and any two lines meet in exactly one vertex. That last property is what does the work below.
 
 \begin{boxproposition}
-    The Fano plane is not $2$-colorable. Hence $m(3) = 7$.
+    The Fano plane is not $2$-colourable. Hence $m(3) = 7$.
 \end{boxproposition}
 \begin{proof}
     Of the $\binom{7}{4} = 35$ sets of four vertices, exactly $28$ contain a line: a line together with any one of the four vertices off it gives such a set, which is $7 \cdot 4 = 28$ sets in all, and no two of them coincide because four vertices cannot contain two lines---two lines meet in a vertex, so between them they cover five. The seven sets left over are the complements of the seven lines.
 
-    Now suppose we had a proper $2$-coloring, with color classes $A$ and $B$, and say $\abs{A} \leq 3$. If $\abs{A} = 3$, then $A$ is not a line, since $A$ is monochromatic; so $B = V \setminus A$ is a set of four vertices that is not the complement of a line, and hence contains one. If $\abs{A} \leq 2$, then the vertices outside $B$ lie on at most $3 + 3 - 1 = 5$ lines between them, so at least two lines avoid them both and lie inside $B$. Either way some line is monochromatic, which is a contradiction.
+    Now suppose we had a proper $2$-colouring, with colour classes $A$ and $B$, and say $\abs{A} \leq 3$. If $\abs{A} = 3$, then $A$ is not a line, since $A$ is monochromatic; so $B = V \setminus A$ is a set of four vertices that is not the complement of a line, and hence contains one. If $\abs{A} \leq 2$, then the vertices outside $B$ lie on at most $3 + 3 - 1 = 5$ lines between them, so at least two lines avoid them both and lie inside $B$. Either way some line is monochromatic, which is a contradiction.
 
-    So the Fano plane is a $3$-uniform hypergraph with seven edges that is not $2$-colorable, giving $m(3) \leq 7$.
+    So the Fano plane is a $3$-uniform hypergraph with seven edges that is not $2$-colourable, giving $m(3) \leq 7$.
 \end{proof}
 
 \subsection{Bounds on $m(k)$}
 
-Pinning down $m(3)$ took a page of case analysis, and doing the same for $m(4)$ is out of the question. What we can do for every $k$ at once is bound it, and the lower bound falls out of an idea that will keep coming back: color at random, and show that a bad coloring is improbable.
+Pinning down $m(3)$ took a page of case analysis, and doing the same for $m(4)$ is out of the question. What we can do for every $k$ at once is bound it, and the lower bound falls out of an idea that will keep coming back: colour at random, and show that a bad colouring is improbable.
 
 \begin{boxtheorem}\label{Ch2:Thm:mk_Lower_Bound}
-    $m(k) \geq 2^{k - 1}$. In other words, any $k$-uniform hypergraph with $< 2^{k - 1}$ edges is $2$-colorable.
+    $m(k) \geq 2^{k - 1}$. In other words, any $k$-uniform hypergraph with $< 2^{k - 1}$ edges is $2$-colourable.
 \end{boxtheorem}
 \begin{proof}
-    Given a hypergraph with $< 2^{k-1}$ edges, randomly color the vertices red and blue, with equal probability ($1/2$) for each. For each edge $f$, let $\mathcal{E}_f$ be the event that $f$ is monochromatic. Then,
+    Given a hypergraph with $< 2^{k-1}$ edges, randomly colour the vertices red and blue, with equal probability ($1/2$) for each. For each edge $f$, let $\mathcal{E}_f$ be the event that $f$ is monochromatic. Then,
     \begin{align*}
         \Pr\of{\mathcal{E}_f} = \frac{2}{2^k}
     \end{align*}
@@ -158,7 +158,7 @@ Pinning down $m(3)$ took a page of case analysis, and doing the same for $m(4)$ 
     \begin{align*}
         \Pr\of{\bigcup_{f \in \H} \mathcal{E}_f} \leq \frac{\abs{\H}}{2^{k - 1}} < 1
     \end{align*}
-    where we interpret $\bigcup_{f \in \H} \mathcal{E}_f$ as the event that there is a monochromatic edge. As the probability is less than $1$, there must be at least one coloring with no monochromatic edge.
+    where we interpret $\bigcup_{f \in \H} \mathcal{E}_f$ as the event that there is a monochromatic edge. As the probability is less than $1$, there must be at least one colouring with no monochromatic edge.
 \end{proof}
 
 Note that the above argument can also be written combinatorially instead of probabilistically. In this instance, the probabilistic language essentially conveys the same information as combinatorial language would. But this may not always be true, so it's worth being careful about this.
@@ -171,11 +171,11 @@ In the other direction, the truth is only a factor of about $k^2$ away.
 
 \subsection{Maker-Breaker Games}
 
-% [CORRECTED] was: "that one of two players be able to build such a coloring one vertex at a time, against an opponent
+% [CORRECTED] was: "that one of two players be able to build such a colouring one vertex at a time, against an opponent
 % trying to stop them" --- a breaker win only keeps maker's class free of an edge; breaker's own class may contain one,
-% so the play does not build a proper $2$-coloring. "Far more demanding" does stand: breaker winning implies
-% $2$-colorability, by setting breaker's second-player strategy against the first-player one it yields.
-\Cref{Ch2:Thm:mk_Lower_Bound} says that a hypergraph with few enough edges has a proper $2$-coloring somewhere among all the colorings of its vertices. It turns out that the very same threshold survives a far more demanding requirement: that one of two players, claiming vertices one at a time, be able to stop the other from ever owning a whole edge. Winning that does not by itself produce a proper $2$-coloring, since the winner's own class may contain a monochromatic edge. It does force one to exist all the same: a breaker who can win going second can also win going first, by holding a spare vertex in reserve, and setting those two strategies against each other leaves neither class containing an edge.
+% so the play does not build a proper $2$-colouring. "Far more demanding" does stand: breaker winning implies
+% $2$-colourability, by setting breaker's second-player strategy against the first-player one it yields.
+\Cref{Ch2:Thm:mk_Lower_Bound} says that a hypergraph with few enough edges has a proper $2$-colouring somewhere among all the colourings of its vertices. It turns out that the very same threshold survives a far more demanding requirement: that one of two players, claiming vertices one at a time, be able to stop the other from ever owning a whole edge. Winning that does not by itself produce a proper $2$-colouring, since the winner's own class may contain a monochromatic edge. It does force one to exist all the same: a breaker who can win going second can also win going first, by holding a spare vertex in reserve, and setting those two strategies against each other leaves neither class containing an edge.
 
 Here's a fun fact: a ``maker-breaker'' game is a game where the ``maker'' wins if they are able to achieve an objective and the ``breaker'' wins if they are able to stop the maker from winning. So if you set up a ``maker-breaker'' version of tic-tac-toe, where only the crosses can win by making three in a row and the noughts can only win by stopping the crosses, the crosses will always win (assuming the crosses play first). This is, of course, different from tic-tac-toe, which, as our own studies from when we were a kid have shown, can always be drawn.
 
@@ -185,10 +185,10 @@ The threshold at which breaker can hold out is exactly the one we have just been
     If $H$ is a $k$-uniform hypergraph with $m$ edges, and $m < 2^{k - 1}$, then breaker wins (if breaker goes second).
 \end{boxtheorem}
 
-% [CORRECTED] was: "the game is $2$-coloring; maker winning is equivalent to the existence of a coloring with a
-% monochromatic edge; and breaker winning is equivalent to the inexistence of such edge" --- coloring everything red
+% [CORRECTED] was: "the game is $2$-colouring; maker winning is equivalent to the existence of a colouring with a
+% monochromatic edge; and breaker winning is equivalent to the inexistence of such edge" --- colouring everything red
 % makes an edge monochromatic in every hypergraph with a nonempty edge, so that condition holds always and can be
-% equivalent to nothing. Winning is a property of strategies, not of which colorings exist.
+% equivalent to nothing. Winning is a property of strategies, not of which colourings exist.
 In the language of hypergraphs, the game is played on the vertices of $H$: the two players alternately claim unclaimed vertices, maker wins by claiming every vertex of some edge, and breaker wins if play ends with no edge wholly maker's.
 
 \begin{proof}
@@ -198,7 +198,7 @@ In the language of hypergraphs, the game is played on the vertices of $H$: the t
     \end{align*}
     We'll prove that if $m + \Delta < 2^k$, then breaker will win. Then, since $\Delta \leq m$, it will follow that if $m < 2^{k - 1}$, then $ m + \Delta \leq 2m < 2^k$.
 
-    At the start of move $i$, we will conceptualize the danger of edge $f \in \H$ by
+    At the start of move $i$, we will conceptualise the danger of edge $f \in \H$ by
     \begin{align*}
         \phi_i(f) &=
         \begin{cases}
@@ -208,18 +208,18 @@ In the language of hypergraphs, the game is played on the vertices of $H$: the t
         \\
         \Phi_i &= \sum_{f \in \H} \phi_i(f)
     \end{align*}
-    Consider the strategy where, once maker has played $y$ on move $i$, breaker plays the unclaimed vertex carrying the most danger, that is, the $x$ maximizing
+    Consider the strategy where, once maker has played $y$ on move $i$, breaker plays the unclaimed vertex carrying the most danger, that is, the $x$ maximising
     \begin{align*}
         \sum_{f \ni x} \phi(f)
     \end{align*}
-    with $\phi$ measured after maker's move. Two things move $\Phi$ on move $i$. Maker's play doubles the danger of every edge through $y$ that breaker has not already killed, so it raises $\Phi$ by $a_i = \sum_{f \ni y} \phi_i(f)$; breaker's play sends the danger of every surviving edge through $x$ to $0$, so it lowers $\Phi$ by the quantity $b_i$ that breaker has just maximized. Hence
+    with $\phi$ measured after maker's move. Two things move $\Phi$ on move $i$. Maker's play doubles the danger of every edge through $y$ that breaker has not already killed, so it raises $\Phi$ by $a_i = \sum_{f \ni y} \phi_i(f)$; breaker's play sends the danger of every surviving edge through $x$ to $0$, so it lowers $\Phi$ by the quantity $b_i$ that breaker has just maximised. Hence
     \begin{align*}
         \Phi_{i + 1} = \Phi_i + a_i - b_i
     \end{align*}
 
     The point of breaker's rule is that $a_i \leq b_{i - 1}$ for every $i \geq 2$. Indeed, $y$ is unclaimed right up until maker takes it on move $i$, so it was one of the vertices breaker was choosing between on move $i - 1$, and breaker chose one carrying at least as much danger as it. Between then and the start of move $i$ nothing happens except breaker's own play, which only ever sends dangers to $0$, so the danger through $y$ at the start of move $i$ is no greater than it was when breaker passed $y$ over.
 
-    Summing $\Phi_{i + 1} = \Phi_i + a_i - b_i$ over the first $n$ moves and canceling each $a_i$ against $b_{i - 1}$, everything past the first two terms disappears and we are left with
+    Summing $\Phi_{i + 1} = \Phi_i + a_i - b_i$ over the first $n$ moves and cancelling each $a_i$ against $b_{i - 1}$, everything past the first two terms disappears and we are left with
     \begin{align*}
         \Phi_{n + 1} \leq \Phi_1 + a_1
     \end{align*}

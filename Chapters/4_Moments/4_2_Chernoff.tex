@@ -33,7 +33,7 @@ We can consider taking higher moment bounds: bounding using not the second power
 What's one thing that beats \textit{all} of these? An exponential!
 
 % [CORRECTED] was: "$\eta := \sum_{i=1}^{n} \xi_n$" --- the summand does not depend on the index, so that sum is
-% $n \xi_n$, a single scaled coin flip of variance $n^2$; the theorem below, and its factorization over $i$, need
+% $n \xi_n$, a single scaled coin flip of variance $n^2$; the theorem below, and its factorisation over $i$, need
 % the walk $\sum_i \xi_i$.
 % [SUSPECT] "the binomial random variable $\eta$" below: $\eta = 2B - n$ for $B$ binomial, so its support is
 % $\set{-n, -n+2, \ldots, n}$ and it is not binomial. Two independent reviewers called this wrong and I left it,
@@ -51,7 +51,7 @@ Note that because $x < y \iff e^x < e^y$, we get that
 \end{align*}
 by Markov's inequality (where $\beta$ denotes $e^t$ for $t > 0$, a bit like how $q$ denotes $e^{2 \pi i z}$).
 
-Optimizing over $t$ turns that into a bound that decays in $a$ faster than any power.
+Optimising over $t$ turns that into a bound that decays in $a$ faster than any power.
 
 \begin{boxtheorem}[Chernoff's Bound] \label{Ch4:Thm:Chernoff}
     Let $\xi_1, \ldots, \xi_n$ be independent random variables each taking the values $\pm 1$ with probability $\frac{1}{2}$, and let $\eta = \sum_{i=1}^{n} \xi_i$. Then for every $a \geq 0$,
@@ -80,12 +80,12 @@ Optimizing over $t$ turns that into a bound that decays in $a$ faster than any p
     \end{align*}
     % [CORRECTED] was: "the $n$ that minimises this" --- $n$ is fixed by the statement and the exponent is increasing
     % in it; the free parameter is $t$, and $t = \frac{a}{n}$ is what gives $e^{-a^2 / 2n}$.
-    Can we optimize this? Ie, can we find the $t$ that minimizes this? It turns out, we can: by some calculus nonsense, we get that the optimal value is $e^{-\frac{a^2}{2n}}$.
+    Can we optimise this? Ie, can we find the $t$ that minimises this? It turns out, we can: by some calculus nonsense, we get that the optimal value is $e^{-\frac{a^2}{2n}}$.
 \end{proof}
 
 The same bound holds if the $\xi_i$ are independent and for all $i$, $\abs{\xi_i} \leq 1$ and $\E\of{\xi_i} = 0$.
 
-% [CORRECTED] was: "let $\eta$ denote their product" --- the display immediately below factorizes $\E\of{e^{t\eta}}$
+% [CORRECTED] was: "let $\eta$ denote their product" --- the display immediately below factorises $\E\of{e^{t\eta}}$
 % over $i$, which is the exponential turning a sum into a product, and a bound of the shape $e^{-a^2/2n}$ only has
 % content for a sum.
 For instance, consider the case where
