@@ -74,7 +74,7 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
       Erdos-Selfridge: breaker wins when m + Delta < 2^k
       8x8x8 tic-tac-toe, as an aside the course drops
 
-2.2 Ramsey Numbers                                  [2026-08-26, 2026-09-25]
+2.2 Ramsey Numbers                                  [2026-08-26, 2026-09-25, 2026-09-28]
     Turns the question around: how large must a structure be before every
     colouring of it is forced to produce something monochromatic.
       R(k), for edge colourings of complete graphs                  (preamble)
@@ -95,6 +95,18 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
       the two cases of the proof, and A, B and n named             [supplied]
       H a copy of K_(r-1)(n-1); at r = 2 the graph bound above      [supplied]
       every R_(r)(k, l) exists, by induction on r, then k + l       [supplied]
+    2.2.3 A Better Upper Bound                      [2026-09-28]
+      the recursion unwound: a tower for R_(3), a super-tower for R_(4)
+      the stepping-up construction for R_(3): a sequence x_1, ..., x_{m+1}
+        in which the colour of a triple depends on its first two, by
+        halving; R_(3)(k, l) <= 2^{m^2} with m = R_(2)(k-1, l-1)
+      the same for R_(r): R_(r)(k, l) <= 2^{binom(m, r-1) + 1} with
+        m = R_(r-1)(k-1, l-1), "for r, k, l sufficiently large"
+    2.2.4 Cups and Caps                             [2026-09-28]
+      k-caps and k-cups, drawn; ES(k, l), for points in general position
+      ES(k, l) <= ES(k-1, l) + ES(k, l-1) - 1 for k, l >= 3, by the last
+        points of (k-1)-caps and the slopes at p_1, drawn
+      ES(k, l) <= 2 binom(k+l-4, k-2) <= 2^{k+l}, by induction on k + l
 
 2.3 Chromatic Number                                [2026-09-02]
     Comes back to colouring graphs, and asks how many colours a graph needs
@@ -250,6 +262,70 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
     An infinite binary sequence whose identical blocks are exponentially far
     apart: the first application of the local lemma in view.
       Beck's theorem, stated and not proved, not named in the lecture
+```
+
+## 6. Ramsey Theory  ->  `Chapters/6_Ramsey/`
+
+```
+6.1 Van der Waerden's Theorem                       [2026-09-30, 2026-10-07]
+    Asks the Ramsey question of the integers: must an r-colouring of N
+    contain arbitrarily long monochromatic arithmetic progressions?
+      VW(k, r), and the theorem that it exists; VW(2, r) = r + 1     (preamble)
+    6.1.1 Colour-Focusing                           [2026-09-30]
+      VW(3, 2) >= 9, from the colouring RRBBRRBB                     [supplied]
+      VW(3, 2) <= 325, by blocks of five, two identically coloured
+        blocks and the block 2j - i, drawn
+      colour-focused APs and their focus point
+      VW(3, 3) <= 30625 (2 * 3^30625 + 1), by going up one level,
+        drawn
+    6.1.2 Colour-Focus Numbers                      [2026-09-30]
+      CF(k, r, s), the least N forcing a monochromatic (k+1)-AP or s
+        colour-focused k-APs of different colours with focus in [N]
+      VW(k, r) <= CF(k-1, r, r)
+      CF(k, r, s) <= CF(k, r, s-1) * 2 VW(k, r^{CF(k, r, s-1)}) for
+        2 <= s <= r, by stretching APs across an AP of blocks, drawn
+      CF(k, r, s) exists, by induction on k and then on s; van der
+        Waerden's theorem as the corollary
+    6.1.3 A Lower Bound from the Local Lemma        [2026-10-07]
+      VW(k, 2) > (k-1) 2^{k-1} / (e k^2), so Omega(2^k / k), from the
+        local lemma with x_A = 1/(D+1); the lecture quoted the bound as
+        "shown", and nothing in the notes had shown it               [supplied]
+
+6.2 The Hales--Jewett Theorem                       [2026-10-02, 2026-10-05, 2026-10-07]
+    Strips the arithmetic out of colour-focusing: colours the hypercube
+    [n]^d and forces a combinatorial line, then reads progressions off it.
+    6.2.1 Combinatorial Lines                       [2026-10-02]
+      templates, active and fixed coordinates, L_sigma, the last point   [supplied]
+      the three combinatorial lines of [3]^2 through a point, and the
+        anti-diagonal that is not one                                [supplied]
+      HJ(n, r), and the theorem that it exists
+    6.2.2 Colour-Focused Lines                      [2026-10-05]
+      colour-focused lines, and the 3 x 3 example, drawn
+      FHJ(n, r, s); HJ(n, r) <= FHJ(n, r, r)                        [supplied]
+      FHJ(n, r, s) <= FHJ(n, r, s-1) + HJ(n-1, r^{n^{FHJ(n, r, s-1)}})
+        for 2 <= s <= r: the lecture's setup, with the [n]^{D_1 + D_2}
+        split drawn, and the concatenation of lines completed        [supplied]
+      the Hales--Jewett theorem, by induction on n then s, with
+        FHJ(n, r, 1) <= HJ(n-1, r) as the base                        [supplied]
+    6.2.3 From Lines to Progressions                [2026-10-02, 2026-10-07]
+      Gallai's theorem: a monochromatic alpha X + beta in any
+        r-colouring of Z^k, by colouring [n]^d through sums of the
+        x_i; sourced to Graham-Rothschild-Spencer ch. 2 and to
+        Hales-Jewett 1963                                            [supplied]
+      phi: [n]^d -> [n^d] by base-n digits takes lines to progressions,
+        so VW(n, r) <= n^{HJ(n, r)}                                   [supplied]
+      why that is all the argument needs of phi, and gamma, the sum
+        of squares, giving quadratic progressions
+
+6.3 Infinite Ramsey Theory                          [2026-10-07]
+    The complete graph on N, where every 2-colouring of the edges has
+    an infinite monochromatic clique, and the finite statement that
+    Peano arithmetic cannot prove.
+      the infinite clique, by the standard nested-neighbourhood
+        argument; the lecture's argument coloured vertices          [CORRECTED]
+      relatively large sets, and the large Ramsey number R-bar;
+        rewritten on the author's instruction                        [supplied]
+      Paris-Harrington: its existence is unprovable in PA, cited
 ```
 
 Material marked `[handwritten]` came from the author's handwritten notes rather
@@ -464,6 +540,38 @@ R(k, l) <= R(k-1, l) + R(k, l-1)  "what we know about Ramsey numbers on graphs",
                                  \todo for the cross-reference to Michele's notes.
                                  2.2.2 cites it, and notes that its own bound
                                  at r = 2, with the lemma, is this one.
+R_(2)(k, l) <= binom(k+l-2, k-1)  "Recall also that", 2026-09-28, at the top of
+                                 2.2.3. It follows from the graph recursion
+                                 above by induction, and the notes do not say
+                                 so.
+"sufficiently large" in 2.2.3    the stepping-up theorem of 2026-09-28 is stated
+                                 for r, k, l "sufficiently large"; the middle
+                                 inequality binom(m, r-1) + 1 <= m^{r-1} needs
+                                 r >= 3, and nothing else needs more. Left as
+                                 the lecturer put it.
+convex problems                  "improve the bound even further when we're
+                                 dealing with convex problems", 2026-09-28:
+                                 reached the same day, as 2.2.4. The exact value
+                                 ES(k, l) = binom(k+l-4, k-2) + 1 is not stated.
+VW(3, 2) = 9                     only 9 <= VW(3, 2) <= 325 is in the notes
+                                 (2026-09-30); that 9 suffices is not shown.
+the LLL proof, now load-bearing  5.1's local lemma is still \sorry ("we will do
+                                 this next time", 2026-09-16), and 6.1.3 now
+                                 proves a theorem from it (2026-10-07). The
+                                 lecture of 7 October said VW(k, 2) = Omega(2^k/k)
+                                 had been "shown using the Lovasz Local Lemma";
+                                 no lecture in these notes shows it, so the
+                                 proposition is supplied and marked.
+the Lean aside                   "In Lean this would be induction k generalizing
+                                 r s", a footnote of 2026-09-30, is why
+                                 listings and lstlean.tex arrived in #26.
+infinite Ramsey for k-sets       6.3 states and proves only the case of edges
+                                 and 2 colours (2026-10-07); the large Ramsey
+                                 number is defined for k-subsets and c colours,
+                                 and its existence "follows from the infinite
+                                 version of Ramsey's theorem by a compactness
+                                 argument, which we will not give".
+Paris-Harrington                 named 2026-10-07 and explicitly not proved.
 ```
 
 ## Unplaced
@@ -471,6 +579,14 @@ R(k, l) <= R(k-1, l) + R(k, l-1)  "what we know about Ramsey numbers on graphs",
 Nothing. The local lemma of 2026-09-16 and Beck's theorem of 2026-09-21 were
 held in the inbox, the first on the author's instruction, until the author asked
 on 2026-09-23 for the inbox to be emptied; they are now chapter 5.
+
+The lectures of 28 and 30 September 2026 were held out of the notes until
+2026-10-07 at the author's request (they are the author's assessed contribution
+to a collective notes repository, and were edited in a local-only copy
+meanwhile). They arrived in #26 together with the lectures of 2, 5 and 7
+October, and were integrated with them on 2026-10-07. The same commit re-synced
+the 25 September block, already integrated in #25, into the inbox; that copy was
+byte-identical to the pre-#25 inbox and was dropped, not integrated twice.
 
 ## Structural pressure
 
@@ -532,7 +648,26 @@ The Lovasz Local Lemma is a new body of theory parked at the end of a chapter
     preamble is the graph case of what the subsections do, and reads as a
     subsection in waiting ("Ramsey Numbers of Graphs"). /integrate may not
     split existing material under a new heading, so it is left. [noted
-    2026-09-25]
+    2026-09-25; worse 2026-09-28, when the hypergraph subsections became four]
+
+Ramsey theory is split across two chapters. Chapter 6 holds van der Waerden,
+    Hales--Jewett and infinite Ramsey, and opens by pointing back at 2.2 for
+    the Ramsey numbers it generalises; 2.2 itself, four subsections and a
+    preamble of it, sits in a chapter called "Graphs and Colourings" whose
+    other three sections are about colouring graphs, and whose intro has to
+    explain Ramsey numbers away in a sentence. The natural shape is one
+    chapter, Ramsey Theory, with 2.2 as its first section (its preamble the
+    graph subsection, then the hypergraph ones, stepping up, cups and caps),
+    then van der Waerden, Hales--Jewett and the infinite case; chapter 2 would
+    be left with exactly what its title says. That moves every result of 2.2
+    and renames its labels, so it is /organise's. [noted 2026-10-07]
+
+6.1.3 proves a lower bound from the local lemma of 5.1, whose own proof is
+    still a \sorry. Nothing is misplaced --- the application belongs with the
+    van der Waerden numbers it bounds, and chapter 5 comes first --- but the
+    dependency is on an unproved result, and the lecture presented the bound
+    as already established. If the LLL proof arrives, 6.1.3 is where to point
+    an application at. [noted 2026-10-07]
 ```
 
 Resolved by the `/organise` pass of 2026-09-15, kept as a record:

@@ -173,3 +173,175 @@ At $r = 2$ the bound, together with \Cref{Ch2:Lemma:Hypergraph_Ramsey_1}, reads 
 \begin{proof}
     Induct on $r$. The case $r = 1$ is \Cref{Ch2:Lemma:Hypergraph_Ramsey_1}. For $r \geq 2$, induct on $k + \ell$. If $k = 1$ or $\ell = 1$, then $R_{(r)}(k, \ell) = 1$, since a single vertex has no $r$-subsets and so is vacuously a clique of both colours. Otherwise $k, \ell \geq 2$, so $R_{(r)}(k - 1, \ell)$ and $R_{(r)}(k, \ell - 1)$ exist by the induction on $k + \ell$, $R_{(r - 1)}$ of them exists by the induction on $r$, and the proof of \Cref{Ch2:Thm:Hypergraph_Ramsey_Recursion} exhibits an $n$ with the required property.
 \end{proof}
+
+\subsection{A Better Upper Bound}
+
+\Cref{Ch2:Thm:Hypergraph_Ramsey_Recursion} is a recursive bound on hypergraph Ramsey numbers, and it is worth seeing how large the numbers it produces are. Recall that
+\begin{align*}
+    R_{(r)}\of{k, \ell} \leq R_{(r - 1)}\of{R_{(r)}\of{k-1, \ell}, R_{(r)}\of{k, \ell - 1}} + 1
+\end{align*}
+Recall also that
+\begin{align*}
+    R_{(2)}\of{k, \ell}
+    \leq \binom{k + \ell - 2}{k - 1}
+    \leq 2^{k + \ell}
+\end{align*}
+We can apply this to show, for $r = 3$, that
+\begin{align*}
+    R_{(3)}\of{k, \ell}
+    & \leq R_{(2)}\of{R_{(3)}\of{k - 1, \ell}, R_{(3)}\of{k, \ell - 1}} + 1 \\
+    & \leq 2^{R_{(3)}(k - 1, \ell) + R_{(3)}(k, \ell - 1)} \\
+    & \leq \left. 2^{2^{\cdot^{\cdot^{\cdot^{2}}}}} \right\} \text{roughly } k + \ell
+\end{align*}
+We can apply this to bound $R_{(4)}$ as well:
+\begin{align*}
+    R_{(4)}\of{k, \ell}
+    & \leq R_{(3)}\of{R_{(4)}\of{k - 1, \ell}, R_{(4)}\of{k, \ell - 1}} + 1 \\
+    & \leq \left. 2^{2^{\cdot^{\cdot^{\cdot^{2}}}}} \right\} \text{roughly } R_{(4)}\of{k - 1, \ell} + R_{(4)}\of{k, \ell - 1} \\
+    & \leq \underbrace{\left. 2^{2^{\cdot^{\cdot^{\cdot^{2}}}}} \right\} \left. 2^{2^{\cdot^{\cdot^{\cdot^{2}}}}} \right\} \cdots \left. 2^{2^{\cdot^{\cdot^{\cdot^{2}}}}} \right\} 2}_{k + \ell \text{ towers}}
+\end{align*}
+This is a ``super-tower'' of depth $k + \ell$. As you can imagine, doing the same for $R_{(5)}$ gives a ``super-super-tower'', and the upper-bound gets incredibly large incredibly quickly. What this tells us is that we need to improve the upper-bound substantially if we want any hope of estimating hypergraph Ramsey numbers computationally.
+
+We will do two things:
+\begin{enumerate}
+    \item Improve the bound on $R_{(r)}(k, \ell)$
+    \item Improve the bound even further when we're dealing with convex problems
+\end{enumerate}
+
+Our strategy will be to find an $n$ large enough so that any red/blue colouring of $K_{(r)}(n)$ admits a red $k$-clique or a blue $\ell$-clique. This $n$ will serve as our upper-bound for $R_{(r)}(k, \ell)$. We will do this by constructing a sequence that contains either a $(k - 1)$-clique or an $(\ell - 1)$-clique that can be extended to a $k$-clique or an $\ell$-clique by the addition of another element.
+
+Let's begin by improving the upper-bound on $R_{(3)}(k, \ell)$. We'll do this by constructing a sequence $x_1, x_2, \ldots, x_m, x_{m + 1}$ of vertices of our hypergraph such that the colour of $\set{x_a, x_b, x_c}$ depends only on $a$ and $b$ for any $a < b < c$. In other words, the colour of $x_c$ should be a \textit{completion} of the colouring of $x_a$ and $x_b$.\footnote{$a, b, c$ may not be consecutive: in fact, we will often have rather sparse sequences in the hypergraph.}
+
+Pick some $x_1$ and $x_2$. At least half of the remaining vertices complete it in a consistent colour\footnote{ie, all of the remaining vertices complete it \textit{in the same way}/\textit{with the same colour}}. \textit{Throw away the rest.} Pick an $x_3$ from what remains. To pick $x_4$, repeat this process by considering completions of the pair $x_1, x_3$ as well as the pair $x_2, x_3$ (we're already in the $\sim$half consisting of things that consistently complete $x_1, x_2$). Keep going. Indeed, the number of remaining vertices gets very small very quickly. If you start off with (roughly) $n = 2^{\binom{m}{2}}$ (or maybe $n = 2^{\binom{m}{2}} + \text{a small number}$) vertices in your hypergraph, you can choose $x_1, \ldots, x_m$ via this process, and set $x_{m + 1}$ to be what's left. We need to now choose $m$ so that this induces a red $k$-clique or a blue $\ell$-clique, and this gives us our Ramsey upper-bound $n$.
+
+Suppose $m = R_{(2)}\of{k - 1, \ell - 1}$. Then in the colouring induced on pairs in our sequence, we can find a red $(k - 1)$-clique or a blue $(\ell - 1)$-clique. Adding $x_{m + 1}$ then gives us either a red $k$ $(3)$-clique or a blue $\ell$ $(3)$-clique. This gives us an upper-bound
+\begin{align*}
+    R_{(3)}\of{k, \ell} \leq 2^{\binom{m}{2} + 1} \leq 2^{m^2}
+\end{align*}
+(the $+1$ takes care of the ``small number'' from before). Since $m \leq 2^{k + \ell}$, we can upper-bound the entire thing by
+\begin{align*}
+    R_{(3)}\of{k, \ell} \leq 2^{2^{2(k + \ell)}}
+\end{align*}
+
+Now let's compute the bound on $R_{(r)}(k, \ell)$.
+
+\begin{boxtheorem}
+    For all $r, k, \ell$ sufficiently large, we have the upper-bound
+    \begin{align*}
+        R_{(r)}\of{k, \ell} \leq 2^{\binom{m}{r - 1} + 1} \leq 2^{m^{r - 1}} = 2^{R_{(r - 1)}\of{k - 1, \ell - 1}^{r - 1}}
+    \end{align*}
+    where $m = R_{(r - 1)}\of{k - 1, \ell - 1}$.
+\end{boxtheorem}
+\begin{proof}
+    We'll proceed in an identical fashion: Given a red/blue colouring of $K_{(r)}(n)$, build a sequence $x_1, \ldots, x_m, x_{m + 1}$ such that the colour of any $\set{x_{i_1}, \ldots, x_{i_r}}$ (for $i_1 < i_2 < \cdots < i_r$) is determined by $x_{i_1}, \ldots, x_{i_{r - 1}}$. For $n = 2^{\binom{m}{r - 1}}$, we can make this sequence.
+
+    It remains to choose $m$ so that this sequence has the clique-property. Take $m = R_{(r - 1)}\of{k - 1, \ell - 1}$. Then, similarly to the previous case, in the colouring induced on sets of $r - 1$ elements in our sequence, we can find a red $(k - 1)$-clique or a blue $(\ell - 1)$-clique. Adding $x_{m + 1}$ then gives us either a red $k$ $(r)$-clique or a blue $\ell$ $(r)$-clique. This gives us the upper-bound
+    \begin{align*}
+        R_{(r)}\of{k, \ell} \leq 2^{\binom{m}{r - 1} + 1} \leq 2^{m^{r - 1}} = 2^{R_{(r - 1)}\of{k - 1, \ell - 1}^{r - 1}}
+    \end{align*}
+    (the $+1$ again takes care of the ``small number'').
+\end{proof}
+
+\subsection{Cups and Caps}
+
+We now move on to a result by \Erdos\ and Szekeres.
+
+\begin{boxdefinition}[Cups and Caps]
+    A \textbf{$k$-cap} and a \textbf{$k$-cup} are (respectively) concave and convex arrangements of $k$ points.
+\end{boxdefinition}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale = 0.8]
+        \drawcup{5}
+        \node at (0, -0.7) {a $5$-cup};
+    \end{tikzpicture}
+    \hspace{2cm}
+    \begin{tikzpicture}[scale = 0.8]
+        \drawcap{5}
+        \node at (0, -1.7) {a $5$-cap};
+    \end{tikzpicture}
+\end{figure}
+
+We are interested in how many points it takes to force one of these.
+
+\begin{boxdefinition}[\Erdos--Szekeres Number]
+    The \textbf{\Erdos--Szekeres number for $k$ and $\ell$}, denoted $\ES(k, \ell)$, is the smallest $n \in \N$ such that any $n$ points in $\R^2$ in general position (with no two on a vertical line) have a $k$-cap or an $\ell$-cup.
+\end{boxdefinition}
+
+We will show, eventually, that
+\begin{align*}
+    \ES(k, \ell) \le 2\binom{k + \ell - 4}{k - 2} \le 2^{k + \ell}
+\end{align*}
+
+% [CORRECTED] was: no hypothesis on $k, \ell$ --- at $k = \ell = 2$ the right-hand side is $\ES(1, 2) + \ES(2, 1) - 1 = 1$ while $\ES(2, 2) = 2$, and the proof uses $q_{k - 2}$ and $p_2$, which need $k, \ell \geq 3$; the corollary below only ever applies the lemma there
+\begin{boxlemma}\label{Ch2:Lemma:ES_Recursion}
+    For all $k, \ell \geq 3$,
+    \begin{align*}
+        \ES(k, \ell) \le \ES(k - 1, \ell) + \ES(k, \ell - 1) - 1
+    \end{align*}
+\end{boxlemma}
+\begin{proof}
+    We fix an arbitrary set $X \ssq \R^2$ of $\ES(k - 1, \ell) + \ES(k, \ell - 1) - 1$ points in general position, no two on a vertical line, and show that it contains a $k$-cap or an $\ell$-cup.
+    
+    Deny. Let $L \ssq X$ be the set of points in $X$ that are the last points in some $(k - 1)$-cap, so that $X \setminus L$ has no $(k - 1)$-caps. Thus
+    \begin{align*}
+        \abs{X \setminus L} < \ES(k - 1, \ell)
+    \end{align*}
+    Since $\abs{X} = \ES(k - 1, \ell) + \ES(k, \ell - 1) - 1$, we conclude that $\abs{L} \geq \ES(k, \ell - 1)$.
+
+    As $X$ has no $k$-cap, neither does $L$, so $L$ must have an $(\ell - 1)$-cup $p_1, \ldots, p_{\ell - 1}$. Since $p_1 \in L$, it is the last point of some $(k - 1)$-cap $q_1, \ldots, q_{k - 1} = p_1$. One of these two extends, according to how the slopes compare at $p_1$: let $s$ be the slope of $q_{k - 2} p_1$ and $t$ the slope of $p_1 p_2$. These are different, since otherwise $q_{k - 2}$, $p_1$ and $p_2$ would lie on a line.
+
+    \begin{figure}[H] % Note: This was generated by Claude code, though I must admit I had to provide more aesthetic guidance than I anticipated...
+        \centering
+        \begin{tikzpicture}[scale = 1.1]
+            \draw[line width = 5pt, blue, opacity = 0.25, line cap = round, line join = round] (0, 0) -- (1, 1) -- (2, 1.4);
+            \draw[thick, dashed] (0, 0) -- (1, 1);
+            \draw[line width = 5pt, orange, opacity = 0.4, line cap = round] (2, 1.4) -- (3, 1.2);
+            \draw[thick] (1, 1) -- (2, 1.4) -- (3, 1.2);
+            \draw[thick, dashed] (3, 1.2) -- (4, 1.6);
+            \foreach \x/\y/\pos/\lab in {0/0/below/q_1, 1/1/above left/q_{k - 2}, 2/1.4/above/p_1, 3/1.2/below/p_2, 4/1.6/right/p_{\ell - 1}}{
+                \fill (\x, \y) circle (2pt) node[\pos] {$\lab$};
+            }
+            \node at (2, -0.8) {$s > t$: a $k$-cap};
+        \end{tikzpicture}
+        \hspace{1.5cm}
+        \begin{tikzpicture}[scale = 1.1]
+            \draw[line width = 5pt, blue, opacity = 0.25, line cap = round, line join = round] (2, 1.5) -- (3, 2.1) -- (4, 3.3);
+            \draw[thick, dashed] (0, 0) -- (1, 1.2);
+            \draw[line width = 5pt, orange, opacity = 0.4, line cap = round] (1, 1.2) -- (2, 1.5);
+            \draw[thick] (1, 1.2) -- (2, 1.5) -- (3, 2.1);
+            \draw[thick, dashed] (3, 2.1) -- (4, 3.3);
+            \foreach \x/\y/\pos/\lab in {0/0/below/q_1, 1/1.2/above left/q_{k - 2}, 2/1.5/below right/p_1, 3/2.1/below right/p_2, 4/3.3/right/p_{\ell - 1}}{
+                \fill (\x, \y) circle (2pt) node[\pos] {$\lab$};
+            }
+            \node at (2, -0.8) {$s < t$: an $\ell$-cup};
+        \end{tikzpicture}
+    \end{figure}
+    \begin{description}
+        \item[\underline{$s > t$.}] The slopes keep decreasing past $p_1$, so $q_1, \ldots, q_{k - 1}, p_2$ is a $k$-cap.
+        \item[\underline{$s < t$.}] The slopes are already increasing at $p_1$, so $q_{k - 2}, p_1, p_2, \ldots, p_{\ell - 1}$ is an $\ell$-cup.
+    \end{description}
+    Either way, we have a contradiction.
+\end{proof}
+
+\begin{boxcorollary}
+    For all $k, \ell \geq 2$,
+    \begin{align*}
+        \ES(k, \ell) \leq 2\binom{k + \ell - 4}{k - 2} \leq 2^{k + \ell}
+    \end{align*}
+\end{boxcorollary}
+\begin{proof}
+    We prove the first inequality by induction on $k + \ell$. When $k = 2$ or $\ell = 2$, any two points form both a $2$-cap and a $2$-cup, so $\ES(k, \ell) \leq 2 = 2\binom{k + \ell - 4}{k - 2}$.
+
+    Fix some $k, \ell \geq 3$ and assume the result holds for all $k', \ell'$ with $k' + \ell' < k + \ell$. We then get, by \Cref{Ch2:Lemma:ES_Recursion}
+    \begin{align*}
+        \ES(k, \ell)
+        &\leq \ES(k - 1, \ell) + \ES(k, \ell - 1) \\
+        &\leq 2\binom{k + \ell - 5}{k - 3} + 2\binom{k + \ell - 5}{k - 2} \\
+        &= 2\binom{k + \ell - 4}{k - 2}
+    \end{align*}
+    with the second inequality given by the induction hypothesis.
+    
+    For the second inequality, $\binom{k + \ell - 4}{k - 2} \leq 2^{k + \ell - 4}$, since a single binomial coefficient is at most the sum of its row of Pascal's triangle, so $2\binom{k + \ell - 4}{k - 2} \leq 2^{k + \ell - 3} \leq 2^{k + \ell}$.
+\end{proof}

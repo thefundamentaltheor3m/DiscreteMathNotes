@@ -1,0 +1,15 @@
+\section{Infinite Ramsey Theory}
+
+% [CORRECTED] was: ``indeed, if I have a red/blue colouring of $\N$, then either the set of red numbers or the set of blue numbers must be infinite, so just look at the edges between them to get the desired clique.'' --- that colours the vertices rather than the edges, and an infinite set of vertices says nothing about the colours of the edges among them (colour $ij$ by whether $i$ and $j$ have the same parity: every vertex sees both colours infinitely often, and the monochromatic infinite cliques are the evens and the odds); the argument below is the standard one
+Consider the complete graph on the natural numbers, denoted $K_{\N}$. First, observe that any $2$-colouring of the edges of $K_{\N}$ has an infinite monochromatic clique: indeed, pick $v_1 \in \N$; infinitely many of the edges at $v_1$ have the same colour, say $c_1$, so let $S_1$ be the infinite set of their other endpoints. Pick $v_2 \in S_1$; infinitely many of the edges from $v_2$ into $S_1$ have the same colour, say $c_2$, and let $S_2 \ssq S_1$ be the set of their other endpoints. Continuing in this way gives $v_1, v_2, \ldots$ and colours $c_1, c_2, \ldots$ such that the edge $v_i v_j$ has colour $c_i$ whenever $i < j$. One colour occurs infinitely often among the $c_i$, and the $v_i$ with that $c_i$ form an infinite monochromatic clique.
+
+Ramsey numbers of finite sets have a strengthening in which the monochromatic set is asked to be large relative to its own elements.
+
+% The definition below was rewritten on the author's instruction (``what the heck is this definition''). It read: Define $\bar{R_k^{(c)}}$ to be the smallest $N \in \N$ such that any $c$-colouring of $k$-sets of $[N]$ has a monochromatic $n$-clique $X$ on $n' \geq n$ such that $n' \geq \min(X)$.
+\begin{boxdefinition}[Large Ramsey Number]
+    A finite set $X \ssq \N$ is \textbf{relatively large} if $\abs{X} \geq \min X$. For $n, k, c \in \N$, define $\bar{R}^{(c)}_k(n)$ to be the smallest $N \in \N$ such that any $c$-colouring of the $k$-subsets of $[N]$ has a relatively large set $X \ssq [N]$ with $\abs{X} \geq n$ all of whose $k$-subsets have the same colour.
+\end{boxdefinition}
+
+So $X$ is a monochromatic clique in the sense of hypergraph Ramsey numbers, and for $c = 2$ the definition without the words ``relatively large'' would be $R_{(k)}(n, n)$. The extra condition is what makes the number interesting: a monochromatic clique whose least element is $m$ now has to have at least $m$ elements, so cliques that start early are cheap and cliques that start late are expensive. That these numbers exist at all follows from the infinite version of Ramsey's theorem by a compactness argument, which we will not give.
+
+One interesting theorem (that we will not prove here) is that the existence of the above cannot be proven in Peano arithmetic. This is the Paris--Harrington theorem~\cite{ParisHarrington}, the first example of a natural combinatorial statement that is true but not provable from Peano's axioms.
