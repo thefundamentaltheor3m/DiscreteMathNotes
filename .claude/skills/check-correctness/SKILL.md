@@ -42,9 +42,9 @@ of preference:
 4. **The passage reworked.** Reserved for something actually false. Rare, and it
    comes with a marker and a paragraph in the report.
 
-Never take a correction as license to improve the exposition around it. Tightening a
+Never take a correction as licence to improve the exposition around it. Tightening a
 proof you happened to be reading, adding a remark you think is missing, renaming
-notation you find clumsy — all out of scope, all `/organize`'s or nobody's. If a
+notation you find clumsy — all out of scope, all `/organise`'s or nobody's. If a
 passage is genuinely unsalvageable, say so in the report and leave it.
 
 ## What is not a correction
@@ -93,7 +93,7 @@ Four tiers, and the tier decides how much you may move.
 
 **Slips are the commonest thing this skill finds, and they are always fixed.** One
 left in place is harmless today and confusing in six months, when the author reads $V$
-and has to work out which object was meant. Being true is no defense: "$V$ contains
+and has to work out which object was meant. Being true is no defence: "$V$ contains
 the equilateral triangle as a subgraph" is true of the point set in a loose sense, and
 still names the wrong object. Nor is fixing a slip a liberty with the author's text.
 A slip is a place where the page failed to say what the author meant; the author's
@@ -210,9 +210,9 @@ The question is which statement is true, and nothing else.
 
 What the brief must **not** contain, in any form:
 
-- **Which of A and B came from the notes**, or which one you favor. Put the notes'
+- **Which of A and B came from the notes**, or which one you favour. Put the notes'
   reading in slot A for some candidates and slot B for others, so that a positional
-  bias cannot systematically favor your own proposal.
+  bias cannot systematically favour your own proposal.
 - **Your reasoning**, your confidence, or how you came to look at this passage.
 - **The rulings of other adjudicators**, or how many candidates this run has.
 - **Anything that reads as a request for agreement.** "I think the notes have this
@@ -239,7 +239,7 @@ The prose you write is prose in these notes. `.claude/STYLE.md` governs it exact
 it governs everything else: first-person plural, one-sentence bridge before every
 boxed environment, `align*` for displays, one paragraph per source line and no hard
 wrapping, `` ``LaTeX quotes'' ``, `---` for dashes, `\Cref` and never `\cref`, case
-splits in a `description`, American spelling. Grep `TeX_Setup/shortcuts.tex` before
+splits in a `description`, British spelling. Grep `TeX_Setup/shortcuts.tex` before
 writing raw math.
 
 Two mechanical rules matter more here than anywhere else, because this skill's diffs
@@ -382,14 +382,14 @@ gh api repos/thefundamentaltheor3m/DiscreteMathNotes/pulls/<n>/comments \
 ```
 
 A single top-level `gh pr comment` carrying the whole report is acceptable when the
-findings are not line-specific. What is not acceptable is summarizing it: the
+findings are not line-specific. What is not acceptable is summarising it: the
 reviewer's own words go up, and the block says plainly that it is round one of an
 independent review by an agent with no prior context.
 
 **Then answer it in the same thread.** Finding by finding: agree and fix, or disagree
 and give the mathematical reason. A reviewer's finding that something in scope is a
 slip is not declined because the statement meant is true: that is what makes it a
-slip, not a defense against one. Put it to a fresh adjudicator like any other finding
+slip, not a defence against one. Put it to a fresh adjudicator like any other finding
 against the author's text, and fix it if ruled for. Push the fixes as their own commit — a finding you
 accepted and did not push is a finding you ignored. Reply in-thread rather than
 opening a new one, so the exchange reads as an exchange:
@@ -411,7 +411,7 @@ thread on the pull request and say where it disagrees with either side. In that
 order — its own reading first, so the exchange it is auditing cannot frame it.
 
 Post its findings and your response the same way, on the same pull request, clearly
-labeled round two.
+labelled round two.
 
 ### Then stop
 
@@ -464,4 +464,4 @@ that look wrong and a standing instruction to leave them alone.
 **This is where that list gets acted on.** Which is also the boundary: it corrects
 what is written and does not complete it, does not place it, and does not rearrange
 it. A gap belongs to `/fill-sorries`, a directive to `/address-comments`, a
-misplacement to `/integrate` or `/organize`.
+misplacement to `/integrate` or `/organise`.

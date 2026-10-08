@@ -1,13 +1,13 @@
 ---
 name: post-lecture
-description: Everything that needs doing after a lecture, in one pass and one pull request — fill the `\sorry` gaps, address the `% [CLAUDE]` directives, check the mathematics for correctness, convert spellings to American, and integrate the result into the chapter structure. Works out which material is the latest lecture's from the git diff. Use when the user says "/post-lecture", "do the post-lecture pass", "process today's lecture", "I've just finished a lecture", or otherwise asks for the whole after-lecture routine rather than one part of it.
+description: Everything that needs doing after a lecture, in one pass and one pull request — fill the `\sorry` gaps, address the `% [CLAUDE]` directives, check the mathematics for correctness, and integrate the result into the chapter structure. Works out which material is the latest lecture's from the git diff. Use when the user says "/post-lecture", "do the post-lecture pass", "process today's lecture", "I've just finished a lecture", or otherwise asks for the whole after-lecture routine rather than one part of it.
 ---
 
 # The post-lecture pass
 
-Five things need doing after a lecture, and doing them separately means five branches,
-five pull requests and five reviews for one lecture's worth of work. This skill runs
-all five on one branch and opens one pull request.
+Four things need doing after a lecture, and doing them separately means four branches,
+four pull requests and four reviews for one lecture's worth of work. This skill runs
+all four on one branch and opens one pull request.
 
 **It is a composition, not a skill with a scope of its own.** It adds no rules about
 how to write, what mathematics to work out, where material goes, or which spellings
@@ -24,16 +24,15 @@ report.
 | 1 | Fill the marked gaps | `.claude/skills/fill-sorries/SKILL.md` |
 | 2 | Address the inline directives | `.claude/skills/address-comments/SKILL.md` |
 | 3 | Check the mathematics | `.claude/skills/check-correctness/SKILL.md` |
-| 4 | Convert spellings | `.claude/skills/americanise/SKILL.md` |
-| 5 | Integrate the new material | `.claude/skills/integrate/SKILL.md` |
+| 4 | Integrate the new material | `.claude/skills/integrate/SKILL.md` |
 
 The order is not arbitrary and should not be rearranged. The shape of it is: **write
-the material, then check it, then tidy it, then move it** — every phase that produces
+the material, then check it, then move it** — every phase that produces
 text runs before every phase that inspects text, and integration goes last because it
 should be moving finished passages rather than half-finished ones.
 
 **`/fill-sorries` goes first** because it writes the most and reaches the furthest. It
-is authorized to reshape the passage it is filling — split a proof into a lemma, add
+is authorised to reshape the passage it is filling — split a proof into a lemma, add
 an example, promote a remark — and doing that after the other phases have worked over
 the same passage would waste their work and strand their edits. It also runs while the
 lecture's own context is still intact and in one place, which is exactly what a
@@ -60,18 +59,14 @@ unreviewed mathematics and want checking more than the settled notes do. It also
 while the material is still in lecture order and in one place, so a statement and the
 argument that depends on it are still adjacent.
 
-**`/americanise` goes fourth**, so that it catches the prose of all three phases
-before it. The author writes British English by habit and the raw notes need
-converting; phases 1 through 3 also write prose, and sweeping first would miss every
-word of it.
+**`/integrate` goes last.** Everything it moves is by then finished and checked,
+which is a much better thing to redistribute than raw notes.
 
-**`/integrate` goes last.** Everything it moves is by then finished, checked and
-correctly spelled, which is a much better thing to redistribute than raw notes. The
-cost is that the linking prose `/integrate` writes itself never sees the spelling
-sweep — so **phase 5 writes American spellings directly** (`STYLE.md` requires it
-anyway), and the verification step below re-greps the diff for British spellings as a
-cheap backstop. Do not "fix" this by running `/americanise` again as a sixth phase:
-one spelling commit per lecture, and a handful of words caught in the final grep.
+There is no spelling phase. British spelling is the house standard (`STYLE.md`), and
+the author writes it by habit, so the raw notes arrive in it and need no conversion.
+**Every phase writes British spellings directly** — *colouring*, *neighbourhood*,
+*generalise* — and the verification step below greps the diff for American spellings
+as a cheap backstop against the ones that slip in anyway.
 
 ## Finding the latest lecture
 
@@ -102,10 +97,9 @@ still this lecture's material. Where a written date and the commit date disagree
 
 Write the scope down as a list of files and line ranges, and **give the same scope to
 every phase.** This is the one thing this file adds to the component skills, and it
-matters, because three of them will otherwise take the whole document: `/fill-sorries`
-sweeps every `\sorry` in the repository, `/address-comments` every directive,
-`/americanise` every British spelling. Under `/post-lecture` all three are confined to
-this lecture. A marker from three lectures ago that nobody has closed is not this
+matters, because two of them will otherwise take the whole document: `/fill-sorries`
+sweeps every `\sorry` in the repository, and `/address-comments` every directive.
+Under `/post-lecture` both are confined to this lecture. A marker from three lectures ago that nobody has closed is not this
 run's business; note it in the report and leave it.
 
 Two exceptions, both narrow. `/check-correctness` follows a correction into an earlier
@@ -114,21 +108,21 @@ wrong result, a definition that contradicts this lecture's use of it. And `/inte
 necessarily writes into the sections it places material in. Neither licenses a general
 sweep of settled notes.
 
-## One branch, five commits, one pull request
+## One branch, four commits, one pull request
 
 Each component skill has its own "branch, commit, PR" step. **Those are overridden
-here.** Do not create five branches and do not open five pull requests.
+here.** Do not create four branches and do not open four pull requests.
 
 ```bash
 git checkout -b post-lecture/<lecture-date>
 ```
 
-Commit **once per phase**, with the phase named in the subject. Five commits rather
+Commit **once per phase**, with the phase named in the subject. Four commits rather
 than one, because the phases are very different kinds of change and the author needs
 to tell them apart in review: what was invented to close a gap, what was written to
-satisfy a directive, what was corrected, what is a cosmetic spelling sweep, and what
-merely moved. `/americanise` in particular touches a lot of lines shallowly, and
-folded into one commit it would swamp the changes that need real attention.
+satisfy a directive, what was corrected, and what merely moved. `/integrate` in
+particular moves a lot of lines without changing them, and folded into one commit it
+would swamp the changes that need real attention.
 
 ### The pull request opens after phase 3
 
@@ -139,10 +133,10 @@ review rounds happen on the review thread rather than in the report. So:
 2. Run `/check-correctness`'s two review rounds there, against the phase-3 commit,
    while that diff is still the head of the branch and still reviewable on its own.
    Waiting until the end would hand the reviewers a diff in which every corrected
-   line had also been respelled and moved to another file.
-3. Then carry on with phases 4 and 5 on the same branch.
+   line had also been moved to another file.
+3. Then carry on with phase 4 on the same branch.
 4. Update the pull request body at the end (`gh pr edit --body-file`) so it covers all
-   five phases, and mark it ready (`gh pr ready`).
+   four phases, and mark it ready (`gh pr ready`).
 
 If phase 3 corrected nothing, there are no review rounds and no reason to push early:
 open the pull request at the end as usual.
@@ -150,12 +144,11 @@ open the pull request at the end as usual.
 ## Phases that have nothing to do
 
 Skip them. A lecture with no `\sorry` markers makes no phase-1 commit; a lecture whose
-mathematics is clean makes no phase-3 commit; already-American spellings make no
-phase-4 commit. Say so in the report. **Never create an empty commit to mark a phase
+mathematics is clean makes no phase-3 commit. Say so in the report. **Never create an empty commit to mark a phase
 as having run**, and never manufacture work for a phase to justify its existence —
 phase 3 finding nothing to correct is a good outcome, not a failed sweep.
 
-If phase 5 finds nothing new at all, then there was no lecture to process: stop, say
+If phase 4 finds nothing new at all, then there was no lecture to process: stop, say
 so, and do not open a pull request.
 
 ## When a phase cannot finish
@@ -168,14 +161,14 @@ where nothing happened because one directive was unclear is not.
 
 The component skills each say when to stop and ask rather than guess — an ambiguous
 `% [CLAUDE]` directive, two readings of a `\sorry`, a statement that is wrong in a way
-you cannot fix, a date that disagrees with the commit. Honor that, but **batch it**:
-gather the questions and ask them together, at the end, rather than interrupting five
+you cannot fix, a date that disagrees with the commit. Honour that, but **batch it**:
+gather the questions and ask them together, at the end, rather than interrupting four
 times.
 
 ## The approval gate
 
 `/integrate` says to produce a plan and stop for confirmation before writing anything.
-That gate exists because placement is editorial judgment and the author is the editor.
+That gate exists because placement is editorial judgement and the author is the editor.
 
 When `/post-lecture` is invoked as a single autonomous pass, you cannot stop for it.
 `/integrate` already provides for this: say plainly that you are proceeding without
@@ -184,7 +177,7 @@ and the pull request body instead. The pull request *is* the approval step — w
 why the placement rationale and every overruled heading of the author's have to be
 legible there, not merely implied by the diff.
 
-If the author is present and interactive, prefer the gate: show the plan after phase 4
+If the author is present and interactive, prefer the gate: show the plan after phase 3
 and wait.
 
 **Phase 3's gate is not waivable in the same way.** Its adjudication step — an
@@ -206,16 +199,18 @@ Read the log for undefined references and duplicate labels, refresh the committe
 two closing greps over the branch diff:
 
 ```bash
-git diff main...HEAD -- '*.tex' | grep -nEi '\+.*(colour|neighbour|\wis(e|ing|ation)\b|centre|analyse|labelled|whilst)'
+git diff main...HEAD -- '*.tex' | grep '^+' | grep -Ei '(^|[^\\a-z])color(s|ed|ing|ings|able)?\b|neighbor|\w{2,}iz(e|es|ed|ing|ation)\b|analyz|labeled' | grep -vE 'itemize|size'
 git diff main...HEAD -- '*.tex' | grep -n '^\+.*\\cref{'
 ```
 
-the first for British spellings phase 5 introduced after the sweep, the second for the
-lowercase `\cref` that appears nowhere in these notes.
+the first for American spellings any phase introduced, the second for the lowercase
+`\cref` that appears nowhere in these notes. The spelling grep leaves out *center* and
+*gray*, which are also LaTeX and TikZ keywords (`\begin{center}`, `draw[gray]`), so
+read its hits rather than replacing them blindly, and respell the prose ones only.
 
 ## Report back
 
-One report, five sections, in phase order — each as its component skill specifies, so
+One report, four sections, in phase order — each as its component skill specifies, so
 nothing about what to report is decided here. Then, across the whole run:
 
 - **What you took to be this lecture's material, and how you identified it** — the
@@ -225,9 +220,9 @@ nothing about what to report is decided here. Then, across the whole run:
 - **Everything batched for the author**: questions, ambiguities, anything flagged.
 - **The corrections and the flags**, hoisted from the phase-3 section, together with
   the outcome of the two review rounds. This and the item below are the two places
-  where your judgment overrode the author's, and they should not have to be dug out
-  of the middle of a five-part report.
-- **The overruled structure**, hoisted from the phase-5 section. It is the single most
+  where your judgement overrode the author's, and they should not have to be dug out
+  of the middle of a four-part report.
+- **The overruled structure**, hoisted from the phase-4 section. It is the single most
   likely thing to want reverting.
 - **Markers left in the notes** — `\sorry` you could not close, `% [SUSPECT]` you
   flagged, and any out-of-scope marker from an earlier lecture you deliberately left.
@@ -235,9 +230,9 @@ nothing about what to report is decided here. Then, across the whole run:
 
 ## What this skill deliberately does not include
 
-- **`/organize`.** That is the periodic restructuring pass over the notes as a whole,
+- **`/organise`.** That is the periodic restructuring pass over the notes as a whole,
   not a per-lecture chore. `/integrate` records structural pressure in `TOPICS.md`
-  when it sees it; `/organize` gets run when that has accumulated. Restructuring
+  when it sees it; `/organise` gets run when that has accumulated. Restructuring
   renumbers every result under the heading it touches, and that belongs in a diff of
   its own rather than at the end of a routine pass.
 

@@ -1,6 +1,6 @@
 ---
 name: fill-sorries
-description: Fill the `\sorry` markers in these LaTeX lecture notes — the red flags the author leaves where a proof was not given, a case was not covered, a computation was skipped, or a lecture broke off mid-argument. Unlike the other skills, this one is authorized to do the mathematics itself: work out the proof, add whatever lemmas and examples it needs, and write the passage. Use when the user says "/fill-sorries", "fill in the sorries", "fill the gaps", "prove the sorries", "close the sorries", or points at one and asks you to do it.
+description: Fill the `\sorry` markers in these LaTeX lecture notes — the red flags the author leaves where a proof was not given, a case was not covered, a computation was skipped, or a lecture broke off mid-argument. Unlike the other skills, this one is authorised to do the mathematics itself: work out the proof, add whatever lemmas and examples it needs, and write the passage. Use when the user says "/fill-sorries", "fill in the sorries", "fill the gaps", "prove the sorries", "close the sorries", or points at one and asks you to do it.
 ---
 
 # Filling `\sorry`
@@ -11,7 +11,7 @@ skipped a proof, waved at a case, asserted a computation, or simply ran out of t
 mid-development.
 
 ```tex
-So now assume that $H$ has exactly $6$ edges and $6$ vertices and is not $2$-colorable. \sorry
+So now assume that $H$ has exactly $6$ edges and $6$ vertices and is not $2$-colourable. \sorry
 ```
 
 Closing one is not a patching job. It is a writing job with mathematics in it, and it
@@ -20,7 +20,7 @@ yourself** with the freest hand. (`/check-correctness` also does mathematics, bu
 the opposite constraint: it is overwriting the author's, so it changes as little as it
 can and has every change adjudicated.)
 
-## You are authorized to work autonomously
+## You are authorised to work autonomously
 
 This skill is deliberately looser than the others. Read that as permission, and use it.
 
@@ -46,8 +46,8 @@ four. Length is decided by the argument, not by the size of the hole.
 **Reshape the immediate passage.** You may reorder a proof, split one into a lemma plus
 a short main argument, promote a remark to a numbered result, add a `\subsection` if the
 material you produced genuinely needs one, and add macros to `shortcuts.tex`. What you
-may not do is reorganize beyond the passage you are filling — moving settled material
-between sections or renaming a chapter is `/organize`'s, and if your fill turns out to
+may not do is reorganise beyond the passage you are filling — moving settled material
+between sections or renaming a chapter is `/organise`'s, and if your fill turns out to
 need that, say so and stop at the boundary.
 
 **Decide, then say what you decided.** Where a `\sorry` admits several readings, pick
@@ -91,7 +91,7 @@ and months later, which arguments are theirs.
 
 The autonomy is about *what* you write, not *how*. Read `.claude/STYLE.md` and follow
 it exactly — first-person plural, a one-sentence bridge before every boxed environment,
-American spelling, `` ``LaTeX quotes'' ``, `align*` for displays, one paragraph per
+British spelling, `` ``LaTeX quotes'' ``, `align*` for displays, one paragraph per
 source line with no hard wrapping, `---` for dashes, `\Cref` and never `\cref`, case
 splits in a `description`. Read two or three real sections from the sibling
 repositories — [TopologyNotes][t], [LogicNotes][l], [RepTheoryEPFL][r],
@@ -232,7 +232,7 @@ Then, separately:
   a gap belongs to it, not to you.
 - **`/integrate`** absorbs a lecture. It *creates* `\sorry` markers rather than
   filling them, and does not do mathematics of its own.
-- **`/organize`** rearranges. It neither adds nor removes mathematics.
+- **`/organise`** rearranges. It neither adds nor removes mathematics.
 
 A `\sorry` is this skill's job whether or not a `% [CLAUDE]` comment sits beside it.
 Where one does, read it as additional context on what the gap is — it is usually the
