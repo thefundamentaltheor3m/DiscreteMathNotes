@@ -110,6 +110,8 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
       alpha(G) >= n/2d for average degree d >= 1, by the method
         of alterations                                              [supplied]
       G_{n,p}, defined                                              [supplied]
+      G_{n,p} as a probability space: graphs on [n], events as sets
+        of graphs, probabilities as weighted counts      [2026-10-08, author]
       G_{n,p} at p = n^{eps - 1}: alpha <= n/2k and fewer than n/2
         short cycles, whp; delete a vertex per short cycle
 

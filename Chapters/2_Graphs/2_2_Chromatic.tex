@@ -187,6 +187,13 @@ The proof of \Cref{Ch2:Thm:Erdos_Girth} plays the same trick, but with a random 
     For $n \in \N$ and $p \in [0, 1]$, the \textbf{random graph} $G_{n, p}$ is the graph on the vertex set $[n]$ in which each of the $\binom{n}{2}$ possible edges is present independently with probability $p$.
 \end{boxdefinition}
 
+% Added on the author's instruction (2026-10-08).
+Concretely, the probability space we are in is the set $\Omega$ of all graphs on the vertex set $[n]$, of which there are $2^{\binom{n}{2}}$. An event is any collection of such graphs---the graphs containing a triangle, say, or those with an independent set of size $a$---and the probability measure is given by the value of $p$: a graph $G$ on $[n]$ with $e(G)$ edges has probability
+\begin{align*}
+    \Pr\of{G_{n, p} = G} = p^{e(G)} \parenth{1 - p}^{\binom{n}{2} - e(G)}
+\end{align*}
+This is the finite setting of \Cref{Ch1:Sec:Prob_Spaces}, with every collection of graphs an event. In particular, when we study the probability of some event, we are effectively counting the graphs in which the desired outcome is realised, each weighted as above. When $p = \frac{1}{2}$ every graph has the same weight $2^{-\binom{n}{2}}$, and the probability of an event is exactly the proportion of all graphs on $[n]$ that lie in it.
+
 \begin{proof}[Proof of \Cref{Ch2:Thm:Erdos_Girth}]
     Fix $k \geq 3$; for $k \leq 2$ a single edge already does. Consider the graph $G_{n, p}$ for $p = \frac{n^{\varepsilon}}{n}$. For some small $\varepsilon > 0$ (in particular, $\varepsilon \ll \frac{1}{k}$), we see that
     % [FILLED] the display broke off after the union bound; the second line and the paragraph after it were supplied
