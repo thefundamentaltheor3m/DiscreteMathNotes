@@ -92,7 +92,7 @@ We will do two things:
     \item Improve the bound even further when we're dealing with convex problems
 \end{enumerate}
 
-Our strategy will be to find an $n$ large enough so that any red/blue colouring of $K_{(r)}^{n}$ admits a red $k$-clique or a blue $\ell$-clique. This $n$ will serve as our upper-bound for $R_{(r)}(k, \ell)$. We will do this by constructing a sequence that contains either a $(k - 1)$-clique or an $(\ell - 1)$-clique that can be extended to a $k$-clique or an $\ell$-clique by the addition of another element.
+Our strategy will be to find an $n$ large enough so that any red/blue colouring of $K_{(r)}(n)$ admits a red $k$-clique or a blue $\ell$-clique. This $n$ will serve as our upper-bound for $R_{(r)}(k, \ell)$. We will do this by constructing a sequence that contains either a $(k - 1)$-clique or an $(\ell - 1)$-clique that can be extended to a $k$-clique or an $\ell$-clique by the addition of another element.
 
 Let's begin by improving the upper-bound on $R_{(3)}(k, \ell)$. We'll do this by constructing a sequence $x_1, x_2, \ldots, x_m, x_{m + 1}$ of vertices of our hypergraph such that the colour of $\set{x_a, x_b, x_c}$ depends only on $a$ and $b$ for any $a < b < c$. In other words, the colour of $x_c$ should be a \textit{completion} of the colouring of $x_a$ and $x_b$.\footnote{$a, b, c$ may not be consecutive: in fact, we will often have rather sparse sequences in the hypergraph.}
 
@@ -117,7 +117,7 @@ Now let's compute the bound on $R_{(r)}(k, \ell)$.
     where $m = R_{(r - 1)}\of{k - 1, \ell - 1}$.
 \end{boxtheorem}
 \begin{proof}
-    We'll proceed in an identical fashion: Given a red/blue colouring of $K_{(r)}^n$, build a sequence $x_1, \ldots, x_m, x_{m + 1}$ such that the colour of any $\set{x_{i_1}, \ldots, x_{i_r}}$ (for $i_1 < i_2 < \cdots < i_r$) is determined by $x_{i_1}, \ldots, x_{i_{r - 1}}$. For $n = 2^{\binom{m}{r - 1}}$, we can make this sequence.
+    We'll proceed in an identical fashion: Given a red/blue colouring of $K_{(r)}(n)$, build a sequence $x_1, \ldots, x_m, x_{m + 1}$ such that the colour of any $\set{x_{i_1}, \ldots, x_{i_r}}$ (for $i_1 < i_2 < \cdots < i_r$) is determined by $x_{i_1}, \ldots, x_{i_{r - 1}}$. For $n = 2^{\binom{m}{r - 1}}$, we can make this sequence.
 
     It remains to choose $m$ so that this sequence has the clique-property. Take $m = R_{(r - 1)}\of{k - 1, \ell - 1}$. Then, similarly to the previous case, in the colouring induced on sets of $r - 1$ elements in our sequence, we can find a red $(k - 1)$-clique or a blue $(\ell - 1)$-clique. Adding $x_{m + 1}$ then gives us either a red $k$ $(r)$-clique or a blue $\ell$ $(r)$-clique. This gives us the upper-bound
     \begin{align*}
@@ -156,8 +156,12 @@ We will show, eventually, that
     \ES(k, \ell) \le 2\binom{k + \ell - 4}{k - 2} \le 2^{k + \ell}
 \end{align*}
 
+% [CORRECTED] was: no hypothesis on $k, \ell$ --- at $k = \ell = 2$ the right-hand side is $\ES(1, 2) + \ES(2, 1) - 1 = 1$ while $\ES(2, 2) = 2$, and the proof uses $q_{k - 2}$ and $p_2$, which need $k, \ell \geq 3$; the corollary below only ever applies the lemma there
 \begin{boxlemma}\label{lemma:ES-recursive}
-    $\ES(k, \ell) \le \ES(k - 1, \ell) + \ES(k, \ell - 1) - 1$
+    For all $k, \ell \geq 3$,
+    \begin{align*}
+        \ES(k, \ell) \le \ES(k - 1, \ell) + \ES(k, \ell - 1) - 1
+    \end{align*}
 \end{boxlemma}
 \begin{proof}
     We fix an arbitrary set $X \ssq \R^2$ of $\ES(k - 1, \ell) + \ES(k, \ell - 1) - 1$ points in general position, no two on a vertical line, and show that it contains a $k$-cap or an $\ell$-cup.
@@ -219,7 +223,7 @@ We will show, eventually, that
         &\leq 2\binom{k + \ell - 5}{k - 3} + 2\binom{k + \ell - 5}{k - 2} \\
         &= 2\binom{k + \ell - 4}{k - 2}
     \end{align*}
-    with the second identity given by the induction hypothesis.
+    with the second inequality given by the induction hypothesis.
     
     For the second inequality, $\binom{k + \ell - 4}{k - 2} \leq 2^{k + \ell - 4}$, since a single binomial coefficient is at most the sum of its row of Pascal's triangle, so $2\binom{k + \ell - 4}{k - 2} \leq 2^{k + \ell - 3} \leq 2^{k + \ell}$.
 \end{proof}
@@ -240,7 +244,9 @@ We will eventually show the following.
 
 $\VW(2, r) = r + 1$ is fairly straightforward. But what about $\VW(3, 2)$?
 
+% The six provenance markers of the 30 September lecture below were carried over from the author's local copy of it (Local_Collective/lectures_28_30_sept.tex), which the Overleaf copy had dropped.
 We can show that $\VW(3, 2) \geq 9$, because of the colouring
+% [FILLED] the colours of $1, \ldots, 8$ are the standard extremal colouring, supplied here as the photo of the board does not show them
 \begin{align*}
     \textcolor{red!75!black}{1} \quad \textcolor{red!75!black}{2} \quad \textcolor{blue!70!black}{3} \quad \textcolor{blue!70!black}{4} \quad \textcolor{red!75!black}{5} \quad \textcolor{red!75!black}{6} \quad \textcolor{blue!70!black}{7} \quad \textcolor{blue!70!black}{8} \quad 9
 \end{align*}
@@ -285,6 +291,7 @@ We will now apply this technique to find a general upper-bound for van der Waerd
 
 We want to emphasise the concept of \textit{colour-focusing}: in our previous example, we saw that there were two APs that agreed at the last term, that were monochromatic until that one last ``focus'' term was coloured. That colouring would extend one of them but not the other. We thus make the following definition.
 
+% [CORRECTED] was: each AP is monochromatic, except (possibly) at the $k$th term; all the APs have a common $k$th term (the focus point) --- the focus point is now the $(k + 1)$th term, so that the monochromatic AP in the definition of $\CF$ has one more term than the monochromatic part of each colour-focused AP
 \begin{boxdefinition}[Colour-Focused APs]
     A collection of $k$-term APs is \textbf{colour-focused} if the following both hold:
     \begin{itemize}
@@ -357,8 +364,9 @@ Not only have we found a bound on $\VW(3, 2)$ and $\VW(3, 3)$, we've also shown 
 
 First, a general definition.
 
+% [CORRECTED] was: $s$ colour-focused $k$-term APs --- the focus can only be trapped if the APs have different colours (cf. the remark after the definition of colour-focused APs) and the focus point lies in $[N]$, so that it is coloured
 \begin{boxdefinition}[Colour-Focus Number]
-    For $k, r, s$ with $s \le r$, define the \textbf{colour-focus number} $\CF(k, r, s)$ to be the $N$ that ensures any $r$-colouring of $[N]$ has either a monochromatic $(k + 1)$-term AP or $s$ colour-focused $k$-term APs of different colours, with focus point in $[N]$.
+    For $k, r, s$ with $s \le r$, define the \textbf{colour-focus number} $\CF(k, r, s)$ to be the least $N$ such that any $r$-colouring of $[N]$ has either a monochromatic $(k + 1)$-term AP or $s$ colour-focused $k$-term APs of different colours, with focus point in $[N]$.
 \end{boxdefinition}
 
 We can bound van der Waerden numbers above by colour-focus numbers as follows.
@@ -370,11 +378,13 @@ We can bound van der Waerden numbers above by colour-focus numbers as follows.
     \end{align*}
 \end{boxlemma}
 \begin{proof}
-    Let $N = \CF(k-1, r, r)$. We need to show that any $r$-colouring of $[N]$ contains a $k$-term monochromatic arithmetic progression. But by definition of the colour-focused number, either $[N]$ admits a $k$-term monochromatic arithmetic progression (in which case we're done) or $r$ colour-focused $(k - 1)$-term arithmetic progressions. As we argued above, if there are $r$ such APs, then the focus must complete one of them, as we are $r$-colouring. So again we're done.
+    Let $N = \CF(k-1, r, r)$. We need to show that any $r$-colouring of $[N]$ contains a $k$-term monochromatic arithmetic progression. But by definition of the colour-focus number, either $[N]$ admits a $k$-term monochromatic arithmetic progression (in which case we're done) or $r$ colour-focused $(k - 1)$-term arithmetic progressions. As we argued above, if there are $r$ such APs, then the focus must complete one of them, as we are $r$-colouring. So again we're done.
 \end{proof}
 
-We now prove a recursive bound on the colour-focused numbers.
+We now prove a recursive bound on the colour-focus numbers.
+% [CORRECTED] the proof below was re-indexed to match: a $(k - 1)$-term AP of blocks became a $k$-term one, $j \leq k - 1$ became $j \leq k$, and the focus block $B_{a + (k - 1)d}$ became $B_{a + kd}$; the sentence on the colour of the AP of focus points was added, as was ``of different colours'' in its first and last paragraphs, and ``for $k \geq 2$'' in the footnote
 
+% [CORRECTED] was: For all $k, r, s \in \N$, with $\VW\of{k - 1, \cdot}$ --- $\CF(k, r, s - 1)$ needs $s \geq 2$, $\CF(k, r, s)$ needs $s \leq r$, and stretching APs with $k$ monochromatic terms needs $k$ identically coloured blocks, ie $\VW\of{k, \cdot}$
 \begin{boxlemma}\label{lemma:CF-recursive}
     For all $k, r, s \in \N$ with $2 \leq s \leq r$,
     \begin{align*}
@@ -436,12 +446,14 @@ We can use our recursive bound on colour-focus numbers to prove that colour-focu
     $\CF(k, r, s)$ always exists.
 \end{boxtheorem}
 \begin{proof}
-    Proceed by induction on $k$, keeping $r$ and $s$ generic\footnote{In Lean this would be \lstinline|induction k generalizing r s|.}. When $k = 1$, the result is trivial, because no matter the value of $r$ or $s$, if we consider the set $[s + 1]$, we can always find either a $2$-term monochromatic AP (ie, two numbers with the same colour) $s$ $1$-term monochromatic colour-focused APs (ie, $s + 1$ numbers with distinct colours).
+    % [CORRECTED] the base case below gained the pigeonhole step, needed now that colour-focused APs must have different colours
+    Proceed by induction on $k$, keeping $r$ and $s$ generic\footnote{In Lean this would be \lstinline|induction k generalizing r s|.}. When $k = 1$, the result is trivial, because no matter the value of $r$ or $s$, if we consider the set $[s + 1]$, we can always find either a $2$-term monochromatic AP (ie, two numbers with the same colour) or $s$ $1$-term monochromatic colour-focused APs (ie, $s + 1$ numbers with distinct colours).
 
     Now fix $k$ and assume $\CF(k, r, s)$ exists for all $r, s$. We want to show that $\CF(k + 1, r, s)$ also exists for all $r, s$. We proceed by induction on $s$.
 
     $\CF(k + 1, r, 1)$ certainly always exists. In general, $\CF(a, b, 1)$ exists iff there is some $N \in \N$ such that any $b$-colouring of $[N]$ admits a monochromatic $a$-term AP. Take $N \geq \CF(k, r, r)$ (which exists by the induction hypothesis on $k$). Then either $[N]$ admits a $(k + 1)$-term monochromatic AP (in which case we're done) or $[N]$ admits $r$ colour-focused $k$-term APs (in which case the focus point extends one of them to a monochromatic $(k + 1)$-term AP, as there are precisely $r$ of them).
 
+    % [CORRECTED] was: $\VW\of{k, \cdot}$ and $\CF\of{k - 1, \cdot, \cdot}$ below --- these follow the recursive bound's $\VW\of{k + 1, \cdot}$, and $\CF\of{k, \cdot, \cdot}$ is exactly the induction hypothesis on $k$
     Now fix $s$ and suppose $\CF(k + 1, r, s)$ exists for all $r$. Then by \Cref{lemma:CF-recursive,lemma:VW-le-CF}, we know
     \begin{align*}
         \CF\of{k + 1, r, s + 1}
@@ -471,7 +483,7 @@ Combinatorial lines are what Hales--Jewett replaces arithmetic progressions with
 In $[3]^2$, for instance, the templates $x1$, $2x$ and $xx$ give two lines parallel to the axes and the main diagonal, whereas the anti-diagonal $\set{13, 22, 31}$ is a line in the geometric sense but not a combinatorial one, since its two coordinates move in opposite directions. The number we are after is the dimension that forces a monochromatic line.
 
 \begin{boxdefinition}[Hales-Jewett Number]
-    For all $n, r \in \N$, define $\HJ_r(n)$ to be the smallest number $d$ such that any $r$-colouring of $[n]^d$ hypercubes has a monochromatic line.
+    For all $n, r \in \N$, define $\HJ(n, r)$ to be the smallest number $d$ such that any $r$-colouring of the hypercube $[n]^d$ has a monochromatic line.
 \end{boxdefinition}
 
 As with van der Waerden's numbers, we will eventually show that these always exist.
@@ -483,7 +495,7 @@ As with van der Waerden's numbers, we will eventually show that these always exi
 Granting that, here is what it buys us: a monochromatic copy of any finite pattern, in any number of colours, in any dimension.
 
 \begin{boxtheorem}
-    For any finite $X \ssq \Z^k$ and any $r \in \N$, any $r$-colouring of $\Z^k$ contains a copy of the line $\alpha X + \beta$, for $\alpha \in \N$ and $\beta \in \Z^k$, that is monochromatic.
+    For any finite $X \ssq \Z^k$ and any $r \in \N$, any $r$-colouring of $\Z^k$ contains a copy $\alpha X + \beta$ of $X$, for some $\alpha \in \N$ and $\beta \in \Z^k$, that is monochromatic.
 \end{boxtheorem}
 \begin{proof}
     % [FILLED] proof supplied, along the lines of the author's own ``IDEA'' comment: colour $[n]^d$ through the map $a \mapsto x_{a_1} + \cdots + x_{a_d}$, and read a monochromatic line off as $\alpha X + \beta$ with $\alpha$ the number of active coordinates
@@ -505,7 +517,7 @@ This is known as Gallai's theorem, and \cite[Chapter~2]{GrahamRothschildSpencer}
 Colour-focusing works for lines exactly as it did for arithmetic progressions.
 
 \begin{boxdefinition}[Colour-Focused Lines]
-    Given combinatorial lines $L_1, L_2, \ldots, L_s$, they are \textbf{colour-focused} if their last points coincide and each is monochromatic (in a distinct colour) on all bust the last one point.
+    Given combinatorial lines $L_1, L_2, \ldots, L_s$, they are \textbf{colour-focused} if their last points coincide and each is monochromatic (in a distinct colour) on all but the last point.
 \end{boxdefinition}
 
 For example, draw $[3]^2$ as a grid, with the first coordinate running left to right and the second bottom to top. In the colouring below, the top row, the right-hand column and the diagonal are three colour-focused lines: each is monochromatic on its first two points, in orange, purple and green respectively, and all three end at the top-right point, which is their focus. Whatever colour that point gets, it completes one of them; here it is orange, and the top row is a monochromatic line.
@@ -526,7 +538,7 @@ For example, draw $[3]^2$ as a grid, with the first coordinate running left to r
 \end{figure}
 
 \begin{boxdefinition}[Focused Hales-Jewett Number]
-    $\FHJ(n, r, s)$ is the minimum $d$ such that any $r$-colouring of $[n]^d$ has $S$ colour-focused lines or a monochromatic line.
+    $\FHJ(n, r, s)$ is the minimum $d$ such that any $r$-colouring of $[n]^d$ has $s$ colour-focused lines or a monochromatic line.
 \end{boxdefinition}
 
 We can see that
@@ -550,9 +562,10 @@ We will also show
     \end{align*}
 \end{boxlemma}
 \begin{proof}
-For this argument, denote $\FHJ(n, r, s - 1)$ by $D_2$ and $\HJ\of{n - 1, r^{n^{\FHJ(n, r, s - 1}}}$ by $D_1$. (The letters are apt because these are dimensions.) We show essentially that $\FHJ(n, r, s) \le D_2 + D_1$ and note that $D_1 = \HJ\of{n - 1, r^{n^{D_2}}}$.
+For this argument, denote $\FHJ(n, r, s - 1)$ by $D_2$ and $\HJ\of{n - 1, r^{n^{\FHJ(n, r, s - 1)}}}$ by $D_1$. (The letters are apt because these are dimensions.) We show essentially that $\FHJ(n, r, s) \le D_2 + D_1$ and note that $D_1 = \HJ\of{n - 1, r^{n^{D_2}}}$.
 
-The inequality is essentially saying `any $r$-colouring of the $[n]^{D_1 + D_2}$ cube contains $s$ colour-focused lines.''
+% [CORRECTED] was: ``contains $s$ colour-focused lines.'' --- the definition of $\FHJ$ has two alternatives, and a colouring with a monochromatic line need not have $s$ colour-focused lines of distinct colours (a constant colouring has at most one)
+The inequality is essentially saying ``any $r$-colouring of the $[n]^{D_1 + D_2}$ cube contains $s$ colour-focused lines or a monochromatic line.''
 
 A point in my cube has coordinates
 
@@ -638,17 +651,18 @@ Before mapping lines to progressions, let us record what the \Lovasz{} local lem
     using $\parenth{1 + \frac{1}{D}}^D \leq e$ for the second inequality and $N - 1 \leq \frac{(k - 1) 2^{k - 1}}{e k^2}$ for the last. So \Cref{Ch5:Thm:LLL} applies, and with positive probability no $A_P$ occurs: some $2$-colouring of $[N]$ has no monochromatic $k$-term arithmetic progression.
 \end{proof}
 
-To found bounds on Hales-Jewett numbers in terms of van der Waerden numbers, let's ask ourselves the following question: can we map from $\brac{n^d}$ to some line in a way that takes geometric/combinatorial lines to arithmetic progressions?
+To find bounds on van der Waerden numbers in terms of Hales-Jewett numbers, let's ask ourselves the following question: can we map from $[n]^d$ to some line in a way that takes geometric/combinatorial lines to arithmetic progressions?
 
 One thing we immediately see is that if we consider the mapping
+% [CORRECTED] was: $p \mapsto p_0 + p_1 n + p_2 n^2 + \cdots + p_{d-1} n^{d-1}$ --- with coordinates in $[n] = \set{1, \ldots, n}$ that lands in $\set{\frac{n^d - 1}{n - 1}, \ldots, \frac{n^{d + 1} - n}{n - 1}}$, outside $\brac{n^d}$ once $d \geq 2$ (at $n = d = 2$ the image is $\set{3, 4, 5, 6}$); shifting each coordinate down by one gives the base-$n$ digits and a bijection onto $\brac{n^d}$, and the coordinates are indexed $1, \ldots, d$ as in $\gamma$ below
 \begin{align*}
-    \phi : [n]^d \to \brac{n^d} : p \mapsto p_0 + p_1 n + p_2 n^2 + \cdots + p_{d-1} n^{d-1}
+    \phi : [n]^d \to \brac{n^d} : p \mapsto 1 + \parenth{p_1 - 1} + \parenth{p_2 - 1} n + \cdots + \parenth{p_d - 1} n^{d - 1}
 \end{align*}
 which reads a point as the digits of a number written in base $n$, then lines go to progressions: if $S$ is the set of active coordinates of a template $\sigma$, then
 \begin{align*}
-    \phi\of{\sigma(i)} = \sum_{j \notin S} \sigma_j n^j + i \sum_{j \in S} n^j
+    \phi\of{\sigma(i)} = 1 + \sum_{j \notin S} \parenth{\sigma_j - 1} n^{j - 1} + \parenth{i - 1} \sum_{j \in S} n^{j - 1}
 \end{align*}
-so as $i$ runs over $[n]$ the images $\phi\of{\sigma(1)}, \ldots, \phi\of{\sigma(n)}$ form an $n$-term arithmetic progression with common difference $\sum_{j \in S} n^j > 0$. An $r$-colouring of $\brac{n^d}$ therefore pulls back along $\phi$ to an $r$-colouring of $[n]^d$, and when $d = \HJ(n, r)$ the monochromatic line this contains maps to a monochromatic $n$-term progression. In other words,
+so as $i$ runs over $[n]$ the images $\phi\of{\sigma(1)}, \ldots, \phi\of{\sigma(n)}$ form an $n$-term arithmetic progression with common difference $\sum_{j \in S} n^{j - 1} > 0$. An $r$-colouring of $\brac{n^d}$ therefore pulls back along $\phi$ to an $r$-colouring of $[n]^d$, and when $d = \HJ(n, r)$ the monochromatic line this contains maps to a monochromatic $n$-term progression. In other words,
 \begin{align*}
     \VW(n, r) \leq n^{\HJ(n, r)}
 \end{align*}
@@ -657,14 +671,16 @@ so that the Hales--Jewett theorem gives van der Waerden's theorem a second time.
 Nothing about this used the particular form of $\phi$ beyond one property: a line is sent to a progression that does not degenerate, because its active coordinates all move together, so the image of a line can never collapse to a point. Any map with that property gives a Ramsey theorem for whatever a line maps to.
 
 Similarly, if we do
+% [CORRECTED] was: $p \mapsto p_1^2 + p_2 ^2 + \cdots + p_d^2$ --- with coordinates in $[n]$ that takes values up to $n^2 d$, outside $\brac{(n - 1)^2 d + 1}$; the stated codomain is the one for coordinates shifted down by one, as for $\phi$
 \begin{align*}
-    \gamma : [n]^d \to \brac{(n - 1)^2 d + 1} : p \mapsto p_1^2 + p_2 ^2 + \cdots + p_d^2
+    \gamma : [n]^d \to \brac{(n - 1)^2 d + 1} : p \mapsto 1 + \parenth{p_1 - 1}^2 + \parenth{p_2 - 1}^2 + \cdots + \parenth{p_d - 1}^2
 \end{align*}
-the image of $\gamma$ is now a ``quadratic progression''.
+the image of a line under $\gamma$ is now a ``quadratic progression''.
 
 \section{Infinite Ramsey}
 
-Consider the complete graph on the natural numbers, denoted $K_{\N}$. First, observe that any $2$-colouring of the edges of $K_{\N}$ has an infinite monochromatic clique: indeed, if I have a red/blue colouring of $\N$, then either the set of red numbers or the set of blue numbers must be infinite, so just look at the edges between them to get the desired clique.
+Consider the complete graph on the natural numbers, denoted $K_{\N}$. % [CORRECTED] was: ``indeed, if I have a red/blue colouring of $\N$, then either the set of red numbers or the set of blue numbers must be infinite, so just look at the edges between them to get the desired clique.'' --- that colours the vertices rather than the edges, and an infinite set of vertices says nothing about the colours of the edges among them (colour $ij$ by whether $i$ and $j$ have the same parity: every vertex sees both colours infinitely often, and the monochromatic infinite cliques are the evens and the odds); the argument below is the standard one
+First, observe that any $2$-colouring of the edges of $K_{\N}$ has an infinite monochromatic clique: indeed, pick $v_1 \in \N$; infinitely many of the edges at $v_1$ have the same colour, say $c_1$, so let $S_1$ be the infinite set of their other endpoints. Pick $v_2 \in S_1$; infinitely many of the edges from $v_2$ into $S_1$ have the same colour, say $c_2$, and let $S_2 \ssq S_1$ be the set of their other endpoints. Continuing in this way gives $v_1, v_2, \ldots$ and colours $c_1, c_2, \ldots$ such that the edge $v_i v_j$ has colour $c_i$ whenever $i < j$. One colour occurs infinitely often among the $c_i$, and the $v_i$ with that $c_i$ form an infinite monochromatic clique.
 
 Ramsey numbers of finite sets have a strengthening in which the monochromatic set is asked to be large relative to its own elements.
 
