@@ -75,7 +75,8 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
       m(k) >= 2^(k-1), by a union bound over random colourings
       m(k) = O(k^2 2^k), set as an exercise
     2.1.5 Maker-Breaker Games                       [2026-08-26]
-      Erdos-Selfridge: breaker wins when m + Delta < 2^k
+      breaker wins when m + Delta < 2^k, by a potential argument     (lemma)
+      Erdos-Selfridge: breaker wins when m < 2^(k-1), as a corollary
       8x8x8 tic-tac-toe, as an aside the course drops
 
 2.2 Chromatic Number                                [2026-09-02]
