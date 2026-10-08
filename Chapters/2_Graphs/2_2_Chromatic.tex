@@ -85,18 +85,15 @@ $G_4$ is already hard to take in, but the shape of the construction survives in 
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}[scale = 0.95]
-        \node[circle, fill = black, inner sep = 1.5pt] (u) at (0, 1) {};
-        \node[anchor = south] at (0, 1.5) {$G_1$};
-        \node[circle, fill = black, inner sep = 1.5pt] (v1) at (1.6, 0.55) {};
-        \node[circle, fill = black, inner sep = 1.5pt] (v2) at (1.6, 1.45) {};
-        \node[anchor = south] at (1.6, 1.75) {$G_2$};
+        \node[circle, fill = black, inner sep = 1.5pt] (u) at (-0.2, 1) {};
+        \node[anchor = south] at (-0.2, 1.75) {$G_1$};
+        \node[circle, fill = black, inner sep = 1.5pt] (v1) at (1, 1) {};
+        \node[circle, fill = black, inner sep = 1.5pt] (v2) at (1.8, 1) {};
+        \node[anchor = south] at (1.4, 1.75) {$G_2$};
         \foreach \k in {1, ..., 5}{
-            \pgfmathsetmacro{\ang}{90 + 72 * (\k - 1)}
-            \pgfmathsetmacro{\wx}{4.6 + 0.85 * cos(\ang)}
-            \pgfmathsetmacro{\wy}{1 + 0.85 * sin(\ang)}
-            \node[circle, fill = black, inner sep = 1.5pt] (w\k) at (\wx, \wy) {};
+            \node[circle, fill = black, inner sep = 1.5pt] (w\k) at (2.2 + 0.8 * \k, 1) {};
         }
-        \node[anchor = south] at (4.6, 1.95) {$G_3$};
+        \node[anchor = south] at (4.6, 1.75) {$G_3$};
         \foreach \j in {1, 2}{
             \foreach \k in {1, ..., 5}{
                 \pgfmathtruncatemacro{\i}{5 * (\j - 1) + \k}
@@ -108,10 +105,8 @@ $G_4$ is already hard to take in, but the shape of the construction survives in 
             }
         }
         \draw (v1) -- (v2);
-        \foreach \k in {1, ..., 5}{
-            \pgfmathtruncatemacro{\next}{mod(\k, 5) + 1}
-            \draw (w\k) -- (w\next);
-        }
+        \draw (w1) -- (w2) -- (w3) -- (w4) -- (w5);
+        \draw (w1) to[bend left = 40] (w5);
     \end{tikzpicture}
 \end{figure}
 
