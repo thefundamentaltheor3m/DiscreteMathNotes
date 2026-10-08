@@ -1,6 +1,8 @@
 \section{Ramsey Numbers}
 
-Everything so far has asked when a colouring exists. The opposite question is at least as natural: how large does a structure have to be before every colouring of it is forced to contain something monochromatic? Let's step back into ``graph land'' from ``hypergraph land'' and ask it of the complete graphs, colouring edges this time rather than vertices.
+\Cref{Ch2:CH} asked when a colouring exists. The opposite question is at least as natural: how large does a structure have to be before every colouring of it is forced to contain something monochromatic? We ask it first of the complete graphs, colouring edges this time rather than vertices, and then of hypergraphs.
+
+\subsection{Ramsey Numbers of Graphs}
 
 \begin{boxdefinition}[Ramsey Number]
     The $k$th Ramsey number, denoted $R(k)$, is the smallest $n \in \N$ such that any $2$-colouring of edges of $K_n$ gives a monochromatic $K_k$.
@@ -32,7 +34,7 @@ Other known Ramsey numbers are $R(2) = 2$ and $R(4) = 18$. The rest are unknown,
 
 Upper bounds of this kind come from a recursion, which is cleanest stated for the off-diagonal Ramsey number $R(k, \ell)$: the smallest $n \in \N$ such that any red/blue colouring of the edges of $K_n$ gives a red $K_k$ or a blue $K_\ell$, so that $R(k) = R(k, k)$.
 
-\begin{boxtheorem} \label{Ch2:Thm:Ramsey_Recursion}
+\begin{boxtheorem} \label{Ch6:Thm:Ramsey_Recursion}
     For all $k, \ell \geq 2$, we have
     \begin{align*}
         R(k, \ell) \leq R(k - 1, \ell) + R(k, \ell - 1)
@@ -123,7 +125,7 @@ Once the hyper-edges are coloured, a clique of a colour is a set of vertices all
 
 One easy fact to see is the following.
 
-\begin{boxlemma} \label{Ch2:Lemma:Hypergraph_Ramsey_1}
+\begin{boxlemma} \label{Ch6:Lemma:Hypergraph_Ramsey_1}
     $R_{(1)}(k, \ell) = k + \ell - 1$.
 \end{boxlemma}
 \begin{proof}
@@ -133,11 +135,11 @@ One easy fact to see is the following.
 
 \subsection{A Recursive Upper Bound}
 
-We can compute a similar bound to what we know about Ramsey numbers on graphs (\Cref{Ch2:Thm:Ramsey_Recursion}).
+We can compute a similar bound to what we know about Ramsey numbers on graphs (\Cref{Ch6:Thm:Ramsey_Recursion}).
 
 % [CORRECTED] was: "For all $r, k, \ell$" --- the right-hand side needs $R_{(r - 1)}$, $R_{(r)}(k - 1, \cdot)$ and $R_{(r)}(\cdot, \ell - 1)$,
 % and these definitions give the first only for $r \geq 2$ and the others only for $k, \ell \geq 2$.
-\begin{boxtheorem} \label{Ch2:Thm:Hypergraph_Ramsey_Recursion}
+\begin{boxtheorem} \label{Ch6:Thm:Hypergraph_Ramsey_Recursion}
     For all $r, k, \ell \geq 2$, we have
     \begin{align*}
         R_{(r)}(k, \ell) \le R_{(r - 1)}\of{R_{(r)}\of{k - 1, \ell}, R_{(r)}\of{k, \ell - 1}} + 1
@@ -165,18 +167,18 @@ We can compute a similar bound to what we know about Ramsey numbers on graphs (\
 \end{proof}
 
 % [FILLED] this paragraph, the corollary and its proof supplied on the author's request (2026-09-30), not from the lecture
-At $r = 2$ the bound, together with \Cref{Ch2:Lemma:Hypergraph_Ramsey_1}, reads $R(k, \ell) \leq R(k - 1, \ell) + R(k, \ell - 1)$, which is \Cref{Ch2:Thm:Ramsey_Recursion}. More importantly, the recursion is what shows that these numbers exist at all: the definition asks for a least $n$, and nothing so far has produced even one.
+At $r = 2$ the bound, together with \Cref{Ch6:Lemma:Hypergraph_Ramsey_1}, reads $R(k, \ell) \leq R(k - 1, \ell) + R(k, \ell - 1)$, which is \Cref{Ch6:Thm:Ramsey_Recursion}. More importantly, the recursion is what shows that these numbers exist at all: the definition asks for a least $n$, and nothing so far has produced even one.
 
-\begin{boxcorollary} \label{Ch2:Cor:Hypergraph_Ramsey_Finite}
+\begin{boxcorollary} \label{Ch6:Cor:Hypergraph_Ramsey_Finite}
     For all $r, k, \ell \in \N$, the Ramsey number $R_{(r)}(k, \ell)$ exists.
 \end{boxcorollary}
 \begin{proof}
-    Induct on $r$. The case $r = 1$ is \Cref{Ch2:Lemma:Hypergraph_Ramsey_1}. For $r \geq 2$, induct on $k + \ell$. If $k = 1$ or $\ell = 1$, then $R_{(r)}(k, \ell) = 1$, since a single vertex has no $r$-subsets and so is vacuously a clique of both colours. Otherwise $k, \ell \geq 2$, so $R_{(r)}(k - 1, \ell)$ and $R_{(r)}(k, \ell - 1)$ exist by the induction on $k + \ell$, $R_{(r - 1)}$ of them exists by the induction on $r$, and the proof of \Cref{Ch2:Thm:Hypergraph_Ramsey_Recursion} exhibits an $n$ with the required property.
+    Induct on $r$. The case $r = 1$ is \Cref{Ch6:Lemma:Hypergraph_Ramsey_1}. For $r \geq 2$, induct on $k + \ell$. If $k = 1$ or $\ell = 1$, then $R_{(r)}(k, \ell) = 1$, since a single vertex has no $r$-subsets and so is vacuously a clique of both colours. Otherwise $k, \ell \geq 2$, so $R_{(r)}(k - 1, \ell)$ and $R_{(r)}(k, \ell - 1)$ exist by the induction on $k + \ell$, $R_{(r - 1)}$ of them exists by the induction on $r$, and the proof of \Cref{Ch6:Thm:Hypergraph_Ramsey_Recursion} exhibits an $n$ with the required property.
 \end{proof}
 
 \subsection{A Better Upper Bound}
 
-\Cref{Ch2:Thm:Hypergraph_Ramsey_Recursion} is a recursive bound on hypergraph Ramsey numbers, and it is worth seeing how large the numbers it produces are. Recall that
+\Cref{Ch6:Thm:Hypergraph_Ramsey_Recursion} is a recursive bound on hypergraph Ramsey numbers, and it is worth seeing how large the numbers it produces are. Recall that
 \begin{align*}
     R_{(r)}\of{k, \ell} \leq R_{(r - 1)}\of{R_{(r)}\of{k-1, \ell}, R_{(r)}\of{k, \ell - 1}} + 1
 \end{align*}
@@ -275,7 +277,7 @@ We will show, eventually, that
 \end{align*}
 
 % [CORRECTED] was: no hypothesis on $k, \ell$ --- at $k = \ell = 2$ the right-hand side is $\ES(1, 2) + \ES(2, 1) - 1 = 1$ while $\ES(2, 2) = 2$, and the proof uses $q_{k - 2}$ and $p_2$, which need $k, \ell \geq 3$; the corollary below only ever applies the lemma there
-\begin{boxlemma}\label{Ch2:Lemma:ES_Recursion}
+\begin{boxlemma}\label{Ch6:Lemma:ES_Recursion}
     For all $k, \ell \geq 3$,
     \begin{align*}
         \ES(k, \ell) \le \ES(k - 1, \ell) + \ES(k, \ell - 1) - 1
@@ -334,7 +336,7 @@ We will show, eventually, that
 \begin{proof}
     We prove the first inequality by induction on $k + \ell$. When $k = 2$ or $\ell = 2$, any two points form both a $2$-cap and a $2$-cup, so $\ES(k, \ell) \leq 2 = 2\binom{k + \ell - 4}{k - 2}$.
 
-    Fix some $k, \ell \geq 3$ and assume the result holds for all $k', \ell'$ with $k' + \ell' < k + \ell$. We then get, by \Cref{Ch2:Lemma:ES_Recursion}
+    Fix some $k, \ell \geq 3$ and assume the result holds for all $k', \ell'$ with $k' + \ell' < k + \ell$. We then get, by \Cref{Ch6:Lemma:ES_Recursion}
     \begin{align*}
         \ES(k, \ell)
         &\leq \ES(k - 1, \ell) + \ES(k, \ell - 1) \\
