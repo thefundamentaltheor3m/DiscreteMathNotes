@@ -137,7 +137,8 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
 3.2 Sperner Systems                                 [2026-08-28]
     How large can a family of subsets of [n] be when none contains another?
       the containment diagram on [3], and each layer as a Sperner system
-      Sperner's theorem, by the random-permutation (LYM) argument
+      the LYM inequality, by a random permutation and a fixed chain
+      Sperner's theorem, from LYM
 
 3.3 Intersecting Families                           [2026-08-31]
     Forbids the opposite of 3.2: how large can a family of k-subsets be when

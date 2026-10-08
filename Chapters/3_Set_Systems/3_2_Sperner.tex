@@ -31,7 +31,7 @@ The picture is the whole collection of subsets of $\brac{3}$ ordered by inclusio
 
 How large can a Sperner system be?
 
-\begin{boxtheorem}[Sperner's Theorem]
+\begin{boxtheorem}[Sperner's Theorem] \label{Ch3:Thm:Sperner}
     A Sperner system on $[n]$ can have at most $\binom{n}{\floor{n/2}}$ sets.
 \end{boxtheorem}
 
@@ -41,6 +41,14 @@ How large can a Sperner system be?
 % $d_1 = n - k$ and $d_2 = k + 1$.
 An intuitive way of arguing is to find complete matchings of the $k$th layer into the $(k + 1)$th layer (cf. \Cref{Ch3:Cor:Biregular}), but at some point, this starts to break down. And at what point is that? Before $k$ exceeds $n / 2$.
 
+Instead, we go through a stronger inequality, weighting each set by how large its layer is.
+
+\begin{boxlemma}[LYM Inequality] \label{Ch3:Lemma:LYM}
+    If $\H$ is a Sperner system on $[n]$, then
+    \begin{align*}
+        \sum_{h \in \H} \frac{1}{\binom{n}{\abs{h}}} \leq 1
+    \end{align*}
+\end{boxlemma}
 \begin{proof}
     Let $\H$ be a Sperner system on $[n]$. Define
     \begin{align*}
@@ -71,10 +79,19 @@ An intuitive way of arguing is to find complete matchings of the $k$th layer int
         \frac{\abs{h}! \parenth{n - \abs{h}}!}{n!} = \frac{1}{\binom{n}{\abs{h}}}
     \end{align*}
 
-    % Not from the lecture: everything below was supplied to close the gap the lecture left here.
-    The conclusion now comes from bounding $\E\of{X}$ on the other side. Any $\pi$ is a bijection and so preserves containment, which makes $\H_{\pi}$ a Sperner system; and $\calF$ is a chain, any two of its members being comparable. A chain and a Sperner system share at most one set, so $X \leq 1$ for every $\pi$, and hence $\E\of{X} \leq 1$. Since $\binom{n}{k}$ is largest at $k = \floor{n / 2}$, this gives
+    % Not from the lecture: everything below, and the proof of Sperner's theorem after it, was supplied to close the gap the lecture left here.
+    Now bound $\E\of{X}$ on the other side. Any $\pi$ is a bijection and so preserves containment, which makes $\H_{\pi}$ a Sperner system; and $\calF$ is a chain, any two of its members being comparable. A chain and a Sperner system share at most one set, so $X \leq 1$ for every $\pi$, and hence
     \begin{align*}
-        1 \geq \E\of{X} = \sum_{h \in \H} \frac{1}{\binom{n}{\abs{h}}} \geq \sum_{h \in \H} \frac{1}{\binom{n}{\floor{n / 2}}} = \frac{\abs{\H}}{\binom{n}{\floor{n / 2}}}
+        1 \geq \E\of{X} = \sum_{h \in \H} \frac{1}{\binom{n}{\abs{h}}}
+    \end{align*}
+\end{proof}
+
+Sperner's theorem is now a matter of replacing every term by the smallest it can be.
+
+\begin{proof}[Proof of \Cref{Ch3:Thm:Sperner}]
+    Let $\H$ be a Sperner system on $[n]$. Since $\binom{n}{k}$ is largest at $k = \floor{n / 2}$, \Cref{Ch3:Lemma:LYM} gives
+    \begin{align*}
+        1 \geq \sum_{h \in \H} \frac{1}{\binom{n}{\abs{h}}} \geq \sum_{h \in \H} \frac{1}{\binom{n}{\floor{n / 2}}} = \frac{\abs{\H}}{\binom{n}{\floor{n / 2}}}
     \end{align*}
     and rearranging is exactly the bound we wanted.
 \end{proof}
