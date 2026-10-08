@@ -1,0 +1,38 @@
+\section{Asymptotic Notation} \label{Ch1:Sec:Asymptotics}
+
+% Not from the lecture: this section was added on the author's instruction (2026-10-08). The notation is used from chapter 2 onwards and was never defined in the lectures.
+Most of what we prove about random graphs holds only in the limit, and we need a compact way of saying how fast one quantity grows compared with another. Throughout this section, $f$ and $g$ are real functions of a natural number $n$, with $g(n) > 0$ for all large enough $n$, and every limit is as $n \to \infty$. The variable will not always be called $n$---$m(k) = \BigO{k^2 \cdot 2^k}$ in \Cref{Ch2:CH} is a statement about $k \to \infty$---but there is always exactly one variable that tends to infinity, and everything else either is fixed or depends on it. In $G_{n, p}$, for instance, $p$ is allowed to depend on $n$.
+
+\subsection{Little $o$ and Little $\omega$}
+
+The strongest comparison is that one function becomes negligible next to the other.
+
+\begin{boxdefinition}[Little $o$ and Little $\omega$]
+    We write $f = o(g)$ if $\frac{f(n)}{g(n)} \to 0$, and $f = \omega(g)$ if $\frac{f(n)}{g(n)} \to \infty$.
+\end{boxdefinition}
+
+In particular, $f = o(1)$ says that $f \to 0$, and $f = \omega(1)$ that $f \to \infty$. Unwinding the limit, $f = o(g)$ says that for every $\eps > 0$ we eventually have $\abs{f(n)} \leq \eps \, g(n)$: however small a fraction of $g$ we allow, $f$ eventually fits inside it. When $f$ and $g$ are both eventually positive, $f = \omega(g)$ if and only if $g = o(f)$.
+
+The equals sign here is a figure of speech. $o(g)$ is a class of functions, and $f = o(g)$ says that $f$ belongs to it; $\frac{1}{n} = o(1)$ and $\frac{1}{n^2} = o(1)$ do not make $\frac{1}{n} = \frac{1}{n^2}$. For the same reason, $o(g)$ and $\omega(g)$ may appear inside a larger expression, where they stand for some function in the class. This is how \Cref{Ch4:CH} uses them.
+
+\begin{boxexample}
+    For the number $X$ of triangles in $G_{n, p}$, $\E(X) = \binom{n}{3} p^3$, which is roughly $\frac{(np)^3}{6}$. So if $p = o\of{\frac{1}{n}}$ then $np \to 0$ and $\E(X) \to 0$, while if $p = \frac{\omega(1)}{n}$, ie, $np \to \infty$, then $\E(X) \to \infty$. Similarly, the hypothesis of \Cref{Ch1:Cor:Second_Moment} is that $\Var{X_n} = o\of{\E\of{X_n}^2}$.
+\end{boxexample}
+
+The clique number $\omega(G)$ of \Cref{Ch2:CH} shares a letter with this notation. They are never confused in practice: the clique number takes a graph, and little $\omega$ takes a function.
+
+\subsection{Big $O$ and Big $\Omega$}
+
+Often all we can say, or all we need, is that one function is at most a constant multiple of another.
+
+\begin{boxdefinition}[Big $O$ and Big $\Omega$]
+    We write $f = \BigO{g}$ if there are $C > 0$ and $n_0$ such that $\abs{f(n)} \leq C g(n)$ for all $n \geq n_0$, and $f = \Omega\of{g}$ if there are $c > 0$ and $n_0$ such that $f(n) \geq c \, g(n)$ for all $n \geq n_0$.
+\end{boxdefinition}
+
+The same conventions apply: these are classes of functions, the equals sign means membership, and when $f$ and $g$ are both eventually positive, $f = \Omega\of{g}$ if and only if $g = \BigO{f}$. Each is weaker than its little counterpart: $f = o(g)$ implies $f = \BigO{g}$, and likewise $f = \omega(g)$ implies $f = \Omega\of{g}$, but $2n = \BigO{n}$ and $2n \neq o(n)$.
+
+\begin{boxexample}
+    \Cref{Ch6:Prop:VW_Lower_Bound} says that $\VW(k, 2) > \frac{(k - 1) \, 2^{k - 1}}{e k^2}$ for all $k \geq 2$. Since $\frac{k - 1}{k} \geq \frac{1}{2}$, the right-hand side is at least $\frac{1}{4e} \cdot \frac{2^k}{k}$, so $\VW(k, 2) = \Omega\of{\frac{2^k}{k}}$, with $c = \frac{1}{4e}$, for all $k \geq 2$. The exercise after \Cref{Ch2:Thm:mk_Lower_Bound}, that $m(k) = \BigO{k^2 \cdot 2^k}$, asks for a bound from above instead: some $C$ with $m(k) \leq C k^2 \cdot 2^k$ for all large $k$.
+\end{boxexample}
+
+With this we end our terse review.

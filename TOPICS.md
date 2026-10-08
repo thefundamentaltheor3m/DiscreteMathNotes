@@ -52,6 +52,18 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
       Chebyshev's inequality, proved from Markov                    [supplied]
       Var/E^2 -> 0 gives Pr(X != 0) -> 1, as a corollary            [supplied]
       n fair coins, bounded by Chebyshev                            [supplied]
+
+1.4 Asymptotic Notation                             [2026-10-08]
+    The notation the later chapters use whenever something grows with n,
+    added on the author's instruction rather than from a lecture.
+    1.4.1 Little o and Little omega                 [2026-10-08]
+      f = o(g) and f = omega(g); the equals sign as membership
+      the triangle count in G_{n,p} and the second-moment corollary
+        rewritten in it; the clash with the clique number omega(G)
+    1.4.2 Big O and Big Omega                       [2026-10-08]
+      f = O(g) and f = Omega(g); little implies big, not conversely
+      VW(k, 2) = Omega(2^k / k) with c = 1/(4e), and the exercise
+        m(k) = O(k^2 2^k), as examples
 ```
 
 ## 2. Graphs and Colourings  ->  `Chapters/2_Graphs/`
@@ -377,7 +389,7 @@ Places where the structure does not yet look like `ORGANISATION.md` describes,
 tolerated on purpose, with the condition that ends each one.
 
 ```
-Chapter 1 is three sections of thirty-odd lines each, where the corpus runs 2-8
+Chapter 1 is four sections of thirty-odd lines each (three until 2026-10-08), where the corpus runs 2-8
     sections of median 148 lines.
     Why tolerated: the author asked for it explicitly on 2026-09-15 and said to
     build it on the assumption that more probability is coming. A chapter with
