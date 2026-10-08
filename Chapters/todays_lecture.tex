@@ -55,3 +55,502 @@ We can compute a similar bound to what we know about Ramsey numbers on graphs.
 
     % [CLAUDE] finish filling in this argument.
 \end{proof}
+
+% 28 Sept
+
+% [CLAUDE] Note that today's lecture is SPECIAL: I will need to contribute to a collective repository of lecture notes, and I will be assessed on this. You should not /integrate today's lecture and the 30 Sept lecture until I tell you it is safe to integrate them (which I probably won't do till 1 or 2 October). But you should still run /address-comments and other things, based on how I prompt you.
+
+Last time, we showed that we have a recursive bound on hypergraph Ramsey numbers:
+\begin{align*}
+    R_{(r)}\of{k, \ell} \leq R_{(r - 1)}\of{R_{(r)}\of{k-1, \ell}, R_{(r)}\of{k, \ell - 1}} + 1
+\end{align*}
+Recall also that
+\begin{align*}
+    R_{(2)}\of{k, \ell}
+    \leq \binom{k + \ell - 2}{k - 1}
+    \leq 2^{k + \ell}
+\end{align*}
+We can apply this to show, for $r = 3$, that
+\begin{align*}
+    R_{(3)}\of{k, \ell}
+    & \leq R_{(2)}\of{R_{(3)}\of{k - 1, \ell}, R_{(3)}\of{k, \ell - 1}} + 1 \\
+    & \leq 2^{R_{(3)}(k - 1, \ell) + R_{(3)}(k, \ell - 1)} \\
+    & \leq \left. 2^{2^{\cdot^{\cdot^{\cdot^{2}}}}} \right\} \text{roughly } k + \ell
+\end{align*}
+We can apply this to bound $R_{(4)}$ as well:
+\begin{align*}
+    R_{(4)}\of{k, \ell}
+    & \leq R_{(3)}\of{R_{(4)}\of{k - 1, \ell}, R_{(4)}\of{k, \ell - 1}} + 1 \\
+    & \leq \left. 2^{2^{\cdot^{\cdot^{\cdot^{2}}}}} \right\} \text{roughly } R_{(4)}\of{k - 1, \ell} + R_{(4)}\of{k, \ell - 1} \\
+    & \leq \underbrace{\left. 2^{2^{\cdot^{\cdot^{\cdot^{2}}}}} \right\} \left. 2^{2^{\cdot^{\cdot^{\cdot^{2}}}}} \right\} \cdots \left. 2^{2^{\cdot^{\cdot^{\cdot^{2}}}}} \right\} 2}_{k + \ell \text{ towers}}
+\end{align*}
+This is a ``super-tower'' of depth $k + \ell$. As you can imagine, doing the same for $R_{(5)}$ gives a ``super-super-tower'', and the upper-bound gets incredibly large incredibly quickly. What this tells us is that we need to improve the upper-bound substantially if we want any hope of estimating hypergraph Ramsey numbers computationally.
+
+We will do two things:
+\begin{enumerate}
+    \item Improve the bound on $R_{(r)}(k, \ell)$
+    \item Improve the bound even further when we're dealing with convex problems
+\end{enumerate}
+
+Our strategy will be to find an $n$ large enough so that any red/blue colouring of $K_{(r)}^{n}$ admits a red $k$-clique or a blue $\ell$-clique. This $n$ will serve as our upper-bound for $R_{(r)}(k, \ell)$. We will do this by constructing a sequence that contains either a $(k - 1)$-clique or an $(\ell - 1)$-clique that can be extended to a $k$-clique or an $\ell$-clique by the addition of another element.
+
+Let's begin by improving the upper-bound on $R_{(3)}(k, \ell)$. We'll do this by constructing a sequence $x_1, x_2, \ldots, x_m, x_{m + 1}$ of vertices of our hypergraph such that the colour of $\set{x_a, x_b, x_c}$ depends only on $a$ and $b$ for any $a < b < c$. In other words, the colour of $x_c$ should be a \textit{completion} of the colouring of $x_a$ and $x_b$.\footnote{$a, b, c$ may not be consecutive: in fact, we will often have rather sparse sequences in the hypergraph.}
+
+Pick some $x_1$ and $x_2$. At least half of the remaining vertices complete it in a consistent colour\footnote{ie, all of the remaining vertices complete it \textit{in the same way}/\textit{with the same colour}}. \textit{Throw away the rest.} Pick an $x_3$ from what remains. To pick $x_4$, repeat this process by considering completions of the pair $x_1, x_3$ as well as the pair $x_2, x_3$ (we're already in the $\sim$half consisting of things that consistently complete $x_1, x_2$). Keep going. Indeed, the number of remaining vertices gets very small very quickly. If you start off with (roughly) $n = 2^{\binom{m}{2}}$ (or maybe $n = 2^{\binom{m}{2}} + \text{a small number}$) vertices in your hypergraph, you can choose $x_1, \ldots, x_m$ via this process, and set $x_{m + 1}$ to be what's left. We need to now choose $m$ so that this induces a red $k$-clique or a blue $\ell$-clique, and this gives us our Ramsey upper-bound $n$.
+
+Suppose $m = R_{(2)}\of{k - 1, \ell - 1}$. Then in the colouring induced on pairs in our sequence, we can find a red $(k - 1)$-clique or a blue $(\ell - 1)$-clique. Adding $x_{m + 1}$ then gives us either a red $k$ $(3)$-clique or a blue $\ell$ $(3)$-clique. This gives us an upper-bound
+\begin{align*}
+    R_{(3)}\of{k, \ell} \leq 2^{\binom{m}{2} + 1} \leq 2^{m^2}
+\end{align*}
+(the $+1$ takes care of the ``small number'' from before). Since $m \leq 2^{k + \ell}$, we can upper-bound the entire thing by
+\begin{align*}
+    R_{(3)}\of{k, \ell} \leq 2^{2^{2(k + \ell)}}
+\end{align*}
+
+Now let's compute the bound on $R_{(r)}(k, \ell)$.
+
+\begin{boxtheorem}
+    For all $r, k, \ell$ sufficiently large, we have the upper-bound
+    \begin{align*}
+        R_{(r)}\of{k, \ell} \leq 2^{\binom{m}{r - 1} + 1} \leq 2^{m^{r - 1}} = 2^{R_{(r - 1)}\of{k - 1, \ell - 1}^{r - 1}}
+    \end{align*}
+    where $m = R_{(r - 1)}\of{k - 1, \ell - 1}$.
+\end{boxtheorem}
+\begin{proof}
+    We'll proceed in an identical fashion: Given a red/blue colouring of $K_{(r)}^n$, build a sequence $x_1, \ldots, x_m, x_{m + 1}$ such that the colour of any $\set{x_{i_1}, \ldots, x_{i_r}}$ (for $i_1 < i_2 < \cdots < i_r$) is determined by $x_{i_1}, \ldots, x_{i_{r - 1}}$. For $n = 2^{\binom{m}{r - 1}}$, we can make this sequence.
+
+    It remains to choose $m$ so that this sequence has the clique-property. Take $m = R_{(r - 1)}\of{k - 1, \ell - 1}$. Then, similarly to the previous case, in the colouring induced on sets of $r - 1$ elements in our sequence, we can find a red $(k - 1)$-clique or a blue $(\ell - 1)$-clique. Adding $x_{m + 1}$ then gives us either a red $k$ $(r)$-clique or a blue $\ell$ $(r)$-clique. This gives us the upper-bound
+    \begin{align*}
+        R_{(r)}\of{k, \ell} \leq 2^{\binom{m}{r - 1} + 1} \leq 2^{m^{r - 1}} = 2^{R_{(r - 1)}\of{k - 1, \ell - 1}^{r - 1}}
+    \end{align*}
+    (the $+1$ again takes care of the ``small number'').
+\end{proof}
+
+We now move on to a result by \Erdos\ and Szekeres.
+
+\begin{boxdefinition}[Cups and Caps]
+    A \textbf{$k$-cap} and a \textbf{$k$-cup} are (respectively) concave and convex arrangements of $k$ points.
+\end{boxdefinition}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale = 0.8]
+        \drawcup{5}
+        \node at (0, -0.7) {a $5$-cup};
+    \end{tikzpicture}
+    \hspace{2cm}
+    \begin{tikzpicture}[scale = 0.8]
+        \drawcap{5}
+        \node at (0, -1.7) {a $5$-cap};
+    \end{tikzpicture}
+\end{figure}
+
+We are interested in how many points it takes to force one of these.
+
+\begin{boxdefinition}[\Erdos--Szekeres Number]
+    The \textbf{\Erdos--Szekeres number for $k$ and $\ell$}, denoted $\ES(k, \ell)$, is the smallest $n \in \N$ such that any $n$ points in $\R^2$ in general position (with no two on a vertical line) have a $k$-cap or an $\ell$-cup.
+\end{boxdefinition}
+
+We will show, eventually, that
+\begin{align*}
+    \ES(k, \ell) \le 2\binom{k + \ell - 4}{k - 2} \le 2^{k + \ell}
+\end{align*}
+
+\begin{boxlemma}\label{lemma:ES-recursive}
+    $\ES(k, \ell) \le \ES(k - 1, \ell) + \ES(k, \ell - 1) - 1$
+\end{boxlemma}
+\begin{proof}
+    We fix an arbitrary set $X \ssq \R^2$ of $\ES(k - 1, \ell) + \ES(k, \ell - 1) - 1$ points in general position, no two on a vertical line, and show that it contains a $k$-cap or an $\ell$-cup.
+    
+    Deny. Let $L \ssq X$ be the set of points in $X$ that are the last points in some $(k - 1)$-cap, so that $X \setminus L$ has no $(k - 1)$-caps. Thus
+    \begin{align*}
+        \abs{X \setminus L} < \ES(k - 1, \ell)
+    \end{align*}
+    Since $\abs{X} = \ES(k - 1, \ell) + \ES(k, \ell - 1) - 1$, we conclude that $\abs{L} \geq \ES(k, \ell - 1)$.
+
+    As $X$ has no $k$-cap, neither does $L$, so $L$ must have an $(\ell - 1)$-cup $p_1, \ldots, p_{\ell - 1}$. Since $p_1 \in L$, it is the last point of some $(k - 1)$-cap $q_1, \ldots, q_{k - 1} = p_1$. One of these two extends, according to how the slopes compare at $p_1$: let $s$ be the slope of $q_{k - 2} p_1$ and $t$ the slope of $p_1 p_2$. These are different, since otherwise $q_{k - 2}$, $p_1$ and $p_2$ would lie on a line.
+
+    \begin{figure}[H] % Note: This was generated by Claude code, though I must admit I had to provide more aesthetic guidance than I anticipated...
+        \centering
+        \begin{tikzpicture}[scale = 1.1]
+            \draw[line width = 5pt, blue, opacity = 0.25, line cap = round, line join = round] (0, 0) -- (1, 1) -- (2, 1.4);
+            \draw[thick, dashed] (0, 0) -- (1, 1);
+            \draw[line width = 5pt, orange, opacity = 0.4, line cap = round] (2, 1.4) -- (3, 1.2);
+            \draw[thick] (1, 1) -- (2, 1.4) -- (3, 1.2);
+            \draw[thick, dashed] (3, 1.2) -- (4, 1.6);
+            \foreach \x/\y/\pos/\lab in {0/0/below/q_1, 1/1/above left/q_{k - 2}, 2/1.4/above/p_1, 3/1.2/below/p_2, 4/1.6/right/p_{\ell - 1}}{
+                \fill (\x, \y) circle (2pt) node[\pos] {$\lab$};
+            }
+            \node at (2, -0.8) {$s > t$: a $k$-cap};
+        \end{tikzpicture}
+        \hspace{1.5cm}
+        \begin{tikzpicture}[scale = 1.1]
+            \draw[line width = 5pt, blue, opacity = 0.25, line cap = round, line join = round] (2, 1.5) -- (3, 2.1) -- (4, 3.3);
+            \draw[thick, dashed] (0, 0) -- (1, 1.2);
+            \draw[line width = 5pt, orange, opacity = 0.4, line cap = round] (1, 1.2) -- (2, 1.5);
+            \draw[thick] (1, 1.2) -- (2, 1.5) -- (3, 2.1);
+            \draw[thick, dashed] (3, 2.1) -- (4, 3.3);
+            \foreach \x/\y/\pos/\lab in {0/0/below/q_1, 1/1.2/above left/q_{k - 2}, 2/1.5/below right/p_1, 3/2.1/below right/p_2, 4/3.3/right/p_{\ell - 1}}{
+                \fill (\x, \y) circle (2pt) node[\pos] {$\lab$};
+            }
+            \node at (2, -0.8) {$s < t$: an $\ell$-cup};
+        \end{tikzpicture}
+    \end{figure}
+    \begin{description}
+        \item[\underline{$s > t$.}] The slopes keep decreasing past $p_1$, so $q_1, \ldots, q_{k - 1}, p_2$ is a $k$-cap.
+        \item[\underline{$s < t$.}] The slopes are already increasing at $p_1$, so $q_{k - 2}, p_1, p_2, \ldots, p_{\ell - 1}$ is an $\ell$-cup.
+    \end{description}
+    Either way, we have a contradiction.
+\end{proof}
+
+\begin{boxcorollary}
+    For all $k, \ell \geq 2$,
+    \begin{align*}
+        \ES(k, \ell) \leq 2\binom{k + \ell - 4}{k - 2} \leq 2^{k + \ell}
+    \end{align*}
+\end{boxcorollary}
+\begin{proof}
+    We prove the first inequality by induction on $k + \ell$. When $k = 2$ or $\ell = 2$, any two points form both a $2$-cap and a $2$-cup, so $\ES(k, \ell) \leq 2 = 2\binom{k + \ell - 4}{k - 2}$.
+
+    Fix some $k, \ell \geq 3$ and assume the result holds for all $k', \ell'$ with $k' + \ell' < k + \ell$. We then get, by \Cref{lemma:ES-recursive}
+    \begin{align*}
+        \ES(k, \ell)
+        &\leq \ES(k - 1, \ell) + \ES(k, \ell - 1) \\
+        &\leq 2\binom{k + \ell - 5}{k - 3} + 2\binom{k + \ell - 5}{k - 2} \\
+        &= 2\binom{k + \ell - 4}{k - 2}
+    \end{align*}
+    with the second identity given by the induction hypothesis.
+    
+    For the second inequality, $\binom{k + \ell - 4}{k - 2} \leq 2^{k + \ell - 4}$, since a single binomial coefficient is at most the sum of its row of Pascal's triangle, so $2\binom{k + \ell - 4}{k - 2} \leq 2^{k + \ell - 3} \leq 2^{k + \ell}$.
+\end{proof}
+
+% 30 September
+
+Today's lecture is motivated by the following question: if I $r$-colour the natural numbers $\N$, must I be able to find arbitrarily long monochromatic arithmetic progressions?
+
+\begin{boxdefinition}[van der Waerden's Number]
+    For $k, r \in \N$, the \textbf{van der Waerden number for $k$ and $r$}, denoted $\VW(k, r)$, is the least $N$ such that any $r$-colouring of $[N]$ admits a $k$-term monochromatic arithmetic progression.
+\end{boxdefinition}
+
+We will eventually show the following.
+
+\begin{boxtheorem}[van der Waerden's Theorem] \label{Ch1:Thm:Van_Der_Waerden}
+    For all $k, r \in \N$, $\VW(k, r)$ exists.
+\end{boxtheorem}
+
+$\VW(2, r) = r + 1$ is fairly straightforward. But what about $\VW(3, 2)$?
+
+We can show that $\VW(3, 2) \geq 9$, because of the colouring
+\begin{align*}
+    \textcolor{red!75!black}{1} \quad \textcolor{red!75!black}{2} \quad \textcolor{blue!70!black}{3} \quad \textcolor{blue!70!black}{4} \quad \textcolor{red!75!black}{5} \quad \textcolor{red!75!black}{6} \quad \textcolor{blue!70!black}{7} \quad \textcolor{blue!70!black}{8} \quad 9
+\end{align*}
+where the minute you hit $9$ you get a monochromatic AP: $1, 5, 9$ if $9$ is red, and $7, 8, 9$ if $9$ is blue. (The choices previously were to try and minimise the chance of getting a $3$-term AP.)
+
+We can also show that $\VW(3, 2) \leq 325$. How?
+
+Write out blocks of five as follows:
+
+\begin{figure}[h] % Note: This figure was generated by Claude
+    \centering
+    \begin{tikzpicture}[scale = 0.6]
+        \foreach \b/\cols in {0/{red!35, blue!30, red!35, blue!30, blue!30}, 1/{blue!30, red!35, red!35, blue!30, red!35}, 2/{red!35, red!35, blue!30, blue!30, red!35}}{
+            \foreach \c [count = \i] in \cols {
+                \pgfmathsetmacro{\xpos}{6.5 * \b + \i - 1}
+                \filldraw[fill = \c, draw = black] (\xpos, 0) rectangle ++(1, 1);
+                \node at (\xpos + 0.5, 0.5) {$\i$};
+            }
+        }
+        \node at (20, 0.5) {$\cdots$};
+    \end{tikzpicture}
+\end{figure}
+
+(This is meant to represent a sequence of consecutive numbers, so the second box should really contain $6, 7, 8, 9, 10$, and so on. But this notation will prove convenient.)
+
+We will essentially discover that when we have $65$ such boxes, any $2$-colouring of this sequence admits a monochromatic $3$-term AP.
+
+Fix a $2$-colouring of this sequence. Notice that in any block of five, there is some $3$-term AP such that the first two terms are monochromatic. (Indeed, this is what motivates the choice of \textit{five} in the first place.)
+
+We have a total of $2^5$ ways of colouring a block of five, so if we write down a total of $33 = 2^5 + 1$ blocks (which, in the worst case, consists of a block with each colour configuration, and then one more), we can always find two identically coloured blocks. Say these are the $i$th and the $j$th, with $i < j \leq 33$. Let $a, a + d, a + 2d \in \set{1, 2, 3, 4, 5}$ be the positions of their $3$-term AP, with $a$ and $a + d$ red, say.\footnote{Hence the notational convenience of using the same numbers, $1, 2, 3, 4, 5$, for each block.} If $a + 2d$ is also red, we're done, so suppose it is blue.
+
+The intuition is to build an ``AP of blocks'' and use the next term after $i$ and $j$ to obtain the desired monochromatic $3$-term AP. Indeed, if we start at block $i$, this AP looks like $i + \ell (j - i)$. Going to the $\ell = 2$ term should give us the $(2j - i)$th block. Let's now show that this works.
+
+Write $D = 5(j - i)$ for the distance between the two blocks, so that the $k$th element of block $j$ is exactly $D + (\text{the $k$th element of block $i$})$. In the $(2j - i)$th block, the $k$th element is exactly $D$ away from the $k$th element of block $j$. Now denote by $x$ the $(a + 2d)$th element of the $(2j - i)$th block.
+\begin{description}
+    \item[\underline{$x$ is red.}] Then position $a$ of block $i$, position $a + d$ of block $j$ and $x$ form a red AP with difference $D + d$.
+    \item[\underline{$x$ is blue.}] Then position $a + 2d$ of blocks $i$, $j$ and $2j - i$ form a blue AP with difference $D$. (Remember, blocks $i$ and $j$ are coloured identically, and since the $(a + 2d)$th element of block $j$ is blue, so is that of $i$.)
+\end{description}
+Since $2j - i \leq 2 \cdot 33 - 1 = 65$, it suffices to have $65$ blocks of five, ie, $5 \cdot 65 = 325$ numbers.
+
+We will now apply this technique to find a general upper-bound for van der Waerden numbers, and thereby, show they always exist (ie, prove van der Waerden's theorem).
+
+We want to emphasise the concept of \textit{colour-focusing}: in our previous example, we saw that there were two APs that agreed at the last term, that were monochromatic until that one last ``focus'' term was coloured. That colouring would extend one of them but not the other. We thus make the following definition.
+
+\begin{boxdefinition}[Colour-Focused APs]
+    A collection of $k$-term APs is \textbf{colour-focused} if the following both hold:
+    \begin{itemize}
+        \item each AP is monochromatic
+        \item all the APs have a common $(k + 1)$th term
+    \end{itemize}
+    The common $(k + 1)$th term of a family of colour-focused APs is called their \textbf{focus point}.
+\end{boxdefinition}
+
+The focus point could be the same colour as one of the APs, but it does not have to be. For our purposes, we will be interested in colour-focused APs that are different colours.
+
+Let's now try and repeat the $\VW(3, 2)$ argument to find an upper-bound for $\VW(3, 3)$.
+
+Divide the natural numbers into blocks of $7$. Again, our choice is motivated by the pigeonhole principle: for any $3$-colouring of all the numbers, any $7$-block admits a $3$-term AP such that the first $2$ terms are monochromatic.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale = 0.48]
+        \foreach \b/\cols in {0/{red!35, blue!30, green!30, red!35, green!30, green!30, blue!30}, 1/{blue!30, green!30, green!30, red!35, blue!30, red!35, red!35}, 2/{red!35, red!35, blue!30, green!30, blue!30, green!30, green!30}}{
+            \foreach \c [count = \i] in \cols {
+                \pgfmathsetmacro{\xpos}{8.2 * \b + \i - 1}
+                \filldraw[fill = \c, draw = black] (\xpos, 0) rectangle ++(1, 1);
+                \node at (\xpos + 0.5, 0.5) {$\i$};
+            }
+        }
+        \node at (24.6, 0.5) {$\cdots$};
+    \end{tikzpicture}
+\end{figure}
+
+We have a total of $3^7$ ways of colouring a block, so if we write down $3^7 + 1 = 2188$ blocks, there are bound to be two that are identically coloured. As before, if we double this number and subtract one, ie, if we have $2\parenth{3^7 + 1} - 1 = 4375$ blocks, then we are guaranteed to have two colour-focused APs with a focus point.
+
+The problem is that this focus point could take \textit{three} values, but as we only have two monochromatic APs, if it takes the colour not taken by the two APs, we do not have a monochromatic $3$-term AP.
+
+What we have shown above is that if we have a total of $4375$ blocks, that is, $7 \cdot 4375$ numbers, we are guaranteed to have two APs with a shared focus point, which may or may not complete them.
+
+To get three colour-focused APs, we need to ``go up one level'' and treat blocks of $7 \cdot 4375 = 30625$ numbers the way we treated blocks of $7$ to get two colour-focused APs. By the above, each such block contains either a monochromatic $3$-term AP, in which case we're done, or two colour-focused APs of different colours, say red and blue, whose focus point is green. There are $3^{30625}$ ways of colouring a $30625$-block, so among $3^{30625} + 1$ of them, two are identically coloured, say the $i$th and the $j$th. Write $\Delta = 30625(j - i)$, and let $y$ be the element of the $(2j - i)$th block in the same position as the focus point. We now have three APs heading for $y$:
+\begin{itemize}
+    \item the red AP, with its first term taken from block $i$ and its second from block $j$;
+    \item the blue AP, likewise;
+    \item the focus point of block $i$ followed by the focus point of block $j$, both green.
+\end{itemize}
+
+\begin{figure}[H] % Note: this diagram was generated by Claude
+    \centering
+    \begin{tikzpicture}[scale = 0.7]
+        \foreach \x/\lab in {0/i, 6.5/j, 13/2j - i}{
+            \draw (\x, 0) rectangle ++(4, 1);
+            \node[below] at (\x + 2, 0) {block $\lab$};
+        }
+        \node at (5.25, 0.5) {$\cdots$};
+        \node at (11.75, 0.5) {$\cdots$};
+        \draw[red!75!black, thick] (0.5, 0.5) to[bend left = 45] (8.4, 0.5) to[bend left = 45] (16.3, 0.5);
+        \draw[blue!70!black, thick] (2.5, 0.5) to[bend left = 35] (9.4, 0.5) to[bend left = 35] (16.3, 0.5);
+        \draw[green!50!black, thick] (3.3, 0.5) to[bend left = 25] (9.8, 0.5) to[bend left = 25] (16.3, 0.5);
+        \foreach \x in {0, 6.5}{
+            \foreach \p/\c in {0.5/red!75!black, 1.9/red!75!black, 2.5/blue!70!black, 2.9/blue!70!black, 3.3/green!50!black}{
+                \fill[\c] (\x + \p, 0.5) circle (3pt);
+            }
+        }
+        \filldraw[fill = white, draw = black] (16.3, 0.5) circle (3pt) node[right] {$y$};
+    \end{tikzpicture}
+\end{figure}
+
+Each of these is monochromatic, they have different colours, and each continues to $y$: if $p, q$ is an AP in block $i$ whose next term is the focus point $f$, then $p$ and $q + \Delta$ form an AP whose next term is $f + 2\Delta = y$. So these are three colour-focused APs of different colours, and whatever the colour of $y$, it completes one of them to a monochromatic $3$-term AP. As before, it suffices to have $2\parenth{3^{30625} + 1} - 1$ blocks of $30625$ numbers, so
+\begin{align*}
+    \VW(3, 3) \leq 30625 \cdot \parenth{2 \cdot 3^{30625} + 1}
+\end{align*}
+
+Not only have we found a bound on $\VW(3, 2)$ and $\VW(3, 3)$, we've also shown they \textit{exist}. We can actually use the strategy above to prove van der Waerden's Theorem (\Cref{Ch1:Thm:Van_Der_Waerden}).
+
+First, a general definition.
+
+\begin{boxdefinition}[Colour-Focus Number]
+    For $k, r, s$ with $s \le r$, define the \textbf{colour-focus number} $\CF(k, r, s)$ to be the $N$ that ensures any $r$-colouring of $[N]$ has either a monochromatic $(k + 1)$-term AP or $s$ colour-focused $k$-term APs of different colours, with focus point in $[N]$.
+\end{boxdefinition}
+
+We can bound van der Waerden numbers above by colour-focus numbers as follows.
+
+\begin{boxlemma}\label{lemma:VW-le-CF}
+    For all $k, r \in \N$,
+    \begin{align*}
+        \VW(k, r) \le \CF(k-1, r, r)
+    \end{align*}
+\end{boxlemma}
+\begin{proof}
+    Let $N = \CF(k-1, r, r)$. We need to show that any $r$-colouring of $[N]$ contains a $k$-term monochromatic arithmetic progression. But by definition of the colour-focused number, either $[N]$ admits a $k$-term monochromatic arithmetic progression (in which case we're done) or $r$ colour-focused $(k - 1)$-term arithmetic progressions. As we argued above, if there are $r$ such APs, then the focus must complete one of them, as we are $r$-colouring. So again we're done.
+\end{proof}
+
+We now prove a recursive bound on the colour-focused numbers.
+
+\begin{boxlemma}\label{lemma:CF-recursive}
+    For all $k, r, s \in \N$ with $2 \leq s \leq r$,
+    \begin{align*}
+        \CF(k, r, s)
+        \leq \CF(k, r, s - 1) \cdot 2 \VW\of{k, r^{\CF\of{k, r, s - 1}}}
+    \end{align*}
+\end{boxlemma}
+\begin{proof}
+    Fix an $N \in \N$ and an $r$-colouring of $[N]$. Let $C = \CF\of{k, r, s - 1}$. Consider blocks in $[N]$ of length $C$. If any of them contains a $(k + 1)$-term monochromatic arithmetic progression, we're done, so assume that they all contain $(s - 1)$ $k$-term colour-focused arithmetic progressions of different colours. As they are all of length $C$, they must all have one property or the other.
+    
+    Each block can be coloured in one of $r^C$ ways. If we took $\VW\of{k, r^C}$ many blocks, say $B_1, \ldots, B_{\VW\of{k, r^C}}$, by definition of $\VW$, we would be able to find a $k$-term ``arithmetic progression of blocks''
+    \begin{align*}
+        B_{a}, B_{a + d}, B_{a + 2d}, \ldots, B_{a + (k - 1)d}
+    \end{align*}
+    that are all identically coloured.\footnote{We can ``code APs of blocks as APs'', and in this coding, a sequence of numbers being monochromatic translates to blocks being identically coloured.} If we take $2\VW\of{k, r^C}$ blocks\footnote{For $k \geq 2$, $2\VW\of{k, r^{\CF(k, r, s - 1)}} - 1$ would suffice, and we can even get tighter bounds, but the expression looks nicer without the ${} - 1$.}, we also have the focus block $B_{a + kd}$.
+
+    What are some properties of this focus block? We know that it may not be coloured identically to the others in the AP of blocks. However, every block (APs and focus alike) has exactly $C$ elements, so each block contains $(s - 1)$ $k$-term colour-focused APs. Then, the families of APs that looks like ``the $j$th term of the $j$th block'', I get an AP with a focus point in $B_{a + kd}$. Ie, suppose my $(s - 1)$ $k$-term APs are denoted $\parenth{x^i_j}_{1 \leq j \leq k}$ for $1 \leq i \leq s - 1$, then I can build new APs $\parenth{y^i_j}_{1 \leq j \leq k}$ where for each $i$ in my family, I define $y^i_j$ to be the instance of $x^i_j$ living in the $j$th block $B_{a + (j - 1)d}$. This gives me $(s - 1)$ colour-focused APs in my set of numbers from the $2\VW\of{k, r^C}$ blocks (the focus point being the element of the focus block occupying the position of the focus points in the other blocks). Moreover, when I take the AP consisting of all the focus points, I get yet another AP with the same focus point as the $\parenth{y^i_j}$. Its colour is different from theirs: the $\parenth{y^i_j}$ have the colours of the $\parenth{x^i_j}$, and if the focus point of $B_a$ had the same colour as one of the $\parenth{x^i_j}$, the two together would form a monochromatic $(k + 1)$-term AP, which we have ruled out. Thus, I get a total of $s$ colour-focused APs.
+    
+    \begin{figure}[h] % Note: this diagram was generated by Claude
+        \centering
+        \begin{tikzpicture}[scale = 0.64]
+            \foreach \x/\lab in {0/a, 6/a + d, 12/a + (k - 1)d, 18/a + kd}{
+                \draw (\x, 0) rectangle ++(4.4, 1.4);
+                \node[below] at (\x + 1.8, 0) {$B_{\lab}$};
+            }
+            \node at (5.2, 0.7) {$\cdots$};
+            \node at (11.2, 0.7) {$\cdots$};
+            \node at (17.2, 0.7) {$\cdots$};
+            \node[below] at (19.8, -0.65) {\small (focus block)};
+            % inside each identically coloured block: the s - 1 colour-focused APs, running into that block's focus point
+            \foreach \x in {0, 6, 12}{
+                \draw[red!75!black, semithick, opacity = 0.6] (\x + 0.4, 0.9) to[bend right = 50] (\x + 1.6, 0.9) to[bend right = 50] (\x + 2.8, 0.9) to[bend right = 50] (\x + 4, 0.9);
+                \draw[blue!70!black, semithick, opacity = 0.6] (\x + 1.3, 0.9) to[bend right = 50] (\x + 2.2, 0.9) to[bend right = 50] (\x + 3.1, 0.9) to[bend right = 50] (\x + 4, 0.9);
+            }
+            % across blocks: the stretched APs, and the AP of focus points
+            \draw[red!75!black, thick] (0.4, 0.9) to[bend left = 40] (7.6, 0.9) to[bend left = 40] (14.8, 0.9) to[bend left = 40] (22, 0.9);
+            \draw[blue!70!black, thick] (1.3, 0.9) to[bend left = 30] (8.2, 0.9) to[bend left = 30] (15.1, 0.9) to[bend left = 30] (22, 0.9);
+            \draw[black!70, thick, dashed] (4, 0.9) to[bend left = 20] (10, 0.9) to[bend left = 20] (16, 0.9) to[bend left = 20] (22, 0.9);
+            \foreach \x in {0, 6, 12}{
+                \foreach \p/\c in {0.4/red!75!black, 1.6/red!75!black, 2.8/red!75!black, 1.3/blue!70!black, 2.2/blue!70!black, 3.1/blue!70!black}{
+                    \fill[\c] (\x + \p, 0.9) circle (2.6pt);
+                }
+            }
+            % the focus points, hollow, labelled underneath the diagram
+            \foreach \x/\lab in {0/f, 6/f + dC, 12/f + (k - 1)dC, 18/f + kdC}{
+                \filldraw[fill = white, draw = black, thick] (\x + 4, 0.9) circle (3.2pt);
+                \draw[black!50, densely dotted] (\x + 4, 0.75) -- (\x + 4, -1.35);
+                \node[below] at (\x + 4, -1.35) {\small $\lab$};
+            }
+        \end{tikzpicture}
+    \end{figure}
+
+    The total number of elements living in my $2\VW\of{k, r^C}$ blocks is $C \cdot 2\VW\of{k, r^C}$. So effectively, when $N = C \cdot 2\VW\of{k, r^C}$, any $r$-colouring of $[N]$ admits either a $(k + 1)$-term monochromatic AP or $s$ colour-focused $k$-term APs of different colours. Thus, this value of $N$ is an upper-bound on $\CF\of{k, r, s}$.
+\end{proof}
+
+We can use our recursive bound on colour-focus numbers to prove that colour-focus numbers always exist\footnote{Maybe you need to choose $k, r, s$ so that $\CF(k, r, s)$ actually makes sense, but we won't split hairs about this.}. This ultimately tells us that van der Waerden numbers also always exist.
+
+\begin{boxtheorem}
+    $\CF(k, r, s)$ always exists.
+\end{boxtheorem}
+\begin{proof}
+    Proceed by induction on $k$, keeping $r$ and $s$ generic\footnote{In Lean this would be \lstinline|induction k generalizing r s|.}. When $k = 1$, the result is trivial, because no matter the value of $r$ or $s$, if we consider the set $[s + 1]$, we can always find either a $2$-term monochromatic AP (ie, two numbers with the same colour) $s$ $1$-term monochromatic colour-focused APs (ie, $s + 1$ numbers with distinct colours).
+
+    Now fix $k$ and assume $\CF(k, r, s)$ exists for all $r, s$. We want to show that $\CF(k + 1, r, s)$ also exists for all $r, s$. We proceed by induction on $s$.
+
+    $\CF(k + 1, r, 1)$ certainly always exists. In general, $\CF(a, b, 1)$ exists iff there is some $N \in \N$ such that any $b$-colouring of $[N]$ admits a monochromatic $a$-term AP. Take $N \geq \CF(k, r, r)$ (which exists by the induction hypothesis on $k$). Then either $[N]$ admits a $(k + 1)$-term monochromatic AP (in which case we're done) or $[N]$ admits $r$ colour-focused $k$-term APs (in which case the focus point extends one of them to a monochromatic $(k + 1)$-term AP, as there are precisely $r$ of them).
+
+    Now fix $s$ and suppose $\CF(k + 1, r, s)$ exists for all $r$. Then by \Cref{lemma:CF-recursive,lemma:VW-le-CF}, we know
+    \begin{align*}
+        \CF\of{k + 1, r, s + 1}
+        &\leq \CF\of{k + 1, r, s} \cdot 2 \VW\of{k + 1, r^{\CF\of{k + 1, r, s}}} \\
+        &\leq \CF\of{k + 1, r, s} \cdot 2 \CF\of{k, r^{\CF\of{k + 1, r, s}}, r^{\CF\of{k + 1, r, s}}}
+    \end{align*}
+    The above colour-focus numbers both exist by the induction hypotheses on $k$ and $s$, finishing the induction.
+\end{proof}
+
+\Cref{Ch1:Thm:Van_Der_Waerden} (van der Waerden's theorem) is an immediate corollary.
+
+% 2 October
+
+\section{Hales-Jewett}
+
+\newcommand{\HJ}{\operatorname{HJ}}
+
+\begin{boxdefinition}[Hales-Jewett Number]
+    For all $n, r \in \N$, define $\HJ_r(n)$ to be the smallest number $d$ such that any $r$-colouring of $[n]^d$ hypercubes has a monochromatic line.
+\end{boxdefinition}
+
+\begin{boxtheorem}
+    For any finite $X \ssq \Z^k$ and any $r \in \N$, any $r$-colouring of $\Z^k$ contains a copy of the line $\alpha X + \beta$, for $\alpha \in \N$ and $\beta \in \Z^k$, that is monochromatic.
+\end{boxtheorem}
+\begin{proof}
+    Let $X = \set{x_1, \ldots, x_n} \ssq \Z^k$. \sorry
+    % IDEA: let d = HJ_r(n), then fix a point (a_1,...,a_d) in [n]^d and consider x_{a_1} + \cdots + x_{a_d} \in \Z^k. Not sure about the rest.
+    % [CLAUDE] you need to explain to me what n is over here, and write up a clear exposition of this, with a source or two ideally.
+\end{proof}
+
+% 5 Oct
+
+Given combinatorial lines $L_1, L_2, \ldots, L_s$, they are \textbf{colour-focused} if their last points coincide and each is monochromatic (in a distinct colour) on all bust the last one point. % [CLAUDE] make box def
+
+For example, on the $3 \times 3$ grid, if we have % [CLAUDE] turn the following into a diagram: O is orange, G is green, P is purple, make them dark-ish and visible but distinct, draw a grid, highlight that the top-right point is a focus point for all 3 lines that go into it
+\begin{comment}
+    O O O
+    G G P
+    G P P
+\end{comment}
+
+\begin{boxdefinition}[Focused Hales-Jewett Number]
+    $FHJ(n, r, s)$ is the minimum $d$ such that any $r$-colouring of $[n]^d$ has $S$ colour-focused lines or a monochromatic line.
+\end{boxdefinition}
+
+% [CLAUDE] as usual make a macro for HJ and FHJ
+
+We can see that
+\begin{align*}
+    HJ(n, r) \le FHJ(n, r, r)
+\end{align*}
+We will also show
+\begin{align*}
+    FHJ(n, r, s) \le FHJ(n, r, s - 1) + HJ\of{n - 1, r^{n^{FHJ(n, r, s - 1}}}
+\end{align*}
+
+For this argument, denote $FHJ(n, r, s - 1)$ by $D_2$ and $HJ\of{n - 1, r^{n^{FHJ(n, r, s - 1}}}$ by $D_1$. (The letters are apt because these are dimensions.) We show essentially that $FHJ(n, r, s) \le D_2 + D_1$ and note that $D_1 = HJ\of{n - 1, r^{n^{D_2}}}$.
+
+The inequality is essentially saying `any $r$-colouring of the $[n]^{D_1 + D_2}$ cube contains $s$ colour-focused lines.''
+
+A point in my cube has coordinates
+\begin{align*} % [CLAUDE] make this into a proper diagram where the stuff to the left of the bar is D_1 (it should represent "there are D_1 many") and the stuff to the right is D_2. Essentially, split into the first D_1 coordinates and then the remaining D_2 coordinates.
+    \_\_ \quad \_\_ \quad \_\_ \quad \mid \quad \_\_ \quad \_\_
+\end{align*}
+
+I'm given a colouring of the $[n]^{D_1 + D_2}$ cube. Any string $a_1, a_2, \ldots, a_{D_1}$ completes to $n^{D_2}$ points in $[n]^{D_1 + D_2}$. Ie, there are $n^{D_2}$ ways of completing it, ie, there are $n^{D_2}$ points in $[n]^{D_1 + D_2}$ whose first $D_1$ coordinates are these. So there are a total of $r^{n^{D_2}}$ ways in which these completions can be coloured. % [CLAUDE] make more precise: I'm pretty sure what we mean here is that there are a total these many ways in which the a_i can be extended and coloured, not that any given extension has these many colourings. Just word it so that becomes clear.
+
+In fact, we observe that \textit{any $r$-colouring of $[n]^{D_1 + D_2}$ involves an $r^{n^{D_2}}$-colouring of the $[n]^{D_1}$ cube.}
+
+Since $D_1 = HJ(n - 1, r^{n^{D_2}})$, there is a combinatorial line $\mathcal{L}_1 \ssq [n]^{D_1}$ whose first $n - 1$ points all get the same colour from all of the $r^{n^{D_2}}$ choices.
+
+$\mathcal{L}^{\parenth{D_1}}_{0}$ corresponds to a string of the for,
+\begin{align*}
+    \sigma \in \parenth{\brac{n - 1} \cup \set{x}}^{D_1} \setminus [n]^{D_1}
+\end{align*}
+(for some symbol $x$), such that... \sorry % [CLAUDE] help complete this argument. Note that it involves concatenating lines together or something
+
+% 7 Oct
+
+We showed % [CLAUDE] when? where? how?
+that
+\begin{align*}
+    \VW\of{k, 2} = \Omega\of{\frac{2^k}{k}}
+\end{align*}
+using the Lovasz Local Lemma.
+
+To found bounds on Hales-Jewett numbers in terms of van der Waerden numbers, let's ask ourselves the following question: can we map from $\brac{n^d}$ to some line in a way that takes geometric/combinatorial lines to arithmetic progressions?
+
+One thing we immediately see is that if we consider the mapping
+\begin{align*}
+    \phi : [n]^d \to \brac{n^d} : p \mapsto p_0 + p_1 n + p_2 n^2 + \cdots + p_{d-1} n^{d-1}
+\end{align*}
+% [CLAUDE] mention below what bound this gives us - should be something about VW(k, r) <= HJ(k, r^k) or something like this idk
+
+% [CLAUDE] motivate the following by pointing out that if we just sum the coords of the points we get problems because for instance we might have coords that cancel each other out, taking potentially a comb line to a point instead of a ``non-degenerate''/``interesting'' AP.
+Similarly, if we do
+\begin{align*}
+    \gamma : [n]^d \to \brac{(n - 1)^2 d + 1} : p \mapsto p_1^2 + p_2 ^2 + \cdots + p_d^2
+\end{align*}
+the image of $\gamma$ is now a ``quadratic progression''.
+
+\section{Infinite Ramsey}
+
+Consider the complete graph on the natural numbers, denoted $K_{\N}$. First, observe that any $2$-colouring of the edges of $K_{\N}$ has an infinite monochromatic clique: indeed, if I have a red/blue colouring of $\N$, then either the set of red numbers or the set of blue numbers must be infinite, so just look at the edges between them to get the desired clique.
+
+\begin{boxdefinition}
+    Define $\bar{R_k^{(c)}}$ to be the smallest $N \in \N$ such that any $c$-colouring of $k$-sets of $[N]$ has a monochromatic $n$-clique $X$ on $n' \geq n$ such that $n' \geq \min(X)$.
+\end{boxdefinition}
+
+% [CLAUDE] what the heck is this definition
+
+One interesting theorem (that we will not prove here) is that the existence of the above cannot be proven in Peano arithmetic.
