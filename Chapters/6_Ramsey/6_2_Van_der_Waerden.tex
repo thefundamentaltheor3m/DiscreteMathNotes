@@ -241,9 +241,9 @@ We can use our recursive bound on colour-focus numbers to prove that colour-focu
 
 \subsection{A Lower Bound from the Local Lemma}
 
-The bounds above are enormous. For comparison, here is what the \Lovasz{} local lemma (\Cref{Ch5:Thm:LLL}) gives from below.
+The bounds above are enormous. For comparison, here is what the \Lovasz{} local lemma (\Cref{Ch5:Cor:Symmetric_LLL}) gives from below.
 
-% Not from the lecture: the lecture of 7 October quoted this bound as already shown, ``using the Lovasz Local Lemma'', and no earlier lecture in these notes shows it (chapter 5 states the lemma and proves nothing with it yet). The statement and proof were supplied in answer to the author's ``when? where? how?''; the symmetric form of the local lemma that the proof uses is not in chapter 5 either, so it is derived inline by taking every $x_A$ equal.
+% Not from the lecture: the lecture of 7 October quoted this bound as already shown, ``using the Lovasz Local Lemma'', and no earlier lecture in these notes shows it (chapter 5 states the lemma and proves nothing with it yet). The statement and proof were supplied in answer to the author's ``when? where? how?''; the proof originally derived the symmetric form of the local lemma inline, and cites \Cref{Ch5:Cor:Symmetric_LLL} since 2026-10-08.
 \begin{boxproposition} \label{Ch6:Prop:VW_Lower_Bound}
     For all $k \geq 2$,
     \begin{align*}
@@ -258,14 +258,9 @@ The bounds above are enormous. For comparison, here is what the \Lovasz{} local 
     \begin{align*}
         D = \frac{k^2 (N - 1)}{k - 1} - 1 \geq 1
     \end{align*}
-    neighbours. Take $x_A = \frac{1}{D + 1}$ for every event $A$. Then, for every $P$,
+    neighbours. Now
     \begin{align*}
-        x_{A_P} \prod_{A_Q \sim A_P} \parenth{1 - x_{A_Q}}
-        \geq \frac{1}{D + 1} \parenth{1 - \frac{1}{D + 1}}^{D}
-        \geq \frac{1}{e \parenth{D + 1}}
-        = \frac{k - 1}{e k^2 (N - 1)}
-        \geq 2^{1 - k}
-        = \Pr\of{A_P}
+        e \cdot 2^{1 - k} \parenth{D + 1} = \frac{e k^2 (N - 1)}{(k - 1) 2^{k - 1}} \leq 1
     \end{align*}
-    using $\parenth{1 + \frac{1}{D}}^D \leq e$ for the second inequality and $N - 1 \leq \frac{(k - 1) 2^{k - 1}}{e k^2}$ for the last. So \Cref{Ch5:Thm:LLL} applies, and with positive probability no $A_P$ occurs: some $2$-colouring of $[N]$ has no monochromatic $k$-term arithmetic progression.
+    by the choice of $N$, so \Cref{Ch5:Cor:Symmetric_LLL} applies, and with positive probability no $A_P$ occurs: some $2$-colouring of $[N]$ has no monochromatic $k$-term arithmetic progression.
 \end{proof}

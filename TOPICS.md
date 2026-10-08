@@ -227,8 +227,11 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
         meet at most D others, and when they are 2-colourable
       dependency graphs, with the family independence of 1.1
       A ~ B for adjacency in a fixed dependency graph
-      the local lemma, for a finite family and weights 0 < x_A < 1;
-        its proof, by induction on the set of events conditioned on  [supplied]
+      the local lemma, for a finite family and weights 0 < x_A < 1,
+        now titled the asymmetric form; its proof, by induction on
+        the set of events conditioned on                             [supplied]
+      the symmetric form, e p (d + 1) <= 1, as a corollary, on the
+        author's instruction of 2026-10-08                           [supplied]
 
 5.2 Nonrepetitive Sequences                         [2026-09-21]
     An infinite binary sequence whose identical blocks are exponentially far
@@ -296,7 +299,7 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
         Waerden's theorem as the corollary
     6.2.3 A Lower Bound from the Local Lemma        [2026-10-07]
       VW(k, 2) > (k-1) 2^{k-1} / (e k^2), so Omega(2^k / k), from the
-        local lemma with x_A = 1/(D+1); the lecture quoted the bound as
+        symmetric local lemma; the lecture quoted the bound as
         "shown", and nothing in the notes had shown it               [supplied]
 
 6.3 The Hales--Jewett Theorem                       [2026-10-02, 2026-10-05, 2026-10-07]
