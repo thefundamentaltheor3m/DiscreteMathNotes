@@ -235,9 +235,12 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
       the symmetric form, e p (d + 1) <= 1, as a corollary, on the
         author's instruction of 2026-10-08                           [supplied]
 
-5.2 Nonrepetitive Sequences                         [2026-09-21]
-    An infinite binary sequence whose identical blocks are exponentially far
-    apart: the first application of the local lemma in view.
+5.2 Applications of the Local Lemma                 [2026-09-21]
+    Where the local lemma gets used; renamed from "Nonrepetitive Sequences"
+    by the author on 2026-10-08, with a \todo for more applications.
+    5.2.1 Binary Sequences                          [2026-09-21]
+      an infinite binary sequence whose identical blocks are
+        exponentially far apart: the first application in view
       Beck's theorem, stated and not proved, not named in the lecture
 ```
 
@@ -538,7 +541,7 @@ Beck's theorem                   stated 2026-09-21, not named and not proved:
                                  apart. "Our argument will involve binary
                                  sequences" says the lecture means to prove it,
                                  presumably by the local lemma on finite words
-                                 and then compactness. Now 5.2.
+                                 and then compactness. Now 5.2.1.
 Erdos-Szekeres                   stated 2026-09-25 as the motivation for
                                  hypergraph Ramsey numbers, and explicitly not
                                  proved that day. How it follows from them is
@@ -658,7 +661,7 @@ The Lovasz Local Lemma is a new body of theory parked at the end of a chapter
 
 2.3.2 Compactness is about every graph, and sits under the plane only because
     the lecture introduced it for the plane: the lemma is de Bruijn-Erdos, for
-    any G. Beck's theorem, now 5.2, will need the same
+    any G. Beck's theorem, now 5.2.1, will need the same
     compactness step for sequences rather than colourings. If the course keeps
     passing from finite to infinite this way, the compactness argument may want
     a home of its own, nearer the local lemma than the plane. [noted 2026-09-21,
