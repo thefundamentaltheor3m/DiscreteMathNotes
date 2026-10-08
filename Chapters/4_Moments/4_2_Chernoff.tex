@@ -35,12 +35,11 @@ What's one thing that beats \textit{all} of these? An exponential!
 % [CORRECTED] was: "$\eta := \sum_{i=1}^{n} \xi_n$" --- the summand does not depend on the index, so that sum is
 % $n \xi_n$, a single scaled coin flip of variance $n^2$; the theorem below, and its factorisation over $i$, need
 % the walk $\sum_i \xi_i$.
-% [SUSPECT] "the binomial random variable $\eta$" below: $\eta = 2B - n$ for $B$ binomial, so its support is
-% $\set{-n, -n+2, \ldots, n}$ and it is not binomial. Two independent reviewers called this wrong and I left it,
-% on the grounds that naming a variable after the distribution it is an affine image of is loose rather than
-% false --- and because $\deg(x)$ two pages earlier is binomial in the literal sense, so the word is doing two
-% jobs. One word, and it is the author's to change.
-Consider the following setup. Let $\xi_1, \ldots, \xi_n$ be independent Bernoulli random variables take values $\pm 1$ with probability $\frac{1}{2}$. Define the binomial random variable $\eta := \sum_{i=1}^{n} \xi_i$.
+% [CORRECTED] was: "the binomial random variable $\eta$" --- $\eta = 2B - n$ for $B$ binomial, so its support is
+% $\set{-n, -n+2, \ldots, n}$ and it is not binomial. Two independent reviewers of #21 called the word wrong, it was
+% left as a [SUSPECT] for the author, and on 2026-10-07 it was settled by dropping the word; $\deg(x)$ two pages
+% earlier is binomial in the literal sense, so one word was doing two jobs.
+Consider the following setup. Let $\xi_1, \ldots, \xi_n$ be independent Bernoulli random variables take values $\pm 1$ with probability $\frac{1}{2}$. Define the random variable $\eta := \sum_{i=1}^{n} \xi_i$.
 
 % [CORRECTED] was: "$\Pr\of{\eta > a} = \Pr\of{\beta^2 > \beta^a} \leq \E\of{\beta^2}$" --- $\beta^2$ is a constant, so
 % the middle probability is $0$ or $1$ and says nothing about $\eta$; and Markov's inequality divides by the

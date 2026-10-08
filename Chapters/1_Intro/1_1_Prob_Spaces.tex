@@ -18,6 +18,13 @@ An \textbf{event} is a measurable set (ie, an element of $\mathcal{F}$), and a r
 % $X$ uniform on $\set{1, 2}$ and $Y = X + 2$ pass, yet $\E(XY) \neq \E(X)\E(Y)$. And pairwise independence does
 % not give the $n$-fold product rule of 1.2 ($\xi_3 = \xi_1 \xi_2$ is the standard
 % counterexample), which the factorisation in the proof of \Cref{Ch4:Thm:Chernoff} needs.
-We say two events $A$ and $B$ are \textbf{independent} if $\Pr\of{A \cap B} = \Pr(A) \cdot \Pr(B)$. We say that random variables $X_1, \ldots, X_n$ are independent if for all Borel sets $A_1, \ldots, A_n \ssq \R$ the events $X_1\inv\brac{A_1}, \ldots, X_n\inv\brac{A_n}$ (all of which lie in $\mathcal{F}$ because the $X_i$ are measurable) satisfy $\Pr\of{X_1\inv\brac{A_1} \cap \cdots \cap X_n\inv\brac{A_n}} = \Pr\of{X_1\inv\brac{A_1}} \cdots \Pr\of{X_n\inv\brac{A_n}}$, and an infinite family is independent if every finite subfamily is.
+The one notion from this review that the rest of the notes use constantly is independence, in three forms.
+
+% The definition was inline until 2026-10-07, when it was boxed and the third form added: \Cref{Ch5:Def:Dependency_Graph} needs an event independent of a family of events, which until then was not a notion these notes defined.
+\begin{boxdefinition}[Independence] \label{Ch1:Def:Independence}
+    Two events $A$ and $B$ are \textbf{independent} if $\Pr\of{A \cap B} = \Pr(A) \cdot \Pr(B)$. Random variables $X_1, \ldots, X_n$ are \textbf{independent} if for all Borel sets $A_1, \ldots, A_n \ssq \R$ the events $X_1\inv\brac{A_1}, \ldots, X_n\inv\brac{A_n}$ (all of which lie in $\mathcal{F}$ because the $X_i$ are measurable) satisfy $\Pr\of{X_1\inv\brac{A_1} \cap \cdots \cap X_n\inv\brac{A_n}} = \Pr\of{X_1\inv\brac{A_1}} \cdots \Pr\of{X_n\inv\brac{A_n}}$, and an infinite family is independent if every finite subfamily is. An event $A$ is \textbf{independent of a family of events} $B_1, \ldots, B_n$ if $\Pr\of{A \cap C} = \Pr(A) \cdot \Pr(C)$ for every event $C$ obtained from $B_1, \ldots, B_n$ by intersections, unions and complements.
+\end{boxdefinition}
+
+The third form is stronger than asking $A$ to be independent of each $B_i$ separately: if $\xi_1, \xi_2$ are independent fair bits and $\xi_3 = 1 \oplus \xi_1 \oplus \xi_2$, then $\set{\xi_3 = 1}$ is independent of each of $\set{\xi_1 = 1}$ and $\set{\xi_2 = 1}$, but not of their intersection. It is what the \Lovasz{} local lemma (\Cref{Ch5:Thm:LLL}) needs.
 
 In this course, $\Omega$ will usually be finite, $\mathcal{F}$ will usually be the $\mathcal{P}\of{\Omega}$, and all functions $\Omega \to \R$ will be random variables.

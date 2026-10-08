@@ -242,6 +242,12 @@ wrapping, `` ``LaTeX quotes'' ``, `---` for dashes, `\Cref` and never `\cref`, c
 splits in a `description`, British spelling. Grep `TeX_Setup/shortcuts.tex` before
 writing raw math.
 
+The four failures at the end of `STYLE.md`'s anti-patterns — jargon, organisation,
+precision, length — apply to a correction as much as to a fill: a one-token repair
+needs no sentence of motivation around it, a missing hypothesis is inserted in the
+author's words and not announced, and a `% [CORRECTED]` marker states the reason in
+plain mathematics rather than in words like *load-bearing*.
+
 Two mechanical rules matter more here than anywhere else, because this skill's diffs
 are small and surgical and a stray reflow buries them:
 

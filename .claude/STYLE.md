@@ -19,6 +19,12 @@ wrong.
 The single test for anything you write: **could the author have written it?** Not
 "is it correct", not "is it thorough" — those are necessary. Seamless is the bar.
 
+Within these notes, the lectures of 28 and 30 September 2026 — now 6.1.4 *A Better
+Upper Bound*, 6.1.5 *Cups and Caps* and 6.2.1–6.2.2 on van der Waerden's theorem —
+are the exemplar: almost entirely the author's own prose, written up with care, and
+the author's own statement of what the voice sounds like. Read them before writing
+anything longer than a sentence, and compare what you wrote against them afterwards.
+
 This file is about how a passage *reads*. Its companion, `.claude/ORGANISATION.md`,
 is about where a passage *lives* — what earns a chapter, a section and a subsection,
 measured over the same corpus, plus the file-naming conventions and the format of
@@ -253,3 +259,35 @@ corpus:
   touch — it buries the real change in the diff.
 - Explaining a step the author would have taken as read, or hedging a claim the
   author would simply have asserted.
+
+Four further failures, each named by the author on 2026-10-07 after reading an
+assistant's work, and each of them worth a pass of its own over anything you wrote:
+
+- **Jargon.** Words that are not standard mathematics and not defined in the notes,
+  borrowed from engineering or business and used as if they were terms of art:
+  *load-bearing*, *escape clause*, *bites*, *buys us*, *benchmark*, *leans on*,
+  *machinery*, *scaffolding*, *bookkeeping*, *the honest route*, *cheap* and
+  *expensive* for anything but money, *does real work*, *this is where X happens*.
+  The author does not write like this and reads it as corporate filler. Say the
+  mathematical thing in ordinary words: a hypothesis is *needed* or *used*, a
+  theorem *gives* a bound, an argument *shows* something. If a word has to be in
+  quotation marks to sound right, it is the wrong word.
+- **Organisation.** A definition the notes will use again goes in a `boxdefinition`,
+  not in a running sentence; a result that will be cited goes in a box with a
+  label. Material is scoped the way the author scopes it — one idea per subsection,
+  the idea named in the heading — and not the way an assistant finds convenient to
+  explain. The reader is the author, re-reading before an exam: arrange things the
+  way they would look for them.
+- **Precision.** A lecture is allowed to be hand-wavy, and the notes record the
+  lecture. Supplying the missing hypothesis or the missing step is right; spelling
+  out the boundary case nobody will ever hit, splitting a hair the argument does
+  not depend on, or qualifying a sentence three times is not. Be exactly as
+  precise as the argument needs, and no more. Clarity is the goal; thoroughness is
+  a means to it and stops being one the moment it costs clarity.
+- **Length.** Two opposite failures, both common. Verbose where nothing is being
+  said: a bridge that restates the box below it, a summary of what was just
+  proved, a sentence of motivation that could be a clause. Terse where the point
+  is: a "clearly" over the step that carries the argument, a bound stated without
+  the one line that makes it come out, an assumption used without being named.
+  Before leaving a passage, ask of each sentence whether removing it loses
+  anything, and of each step whether the author could reconstruct it in six months.

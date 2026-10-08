@@ -15,8 +15,8 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
      graphs. It sits last because its newest material leans on the local lemma.
      Chapter 1 is still the one to watch: three thin sections, and the author
      asked for it on the assumption that more probability will arrive. Chapter 5
-     is two short sections and a \sorry where the local lemma's proof should be,
-     with an application of it now sitting in 6.2.3. The next run should feel
+     is two short sections, with the local lemma's proof supplied on 2026-10-07
+     and an application of it sitting in 6.2.3. The next run should feel
      free to disagree with all of this. -->
 
 ## 1. Probability  ->  `Chapters/1_Intro/`
@@ -26,7 +26,9 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
     Sets down the objects: what a probability space is and what it means for
     random variables on it to be independent.
       probability spaces, events, random variables
-      independence, of events and of finite and infinite families
+      independence, of events and of finite and infinite families, boxed
+      independence of an event from a family of events, which the
+        dependency graphs of 5.1 need                                [supplied]
       the convention that Omega is finite and F is its power set
 
 1.2 Expectation                                     [2026-09-04, 2026-09-14]
@@ -105,14 +107,15 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
     2.3.1 The Unit Distance Graph                   [2026-09-21]
       the unit distance graph on R^2
       chi >= 3 from the unit triangle, chi >= 4 from Moser's spindle
-      chi <= 7 from a 7-coloured hexagonal tessellation; the diameter
-        that makes it work is not given                             \sorry
+      chi <= 7 from a 7-coloured hexagonal tessellation, with hexagons
+        of diameter 2/(sqrt(21) - 2) < d < 1 and why that works     [supplied]
       the spindle and the tessellation, drawn                       [supplied]
     2.3.2 Compactness                               [2026-09-21]
       compactness as the finite intersection property for closed sets
       chi(G) = sup of chi(H) over finite subgraphs H, via Tychonoff
-      every finite subgraph k-colourable => G k-colourable; the proof
-        breaks off after P_e is shown clopen                        \sorry
+      every finite subgraph k-colourable => G k-colourable: P_e clopen
+        as a preimage, finite subgraphs give the finite intersections,
+        Tychonoff the rest; and the theorem deduced from it          [supplied]
 ```
 
 ## 3. Set Systems  ->  `Chapters/3_Set_Systems/`
@@ -208,7 +211,8 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
         1-coordinatewise-Lipschitz f of independent coordinates
       its proof, begun and broken off at g_i                        [sorry]
       the Smiley Face Lemma of Frieze and Pegden, stated and not
-        proved, as what McDiarmid is for
+        proved, as what McDiarmid is for; its (eps, D)-copies boxed and
+        D made a distance, after the paper                            [CORRECTED]
 ```
 
 ## 5. The Local Lemma  ->  `Chapters/5_Local_Lemma/`
@@ -221,10 +225,10 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
       independent bad events of probability < 1 are all avoided   (preamble)
       the motivating question: k-uniform hypergraphs whose edges each
         meet at most D others, and when they are 2-colourable
-      dependency graphs                                           [SUSPECT]
+      dependency graphs, with the family independence of 1.1
       A ~ B for adjacency in a fixed dependency graph
       the local lemma, for a finite family and weights 0 < x_A < 1;
-        its proof promised for next lecture                        \sorry
+        its proof, by induction on the set of events conditioned on  [supplied]
 
 5.2 Nonrepetitive Sequences                         [2026-09-21]
     An infinite binary sequence whose identical blocks are exponentially far
@@ -332,12 +336,14 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
       Paris-Harrington: its existence is unprovable in PA, cited
 ```
 
-Material marked `[handwritten]` came from the author's handwritten notes rather
-than the typed ones: the laptop died partway through the lecture of 4 September
-2026 and the rest of that lecture was written by hand. An independent reviewer of
-PR #22 disputes this attribution for the whole of 4.1 and reads the git history as
-showing typed 9 September material; the point is unresolved and the markers are
-left as they were pending the author.
+Material marked `[handwritten]` is the second half of the lecture of 4 September
+2026: the laptop died partway through it (a35742c, "PARTIAL - LAPTOP ABOUT TO
+DIE"), and the rest arrived typed in the inbox a week later (885c140, "things up
+to lecture 8", 2026-09-11), so it was typed up afterwards rather than live,
+presumably from handwritten notes. A reviewer of PR #22 read the same history as
+showing 9 September material; both readings fit it, the marker records only
+that the text was not typed in the lecture, and it is left as it is. [settled
+2026-10-07]
 
 Entries marked `[supplied]` are arguments this repository's skills worked out,
 not arguments the lecturer gave; each carries a `% [FILLED]`, `% [CLAUDE]`-derived
@@ -485,12 +491,13 @@ McDiarmid's proof                begun 2026-09-16 and broken off at the
 the Smiley Face Lemma            stated 2026-09-16 as an application of
                                  McDiarmid, from Frieze and Pegden, "Separating
                                  subadditive Euclidean functionals", RSA 51
-                                 (2017) 375-403. Not proved, and carrying a
-                                 SUSPECT: as written it is false for every
-                                 bounded D, since a fixed region of finite area
-                                 collects only O(1) of the n points. The name is
-                                 the lecturer's; it is not attested in the
-                                 paper's indexed text.
+                                 (2017) 375-403. Not proved. Carried a SUSPECT
+                                 until 2026-10-07: as written it was false for
+                                 every bounded region D. Settled against the
+                                 paper's Observation 3.1, where D is a distance
+                                 and a copy is isolated from the other points.
+                                 The name is the lecturer's; it is not in the
+                                 paper.
 2-colourability from the LLL      posed 2026-09-16 as the motivation for the local
                                  lemma: what condition on k makes a k-uniform
                                  hypergraph whose edges each meet at most D
@@ -499,7 +506,9 @@ the Smiley Face Lemma            stated 2026-09-16 as an application of
                                  needs the local lemma, whose proof is next
                                  lecture's. It generalises 2.1.4's union bound.
 the Lovasz Local Lemma's proof   promised 2026-09-16 for next lecture, in the
-                                 author's own words on the \sorry.
+                                 author's own words on the \sorry; no later
+                                 lecture in the notes gave it. SUPPLIED
+                                 2026-10-07, marked [FILLED].
 Azuma's inequality               stated 2026-09-14 and not proved. The notes say
                                  what the proof is --- 4.2's exponential-moment
                                  argument applied to each increment
@@ -516,7 +525,8 @@ Moser's spindle has chi = 4      asserted 2026-09-21 ("it turns out") and not
                                  why it has no 3-colouring is not in the notes.
 the de Bruijn-Erdos theorem      the compactness theorem of 2.3.2, 2026-09-21,
                                  not named in the lecture. Its content is the
-                                 lemma after it, whose proof breaks off (\sorry).
+                                 lemma after it, whose proof was completed on
+                                 2026-10-07, together with the theorem's.
 Beck's theorem                   stated 2026-09-21, not named and not proved:
                                  an infinite binary sequence whose identical
                                  blocks of length n are at least (2 - eps)^n
@@ -559,13 +569,12 @@ convex problems                  "improve the bound even further when we're
                                  ES(k, l) = binom(k+l-4, k-2) + 1 is not stated.
 VW(3, 2) = 9                     only 9 <= VW(3, 2) <= 325 is in the notes
                                  (2026-09-30); that 9 suffices is not shown.
-the LLL proof, now load-bearing  5.1's local lemma is still \sorry ("we will do
-                                 this next time", 2026-09-16), and 6.2.3 now
-                                 proves a theorem from it (2026-10-07). The
-                                 lecture of 7 October said VW(k, 2) = Omega(2^k/k)
-                                 had been "shown using the Lovasz Local Lemma";
-                                 no lecture in these notes shows it, so the
-                                 proposition is supplied and marked.
+VW(k, 2) = Omega(2^k / k)        the lecture of 7 October said this had been
+                                 "shown using the Lovasz Local Lemma"; no
+                                 lecture in these notes shows it, so the
+                                 proposition is supplied in 6.2.3 and marked.
+                                 The lemma it uses was itself a \sorry until
+                                 the same day.
 the Lean aside                   "In Lean this would be induction k generalizing
                                  r s", a footnote of 2026-09-30, is why
                                  listings and lstlean.tex arrived in #26.
@@ -651,12 +660,6 @@ The Lovasz Local Lemma is a new body of theory parked at the end of a chapter
     re-examined and left 2026-10-07: Beck's theorem is still only stated, so
     the second use of compactness does not yet exist]
 
-6.2.3 proves a lower bound from the local lemma of 5.1, whose own proof is
-    still a \sorry. Nothing is misplaced --- the application belongs with the
-    van der Waerden numbers it bounds, and chapter 5 comes first --- but the
-    dependency is on an unproved result, and the lecture presented the bound
-    as already established. If the LLL proof arrives, 6.2.3 is where to point
-    an application at. [noted 2026-10-07]
 
 ```
 
