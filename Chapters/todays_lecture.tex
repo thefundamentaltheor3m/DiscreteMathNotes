@@ -487,7 +487,6 @@ Granting that, here is what it buys us: a monochromatic copy of any finite patte
 \end{boxtheorem}
 \begin{proof}
     % [FILLED] proof supplied, along the lines of the author's own ``IDEA'' comment: colour $[n]^d$ through the map $a \mapsto x_{a_1} + \cdots + x_{a_d}$, and read a monochromatic line off as $\alpha X + \beta$ with $\alpha$ the number of active coordinates
-    % [CLAUDE] you need to explain to me what n is over here, and write up a clear exposition of this, with a source or two ideally.
     Let $X = \set{x_1, \ldots, x_n} \ssq \Z^k$, so that $n = \abs{X}$, let $d = \HJ(n, r)$, which exists by \Cref{Ch6:Thm:Hales_Jewett}, and fix an $r$-colouring $\chi$ of $\Z^k$. Define
     \begin{align*}
         f : [n]^d \to \Z^k : \parenth{a_1, \ldots, a_d} \mapsto x_{a_1} + x_{a_2} + \cdots + x_{a_d}
@@ -499,22 +498,36 @@ Granting that, here is what it buys us: a monochromatic copy of any finite patte
     where $\beta = \sum_{j \notin S} x_{\sigma_j} \in \Z^k$ does not depend on $i$. Thus $f\of{L_\sigma} = \setst{\beta + \alpha x_i}{i \in [n]} = \alpha X + \beta$, and since every point of $L_\sigma$ has the same colour, so does every point of $\alpha X + \beta$ under $\chi$.
 \end{proof}
 
+This is known as Gallai's theorem, and \cite[Chapter~2]{GrahamRothschildSpencer} deduces it from the Hales--Jewett theorem of~\cite{HalesJewett} in exactly this way.
+
 % 5 Oct
 
-Given combinatorial lines $L_1, L_2, \ldots, L_s$, they are \textbf{colour-focused} if their last points coincide and each is monochromatic (in a distinct colour) on all bust the last one point. % [CLAUDE] make box def
+Colour-focusing works for lines exactly as it did for arithmetic progressions.
 
-For example, on the $3 \times 3$ grid, if we have % [CLAUDE] turn the following into a diagram: O is orange, G is green, P is purple, make them dark-ish and visible but distinct, draw a grid, highlight that the top-right point is a focus point for all 3 lines that go into it
-\begin{comment}
-    O O O
-    G G P
-    G P P
-\end{comment}
-
-\begin{boxdefinition}[Focused Hales-Jewett Number]
-    $FHJ(n, r, s)$ is the minimum $d$ such that any $r$-colouring of $[n]^d$ has $S$ colour-focused lines or a monochromatic line.
+\begin{boxdefinition}[Colour-Focused Lines]
+    Given combinatorial lines $L_1, L_2, \ldots, L_s$, they are \textbf{colour-focused} if their last points coincide and each is monochromatic (in a distinct colour) on all bust the last one point.
 \end{boxdefinition}
 
-% [CLAUDE] as usual make a macro for HJ and FHJ
+For example, draw $[3]^2$ as a grid, with the first coordinate running left to right and the second bottom to top. In the colouring below, the top row, the right-hand column and the diagonal are three colour-focused lines: each is monochromatic on its first two points, in orange, purple and green respectively, and all three end at the top-right point, which is their focus. Whatever colour that point gets, it completes one of them; here it is orange, and the top row is a monochromatic line.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale = 1.2]
+        \draw[gray!50] (1, 1) grid (3, 3);
+        \draw[orange!85!black, very thick] (1, 3) -- (3, 3);
+        \draw[violet!80!black, very thick] (3, 1) -- (3, 3);
+        \draw[green!45!black, very thick] (1, 1) -- (3, 3);
+        \foreach \x/\y/\c in {1/3/orange!85!black, 2/3/orange!85!black, 3/3/orange!85!black, 1/2/green!45!black, 2/2/green!45!black, 3/2/violet!80!black, 1/1/green!45!black, 2/1/violet!80!black, 3/1/violet!80!black}{
+            \fill[\c] (\x, \y) circle (5pt);
+        }
+        \draw[black, very thick] (3, 3) circle (8pt);
+        \node[above right = 5pt] at (3, 3) {focus};
+    \end{tikzpicture}
+\end{figure}
+
+\begin{boxdefinition}[Focused Hales-Jewett Number]
+    $\FHJ(n, r, s)$ is the minimum $d$ such that any $r$-colouring of $[n]^d$ has $S$ colour-focused lines or a monochromatic line.
+\end{boxdefinition}
 
 We can see that
 % [FILLED] the display was boxed as a lemma and the one-line proof supplied; the lecture said ``we can see that''
@@ -537,26 +550,44 @@ We will also show
     \end{align*}
 \end{boxlemma}
 \begin{proof}
-For this argument, denote $FHJ(n, r, s - 1)$ by $D_2$ and $HJ\of{n - 1, r^{n^{FHJ(n, r, s - 1}}}$ by $D_1$. (The letters are apt because these are dimensions.) We show essentially that $FHJ(n, r, s) \le D_2 + D_1$ and note that $D_1 = HJ\of{n - 1, r^{n^{D_2}}}$.
+For this argument, denote $\FHJ(n, r, s - 1)$ by $D_2$ and $\HJ\of{n - 1, r^{n^{\FHJ(n, r, s - 1}}}$ by $D_1$. (The letters are apt because these are dimensions.) We show essentially that $\FHJ(n, r, s) \le D_2 + D_1$ and note that $D_1 = \HJ\of{n - 1, r^{n^{D_2}}}$.
 
 The inequality is essentially saying `any $r$-colouring of the $[n]^{D_1 + D_2}$ cube contains $s$ colour-focused lines.''
 
 A point in my cube has coordinates
-\begin{align*} % [CLAUDE] make this into a proper diagram where the stuff to the left of the bar is D_1 (it should represent "there are D_1 many") and the stuff to the right is D_2. Essentially, split into the first D_1 coordinates and then the remaining D_2 coordinates.
-    \_\_ \quad \_\_ \quad \_\_ \quad \mid \quad \_\_ \quad \_\_
-\end{align*}
 
-I'm given a colouring of the $[n]^{D_1 + D_2}$ cube. Any string $a_1, a_2, \ldots, a_{D_1}$ completes to $n^{D_2}$ points in $[n]^{D_1 + D_2}$. Ie, there are $n^{D_2}$ ways of completing it, ie, there are $n^{D_2}$ points in $[n]^{D_1 + D_2}$ whose first $D_1$ coordinates are these. So there are a total of $r^{n^{D_2}}$ ways in which these completions can be coloured. % [CLAUDE] make more precise: I'm pretty sure what we mean here is that there are a total these many ways in which the a_i can be extended and coloured, not that any given extension has these many colourings. Just word it so that becomes clear.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale = 0.85]
+        \foreach \x/\lab in {0/a_1, 1/a_2, 2/a_3, 4.4/a_{D_1}}{
+            \draw (\x, 0) rectangle ++(0.9, 0.9);
+            \node at (\x + 0.45, 0.45) {$\lab$};
+        }
+        \node at (3.65, 0.45) {$\cdots$};
+        \draw[very thick] (5.85, -0.3) -- (5.85, 1.2);
+        \foreach \x/\lab in {6.4/b_1, 7.4/b_2, 9.8/b_{D_2}}{
+            \draw (\x, 0) rectangle ++(0.9, 0.9);
+            \node at (\x + 0.45, 0.45) {$\lab$};
+        }
+        \node at (9.05, 0.45) {$\cdots$};
+        \draw (0, -0.45) -- (0, -0.7) -- (5.3, -0.7) -- (5.3, -0.45);
+        \node[below] at (2.65, -0.7) {$D_1$ coordinates};
+        \draw (6.4, -0.45) -- (6.4, -0.7) -- (10.7, -0.7) -- (10.7, -0.45);
+        \node[below] at (8.55, -0.7) {$D_2$ coordinates};
+    \end{tikzpicture}
+\end{figure}
+
+I'm given a colouring of the $[n]^{D_1 + D_2}$ cube. Any string $a_1, a_2, \ldots, a_{D_1}$ completes to $n^{D_2}$ points in $[n]^{D_1 + D_2}$. Ie, there are $n^{D_2}$ ways of completing it, ie, there are $n^{D_2}$ points in $[n]^{D_1 + D_2}$ whose first $D_1$ coordinates are these. So, taken together, the $n^{D_2}$ completions of a given string can be coloured in one of $r^{n^{D_2}}$ ways, and which of these ways our colouring picks depends on the string.
 
 In fact, we observe that \textit{any $r$-colouring of $[n]^{D_1 + D_2}$ involves an $r^{n^{D_2}}$-colouring of the $[n]^{D_1}$ cube.}
 
-Since $D_1 = HJ(n - 1, r^{n^{D_2}})$, there is a combinatorial line $\mathcal{L}_1 \ssq [n]^{D_1}$ whose first $n - 1$ points all get the same colour from all of the $r^{n^{D_2}}$ choices.
+Since $D_1 = \HJ(n - 1, r^{n^{D_2}})$, there is a combinatorial line $\mathcal{L}_1 \ssq [n]^{D_1}$ whose first $n - 1$ points all get the same colour from all of the $r^{n^{D_2}}$ choices.
 
 $\mathcal{L}_1$ corresponds to a string of the form
 \begin{align*}
     \sigma \in \parenth{\brac{n - 1} \cup \set{x}}^{D_1} \setminus [n]^{D_1}
 \end{align*}
-(for some symbol $x$), such that the $r^{n^{D_2}}$-colouring agrees on $\sigma(1), \ldots, \sigma(n - 1)$. % [CLAUDE] help complete this argument. Note that it involves concatenating lines together or something
+(for some symbol $x$), such that the $r^{n^{D_2}}$-colouring agrees on $\sigma(1), \ldots, \sigma(n - 1)$.
 % [FILLED] from here to the end of the proof: the lecture broke off at ``such that'', and the rest is supplied
 Unwinding what that colouring is, this says that for all $i, i' \in [n - 1]$ and all $b \in [n]^{D_2}$, the points $\parenth{\sigma(i), b}$ and $\parenth{\sigma(i'), b}$ of our cube have the same colour. Write $\chi$ for the given $r$-colouring of $[n]^{D_1 + D_2}$, and $\chi'(b) = \chi\of{\sigma(1), b}$ for that common colour. Then $\chi'$ is an $r$-colouring of $[n]^{D_2}$, and $D_2 = \FHJ(n, r, s - 1)$, so $[n]^{D_2}$ contains a $\chi'$-monochromatic line or $s - 1$ $\chi'$-colour-focused lines.
 
@@ -578,12 +609,34 @@ With the recursion in hand, the Hales--Jewett theorem goes exactly as van der Wa
 
 % 7 Oct
 
-We showed % [CLAUDE] when? where? how?
-that
-\begin{align*}
-    \VW\of{k, 2} = \Omega\of{\frac{2^k}{k}}
-\end{align*}
-using the Lovasz Local Lemma.
+Before mapping lines to progressions, let us record what the \Lovasz{} local lemma (\Cref{Ch5:Thm:LLL}) says about van der Waerden numbers from below, since it is the benchmark against which the upper bounds should be read.
+
+% Not from the lecture: the lecture of 7 October quoted this bound as already shown, ``using the Lovasz Local Lemma'', and no earlier lecture in these notes shows it (chapter 5 states the lemma and proves nothing with it yet). The statement and proof were supplied in answer to the author's ``when? where? how?''; the symmetric form of the local lemma that the proof uses is not in chapter 5 either, so it is derived inline by taking every $x_A$ equal.
+\begin{boxproposition} \label{Ch6:Prop:VW_Lower_Bound}
+    For all $k \geq 2$,
+    \begin{align*}
+        \VW\of{k, 2} > \frac{(k - 1) \, 2^{k - 1}}{e k^2}
+    \end{align*}
+    In particular, $\VW\of{k, 2} = \Omega\of{\frac{2^k}{k}}$.
+\end{boxproposition}
+\begin{proof}
+    Let $N = \floor{\frac{(k - 1) 2^{k - 1}}{e k^2}} + 1$. It suffices to find a $2$-colouring of $[N]$ with no monochromatic $k$-term arithmetic progression, as then $\VW(k, 2) > N$. If $N < k$ there is nothing to find, since $[N]$ has no $k$-term progressions at all, so assume $N \geq k$.
+
+    Colour $[N]$ red or blue uniformly and independently at random. For each $k$-term arithmetic progression $P \ssq [N]$, let $A_P$ be the event that $P$ is monochromatic, so that $\Pr\of{A_P} = 2^{1 - k}$. $A_P$ is determined by the colours of the points of $P$ alone, so joining $A_P$ to $A_Q$ exactly when $P$ and $Q$ share a point gives a dependency graph. A progression through a given point is determined by its common difference, which is at most $\frac{N - 1}{k - 1}$, and by the position of the point in it, so a point lies in at most $\frac{k (N - 1)}{k - 1}$ progressions, and $A_P$ has at most
+    \begin{align*}
+        D = \frac{k^2 (N - 1)}{k - 1} - 1 \geq 1
+    \end{align*}
+    neighbours. Take $x_A = \frac{1}{D + 1}$ for every event $A$. Then, for every $P$,
+    \begin{align*}
+        x_{A_P} \prod_{A_Q \sim A_P} \parenth{1 - x_{A_Q}}
+        \geq \frac{1}{D + 1} \parenth{1 - \frac{1}{D + 1}}^{D}
+        \geq \frac{1}{e \parenth{D + 1}}
+        = \frac{k - 1}{e k^2 (N - 1)}
+        \geq 2^{1 - k}
+        = \Pr\of{A_P}
+    \end{align*}
+    using $\parenth{1 + \frac{1}{D}}^D \leq e$ for the second inequality and $N - 1 \leq \frac{(k - 1) 2^{k - 1}}{e k^2}$ for the last. So \Cref{Ch5:Thm:LLL} applies, and with positive probability no $A_P$ occurs: some $2$-colouring of $[N]$ has no monochromatic $k$-term arithmetic progression.
+\end{proof}
 
 To found bounds on Hales-Jewett numbers in terms of van der Waerden numbers, let's ask ourselves the following question: can we map from $\brac{n^d}$ to some line in a way that takes geometric/combinatorial lines to arithmetic progressions?
 
@@ -591,9 +644,18 @@ One thing we immediately see is that if we consider the mapping
 \begin{align*}
     \phi : [n]^d \to \brac{n^d} : p \mapsto p_0 + p_1 n + p_2 n^2 + \cdots + p_{d-1} n^{d-1}
 \end{align*}
-% [CLAUDE] mention below what bound this gives us - should be something about VW(k, r) <= HJ(k, r^k) or something like this idk
+which reads a point as the digits of a number written in base $n$, then lines go to progressions: if $S$ is the set of active coordinates of a template $\sigma$, then
+\begin{align*}
+    \phi\of{\sigma(i)} = \sum_{j \notin S} \sigma_j n^j + i \sum_{j \in S} n^j
+\end{align*}
+so as $i$ runs over $[n]$ the images $\phi\of{\sigma(1)}, \ldots, \phi\of{\sigma(n)}$ form an $n$-term arithmetic progression with common difference $\sum_{j \in S} n^j > 0$. An $r$-colouring of $\brac{n^d}$ therefore pulls back along $\phi$ to an $r$-colouring of $[n]^d$, and when $d = \HJ(n, r)$ the monochromatic line this contains maps to a monochromatic $n$-term progression. In other words,
+\begin{align*}
+    \VW(n, r) \leq n^{\HJ(n, r)}
+\end{align*}
+so that the Hales--Jewett theorem gives van der Waerden's theorem a second time.
 
-% [CLAUDE] motivate the following by pointing out that if we just sum the coords of the points we get problems because for instance we might have coords that cancel each other out, taking potentially a comb line to a point instead of a ``non-degenerate''/``interesting'' AP.
+Nothing about this used the particular form of $\phi$ beyond one property: a line is sent to a progression that does not degenerate, because its active coordinates all move together, so the image of a line can never collapse to a point. Any map with that property gives a Ramsey theorem for whatever a line maps to.
+
 Similarly, if we do
 \begin{align*}
     \gamma : [n]^d \to \brac{(n - 1)^2 d + 1} : p \mapsto p_1^2 + p_2 ^2 + \cdots + p_d^2
@@ -604,10 +666,13 @@ the image of $\gamma$ is now a ``quadratic progression''.
 
 Consider the complete graph on the natural numbers, denoted $K_{\N}$. First, observe that any $2$-colouring of the edges of $K_{\N}$ has an infinite monochromatic clique: indeed, if I have a red/blue colouring of $\N$, then either the set of red numbers or the set of blue numbers must be infinite, so just look at the edges between them to get the desired clique.
 
-\begin{boxdefinition}
-    Define $\bar{R_k^{(c)}}$ to be the smallest $N \in \N$ such that any $c$-colouring of $k$-sets of $[N]$ has a monochromatic $n$-clique $X$ on $n' \geq n$ such that $n' \geq \min(X)$.
+Ramsey numbers of finite sets have a strengthening in which the monochromatic set is asked to be large relative to its own elements.
+
+% The definition below was rewritten on the author's instruction (``what the heck is this definition''). It read: Define $\bar{R_k^{(c)}}$ to be the smallest $N \in \N$ such that any $c$-colouring of $k$-sets of $[N]$ has a monochromatic $n$-clique $X$ on $n' \geq n$ such that $n' \geq \min(X)$.
+\begin{boxdefinition}[Large Ramsey Number]
+    A finite set $X \ssq \N$ is \textbf{relatively large} if $\abs{X} \geq \min X$. For $n, k, c \in \N$, define $\bar{R}^{(c)}_k(n)$ to be the smallest $N \in \N$ such that any $c$-colouring of the $k$-subsets of $[N]$ has a relatively large set $X \ssq [N]$ with $\abs{X} \geq n$ all of whose $k$-subsets have the same colour.
 \end{boxdefinition}
 
-% [CLAUDE] what the heck is this definition
+So $X$ is a monochromatic clique in the sense of hypergraph Ramsey numbers, and for $c = 2$ the definition without the words ``relatively large'' would be $R_{(k)}(n, n)$. The extra condition is what makes the number interesting: a monochromatic clique whose least element is $m$ now has to have at least $m$ elements, so cliques that start early are cheap and cliques that start late are expensive. That these numbers exist at all follows from the infinite version of Ramsey's theorem by a compactness argument, which we will not give.
 
-One interesting theorem (that we will not prove here) is that the existence of the above cannot be proven in Peano arithmetic.
+One interesting theorem (that we will not prove here) is that the existence of the above cannot be proven in Peano arithmetic. This is the Paris--Harrington theorem~\cite{ParisHarrington}, the first example of a natural combinatorial statement that is true but not provable from Peano's axioms.
