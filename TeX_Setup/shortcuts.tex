@@ -408,3 +408,25 @@
 \newcommand{\Lovasz}{Lov\'{a}sz}
 \newcommand{\girth}{\operatorname{girth}}
 \newcommand{\eps}{\varepsilon}
+
+\newcommand{\ES}{\operatorname{ES}}  % Erdos-Szekeres numbers: ES(k, l)
+\newcommand{\VW}{\operatorname{VW}}  % van der Waerden numbers: VW(k, r)
+\newcommand{\CF}{\operatorname{CF}}  % colour-focused AP numbers: CF(k, r, s)
+
+\newcommand{\drawcupcap}[2]{  % {k}{sign}: k points along the parabola y = sign * x^2 / 4, joined left to right
+    \foreach \i in {1, ..., #1}{
+        \pgfmathsetmacro{\xthis}{\i - (#1 + 1) / 2}
+        \coordinate (P\i) at (\xthis, {#2 * 0.25 * \xthis * \xthis});
+    }
+    \draw[thick] (P1) \foreach \i in {2, ..., #1}{ -- (P\i) };
+    \foreach \i in {1, ..., #1}{
+        \fill[black] (P\i) circle (2pt);
+    }
+}
+
+\newcommand{\drawcup}[1]{\drawcupcap{#1}{1}}  % {k}: a k-cup
+\newcommand{\drawcap}[1]{\drawcupcap{#1}{-1}}  % {k}: a k-cap
+
+% ALWAYS USE THE THING BELOW TO GET THE PREVIEW THING ON OVERLEAF - KEEP IT COMMENTED, ADD NEW MACROS ABOVE, KEEP IT AT EOF FOR EASE OF FINDING
+
+% $\eps$
