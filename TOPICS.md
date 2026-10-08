@@ -74,12 +74,27 @@ What earns a chapter, a section and a subsection: `.claude/ORGANIZATION.md`.
       Erdos-Selfridge: breaker wins when m + Delta < 2^k
       8x8x8 tic-tac-toe, as an aside the course drops
 
-2.2 Ramsey Numbers                                  [2026-08-26]
+2.2 Ramsey Numbers                                  [2026-08-26, 2026-09-25]
     Turns the question around: how large must a structure be before every
     coloring of it is forced to produce something monochromatic.
-      R(k), for edge colorings of complete graphs
-      R(3) >= 6, from the two-colored K_5
-      known values and the best known bounds
+      R(k), for edge colorings of complete graphs                   (preamble)
+      R(3) >= 6, from the two-colored K_5                           (preamble)
+      known values and the best known bounds                        (preamble)
+      R(k, l) <= R(k-1, l) + R(k, l-1), stated; proof deferred to
+        undergraduate graph theory notes, cross-ref pending         (preamble)
+    2.2.1 Hypergraph Ramsey Numbers                 [2026-09-25]
+      Erdos-Szekeres, stated as the motivation and not proved
+      K_(r)(n); cliques of a color, their size counted in vertices
+      R_(r)(k, l), for red/blue colorings of hyper-edges
+      K_(1)(4), K_(2)(4), K_(3)(4), and a clique in a colored K_4,
+        drawn                                                       [supplied]
+      R_(1)(k, l) = k + l - 1, by pigeonhole                        [supplied]
+    2.2.2 A Recursive Upper Bound                   [2026-09-25]
+      R_(r)(k, l) <= R_(r-1)(R_(r)(k-1, l), R_(r)(k, l-1)) + 1 for
+        r, k, l >= 2, by the shadow coloring at one vertex
+      the two cases of the proof, and A, B and n named             [supplied]
+      H a copy of K_(r-1)(n-1); at r = 2 the graph bound above      [supplied]
+      every R_(r)(k, l) exists, by induction on r, then k + l       [supplied]
 
 2.3 Chromatic Number                                [2026-09-02]
     Comes back to coloring graphs, and asks how many colors a graph needs
@@ -286,14 +301,6 @@ Chapter 1 is three sections of thirty-odd lines each, where the corpus runs 2-8
     is the obvious second subsection once anything else lands beside it.
     Ends when: a lecture adds enough to expectation proper to name it.
 
-2.2 Ramsey Numbers is a section with one definition, one figure and no result.
-    Why tolerated: it is one line of enquiry -- how large before every coloring
-    is forced to produce something monochromatic -- opened in one lecture and
-    not returned to since. Folding it into 2.1 would fuse two questions, which
-    is the mistake that does not self-heal; a thin section does.
-    Ends when: a lecture returns to Ramsey theory, or the course visibly never
-    will, in which case it can become a subsection of 2.1.
-
 Chapter 3 is titled "Set Systems" on two lectures' evidence.
     The three sections ask three different questions of a family of subsets,
     which is what a chapter title has to cover; "Extremal Set Theory" was
@@ -310,6 +317,11 @@ Retired, kept as the record of why earlier structure looked as it did:
 Chapter 1 had one section, where the corpus runs 2-8 (tolerated 2026-08-24).
     ENDED 2026-08-26: lecture 2 opened the Ramsey question, which became 1.2,
     now 2.2.
+
+2.2 Ramsey Numbers was a section with one definition, one figure and no result
+    (tolerated 2026-08-26, to end when a lecture returned to Ramsey theory).
+    ENDED 2026-09-25: the lecture of that date did, with hypergraph Ramsey
+    numbers, now 2.2.1 and 2.2.2.
 
 The chapter title "Graphs and Colorings" was a bet on one lecture (2026-08-24).
     MET 2026-08-28 and worse by 2026-08-31, when half the chapter was set
@@ -432,6 +444,26 @@ Beck's theorem                   stated 2026-09-21, not named and not proved:
                                  sequences" says the lecture means to prove it,
                                  presumably by the local lemma on finite words
                                  and then compactness. Now 5.2.
+Erdos-Szekeres                   stated 2026-09-25 as the motivation for
+                                 hypergraph Ramsey numbers, and explicitly not
+                                 proved that day. How it follows from them is
+                                 not yet said.
+finiteness of R_(r)(k, l)        assumed 2026-09-25 and not shown: R_(r)(k, l)
+                                 is defined as a least n, and 2.2.2 is a bound
+                                 on it that presumes the right-hand side exists.
+                                 The proof's "by induction" points at the
+                                 argument (on r, then k + l), whose bases, the
+                                 lemma and R_(r)(1, l) = R_(r)(k, 1) = 1, are not
+                                 written. Raised by both reviewers of #25. Now
+                                 the corollary closing 2.2.2, supplied on the
+                                 author's instruction (2026-09-30).
+R(k, l) <= R(k-1, l) + R(k, l-1)  "what we know about Ramsey numbers on graphs",
+                                 2026-09-25. Now stated in 2.2's preamble on the
+                                 author's instruction (2026-09-29), unproved:
+                                 "See undergraduate graph theory notes", with a
+                                 \todo for the cross-reference to Michele's notes.
+                                 2.2.2 cites it, and notes that its own bound
+                                 at r = 2, with the lemma, is this one.
 ```
 
 ## Unplaced
@@ -495,6 +527,12 @@ The Lovasz Local Lemma is a new body of theory parked at the end of a chapter
     compactness step for sequences rather than colorings. If the course keeps
     passing from finite to infinite this way, the compactness argument may want
     a home of its own, nearer the local lemma than the plane. [noted 2026-09-21]
+
+2.2 is now a preamble about graphs with two subsections about hypergraphs. The
+    preamble is the graph case of what the subsections do, and reads as a
+    subsection in waiting ("Ramsey Numbers of Graphs"). /integrate may not
+    split existing material under a new heading, so it is left. [noted
+    2026-09-25]
 ```
 
 Resolved by the `/organize` pass of 2026-09-15, kept as a record:
