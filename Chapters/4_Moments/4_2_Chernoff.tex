@@ -53,7 +53,7 @@ by Markov's inequality (where $\beta$ denotes $e^t$ for $t > 0$, a bit like how 
 Optimising over $t$ turns that into a bound that decays in $a$ faster than any power.
 
 \begin{boxtheorem}[Chernoff's Bound] \label{Ch4:Thm:Chernoff}
-    Let $\xi_1, \ldots, \xi_n$ be independent random variables each taking the values $\pm 1$ with probability $\frac{1}{2}$, and let $\eta = \sum_{i=1}^{n} \xi_i$. Then for every $a \geq 0$,
+    Let $\xi_1, \ldots, \xi_n$ be independent random variables with $\abs{\xi_i} \leq 1$ and $\E\of{\xi_i} = 0$ for all $i$. Let $\eta = \sum_{i=1}^{n} \xi_i$. Then for every $a \geq 0$,
     \begin{align*}
         \Pr\of{\eta \geq a} \leq e^{-\frac{a^2}{2n}}
     \end{align*}
@@ -65,12 +65,12 @@ Optimising over $t$ turns that into a bound that decays in $a$ faster than any p
         = \E\of{e^{t \sum_{i=1}^{n} \xi_i}}
         = \E\of{\prod_{i=1}^{n} e^{t \xi_i}}
         = \prod_{i=1}^{n} \E\of{e^{t \xi_i}}
-        = \parenth{\frac{e^{-t} + e^{t}}{2}}^{n}
+        \leq \parenth{\frac{e^{-t} + e^{t}}{2}}^{n}
     \end{align*}
     % Not from the lecture: the lecture asserted the bound on the display below; the comparison of the two series was supplied.
     % [CORRECTED] was: an equality at the end of the display below --- $\E\of{e^{t\eta}} = \parenth{\cosh t}^n$ is
     % strictly less than $e^{t^2 n / 2}$ for every $t \neq 0$, and the step is the inequality just established.
-    the third equality by independence. Comparing the series termwise, $\frac{e^{t} + e^{-t}}{2} = \sum_{k \geq 0} \frac{t^{2k}}{(2k)!} \leq \sum_{k \geq 0} \frac{t^{2k}}{2^k k!} = e^{\frac{t^2}{2}}$, since $(2k)! \geq 2^k k!$. We therefore conclude that
+    We get the third equality by independence. Comparing the series termwise, $\frac{e^{t} + e^{-t}}{2} = \sum_{k \geq 0} \frac{t^{2k}}{(2k)!} \leq \sum_{k \geq 0} \frac{t^{2k}}{2^k k!} = e^{\frac{t^2}{2}}$, since $(2k)! \geq 2^k k!$. We therefore conclude that
     \begin{align*}
         \Pr\of{\eta \geq a}
         = \Pr\of{e^{t\eta} \geq e^{ta}}
