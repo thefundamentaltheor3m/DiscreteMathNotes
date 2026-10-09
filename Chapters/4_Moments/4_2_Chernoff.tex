@@ -52,25 +52,26 @@ by Markov's inequality (where $\beta$ denotes $e^t$ for $t > 0$, a bit like how 
 
 Optimising over $t$ turns that into a bound that decays in $a$ faster than any power.
 
-\begin{boxtheorem}[Chernoff's Bound] \label{Ch4:Thm:Chernoff}
-    Let $\xi_1, \ldots, \xi_n$ be independent random variables with $\abs{\xi_i} \leq 1$ and $\E\of{\xi_i} = 0$ for all $i$. Let $\eta = \sum_{i=1}^{n} \xi_i$. Then for every $a \geq 0$,
+\begin{boxtheorem}[Chernoff's Bound for Probability $\frac{1}{2}$]\label{Ch4:Thm:Chernoff-Half}
+    Let $\xi_1, \ldots, \xi_n$ be independent random variables each taking the values $\pm 1$ with probability $\frac{1}{2}$, and let $\eta = \sum_{i=1}^{n} \xi_i$. Then for every $a \geq 0$,
     \begin{align*}
         \Pr\of{\eta \geq a} \leq e^{-\frac{a^2}{2n}}
     \end{align*}
 \end{boxtheorem}
 \begin{proof}
     At $a = 0$ the bound reads $\Pr\of{\eta \geq 0} \leq 1$ and there is nothing to prove, so take $a > 0$, and fix $t > 0$ for the moment. Notice that
-    \begin{align*}
+    \begin{align}
         \E\of{e^{t \eta}}
         = \E\of{e^{t \sum_{i=1}^{n} \xi_i}}
         = \E\of{\prod_{i=1}^{n} e^{t \xi_i}}
         = \prod_{i=1}^{n} \E\of{e^{t \xi_i}}
-        \leq \parenth{\frac{e^{-t} + e^{t}}{2}}^{n}
-    \end{align*}
+        = \parenth{\frac{e^{-t} + e^{t}}{2}}^{n}
+        \label{Ch4:eq:Chernoff-half-equality-chain}
+    \end{align}
     % Not from the lecture: the lecture asserted the bound on the display below; the comparison of the two series was supplied.
     % [CORRECTED] was: an equality at the end of the display below --- $\E\of{e^{t\eta}} = \parenth{\cosh t}^n$ is
     % strictly less than $e^{t^2 n / 2}$ for every $t \neq 0$, and the step is the inequality just established.
-    We get the third equality by independence. Comparing the series termwise, $\frac{e^{t} + e^{-t}}{2} = \sum_{k \geq 0} \frac{t^{2k}}{(2k)!} \leq \sum_{k \geq 0} \frac{t^{2k}}{2^k k!} = e^{\frac{t^2}{2}}$, since $(2k)! \geq 2^k k!$. We therefore conclude that
+    the third equality by independence. Comparing the series termwise, $\frac{e^{t} + e^{-t}}{2} = \sum_{k \geq 0} \frac{t^{2k}}{(2k)!} \leq \sum_{k \geq 0} \frac{t^{2k}}{2^k k!} = e^{\frac{t^2}{2}}$, since $(2k)! \geq 2^k k!$. We therefore conclude that
     \begin{align*}
         \Pr\of{\eta \geq a}
         = \Pr\of{e^{t\eta} \geq e^{ta}}
@@ -79,7 +80,7 @@ Optimising over $t$ turns that into a bound that decays in $a$ faster than any p
     \end{align*}
     % [CORRECTED] was: "the $n$ that minimises this" --- $n$ is fixed by the statement and the exponent is increasing
     % in it; the free parameter is $t$, and $t = \frac{a}{n}$ is what gives $e^{-a^2 / 2n}$.
-    Can we optimise this? Ie, can we find the $t$ that minimises this? It turns out, we can: by some calculus nonsense, we get that the optimal value is $e^{-\frac{a^2}{2n}}$.
+    As this result holds for all $t$, can we optimise this? Ie, can we find the $t$ that minimises this? It turns out, we can: by some calculus nonsense, we get that $t = \frac{a}{n}$ is optimal, giving us the upper-bound $e^{-\frac{a^2}{2n}}$.
 \end{proof}
 
 The same bound holds if the $\xi_i$ are independent and for all $i$, $\abs{\xi_i} \leq 1$ and $\E\of{\xi_i} = 0$.
@@ -104,14 +105,15 @@ Define
     h(x) = \frac{e^{t} + e^{-t}}{2} + x \frac{e^{t} - e^{-t}}{2}
 \end{align*}
 We can show that
-\begin{align*}
+\begin{align}
     \E\of{e^{t \xi_i}}
     \leq \E\of{h\of{\xi_i}}
     = h\of{\E\of{\xi_i}}
     = h(0)
     = \frac{e^t + e^{-t}}{2}
-\end{align*}
-The first inequality is the whole content of the extension: $h$ is the chord of $x \mapsto e^{tx}$ across $[-1, 1]$, and since $e^{tx}$ is convex it lies below that chord on the whole interval, which is where $\abs{\xi_i} \leq 1$ is used. The first equality is linearity, since $h$ is affine, and the second is where $\E\of{\xi_i} = 0$ is used.
+    \label{Ch4:eq:Chernoff-eq-to-ineq-generalisation}
+\end{align}
+The first inequality is what makes this work: $h$ is the chord of $x \mapsto e^{tx}$ across $[-1, 1]$, and since $e^{tx}$ is convex it lies below that chord on the whole interval, which is where $\abs{\xi_i} \leq 1$ is used. The first equality is linearity, since $h$ is affine, and the second is where $\E\of{\xi_i} = 0$ is used.
 
 \begin{figure}[H]
     \centering
@@ -133,3 +135,15 @@ The first inequality is the whole content of the extension: $h$ is the chord of 
         \node[anchor = west] at (2.35, 2.7183) {$e^{t}$};
     \end{tikzpicture}
 \end{figure}
+
+We thus get, more generally, the following result.
+
+\begin{boxtheorem}[Chernoff's Bound]\label{Ch4:Thm:Chernoff}
+    Let $\xi_1, \ldots, \xi_n$ be independent random variables with $\abs{\xi_i} \leq 1$ and $\E\of{\xi_i} = 0$ for all $i$. Let $\eta = \sum_{i=1}^{n} \xi_i$. Then for every $a \geq 0$,
+    \begin{align*}
+        \Pr\of{\eta \geq a} \leq e^{-\frac{a^2}{2n}}
+    \end{align*}
+\end{boxtheorem}
+\begin{proof}[Proof sketch]
+    We prove this identically to \Cref{Ch4:Thm:Chernoff-Half}, except in our chain of equalities \eqref{Ch4:eq:Chernoff-half-equality-chain}, we  replace the last equality with a $\le$, as given by \eqref{Ch4:eq:Chernoff-eq-to-ineq-generalisation}.
+\end{proof}
