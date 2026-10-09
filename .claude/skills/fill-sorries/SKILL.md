@@ -103,6 +103,15 @@ of it.
 [r]: https://github.com/thefundamentaltheor3m/RepTheoryEPFL
 [a]: https://github.com/thefundamentaltheor3m/LieAlgebrasNotes
 
+Then read the last four items of `STYLE.md`'s anti-patterns — jargon, organisation,
+precision, length — against what you wrote, sentence by sentence. They were named
+by the author after reading a fill, and a fill is where they happen: a word like
+*load-bearing* or *buys us* where plain mathematics was wanted, a definition left
+inline that the proof then uses, a boundary case spelled out that the argument never
+touches, a bridge that says nothing, a "clearly" over the one step that matters.
+The lectures of 28 and 30 September 2026 (6.1.4–6.2.2) are the author's own prose
+and the standard to compare against.
+
 Grep `TeX_Setup/shortcuts.tex` before writing any raw math — `\parenth`, `\set`,
 `\setst`, `\abs`, `\floor`, `\ceil`, `\R`, `\Z`, `\N`, `\pgcd`, `\Sym`, `\dist`, … A
 new macro is welcome when the material you are writing will use it repeatedly; append

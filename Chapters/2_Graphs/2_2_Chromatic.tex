@@ -56,29 +56,26 @@ First, the graphs for which the lower bound is exact---and stays exact when we t
 
 At the opposite extreme are graphs with $\omega = 2$ and $\chi$ as large as we like, and we can build them by hand.
 
-Let's now construct a sequence $(G_n)_{n \in \N}$. Start with $G_1$ a single vertex. Given $G_1, \ldots, G_{k-1}$, take disjoint copies of all of them, and for every way of choosing one vertex $v_i$ from each $G_i$ add a new vertex adjacent to $v_1, \ldots, v_{k-1}$ and to nothing else; the result is $G_k$. In the pictures below the copies of the earlier graphs sit on top and the new vertices along the bottom, so that each bottom vertex sends exactly one edge into each of the graphs above it. There are $\abs{G_1} \cdots \abs{G_{k-1}}$ new vertices, so $G_2$ has $1 + 1 = 2$ vertices and is a single edge, $G_3$ has $1 + 2 + 2 = 5$ and is the $5$-cycle, and $G_4$ has $1 + 2 + 5 + 10 = 18$ (the construction is due to Zykov).
+Let's now construct a sequence $(G_n)_{n \in \N}$. Start with $G_1$ a single vertex. Given $G_1, \ldots, G_{k-1}$, take disjoint copies of all of them, and for every way of choosing one vertex $v_i$ from each $G_i$ add a new vertex adjacent to $v_1, \ldots, v_{k-1}$ and to nothing else; the result is $G_k$. There are $\abs{G_1} \cdots \abs{G_{k-1}}$ new vertices, so $G_2$ has $1 + 1 = 2$ vertices and is a single edge, $G_3$ has $1 + 2 + 2 = 5$ and is the $5$-cycle, and $G_4$ has $1 + 2 + 5 + 10 = 18$ (the construction is due to Zykov).
 
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}
         \node[circle, fill = black, inner sep = 1.5pt] (a1) at (0, 0) {};
-        \node[anchor = north] at (0, -1.4) {$G_1$};
-        \begin{scope}[xshift = 2.5cm]
-            \node[circle, fill = black, inner sep = 1.5pt] (a2) at (0, 0.6) {};
-            \node[circle, fill = black, inner sep = 1.5pt] (b2) at (0, -0.6) {};
+        \node[anchor = north] at (0, -0.5) {$G_1$};
+        \begin{scope}[xshift = 1.75cm]
+            \node[circle, fill = black, inner sep = 1.5pt] (a2) at (0, 0) {};
+            \node[circle, fill = black, inner sep = 1.5pt] (b2) at (1, 0) {};
             \draw (a2) -- (b2);
-            \node[anchor = north] at (0, -1.4) {$G_2$};
+            \node[anchor = north] at (0.5, -0.5) {$G_2$};
         \end{scope}
-        \begin{scope}[xshift = 6cm]
-            \node[circle, fill = black, inner sep = 1.5pt] (a3) at (-1.2, 0.6) {};
-            \node[circle, fill = black, inner sep = 1.5pt] (b3) at (0.3, 0.6) {};
-            \node[circle, fill = black, inner sep = 1.5pt] (c3) at (1.5, 0.6) {};
-            \node[circle, fill = black, inner sep = 1.5pt] (d3) at (-0.6, -0.6) {};
-            \node[circle, fill = black, inner sep = 1.5pt] (e3) at (0.6, -0.6) {};
-            \draw (b3) -- (c3);
-            \draw (a3) -- (d3) -- (b3);
-            \draw (a3) -- (e3) -- (c3);
-            \node[anchor = north] at (0.15, -1.4) {$G_3$};
+        \begin{scope}[xshift = 4.5cm]
+            \foreach \v [count = \i from 0] in {a3, d3, b3, c3, e3}{
+                \node[circle, fill = black, inner sep = 1.5pt] (\v) at (\i, 0) {};
+            }
+            \draw (a3) -- (d3) -- (b3) -- (c3) -- (e3);
+            \draw (a3) to[bend left = 40] (e3);
+            \node[anchor = north] at (2, -0.5) {$G_3$};
         \end{scope}
     \end{tikzpicture}
 \end{figure}
@@ -88,18 +85,15 @@ $G_4$ is already hard to take in, but the shape of the construction survives in 
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}[scale = 0.95]
-        \node[circle, fill = black, inner sep = 1.5pt] (u) at (0, 1) {};
-        \node[anchor = south] at (0, 1.5) {$G_1$};
-        \node[circle, fill = black, inner sep = 1.5pt] (v1) at (1.6, 0.55) {};
-        \node[circle, fill = black, inner sep = 1.5pt] (v2) at (1.6, 1.45) {};
-        \node[anchor = south] at (1.6, 1.75) {$G_2$};
+        \node[circle, fill = black, inner sep = 1.5pt] (u) at (-0.2, 1) {};
+        \node[anchor = south] at (-0.2, 1.75) {$G_1$};
+        \node[circle, fill = black, inner sep = 1.5pt] (v1) at (1, 1) {};
+        \node[circle, fill = black, inner sep = 1.5pt] (v2) at (1.8, 1) {};
+        \node[anchor = south] at (1.4, 1.75) {$G_2$};
         \foreach \k in {1, ..., 5}{
-            \pgfmathsetmacro{\ang}{90 + 72 * (\k - 1)}
-            \pgfmathsetmacro{\wx}{4.6 + 0.85 * cos(\ang)}
-            \pgfmathsetmacro{\wy}{1 + 0.85 * sin(\ang)}
-            \node[circle, fill = black, inner sep = 1.5pt] (w\k) at (\wx, \wy) {};
+            \node[circle, fill = black, inner sep = 1.5pt] (w\k) at (2.2 + 0.8 * \k, 1) {};
         }
-        \node[anchor = south] at (4.6, 1.95) {$G_3$};
+        \node[anchor = south] at (4.6, 1.75) {$G_3$};
         \foreach \j in {1, 2}{
             \foreach \k in {1, ..., 5}{
                 \pgfmathtruncatemacro{\i}{5 * (\j - 1) + \k}
@@ -111,10 +105,8 @@ $G_4$ is already hard to take in, but the shape of the construction survives in 
             }
         }
         \draw (v1) -- (v2);
-        \foreach \k in {1, ..., 5}{
-            \pgfmathtruncatemacro{\next}{mod(\k, 5) + 1}
-            \draw (w\k) -- (w\next);
-        }
+        \draw (w1) -- (w2) -- (w3) -- (w4) -- (w5);
+        \draw (w1) to[bend left = 40] (w5);
     \end{tikzpicture}
 \end{figure}
 
@@ -194,6 +186,13 @@ The proof of \Cref{Ch2:Thm:Erdos_Girth} plays the same trick, but with a random 
 \begin{boxdefinition}[Random Graph] \label{Ch2:Def:Random_Graph}
     For $n \in \N$ and $p \in [0, 1]$, the \textbf{random graph} $G_{n, p}$ is the graph on the vertex set $[n]$ in which each of the $\binom{n}{2}$ possible edges is present independently with probability $p$.
 \end{boxdefinition}
+
+% Added on the author's instruction (2026-10-08).
+Concretely, the probability space we are in is the set $\Omega$ of all graphs on the vertex set $[n]$, of which there are $2^{\binom{n}{2}}$. An event is any collection of such graphs---the graphs containing a triangle, say, or those with an independent set of size $a$---and the probability measure is given by the value of $p$: a graph $G$ on $[n]$ with $e(G)$ edges has probability
+\begin{align*}
+    \Pr\of{G_{n, p} = G} = p^{e(G)} \parenth{1 - p}^{\binom{n}{2} - e(G)}
+\end{align*}
+This is the finite setting of \Cref{Ch1:Sec:Prob_Spaces}, with every collection of graphs an event. In particular, when we study the probability of some event, we are effectively counting the graphs in which the desired outcome is realised, each weighted as above. When $p = \frac{1}{2}$ every graph has the same weight $2^{-\binom{n}{2}}$, and the probability of an event is exactly the proportion of all graphs on $[n]$ that lie in it.
 
 \begin{proof}[Proof of \Cref{Ch2:Thm:Erdos_Girth}]
     Fix $k \geq 3$; for $k \leq 2$ a single edge already does. Consider the graph $G_{n, p}$ for $p = \frac{n^{\varepsilon}}{n}$. For some small $\varepsilon > 0$ (in particular, $\varepsilon \ll \frac{1}{k}$), we see that

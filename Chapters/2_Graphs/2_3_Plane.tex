@@ -39,8 +39,10 @@ We can actually show that $\chi(G) \leq 7$. Indeed, consider the hexagonal tesse
     \item all points in any given hexagon are of the same colour
     \item each hexagon and its $6$ neighbours have different colours
 \end{enumerate}
-Then, we can repeat colours \textit{after} a unit of $7$ (consisting of a hexagon and its neighbours). \sorry
-% The sorry above: the diameter $d$ of the hexagons is never given. Item 2, read as the seven hexagons of a unit all differing, already puts same-coloured hexagons three steps apart, and so at least $\frac{\sqrt{7}}{2} d$ apart; what is missing is $\frac{2}{\sqrt{7}} < d < 1$, together with a convention assigning each boundary point to just one of its hexagons.
+Then, we can repeat colours \textit{after} a unit of $7$ (consisting of a hexagon and its neighbours).
+
+% [FILLED] the diameter of the hexagons, and why the colouring is proper, supplied on 2026-10-07; the lecture gave neither
+Take the hexagons to have diameter $d$ with $\frac{2}{\sqrt{21} - 2} < d < 1$---say $d = 0.9$---and give each boundary point to just one of the hexagons it lies on. Two points of one hexagon are less than $1$ apart, so giving a hexagon a single colour breaks nothing. The centres of neighbouring hexagons are $\frac{\sqrt{3}}{2} d$ apart, and in the colouring below the nearest hexagon of the same colour as a given one is two steps away in one direction and one in the next, so two same-coloured centres are at distance at least $\sqrt{7} \cdot \frac{\sqrt{3}}{2} d = \frac{\sqrt{21}}{2} d$. Every point of a hexagon is within $\frac{d}{2}$ of its centre, so two points of the same colour in different hexagons are at distance at least $\frac{\sqrt{21}}{2} d - d > 1$. No two points at distance exactly $1$ share a colour, and $\chi(G) \leq 7$.
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}
@@ -74,7 +76,7 @@ Recall that a space is compact iff the closed sets satisfy the finite intersecti
 
 We'll use this property (and Tychonoff) to prove a `compactness theorem' for the chromatic number of the plane.
 
-\begin{boxtheorem}
+\begin{boxtheorem} \label{Ch2:Thm:Compactness_Chromatic}
     For any graph $G$,
     \begin{align*}
         \chi(G) = \sup\setst{\chi(H)}{H \ssq G \text{ and } H \text{ is finite}}
@@ -93,8 +95,13 @@ First, a lemma.
     \begin{align*}
         P_e = \setst{c \in [k]^{V(G)}}{c(u) \ne c(v) \text{ for } e = \set{u, v}}
     \end{align*}
-    It is possible to show that $P_e$ is clopen in $[k]^{V(G)}$.
+    It is possible to show that $P_e$ is clopen in $[k]^{V(G)}$: it is the preimage of the clopen set $\setst{(a, b) \in [k]^2}{a \neq b}$ under the projection onto the coordinates $u$ and $v$, which is continuous. % [FILLED] the reason after the colon was supplied on 2026-10-07
 
-    If every finite subgraph can be $k$-coloured, then for all finite $J \ssq E(G)$, $\bigcap_{e \in J} P_{e} \ne \emptyset$ \sorry
-    % The sorry above: the proof stops here. What is missing is why that intersection is nonempty (colour the finite subgraph spanned by $J$ properly and extend arbitrarily), and the conclusion: the finite intersection property then gives $\bigcap_{e \in E(G)} P_e \ne \emptyset$, and any element of that is a proper $k$-colouring of $G$.
+    % [FILLED] from ``the edges in $J$'' to the end of the proof, supplied on 2026-10-07: the lecture stopped at the display
+    If every finite subgraph can be $k$-coloured, then for all finite $J \ssq E(G)$, $\bigcap_{e \in J} P_{e} \ne \emptyset$: the edges in $J$ span a finite subgraph, a proper $k$-colouring of it extends to all of $V(G)$ by colouring the remaining vertices arbitrarily, and the result lies in every $P_e$ with $e \in J$. By Tychonoff's theorem $[k]^{V(G)}$ is compact, the $P_e$ are closed, and so the finite intersection property gives $\bigcap_{e \in E(G)} P_e \ne \emptyset$. Any $c$ in that intersection has $c(u) \ne c(v)$ for every edge $\set{u, v}$, ie, is a proper $k$-colouring of $G$.
+\end{proof}
+
+% [FILLED] the deduction of the theorem from the lemma, supplied on 2026-10-07; the lecture stated the theorem, said ``first, a lemma'', and never came back
+\begin{proof}[Proof of \Cref{Ch2:Thm:Compactness_Chromatic}]
+    Every subgraph $H$ of $G$ has $\chi(H) \leq \chi(G)$, so the supremum is at most $\chi(G)$. Conversely, if the supremum is some finite $k$, then every finite subgraph is $k$-colourable, so $G$ is by \Cref{Ch2:Lemma:Compactness}, and $\chi(G) \leq k$.
 \end{proof}

@@ -108,6 +108,14 @@ environment; British spelling; `` ``LaTeX quotes'' ``; `ie,` and `cf.` inline;
 and never `\cref`. Case splits go in a `description` with
 `\item[\underline{Case…}]`.
 
+**No jargon, and no scaffolding.** `STYLE.md`'s anti-patterns end with four failures
+the author named after reading an assistant's work — jargon (*load-bearing*, *buys
+us*, *benchmark*, *machinery*, *cheap*), organisation (a definition that should be a
+box), over-precision (a hair split that the argument does not need) and length in
+both directions. Read them before writing and again against what you wrote; the
+lectures of 28 and 30 September 2026 (6.1.4–6.2.2) are the author's own prose and
+the standard to match.
+
 **If you cannot honestly complete something, leave `\sorry`** — the red marker the
 author uses for a real gap — and say so in the report. A flagged gap is house style,
 and `/fill-sorries` is the skill that comes back for it later with a licence to work

@@ -1,0 +1,349 @@
+\section{Ramsey Numbers}
+
+\Cref{Ch2:CH} asked when a colouring exists. The opposite question is at least as natural: how large does a structure have to be before every colouring of it is forced to contain something monochromatic? We ask it first of the complete graphs, colouring edges this time rather than vertices, and then of hypergraphs.
+
+\subsection{Ramsey Numbers of Graphs}
+
+\begin{boxdefinition}[Ramsey Number]
+    The $k$th Ramsey number, denoted $R(k)$, is the smallest $n \in \N$ such that any $2$-colouring of edges of $K_n$ gives a monochromatic $K_k$.
+\end{boxdefinition}
+
+One immediate result we can see is that $R(3) \geq 6$, which we can see simply by drawing a picture of $K_5$ and studying what happens if we move our attention to $K_6$.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale = 2]
+        \begin{scope}[red]
+            \stepedges{5}{1}
+        \end{scope}
+        \begin{scope}[blue]
+            \stepedges{5}{2}
+        \end{scope}
+        \cyclevertices{5}
+    \end{tikzpicture}
+\end{figure}
+
+Each colour carries a $5$-cycle---the outer pentagon in red, the inner pentagram in blue---and a $5$-cycle contains no triangle at all, so neither colour gives us a monochromatic $K_3$. Nothing forces a monochromatic triangle at $n = 5$, and so $R(3) \geq 6$. The picture also shows how little room there is to spare: every vertex of $K_5$ meets exactly two edges of each colour, and the moment we pass to $K_6$ each vertex has five edges to distribute between two colours, so one of the colours is forced to take three of them.
+
+We can actually prove that $R(3) = 6$, but this is rather nontrivial.
+
+Other known Ramsey numbers are $R(2) = 2$ and $R(4) = 18$. The rest are unknown, though we do have bounds for them. The best (or close to the best) known bounds are
+\begin{align*}
+    2^{\frac{k}{2}} \leq R(k) \leq 3.8^k
+\end{align*}
+
+Upper bounds of this kind come from a recursion, which is cleanest stated for the off-diagonal Ramsey number $R(k, \ell)$: the smallest $n \in \N$ such that any red/blue colouring of the edges of $K_n$ gives a red $K_k$ or a blue $K_\ell$, so that $R(k) = R(k, k)$.
+
+\begin{boxtheorem} \label{Ch6:Thm:Ramsey_Recursion}
+    For all $k, \ell \geq 2$, we have
+    \begin{align*}
+        R(k, \ell) \leq R(k - 1, \ell) + R(k, \ell - 1)
+    \end{align*}
+\end{boxtheorem}
+
+See undergraduate graph theory notes. \todo{add cross-ref to Michele's notes}
+
+\subsection{Hypergraph Ramsey Numbers}
+
+Nothing in the question needs the things being coloured to be the edges of a graph, and our motivation for going further is the following result about sequences, which we state without proof.
+
+\begin{boxtheorem}[\Erdos-Szekeres]
+    If $n \geq \parenth{r - 1}\parenth{s - 1} + 1$, then any real sequence $a_1, \ldots, a_n$ has a non-decreasing subsequence of length $r$ or a decreasing subsequence of length $s$.
+\end{boxtheorem}
+
+To ask the question of hypergraphs we need the hypergraph with every possible hyper-edge.
+
+\begin{boxdefinition}[Complete Uniform Hypergraph]
+    Define the \textbf{complete $r$-uniform hypergraph on $n$ vertices}, denoted $K_{(r)}(n)$, to be the $r$-hypergraph on $n$ vertices with all possible hyper-edges.
+\end{boxdefinition}
+
+What we look for inside it is the analogue of a monochromatic $K_k$.
+
+% [CORRECTED] was: "a colouring on that hypergraph", and "any red/blue colouring of $K_{(r)}(n)$" in the next box ---
+% a colouring of a hypergraph colours its vertices in these notes (the definition in 2.1.2, Colourings of
+% Hypergraphs), and read that way $R_{(r)}(k, \ell)$ would be $k + \ell - 1$ whenever $k, \ell \geq r$, whatever
+% $r$ is; the proof below colours hyper-edges, and $R_{(2)}(k, k)$ is $R(k)$ only if they are.
+% [CORRECTED] was: "The \textbf{size} of a $k$-clique is the number of edges." --- every use of size counts vertices:
+% the arguments of $R_{(r)}$ do, and the clique of size $A = R_{(r)}(k - 1, \ell)$ in the proof below is what $R_{(r - 1)}$
+% produces, which is $A$ vertices and $\binom{A}{r - 1}$ hyper-edges.
+\begin{boxdefinition}[$k$-clique]
+    Given a hypergraph and a colouring of its hyper-edges, a \textbf{$k$-clique of some colour} is a set  of $k$ vertices such that all possible hyper-edges on that vertex set are monochromatic, of that colour. The \textbf{size} of a $k$-clique is its number of vertices, $k$.
+\end{boxdefinition}
+
+The Ramsey numbers of graphs then generalise directly.
+
+\begin{boxdefinition}[Hypergraph Ramsey Number]
+    Given $r, k, \ell \in \N$, we define $R_{(r)}(k, \ell)$ to be the least $n$ such that any red/blue colouring of the hyper-edges of $K_{(r)}(n)$ contains a red $k$-clique or a blue $\ell$-clique.
+\end{boxdefinition}
+
+For small $r$ these are familiar objects. $K_{(2)}(n)$ is just $K_n$, so $R_{(2)}(k, k)$ is the Ramsey number $R(k)$ above, and in $K_{(1)}(n)$ each vertex is a hyper-edge by itself. Below are $K_{(1)}(4)$, $K_{(2)}(4)$ and $K_{(3)}(4)$, the last with its four hyper-edges drawn as triangles: three shaded ones, and the outline of the fourth around them.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \foreach \x/\y in {0/0, 1.4/0, 1.4/1.4, 0/1.4}{
+            \draw[thick, gray] (\x, \y) circle (0.2);
+            \fill[black] (\x, \y) circle (2pt);
+        }
+        \node at (0.7, -0.65) {$K_{(1)}(4)$};
+        \begin{scope}[xshift = 3.4cm]
+            \draw[thick] (0, 0) -- (1.4, 0) -- (1.4, 1.4) -- (0, 1.4) -- cycle;
+            \draw[thick] (0, 0) -- (1.4, 1.4);
+            \draw[thick] (1.4, 0) -- (0, 1.4);
+            \foreach \x/\y in {0/0, 1.4/0, 1.4/1.4, 0/1.4}{
+                \fill[black] (\x, \y) circle (2pt);
+            }
+            \node at (0.7, -0.65) {$K_{(2)}(4)$};
+        \end{scope}
+        \begin{scope}[xshift = 7.6cm, yshift = 0.55cm]
+            \fill[violet, opacity = 0.25] (90:1.1) -- (210:1.1) -- (0, 0) -- cycle;
+            \fill[orange, opacity = 0.25] (210:1.1) -- (330:1.1) -- (0, 0) -- cycle;
+            \fill[teal, opacity = 0.25] (330:1.1) -- (90:1.1) -- (0, 0) -- cycle;
+            \draw[olive, very thick] (90:1.1) -- (210:1.1) -- (330:1.1) -- cycle;
+            \foreach \a in {90, 210, 330}{
+                \fill[black] (\a:1.1) circle (2pt);
+            }
+            \fill[black] (0, 0) circle (2pt);
+            \node at (0, -1.2) {$K_{(3)}(4)$};
+        \end{scope}
+    \end{tikzpicture}
+\end{figure}
+
+Once the hyper-edges are coloured, a clique of a colour is a set of vertices all of whose hyper-edges have that colour: in the colouring of $K_{(2)}(4)$ below, the red triangle is a red $3$-clique, and each blue edge is a blue $2$-clique.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale = 1.3]
+        \draw[very thick, red] (90:1) -- (210:1) -- (330:1) -- cycle;
+        \foreach \a in {90, 210, 330}{
+            \draw[very thick, blue] (0, 0) -- (\a:1);
+            \fill[black] (\a:1) circle (2pt);
+        }
+        \fill[black] (0, 0) circle (2pt);
+    \end{tikzpicture}
+\end{figure}
+
+One easy fact to see is the following.
+
+\begin{boxlemma} \label{Ch6:Lemma:Hypergraph_Ramsey_1}
+    $R_{(1)}(k, \ell) = k + \ell - 1$.
+\end{boxlemma}
+\begin{proof}
+    % [FILLED] proof supplied here; the lecture stated the lemma without proving it
+    In $K_{(1)}(n)$ every hyper-edge is a single vertex, so colouring the hyper-edges colours the vertices, and a red $k$-clique is just $k$ red vertices. If $n \geq k + \ell - 1$, then fewer than $k$ red vertices leaves at least $\ell$ blue ones. If $n \leq k + \ell - 2$, colouring at most $k - 1$ vertices red and at most $\ell - 1$ blue gives neither.
+\end{proof}
+
+\subsection{A Recursive Upper Bound}
+
+We can compute a similar bound to what we know about Ramsey numbers on graphs (\Cref{Ch6:Thm:Ramsey_Recursion}).
+
+% [CORRECTED] was: "For all $r, k, \ell$" --- the right-hand side needs $R_{(r - 1)}$, $R_{(r)}(k - 1, \cdot)$ and $R_{(r)}(\cdot, \ell - 1)$,
+% and these definitions give the first only for $r \geq 2$ and the others only for $k, \ell \geq 2$.
+\begin{boxtheorem} \label{Ch6:Thm:Hypergraph_Ramsey_Recursion}
+    For all $r, k, \ell \geq 2$, we have
+    \begin{align*}
+        R_{(r)}(k, \ell) \le R_{(r - 1)}\of{R_{(r)}\of{k - 1, \ell}, R_{(r)}\of{k, \ell - 1}} + 1
+    \end{align*}
+\end{boxtheorem}
+\begin{proof}
+    Write $A = R_{(r)}(k - 1, \ell)$ and $B = R_{(r)}(k, \ell - 1)$, and take $n = R_{(r - 1)}(A, B) + 1$.
+
+    % [CORRECTED] was: "It has $R_{(n - 1)}\of{A, B}$ neighbours." (the $n - 1$ a slip for $r - 1$), and $H$ with no vertex set named --- when $n < r$, as at
+    % $r = 3$ and $k = \ell = 2$, $K_{(r)}(n)$ has no hyper-edges and $v$ no neighbours; what the proof uses is the $n - 1$ other vertices.
+    Consider $K_{(r)}(n)$, the complete $r$-uniform hypergraph on $[n]$. Consider any red/blue colouring of its edges. Fix $v \in V\of{K_{(r)}(n)}$. There are $R_{(r - 1)}\of{A, B}$ other vertices.
+
+    % [CORRECTED] was: "removing $v$ from every edge" --- the edges missing $v$ would survive with $r$ vertices, so $H$ would
+    % not be $(r - 1)$-uniform, and $R_{(r - 1)}$ could not be applied to it.
+    Denote by $H$ the $(r - 1)$-uniform hypergraph on those vertices made by removing $v$ from every edge containing $v$. Every $(r - 1)$-subset $S$ of those vertices is the shadow $\parenth{S \cup \set{v}} \setminus \set{v}$ of exactly one edge, so $H$ is a copy of $K_{(r - 1)}(n - 1)$. Define a ``shadow colouring'' of $H$ by letting the colour of the ``shadow edge'' $f \setminus \set{v}$ be just the colour of $f$.
+
+    By induction/definition of $R_{(r - 1)}$, the shadow contains either a red clique of size $A$ or a blue clique of size $B$.
+
+    \begin{description}
+        \item[\underline{Case A: Shadow colouring has a red clique of size $A$.}] Let $W$ be its vertex set, so that $\abs{W} = A = R_{(r)}(k - 1, \ell)$ and every $r$-set $S \cup \set{v}$ with $S$ an $(r - 1)$-subset of $W$ is red. The original colouring of the $r$-subsets of $W$ is a red/blue colouring of a copy of $K_{(r)}(A)$, so $W$ contains either a blue $\ell$-clique, and we are done, or a red $(k - 1)$-clique $U$. In the second case $U \cup \set{v}$ is a red $k$-clique: an $r$-subset of it either lies inside $U$, and is red because $U$ is a red clique, or is $S \cup \set{v}$ for an $(r - 1)$-subset $S$ of $U \ssq W$, and is red because $W$ is a red clique of the shadow.
+        \item[\underline{Case B: Shadow colouring has a blue clique of size $B$.}] The same argument with the colours exchanged: its vertex set has $B = R_{(r)}(k, \ell - 1)$ vertices, so it contains either a red $k$-clique, and we are done, or a blue $(\ell - 1)$-clique $U$, and then $U \cup \set{v}$ is a blue $\ell$-clique.
+    \end{description}
+
+    Either way, the colouring has a red $k$-clique or a blue $\ell$-clique, so $R_{(r)}(k, \ell) \leq n = R_{(r - 1)}(A, B) + 1$.
+\end{proof}
+
+% [FILLED] this paragraph, the corollary and its proof supplied on the author's request (2026-09-30), not from the lecture
+At $r = 2$ the bound, together with \Cref{Ch6:Lemma:Hypergraph_Ramsey_1}, reads $R(k, \ell) \leq R(k - 1, \ell) + R(k, \ell - 1)$, which is \Cref{Ch6:Thm:Ramsey_Recursion}. More importantly, the recursion is what shows that these numbers exist at all: the definition asks for a least $n$, and nothing so far has produced even one.
+
+\begin{boxcorollary} \label{Ch6:Cor:Hypergraph_Ramsey_Finite}
+    For all $r, k, \ell \in \N$, the Ramsey number $R_{(r)}(k, \ell)$ exists.
+\end{boxcorollary}
+\begin{proof}
+    Induct on $r$. The case $r = 1$ is \Cref{Ch6:Lemma:Hypergraph_Ramsey_1}. For $r \geq 2$, induct on $k + \ell$. If $k = 1$ or $\ell = 1$, then $R_{(r)}(k, \ell) = 1$, since a single vertex has no $r$-subsets and so is vacuously a clique of both colours. Otherwise $k, \ell \geq 2$, so $R_{(r)}(k - 1, \ell)$ and $R_{(r)}(k, \ell - 1)$ exist by the induction on $k + \ell$, $R_{(r - 1)}$ of them exists by the induction on $r$, and the proof of \Cref{Ch6:Thm:Hypergraph_Ramsey_Recursion} exhibits an $n$ with the required property.
+\end{proof}
+
+\subsection{A Better Upper Bound}
+
+\Cref{Ch6:Thm:Hypergraph_Ramsey_Recursion} gives us a recursive bound on hypergraph Ramsey numbers:
+\begin{align*}
+    R_{(r)}\of{k, \ell} \leq R_{(r - 1)}\of{R_{(r)}\of{k-1, \ell}, R_{(r)}\of{k, \ell - 1}} + 1
+\end{align*}
+Recall also that
+\begin{align*}
+    R_{(2)}\of{k, \ell}
+    \leq \binom{k + \ell - 2}{k - 1}
+    \leq 2^{k + \ell}
+\end{align*}
+We can apply this to show, for $r = 3$, that
+\begin{align*}
+    R_{(3)}\of{k, \ell}
+    & \leq R_{(2)}\of{R_{(3)}\of{k - 1, \ell}, R_{(3)}\of{k, \ell - 1}} + 1 \\
+    & \leq 2^{R_{(3)}(k - 1, \ell) + R_{(3)}(k, \ell - 1)} \\
+    & \leq \left. 2^{2^{\cdot^{\cdot^{\cdot^{2}}}}} \right\} \text{roughly } k + \ell
+\end{align*}
+We can apply this to bound $R_{(4)}$ as well:
+\begin{align*}
+    R_{(4)}\of{k, \ell}
+    & \leq R_{(3)}\of{R_{(4)}\of{k - 1, \ell}, R_{(4)}\of{k, \ell - 1}} + 1 \\
+    & \leq \left. 2^{2^{\cdot^{\cdot^{\cdot^{2}}}}} \right\} \text{roughly } R_{(4)}\of{k - 1, \ell} + R_{(4)}\of{k, \ell - 1} \\
+    & \leq \underbrace{\left. 2^{2^{\cdot^{\cdot^{\cdot^{2}}}}} \right\} \left. 2^{2^{\cdot^{\cdot^{\cdot^{2}}}}} \right\} \cdots \left. 2^{2^{\cdot^{\cdot^{\cdot^{2}}}}} \right\} 2}_{k + \ell \text{ towers}}
+\end{align*}
+This is a ``super-tower'' of depth $k + \ell$. As you can imagine, doing the same for $R_{(5)}$ gives a ``super-super-tower'', and the upper-bound gets incredibly large incredibly quickly. What this tells us is that we need to improve the upper-bound substantially if we want any hope of estimating hypergraph Ramsey numbers computationally.
+
+We will do two things:
+\begin{enumerate}
+    \item Improve the bound on $R_{(r)}(k, \ell)$
+    \item Improve the bound even further when we're dealing with convex problems
+\end{enumerate}
+
+Our strategy will be to find an $n$ large enough so that any red/blue colouring of $K_{(r)}(n)$ admits a red $k$-clique or a blue $\ell$-clique. This $n$ will serve as our upper-bound for $R_{(r)}(k, \ell)$. We will do this by constructing a sequence that contains either a $(k - 1)$-clique or an $(\ell - 1)$-clique that can be extended to a $k$-clique or an $\ell$-clique by the addition of another element.
+
+Let's begin by improving the upper-bound on $R_{(3)}(k, \ell)$. We'll do this by constructing a sequence $x_1, x_2, \ldots, x_m, x_{m + 1}$ of vertices of our hypergraph such that the colour of $\set{x_a, x_b, x_c}$ depends only on $a$ and $b$ for any $a < b < c$. In other words, the colour of $x_c$ should be a \textit{completion} of the colouring of $x_a$ and $x_b$.\footnote{$a, b, c$ may not be consecutive: in fact, we will often have rather sparse sequences in the hypergraph.}
+
+Pick some $x_1$ and $x_2$. At least half of the remaining vertices complete it in a consistent colour\footnote{ie, all of the remaining vertices complete it \textit{in the same way}/\textit{with the same colour}}. \textit{Throw away the rest.} Pick an $x_3$ from what remains. To pick $x_4$, repeat this process by considering completions of the pair $x_1, x_3$ as well as the pair $x_2, x_3$ (we're already in the $\sim$half consisting of things that consistently complete $x_1, x_2$). Keep going. Indeed, the number of remaining vertices gets very small very quickly. If you start off with (roughly) $n = 2^{\binom{m}{2}}$ (or maybe $n = 2^{\binom{m}{2}} + \text{a small number}$) vertices in your hypergraph, you can choose $x_1, \ldots, x_m$ via this process, and set $x_{m + 1}$ to be what's left. We need to now choose $m$ so that this induces a red $k$-clique or a blue $\ell$-clique, and this gives us our Ramsey upper-bound $n$.
+
+Suppose $m = R_{(2)}\of{k - 1, \ell - 1}$. Then in the colouring induced on pairs in our sequence, we can find a red $(k - 1)$-clique or a blue $(\ell - 1)$-clique. Adding $x_{m + 1}$ then gives us either a red $k$ $(3)$-clique or a blue $\ell$ $(3)$-clique. This gives us an upper-bound
+\begin{align*}
+    R_{(3)}\of{k, \ell} \leq 2^{\binom{m}{2} + 1} \leq 2^{m^2}
+\end{align*}
+(the $+1$ takes care of the ``small number'' from before). Since $m \leq 2^{k + \ell}$, we can upper-bound the entire thing by
+\begin{align*}
+    R_{(3)}\of{k, \ell} \leq 2^{2^{2(k + \ell)}}
+\end{align*}
+
+Now let's compute the bound on $R_{(r)}(k, \ell)$.
+
+\begin{boxtheorem}
+    For all $r, k, \ell$ sufficiently large, we have the upper-bound
+    \begin{align*}
+        R_{(r)}\of{k, \ell} \leq 2^{\binom{m}{r - 1} + 1} \leq 2^{m^{r - 1}} = 2^{R_{(r - 1)}\of{k - 1, \ell - 1}^{r - 1}}
+    \end{align*}
+    where $m = R_{(r - 1)}\of{k - 1, \ell - 1}$.
+\end{boxtheorem}
+\begin{proof}
+    We'll proceed in an identical fashion: Given a red/blue colouring of $K_{(r)}(n)$, build a sequence $x_1, \ldots, x_m, x_{m + 1}$ such that the colour of any $\set{x_{i_1}, \ldots, x_{i_r}}$ (for $i_1 < i_2 < \cdots < i_r$) is determined by $x_{i_1}, \ldots, x_{i_{r - 1}}$. For $n = 2^{\binom{m}{r - 1}}$, we can make this sequence.
+
+    It remains to choose $m$ so that this sequence has the clique-property. Take $m = R_{(r - 1)}\of{k - 1, \ell - 1}$. Then, similarly to the previous case, in the colouring induced on sets of $r - 1$ elements in our sequence, we can find a red $(k - 1)$-clique or a blue $(\ell - 1)$-clique. Adding $x_{m + 1}$ then gives us either a red $k$ $(r)$-clique or a blue $\ell$ $(r)$-clique. This gives us the upper-bound
+    \begin{align*}
+        R_{(r)}\of{k, \ell} \leq 2^{\binom{m}{r - 1} + 1} \leq 2^{m^{r - 1}} = 2^{R_{(r - 1)}\of{k - 1, \ell - 1}^{r - 1}}
+    \end{align*}
+    (the $+1$ again takes care of the ``small number'').
+\end{proof}
+
+\subsection{Cups and Caps}
+
+We now move on to a result by \Erdos\ and Szekeres.
+
+\begin{boxdefinition}[Cups and Caps]
+    A \textbf{$k$-cap} and a \textbf{$k$-cup} are (respectively) concave and convex arrangements of $k$ points.
+\end{boxdefinition}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale = 0.8]
+        \drawcup{5}
+        \node at (0, -0.7) {a $5$-cup};
+    \end{tikzpicture}
+    \hspace{2cm}
+    \begin{tikzpicture}[scale = 0.8]
+        \drawcap{5}
+        \node at (0, -1.7) {a $5$-cap};
+    \end{tikzpicture}
+\end{figure}
+
+We are interested in how many points it takes to force one of these.
+
+\begin{boxdefinition}[\Erdos--Szekeres Number]
+    The \textbf{\Erdos--Szekeres number for $k$ and $\ell$}, denoted $\ES(k, \ell)$, is the smallest $n \in \N$ such that any $n$ points in $\R^2$ in general position (with no two on a vertical line) have a $k$-cap or an $\ell$-cup.
+\end{boxdefinition}
+
+We will show, eventually, that
+\begin{align*}
+    \ES(k, \ell) \le 2\binom{k + \ell - 4}{k - 2} \le 2^{k + \ell}
+\end{align*}
+
+% [CORRECTED] was: no hypothesis on $k, \ell$ --- at $k = \ell = 2$ the right-hand side is $\ES(1, 2) + \ES(2, 1) - 1 = 1$ while $\ES(2, 2) = 2$, and the proof uses $q_{k - 2}$ and $p_2$, which need $k, \ell \geq 3$; the corollary below only ever applies the lemma there
+\begin{boxlemma}\label{Ch6:Lemma:ES_Recursion}
+    For all $k, \ell \geq 3$,
+    \begin{align*}
+        \ES(k, \ell) \le \ES(k - 1, \ell) + \ES(k, \ell - 1) - 1
+    \end{align*}
+\end{boxlemma}
+\begin{proof}
+    We fix an arbitrary set $X \ssq \R^2$ of $\ES(k - 1, \ell) + \ES(k, \ell - 1) - 1$ points in general position, no two on a vertical line, and show that it contains a $k$-cap or an $\ell$-cup.
+    
+    Deny. Let $L \ssq X$ be the set of points in $X$ that are the last points in some $(k - 1)$-cap, so that $X \setminus L$ has no $(k - 1)$-caps. Thus
+    \begin{align*}
+        \abs{X \setminus L} < \ES(k - 1, \ell)
+    \end{align*}
+    Since $\abs{X} = \ES(k - 1, \ell) + \ES(k, \ell - 1) - 1$, we conclude that $\abs{L} \geq \ES(k, \ell - 1)$.
+
+    As $X$ has no $k$-cap, neither does $L$, so $L$ must have an $(\ell - 1)$-cup $p_1, \ldots, p_{\ell - 1}$. Since $p_1 \in L$, it is the last point of some $(k - 1)$-cap $q_1, \ldots, q_{k - 1} = p_1$. One of these two extends, according to how the slopes compare at $p_1$: let $s$ be the slope of $q_{k - 2} p_1$ and $t$ the slope of $p_1 p_2$. These are different, since otherwise $q_{k - 2}$, $p_1$ and $p_2$ would lie on a line.
+
+    \begin{figure}[H] % Note: This was generated by Claude code, though I must admit I had to provide more aesthetic guidance than I anticipated...
+        \centering
+        \begin{tikzpicture}[scale = 1.1]
+            \draw[line width = 5pt, blue, opacity = 0.25, line cap = round, line join = round] (0, 0) -- (1, 1) -- (2, 1.4);
+            \draw[thick, dashed] (0, 0) -- (1, 1);
+            \draw[line width = 5pt, orange, opacity = 0.4, line cap = round] (2, 1.4) -- (3, 1.2);
+            \draw[thick] (1, 1) -- (2, 1.4) -- (3, 1.2);
+            \draw[thick, dashed] (3, 1.2) -- (4, 1.6);
+            \foreach \x/\y/\pos/\lab in {0/0/below/q_1, 1/1/above left/q_{k - 2}, 2/1.4/above/p_1, 3/1.2/below/p_2, 4/1.6/right/p_{\ell - 1}}{
+                \fill (\x, \y) circle (2pt) node[\pos] {$\lab$};
+            }
+            \node at (2, -0.8) {$s > t$: a $k$-cap};
+        \end{tikzpicture}
+        \hspace{1.5cm}
+        \begin{tikzpicture}[scale = 1.1]
+            \draw[line width = 5pt, blue, opacity = 0.25, line cap = round, line join = round] (2, 1.5) -- (3, 2.1) -- (4, 3.3);
+            \draw[thick, dashed] (0, 0) -- (1, 1.2);
+            \draw[line width = 5pt, orange, opacity = 0.4, line cap = round] (1, 1.2) -- (2, 1.5);
+            \draw[thick] (1, 1.2) -- (2, 1.5) -- (3, 2.1);
+            \draw[thick, dashed] (3, 2.1) -- (4, 3.3);
+            \foreach \x/\y/\pos/\lab in {0/0/below/q_1, 1/1.2/above left/q_{k - 2}, 2/1.5/below right/p_1, 3/2.1/below right/p_2, 4/3.3/right/p_{\ell - 1}}{
+                \fill (\x, \y) circle (2pt) node[\pos] {$\lab$};
+            }
+            \node at (2, -0.8) {$s < t$: an $\ell$-cup};
+        \end{tikzpicture}
+    \end{figure}
+    \begin{description}
+        \item[\underline{$s > t$.}] The slopes keep decreasing past $p_1$, so $q_1, \ldots, q_{k - 1}, p_2$ is a $k$-cap.
+        \item[\underline{$s < t$.}] The slopes are already increasing at $p_1$, so $q_{k - 2}, p_1, p_2, \ldots, p_{\ell - 1}$ is an $\ell$-cup.
+    \end{description}
+    Either way, we have a contradiction.
+\end{proof}
+
+\begin{boxcorollary}
+    For all $k, \ell \geq 2$,
+    \begin{align*}
+        \ES(k, \ell) \leq 2\binom{k + \ell - 4}{k - 2} \leq 2^{k + \ell}
+    \end{align*}
+\end{boxcorollary}
+\begin{proof}
+    We prove the first inequality by induction on $k + \ell$. When $k = 2$ or $\ell = 2$, any two points form both a $2$-cap and a $2$-cup, so $\ES(k, \ell) \leq 2 = 2\binom{k + \ell - 4}{k - 2}$.
+
+    Fix some $k, \ell \geq 3$ and assume the result holds for all $k', \ell'$ with $k' + \ell' < k + \ell$. We then get, by \Cref{Ch6:Lemma:ES_Recursion}
+    \begin{align*}
+        \ES(k, \ell)
+        &\leq \ES(k - 1, \ell) + \ES(k, \ell - 1) \\
+        &\leq 2\binom{k + \ell - 5}{k - 3} + 2\binom{k + \ell - 5}{k - 2} \\
+        &= 2\binom{k + \ell - 4}{k - 2}
+    \end{align*}
+    with the second inequality given by the induction hypothesis.
+    
+    For the second inequality, $\binom{k + \ell - 4}{k - 2} \leq 2^{k + \ell - 4}$, since a single binomial coefficient is at most the sum of its row of Pascal's triangle, so $2\binom{k + \ell - 4}{k - 2} \leq 2^{k + \ell - 3} \leq 2^{k + \ell}$.
+\end{proof}

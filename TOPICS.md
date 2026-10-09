@@ -4,18 +4,20 @@ Where each topic lives. Owned by `/organise`; `/integrate` appends to it.
 What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
 
 <!-- INFERENCE, not a plan. There is no syllabus for this course and none is coming,
-     so every line below traces to a lecture. On ten lectures the shape now reads as a
-     toolkit and three bodies of theory that use it: probability first, because every
+     so every line below traces to a lecture. On sixteen lectures the shape reads as a
+     toolkit and four bodies of theory that use it: probability first, because every
      argument in the notes produces an object by showing a random one works; then
      colouring graphs and hypergraphs; then set systems; then concentration as a
-     subject in its own right. That ordering was the author's call on 2026-09-15 and
-     it resolved the oldest piece of structural pressure on this file -- the
-     probability material had been written last and used first, so it sat in
-     chapter 3 and was cited from chapter 1.
-     Chapter 1 is the one to watch. It is three thin sections today, and it is the
-     chapter most likely to grow, since the author asked for it on the assumption
-     that more probability will arrive. 1.2 Expectation has one subsection and room
-     for several. The next run should feel free to disagree with all of this. -->
+     subject in its own right; then the local lemma; and last Ramsey theory, which
+     began life as a section of the graphs chapter on 2026-08-26 and became a
+     chapter on 2026-10-07, once van der Waerden and Hales--Jewett had arrived and
+     the Ramsey numbers were the odd section out in a chapter about colouring
+     graphs. It sits last because its newest material leans on the local lemma.
+     Chapter 1 is still the one to watch: three thin sections, and the author
+     asked for it on the assumption that more probability will arrive. Chapter 5
+     is two short sections, with the local lemma's proof supplied on 2026-10-07
+     and an application of it sitting in 6.2.3. The next run should feel
+     free to disagree with all of this. -->
 
 ## 1. Probability  ->  `Chapters/1_Intro/`
 
@@ -24,7 +26,9 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
     Sets down the objects: what a probability space is and what it means for
     random variables on it to be independent.
       probability spaces, events, random variables
-      independence, of events and of finite and infinite families
+      independence, of events and of finite and infinite families, boxed
+      independence of an event from a family of events, which the
+        dependency graphs of 5.1 need                                [supplied]
       the convention that Omega is finite and F is its power set
 
 1.2 Expectation                                     [2026-09-04, 2026-09-14]
@@ -48,6 +52,18 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
       Chebyshev's inequality, proved from Markov                    [supplied]
       Var/E^2 -> 0 gives Pr(X != 0) -> 1, as a corollary            [supplied]
       n fair coins, bounded by Chebyshev                            [supplied]
+
+1.4 Asymptotic Notation                             [2026-10-08]
+    The notation the later chapters use whenever something grows with n,
+    added on the author's instruction rather than from a lecture.
+    1.4.1 Little o and Little omega                 [2026-10-08]
+      f = o(g) and f = omega(g); the equals sign as membership
+      the triangle count in G_{n,p} and the second-moment corollary
+        rewritten in it; the clash with the clique number omega(G)
+    1.4.2 Big O and Big Omega                       [2026-10-08]
+      f = O(g) and f = Omega(g); little implies big, not conversely
+      VW(k, 2) = Omega(2^k / k) with c = 1/(4e), and the exercise
+        m(k) = O(k^2 2^k), as examples
 ```
 
 ## 2. Graphs and Colourings  ->  `Chapters/2_Graphs/`
@@ -71,68 +87,50 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
       m(k) >= 2^(k-1), by a union bound over random colourings
       m(k) = O(k^2 2^k), set as an exercise
     2.1.5 Maker-Breaker Games                       [2026-08-26]
-      Erdos-Selfridge: breaker wins when m + Delta < 2^k
+      breaker wins when m + Delta < 2^k, by a potential argument     (lemma)
+      Erdos-Selfridge: breaker wins when m < 2^(k-1), as a corollary
       8x8x8 tic-tac-toe, as an aside the course drops
 
-2.2 Ramsey Numbers                                  [2026-08-26, 2026-09-25]
-    Turns the question around: how large must a structure be before every
-    colouring of it is forced to produce something monochromatic.
-      R(k), for edge colourings of complete graphs                  (preamble)
-      R(3) >= 6, from the two-coloured K_5                          (preamble)
-      known values and the best known bounds                        (preamble)
-      R(k, l) <= R(k-1, l) + R(k, l-1), stated; proof deferred to
-        undergraduate graph theory notes, cross-ref pending         (preamble)
-    2.2.1 Hypergraph Ramsey Numbers                 [2026-09-25]
-      Erdos-Szekeres, stated as the motivation and not proved
-      K_(r)(n); cliques of a colour, their size counted in vertices
-      R_(r)(k, l), for red/blue colourings of hyper-edges
-      K_(1)(4), K_(2)(4), K_(3)(4), and a clique in a coloured K_4,
-        drawn                                                       [supplied]
-      R_(1)(k, l) = k + l - 1, by pigeonhole                        [supplied]
-    2.2.2 A Recursive Upper Bound                   [2026-09-25]
-      R_(r)(k, l) <= R_(r-1)(R_(r)(k-1, l), R_(r)(k, l-1)) + 1 for
-        r, k, l >= 2, by the shadow colouring at one vertex
-      the two cases of the proof, and A, B and n named             [supplied]
-      H a copy of K_(r-1)(n-1); at r = 2 the graph bound above      [supplied]
-      every R_(r)(k, l) exists, by induction on r, then k + l       [supplied]
-
-2.3 Chromatic Number                                [2026-09-02]
+2.2 Chromatic Number                                [2026-09-02]
     Comes back to colouring graphs, and asks how many colours a graph needs
     and how far that can be from the obvious lower bound.
       chi(G)                                                        (preamble)
-    2.3.1 Trivial Bounds                            [2026-09-02]
+    2.2.1 Trivial Bounds                            [2026-09-02]
       cliques and the clique number; omega(G) <= chi(G) <= Delta + 1
       the star (Delta large, chi = 2) and the odd cycle (omega = 2, chi = 3)
-    2.3.2 Perfect Graphs                            [2026-09-02]
+    2.2.2 Perfect Graphs                            [2026-09-02]
       induced subgraphs                                             [supplied]
       perfect graphs, defined and not pursued
-    2.3.3 Zykov's Construction                      [2026-09-02]
+    2.2.3 Zykov's Construction                      [2026-09-02]
       G_1, G_2, G_3 drawn; triangle-free with chi(G_k) = k, proved
         by induction                                                [supplied]
-    2.3.4 Graphs of Large Girth                     [2026-09-02]
+    2.2.4 Graphs of Large Girth                     [2026-09-02]
       girth; Erdos: girth >= k and chi >= k at once
       independent sets and alpha(G)
       alpha(G) >= n/2d for average degree d >= 1, by the method
         of alterations                                              [supplied]
       G_{n,p}, defined                                              [supplied]
+      G_{n,p} as a probability space: graphs on [n], events as sets
+        of graphs, probabilities as weighted counts      [2026-10-08, author]
       G_{n,p} at p = n^{eps - 1}: alpha <= n/2k and fewer than n/2
         short cycles, whp; delete a vertex per short cycle
 
-2.4 The Chromatic Number of the Plane               [2026-09-21]
+2.3 The Chromatic Number of the Plane               [2026-09-21]
     Colours the plane itself, two points adjacent when they are a unit apart:
     traps its chromatic number between 4 and 7, and then shows that only its
     finite subgraphs matter.
-    2.4.1 The Unit Distance Graph                   [2026-09-21]
+    2.3.1 The Unit Distance Graph                   [2026-09-21]
       the unit distance graph on R^2
       chi >= 3 from the unit triangle, chi >= 4 from Moser's spindle
-      chi <= 7 from a 7-coloured hexagonal tessellation; the diameter
-        that makes it work is not given                             \sorry
+      chi <= 7 from a 7-coloured hexagonal tessellation, with hexagons
+        of diameter 2/(sqrt(21) - 2) < d < 1 and why that works     [supplied]
       the spindle and the tessellation, drawn                       [supplied]
-    2.4.2 Compactness                               [2026-09-21]
+    2.3.2 Compactness                               [2026-09-21]
       compactness as the finite intersection property for closed sets
       chi(G) = sup of chi(H) over finite subgraphs H, via Tychonoff
-      every finite subgraph k-colourable => G k-colourable; the proof
-        breaks off after P_e is shown clopen                        \sorry
+      every finite subgraph k-colourable => G k-colourable: P_e clopen
+        as a preimage, finite subgraphs give the finite intersections,
+        Tychonoff the rest; and the theorem deduced from it          [supplied]
 ```
 
 ## 3. Set Systems  ->  `Chapters/3_Set_Systems/`
@@ -153,7 +151,8 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
 3.2 Sperner Systems                                 [2026-08-28]
     How large can a family of subsets of [n] be when none contains another?
       the containment diagram on [3], and each layer as a Sperner system
-      Sperner's theorem, by the random-permutation (LYM) argument
+      the LYM inequality, by a random permutation and a fixed chain
+      Sperner's theorem, from LYM
 
 3.3 Intersecting Families                           [2026-08-31]
     Forbids the opposite of 3.2: how large can a family of k-subsets be when
@@ -228,7 +227,8 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
         1-coordinatewise-Lipschitz f of independent coordinates
       its proof, begun and broken off at g_i                        [sorry]
       the Smiley Face Lemma of Frieze and Pegden, stated and not
-        proved, as what McDiarmid is for
+        proved, as what McDiarmid is for; its (eps, D)-copies boxed and
+        D made a distance, after the paper                            [CORRECTED]
 ```
 
 ## 5. The Local Lemma  ->  `Chapters/5_Local_Lemma/`
@@ -241,23 +241,131 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
       independent bad events of probability < 1 are all avoided   (preamble)
       the motivating question: k-uniform hypergraphs whose edges each
         meet at most D others, and when they are 2-colourable
-      dependency graphs                                           [SUSPECT]
+      dependency graphs, with the family independence of 1.1
       A ~ B for adjacency in a fixed dependency graph
-      the local lemma, for a finite family and weights 0 < x_A < 1;
-        its proof promised for next lecture                        \sorry
+      the local lemma, for a finite family and weights 0 < x_A < 1,
+        now titled the asymmetric form; its proof, by induction on
+        the set of events conditioned on                             [supplied]
+      the symmetric form, e p (d + 1) <= 1, as a corollary, on the
+        author's instruction of 2026-10-08                           [supplied]
 
-5.2 Nonrepetitive Sequences                         [2026-09-21]
-    An infinite binary sequence whose identical blocks are exponentially far
-    apart: the first application of the local lemma in view.
+5.2 Applications of the Local Lemma                 [2026-09-21]
+    Where the local lemma gets used; renamed from "Nonrepetitive Sequences"
+    by the author on 2026-10-08, with a \todo for more applications.
+    5.2.1 Binary Sequences                          [2026-09-21]
+      an infinite binary sequence whose identical blocks are
+        exponentially far apart: the first application in view
       Beck's theorem, stated and not proved, not named in the lecture
 ```
 
-Material marked `[handwritten]` came from the author's handwritten notes rather
-than the typed ones: the laptop died partway through the lecture of 4 September
-2026 and the rest of that lecture was written by hand. An independent reviewer of
-PR #22 disputes this attribution for the whole of 4.1 and reads the git history as
-showing typed 9 September material; the point is unresolved and the markers are
-left as they were pending the author.
+## 6. Ramsey Theory  ->  `Chapters/6_Ramsey/`
+
+```
+6.1 Ramsey Numbers                                  [2026-08-26, 2026-09-25, 2026-09-28]
+    Turns the colouring question around: how large must a structure be before
+    every colouring of it is forced to produce something monochromatic. Was 2.2
+    of the graphs chapter until 2026-10-07.
+    6.1.1 Ramsey Numbers of Graphs                  [2026-08-26]
+      R(k), for edge colourings of complete graphs
+      R(3) >= 6, from the two-coloured K_5
+      known values and the best known bounds
+      R(k, l) <= R(k-1, l) + R(k, l-1), stated; proof deferred to
+        undergraduate graph theory notes, cross-ref pending
+    6.1.2 Hypergraph Ramsey Numbers                 [2026-09-25]
+      Erdos-Szekeres, stated as the motivation and not proved
+      K_(r)(n); cliques of a colour, their size counted in vertices
+      R_(r)(k, l), for red/blue colourings of hyper-edges
+      K_(1)(4), K_(2)(4), K_(3)(4), and a clique in a coloured K_4,
+        drawn                                                       [supplied]
+      R_(1)(k, l) = k + l - 1, by pigeonhole                        [supplied]
+    6.1.3 A Recursive Upper Bound                   [2026-09-25]
+      R_(r)(k, l) <= R_(r-1)(R_(r)(k-1, l), R_(r)(k, l-1)) + 1 for
+        r, k, l >= 2, by the shadow colouring at one vertex
+      the two cases of the proof, and A, B and n named             [supplied]
+      H a copy of K_(r-1)(n-1); at r = 2 the graph bound above      [supplied]
+      every R_(r)(k, l) exists, by induction on r, then k + l       [supplied]
+    6.1.4 A Better Upper Bound                      [2026-09-28]
+      the recursion unwound: a tower for R_(3), a super-tower for R_(4)
+      the stepping-up construction for R_(3): a sequence x_1, ..., x_{m+1}
+        in which the colour of a triple depends on its first two, by
+        halving; R_(3)(k, l) <= 2^{m^2} with m = R_(2)(k-1, l-1)
+      the same for R_(r): R_(r)(k, l) <= 2^{binom(m, r-1) + 1} with
+        m = R_(r-1)(k-1, l-1), "for r, k, l sufficiently large"
+    6.1.5 Cups and Caps                             [2026-09-28]
+      k-caps and k-cups, drawn; ES(k, l), for points in general position
+      ES(k, l) <= ES(k-1, l) + ES(k, l-1) - 1 for k, l >= 3, by the last
+        points of (k-1)-caps and the slopes at p_1, drawn
+      ES(k, l) <= 2 binom(k+l-4, k-2) <= 2^{k+l}, by induction on k + l
+
+6.2 Van der Waerden's Theorem                       [2026-09-30, 2026-10-07]
+    Asks the Ramsey question of the integers: must an r-colouring of N
+    contain arbitrarily long monochromatic arithmetic progressions?
+      VW(k, r), and the theorem that it exists; VW(2, r) = r + 1     (preamble)
+    6.2.1 Colour-Focusing                           [2026-09-30]
+      VW(3, 2) >= 9, from the colouring RRBBRRBB                     [supplied]
+      VW(3, 2) <= 325, by blocks of five, two identically coloured
+        blocks and the block 2j - i, drawn
+      colour-focused APs and their focus point
+      VW(3, 3) <= 30625 (2 * 3^30625 + 1), by going up one level,
+        drawn
+    6.2.2 Colour-Focus Numbers                      [2026-09-30]
+      CF(k, r, s), the least N forcing a monochromatic (k+1)-AP or s
+        colour-focused k-APs of different colours with focus in [N]
+      VW(k, r) <= CF(k-1, r, r)
+      CF(k, r, s) <= CF(k, r, s-1) * 2 VW(k, r^{CF(k, r, s-1)}) for
+        2 <= s <= r, by stretching APs across an AP of blocks, drawn
+      CF(k, r, s) exists, by induction on k and then on s; van der
+        Waerden's theorem as the corollary
+    6.2.3 A Lower Bound from the Local Lemma        [2026-10-07]
+      VW(k, 2) > (k-1) 2^{k-1} / (e k^2), so Omega(2^k / k), from the
+        symmetric local lemma; the lecture quoted the bound as
+        "shown", and nothing in the notes had shown it               [supplied]
+
+6.3 The Hales--Jewett Theorem                       [2026-10-02, 2026-10-05, 2026-10-07]
+    Strips the arithmetic out of colour-focusing: colours the hypercube
+    [n]^d and forces a combinatorial line, then reads progressions off it.
+    6.3.1 Combinatorial Lines                       [2026-10-02]
+      templates, active and fixed coordinates, L_sigma, the last point   [supplied]
+      the three combinatorial lines of [3]^2 through a point, and the
+        anti-diagonal that is not one                                [supplied]
+      HJ(n, r), and the theorem that it exists
+    6.3.2 Colour-Focused Lines                      [2026-10-05]
+      colour-focused lines, and the 3 x 3 example, drawn
+      FHJ(n, r, s); HJ(n, r) <= FHJ(n, r, r)                        [supplied]
+      FHJ(n, r, s) <= FHJ(n, r, s-1) + HJ(n-1, r^{n^{FHJ(n, r, s-1)}})
+        for 2 <= s <= r: the lecture's setup, with the [n]^{D_1 + D_2}
+        split drawn, and the concatenation of lines completed        [supplied]
+      the Hales--Jewett theorem, by induction on n then s, with
+        FHJ(n, r, 1) <= HJ(n-1, r) as the base                        [supplied]
+    6.3.3 From Lines to Progressions                [2026-10-02, 2026-10-07]
+      Gallai's theorem: a monochromatic alpha X + beta in any
+        r-colouring of Z^k, by colouring [n]^d through sums of the
+        x_i; sourced to Graham-Rothschild-Spencer ch. 2 and to
+        Hales-Jewett 1963                                            [supplied]
+      phi: [n]^d -> [n^d] by base-n digits takes lines to progressions,
+        so VW(n, r) <= n^{HJ(n, r)}                                   [supplied]
+      why that is all the argument needs of phi, and gamma, the sum
+        of squares, giving quadratic progressions
+
+6.4 Infinite Ramsey Theory                          [2026-10-07]
+    The complete graph on N, where every 2-colouring of the edges has
+    an infinite monochromatic clique, and the finite statement that
+    Peano arithmetic cannot prove.
+      the infinite clique, by the standard nested-neighbourhood
+        argument; the lecture's argument coloured vertices          [CORRECTED]
+      relatively large sets, and the large Ramsey number R-bar;
+        rewritten on the author's instruction                        [supplied]
+      Paris-Harrington: its existence is unprovable in PA, cited
+```
+
+Material marked `[handwritten]` is the second half of the lecture of 4 September
+2026: the laptop died partway through it (a35742c, "PARTIAL - LAPTOP ABOUT TO
+DIE"), and the rest arrived typed in the inbox a week later (885c140, "things up
+to lecture 8", 2026-09-11), so it was typed up afterwards rather than live,
+presumably from handwritten notes. A reviewer of PR #22 read the same history as
+showing 9 September material; both readings fit it, the marker records only
+that the text was not typed in the lecture, and it is left as it is. [settled
+2026-10-07]
 
 Entries marked `[supplied]` are arguments this repository's skills worked out,
 not arguments the lecturer gave; each carries a `% [FILLED]`, `% [CLAUDE]`-derived
@@ -283,7 +391,7 @@ Places where the structure does not yet look like `ORGANISATION.md` describes,
 tolerated on purpose, with the condition that ends each one.
 
 ```
-Chapter 1 is three sections of thirty-odd lines each, where the corpus runs 2-8
+Chapter 1 is four sections of thirty-odd lines each (three until 2026-10-08), where the corpus runs 2-8
     sections of median 148 lines.
     Why tolerated: the author asked for it explicitly on 2026-09-15 and said to
     build it on the assumption that more probability is coming. A chapter with
@@ -316,12 +424,12 @@ Retired, kept as the record of why earlier structure looked as it did:
 ```
 Chapter 1 had one section, where the corpus runs 2-8 (tolerated 2026-08-24).
     ENDED 2026-08-26: lecture 2 opened the Ramsey question, which became 1.2,
-    now 2.2.
+    now 6.1.
 
 2.2 Ramsey Numbers was a section with one definition, one figure and no result
     (tolerated 2026-08-26, to end when a lecture returned to Ramsey theory).
     ENDED 2026-09-25: the lecture of that date did, with hypergraph Ramsey
-    numbers, now 2.2.1 and 2.2.2.
+    numbers, now 6.1.2 and 6.1.3.
 
 The chapter title "Graphs and Colourings" was a bet on one lecture (2026-08-24).
     MET 2026-08-28 and worse by 2026-08-31, when half the chapter was set
@@ -349,7 +457,7 @@ m(k) = O(k^2 2^k)                set as an exercise 2026-08-26. Would close the
 the probabilistic method         flagged 2026-08-26: the union bound in 2.1.4
                                  could have been phrased as a count, but the
                                  lecturer warned that this will not always hold.
-                                 Since used as a tool in 3.2, 3.3 and 2.3.4.
+                                 Since used as a tool in 3.2, 3.3 and 2.2.4.
 matchings between the layers     gestured at 2026-08-28 as the intuitive route
                                  to Sperner's theorem, and said to break down
                                  "before k exceeds n/2". Not carried out; the
@@ -387,7 +495,7 @@ fourth moment bounds             mentioned 2026-09-11 as enough for the degrees
 perfect graphs                   defined 2026-09-02 and then left: the lecture named
                                  the class in which omega = chi holds hereditarily
                                  and went straight to how badly it can fail. If a
-                                 lecture develops them, 2.3.2 is the seed of a
+                                 lecture develops them, 2.2.2 is the seed of a
                                  section.
 chi(G) >= |V(G)| / alpha(G)      used 2026-09-02 with "thus" at the end of the Erdos
                                  proof. True because each colour class is an
@@ -397,7 +505,7 @@ girth exactly k, chi exactly k   the lecture stated Erdos's theorem with equalit
                                  statement now says "at least". The exact form does
                                  follow for k >= 3 (delete vertices until chi = k,
                                  then add a disjoint C_k); recorded in a CORRECTED
-                                 comment in 2.3.4, not in the notes.
+                                 comment in 2.2.4, not in the notes.
 McDiarmid's proof                begun 2026-09-16 and broken off at the
                                  definition of g_i. Left \sorry on the author's
                                  instruction: Wes is to post notes on Azuma and
@@ -405,12 +513,13 @@ McDiarmid's proof                begun 2026-09-16 and broken off at the
 the Smiley Face Lemma            stated 2026-09-16 as an application of
                                  McDiarmid, from Frieze and Pegden, "Separating
                                  subadditive Euclidean functionals", RSA 51
-                                 (2017) 375-403. Not proved, and carrying a
-                                 SUSPECT: as written it is false for every
-                                 bounded D, since a fixed region of finite area
-                                 collects only O(1) of the n points. The name is
-                                 the lecturer's; it is not attested in the
-                                 paper's indexed text.
+                                 (2017) 375-403. Not proved. Carried a SUSPECT
+                                 until 2026-10-07: as written it was false for
+                                 every bounded region D. Settled against the
+                                 paper's Observation 3.1, where D is a distance
+                                 and a copy is isolated from the other points.
+                                 The name is the lecturer's; it is not in the
+                                 paper.
 2-colourability from the LLL      posed 2026-09-16 as the motivation for the local
                                  lemma: what condition on k makes a k-uniform
                                  hypergraph whose edges each meet at most D
@@ -419,7 +528,9 @@ the Smiley Face Lemma            stated 2026-09-16 as an application of
                                  needs the local lemma, whose proof is next
                                  lecture's. It generalises 2.1.4's union bound.
 the Lovasz Local Lemma's proof   promised 2026-09-16 for next lecture, in the
-                                 author's own words on the \sorry.
+                                 author's own words on the \sorry; no later
+                                 lecture in the notes gave it. SUPPLIED
+                                 2026-10-07, marked [FILLED].
 Azuma's inequality               stated 2026-09-14 and not proved. The notes say
                                  what the proof is --- 4.2's exponential-moment
                                  argument applied to each increment
@@ -432,38 +543,70 @@ chi(G_{n,1/2}) ~ n / log n       asserted 2026-09-14 in 4.3.2, as the thing the
                                  outside the course, and flagged as such where
                                  it is used.
 Moser's spindle has chi = 4      asserted 2026-09-21 ("it turns out") and not
-                                 proved. The spindle is drawn to scale in 2.4.1;
+                                 proved. The spindle is drawn to scale in 2.3.1;
                                  why it has no 3-colouring is not in the notes.
-the de Bruijn-Erdos theorem      the compactness theorem of 2.4.2, 2026-09-21,
+the de Bruijn-Erdos theorem      the compactness theorem of 2.3.2, 2026-09-21,
                                  not named in the lecture. Its content is the
-                                 lemma after it, whose proof breaks off (\sorry).
+                                 lemma after it, whose proof was completed on
+                                 2026-10-07, together with the theorem's.
 Beck's theorem                   stated 2026-09-21, not named and not proved:
                                  an infinite binary sequence whose identical
                                  blocks of length n are at least (2 - eps)^n
                                  apart. "Our argument will involve binary
                                  sequences" says the lecture means to prove it,
                                  presumably by the local lemma on finite words
-                                 and then compactness. Now 5.2.
+                                 and then compactness. Now 5.2.1.
 Erdos-Szekeres                   stated 2026-09-25 as the motivation for
                                  hypergraph Ramsey numbers, and explicitly not
                                  proved that day. How it follows from them is
                                  not yet said.
 finiteness of R_(r)(k, l)        assumed 2026-09-25 and not shown: R_(r)(k, l)
-                                 is defined as a least n, and 2.2.2 is a bound
+                                 is defined as a least n, and 6.1.3 is a bound
                                  on it that presumes the right-hand side exists.
                                  The proof's "by induction" points at the
                                  argument (on r, then k + l), whose bases, the
                                  lemma and R_(r)(1, l) = R_(r)(k, 1) = 1, are not
                                  written. Raised by both reviewers of #25. Now
-                                 the corollary closing 2.2.2, supplied on the
+                                 the corollary closing 6.1.3, supplied on the
                                  author's instruction (2026-09-30).
 R(k, l) <= R(k-1, l) + R(k, l-1)  "what we know about Ramsey numbers on graphs",
-                                 2026-09-25. Now stated in 2.2's preamble on the
+                                 2026-09-25. Now stated in 6.1.1 on the
                                  author's instruction (2026-09-29), unproved:
                                  "See undergraduate graph theory notes", with a
                                  \todo for the cross-reference to Michele's notes.
-                                 2.2.2 cites it, and notes that its own bound
+                                 6.1.3 cites it, and notes that its own bound
                                  at r = 2, with the lemma, is this one.
+R_(2)(k, l) <= binom(k+l-2, k-1)  "Recall also that", 2026-09-28, at the top of
+                                 6.1.4. It follows from the graph recursion
+                                 above by induction, and the notes do not say
+                                 so.
+"sufficiently large" in 6.1.4    the stepping-up theorem of 2026-09-28 is stated
+                                 for r, k, l "sufficiently large"; the middle
+                                 inequality binom(m, r-1) + 1 <= m^{r-1} needs
+                                 r >= 3, and nothing else needs more. Left as
+                                 the lecturer put it.
+convex problems                  "improve the bound even further when we're
+                                 dealing with convex problems", 2026-09-28:
+                                 reached the same day, as 6.1.5. The exact value
+                                 ES(k, l) = binom(k+l-4, k-2) + 1 is not stated.
+VW(3, 2) = 9                     only 9 <= VW(3, 2) <= 325 is in the notes
+                                 (2026-09-30); that 9 suffices is not shown.
+VW(k, 2) = Omega(2^k / k)        the lecture of 7 October said this had been
+                                 "shown using the Lovasz Local Lemma"; no
+                                 lecture in these notes shows it, so the
+                                 proposition is supplied in 6.2.3 and marked.
+                                 The lemma it uses was itself a \sorry until
+                                 the same day.
+the Lean aside                   "In Lean this would be induction k generalizing
+                                 r s", a footnote of 2026-09-30, is why
+                                 listings and lstlean.tex arrived in #26.
+infinite Ramsey for k-sets       6.3 states and proves only the case of edges
+                                 and 2 colours (2026-10-07); the large Ramsey
+                                 number is defined for k-subsets and c colours,
+                                 and its existence "follows from the infinite
+                                 version of Ramsey's theorem by a compactness
+                                 argument, which we will not give".
+Paris-Harrington                 named 2026-10-07 and explicitly not proved.
 ```
 
 ## Unplaced
@@ -471,6 +614,14 @@ R(k, l) <= R(k-1, l) + R(k, l-1)  "what we know about Ramsey numbers on graphs",
 Nothing. The local lemma of 2026-09-16 and Beck's theorem of 2026-09-21 were
 held in the inbox, the first on the author's instruction, until the author asked
 on 2026-09-23 for the inbox to be emptied; they are now chapter 5.
+
+The lectures of 28 and 30 September 2026 were held out of the notes until
+2026-10-07 at the author's request (they are the author's assessed contribution
+to a collective notes repository, and were edited in a local-only copy
+meanwhile). They arrived in #26 together with the lectures of 2, 5 and 7
+October, and were integrated with them on 2026-10-07. The same commit re-synced
+the 25 September block, already integrated in #25, into the inbox; that copy was
+byte-identical to the pre-#25 inbox and was dropped, not integrated twice.
 
 ## Structural pressure
 
@@ -483,14 +634,14 @@ Observations for `/organise`, recorded rather than acted on.
     a new one, and the lecturer closed it with "we won't say any more about
     tic-tac-toe in this course". If a later lecture returns to positional games,
     this wants lifting out into a section of its own. [noted 2026-08-26,
-    re-examined and left 2026-09-02, 2026-09-15]
+    re-examined and left 2026-09-02, 2026-09-15, 2026-10-07]
 
 The "moreover" of Erdos-Ko-Rado is stated twice in 3.3, once inside the theorem
     and once as the extremal theorem that actually proves it. The duplication is
     the author's -- both were written in the lecture -- and neither /integrate
     nor /organise may delete a statement, so both stand, with the second
     cross-referenced as the first made precise. Merging them is the author's
-    call. [noted 2026-08-31, left 2026-09-02, 2026-09-15]
+    call. [noted 2026-08-31, left 2026-09-02, 2026-09-15, 2026-10-07]
 
 The Lovasz Local Lemma is a new body of theory parked at the end of a chapter
     about concentration. It is in the inbox rather than in chapter 4, so it is not
@@ -511,7 +662,7 @@ The Lovasz Local Lemma is a new body of theory parked at the end of a chapter
     construction and read a second inequality off it. Both halves are about the
     same object, so it is left as one section, and the corpus tolerates four
     subsections comfortably. Worth re-examining if a lecture adds a third
-    inequality of this kind. [noted 2026-09-16]
+    inequality of this kind. [noted 2026-09-16, re-examined and left 2026-10-07]
 
 1.3 Deviation from the Mean and chapter 4 both bound deviations, and a reader
     could reasonably ask why Markov and Chebyshev are not in chapter 4 with
@@ -519,20 +670,35 @@ The Lovasz Local Lemma is a new body of theory parked at the end of a chapter
     the other chapters apply as tools and never discuss, and chapter 4 is where
     concentration is the subject. That line is defensible but it is a line, and
     it is worth re-examining the first time a lecture proves something new about
-    Markov or Chebyshev rather than merely using them. [noted 2026-09-15]
+    Markov or Chebyshev rather than merely using them. [noted 2026-09-15,
+    re-examined and left 2026-10-07]
 
-2.4.2 Compactness is about every graph, and sits under the plane only because
+2.3.2 Compactness is about every graph, and sits under the plane only because
     the lecture introduced it for the plane: the lemma is de Bruijn-Erdos, for
-    any G. Beck's theorem, now 5.2, will need the same
+    any G. Beck's theorem, now 5.2.1, will need the same
     compactness step for sequences rather than colourings. If the course keeps
     passing from finite to infinite this way, the compactness argument may want
-    a home of its own, nearer the local lemma than the plane. [noted 2026-09-21]
+    a home of its own, nearer the local lemma than the plane. [noted 2026-09-21,
+    re-examined and left 2026-10-07: Beck's theorem is still only stated, so
+    the second use of compactness does not yet exist]
 
-2.2 is now a preamble about graphs with two subsections about hypergraphs. The
-    preamble is the graph case of what the subsections do, and reads as a
-    subsection in waiting ("Ramsey Numbers of Graphs"). /integrate may not
-    split existing material under a new heading, so it is left. [noted
-    2026-09-25]
+
+```
+
+Resolved by the `/organise` pass of 2026-10-07, kept as a record:
+
+```
+Ramsey theory was split across two chapters [noted 2026-09-25 as "2.2 is a
+    preamble about graphs with two subsections about hypergraphs", and
+    2026-10-07 as the split proper]. Section 2.2, Ramsey Numbers, moved whole
+    into chapter 6 as 6.1, its preamble becoming 6.1.1 Ramsey Numbers of
+    Graphs and its four subsections 6.1.2-6.1.5; van der Waerden,
+    Hales--Jewett and infinite Ramsey became 6.2-6.4. Chapter 2 is three
+    sections of colouring graphs, which is what its title says, and 2.3 and
+    2.4 became 2.2 and 2.3. The five labels of the moved section changed
+    prefix from Ch2: to Ch6:; every \Cref to them was inside the section.
+    The sentence of chapter 2's introduction that announced Ramsey numbers
+    moved, with its [CORRECTED] note, to chapter 6's. Nothing else moved.
 ```
 
 Resolved by the `/organise` pass of 2026-09-15, kept as a record:
@@ -575,7 +741,7 @@ Whether the three set-systems sections were one section, a chapter, or one
 
 The author's \section{Perfect Graphs} was demoted by /integrate and its tail
     split off [noted 2026-09-02]. /organise went one step further and split
-    Zykov's construction out of it as 2.3.3, so that "Perfect Graphs" now
+    Zykov's construction out of it as 2.3.3 (2.2.3 since 2026-10-07), so that "Perfect Graphs" now
     heads only the two definitions and the ToC shows the construction.
 
 Intersecting Families had no subsections and two theorems with proofs. Now

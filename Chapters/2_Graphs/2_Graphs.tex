@@ -3,10 +3,7 @@
 \chapter{Graphs and Colourings} \label{Ch2:CH}
 \thispagestyle{empty}
 
-Much of this course will be about graphs, and a surprising amount of what we want to know about a graph can be phrased as a question about colouring it. We begin with the vocabulary, and then settle the first such question completely: which graphs admit a colouring with only two colours. We then ask the same question of hypergraphs, where it becomes considerably harder---even pinning down how many edges a $3$-uniform hypergraph needs before two colours are no longer enough takes real work. % [CORRECTED] was: "how large must a graph be before every colouring of it is forced to produce something
-% monochromatic" --- no bound on the number of vertices forces anything ($K_{\lceil n/2 \rceil, \lfloor n/2 \rfloor}$ is
-% triangle-free at every size), and the colourings in question are of edges, not of vertices as everywhere above.
-Turning the question around---how large must a complete graph be before every colouring of its edges is forced to produce something monochromatic---gives us the Ramsey numbers, of graphs and then of hypergraphs. We then come back to colouring graphs, now with as many colours as it takes, and find that the number needed can be forced up as far as we like without ever creating a short cycle. Last, we colour the plane itself, an infinite graph whose chromatic number we can only trap between $4$ and $7$. The hypergraphs get a chapter of their own after that.
+Much of this course will be about graphs, and a surprising amount of what we want to know about a graph can be phrased as a question about colouring it. We begin with the vocabulary, and then settle the first such question completely: which graphs admit a colouring with only two colours. We then ask the same question of hypergraphs, where it becomes considerably harder---even pinning down how many edges a $3$-uniform hypergraph needs before two colours are no longer enough takes real work. We then colour graphs with as many colours as it takes, and find that the number needed can be forced up as far as we like without ever creating a short cycle. Last, we colour the plane itself, an infinite graph whose chromatic number we can only trap between $4$ and $7$. The hypergraphs get a chapter of their own after that, and the opposite question---how large a complete graph must be before every colouring of its edges is forced to produce something monochromatic---gets one too, \Cref{Ch6:CH}.
 
 \begin{boxnotation} \hfill
     \begin{itemize}
@@ -18,6 +15,5 @@ Turning the question around---how large must a complete graph be before every co
 \end{boxnotation}
 
 \input{Chapters/2_Graphs/2_1_Colourings.tex}
-\input{Chapters/2_Graphs/2_2_Ramsey.tex}
-\input{Chapters/2_Graphs/2_3_Chromatic.tex}
-\input{Chapters/2_Graphs/2_4_Plane.tex}
+\input{Chapters/2_Graphs/2_2_Chromatic.tex}
+\input{Chapters/2_Graphs/2_3_Plane.tex}

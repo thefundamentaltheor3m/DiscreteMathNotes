@@ -1,0 +1,13 @@
+\chapter{Ramsey Theory} \label{Ch6:CH}
+\thispagestyle{empty}
+
+% [CORRECTED] was: "how large must a graph be before every colouring of it is forced to produce something
+% monochromatic" --- no bound on the number of vertices forces anything ($K_{\lceil n/2 \rceil, \lfloor n/2 \rfloor}$ is
+% triangle-free at every size), and the colourings in question are of edges, not of vertices as everywhere above.
+% (The sentence and this note were in the introduction of \Cref{Ch2:CH} until /organise moved Ramsey numbers here on 2026-10-07.)
+Turning the colouring question of \Cref{Ch2:CH} around---how large must a complete graph be before every colouring of its edges is forced to produce something monochromatic---gives us the Ramsey numbers, of graphs and then of hypergraphs, and this chapter is about that question and the family of results it has grown into. After the Ramsey numbers themselves we ask it of structures that are not graphs at all, and what is forced is no longer a clique: in the integers it is an arithmetic progression, which is van der Waerden's theorem, and in the hypercube $[n]^d$ it is a combinatorial line, which is the Hales--Jewett theorem. Both are proved by the same device, colour-focusing, and the second contains the first and a good deal more besides. We close with the complete graph on $\N$ itself, where Ramsey's theorem is easier than in the finite case and where one of its finite consequences turns out to lie beyond Peano arithmetic.
+
+\input{Chapters/6_Ramsey/6_1_Ramsey_Numbers.tex}
+\input{Chapters/6_Ramsey/6_2_Van_der_Waerden.tex}
+\input{Chapters/6_Ramsey/6_3_Hales_Jewett.tex}
+\input{Chapters/6_Ramsey/6_4_Infinite.tex}

@@ -100,7 +100,7 @@ We are now exposing a vertex at a time rather than an edge at a time, which is w
 
 \subsection{Azuma's Inequality}
 
-That condition is what buys us the following: a martingale cannot get far from where it started, and by the same margin \Cref{Ch4:Thm:Chernoff} gives a $\pm 1$ walk.
+That condition is what gives us the following: a martingale cannot get far from where it started, and by the same margin \Cref{Ch4:Thm:Chernoff} gives a $\pm 1$ walk.
 
 \begin{boxtheorem}[Azuma's Inequality] \label{Ch4:Thm:Azuma}
     Let $X_0, X_1, \ldots$ be a martingale and let $m$ be a positive integer. Then for every $\lambda > 0$,
@@ -180,21 +180,22 @@ Such an $f$, fed through the Doob martingale of its arguments, concentrates as s
 
 One application of \Cref{Ch4:Prop:McDiarmid} is something called the Smiley Face Lemma, from a paper of Alan Frieze and Wes~\cite{FriezePegdenSubadditive}.
 
-% [CORRECTED] was: "$D \ssq \R$" --- $D$ is the codomain of the embedding and the copy is said to lie in $\R^2$,
-% so $D$ is a region of the plane. That is the whole of the reason. An earlier draft of this marker added that
-% $\ssq \R$ makes the lemma false rather than merely vacuous, which implied the corrected version is not false;
-% the [SUSPECT] below says why it is.
-% [SUSPECT] the lemma below is false for every bounded $D$, and asking for nonempty interior does not save it.
-% Take $D$ the open unit disc: the $n$ points are spread over a square of area $n$, so the number landing in $D$ is
-% Binomial$\parenth{n, \frac{\pi}{n}}$ and stays $\BigO{\log n}$ with high probability, giving $o(n)$ copies however
-% small $\delta$ is. The same count kills any $D$ of finite area. What the statement seems to want is a copy of $S$
-% inside \textit{some} translate of $D$, anywhere in the square, rather than an embedding into one fixed planar
-% set --- and, for the count to be defined at all, a copy made of the sampled points rather than of arbitrary
-% points of $D$. Left as written: this is the cited paper's statement to settle, not ours.
-For a finite set $S$, any $\eps > 0$, and any $D \ssq \R^2$, an $\eps$-$D$ copy of $S$ in $\R^2$ is some embedding of $S$ into $D$ such that distinct points can be separated by $\eps$-balls.
+% [CORRECTED] was: "For a finite set $S$, any $\eps > 0$, and any $D \ssq \R^2$, an $\eps$-$D$ copy of $S$ in $\R^2$ is
+% some embedding of $S$ into $D$ such that distinct points can be separated by $\eps$-balls", and the lemma asked
+% for "$\delta n$ many $\eps$-$D$ copies of $S$" for "any fixed $S, \eps, D$ as above". The author's first draft had
+% "$D \ssq \R$", which an earlier pass changed to $\R^2$; both were wrong in the same direction. In the paper
+% (section 3, Observation 3.1) $D$ is a real number, a distance: a copy is a subset of the sample, within $\eps$
+% of a congruent copy of $S$ and more than $D$ away from every other sample point. With $D$ a bounded region the
+% lemma is false (only $\BigO{\log n}$ of the points land in it), which is what a [SUSPECT] here said from
+% 2026-09-23 to 2026-10-07. Settled against the paper on 2026-10-07.
+The lemma counts copies of a pattern that are both accurate and isolated.
+
+\begin{boxdefinition}[$(\eps, D)$-Copy]
+    Let $S \ssq \R^2$ be finite, $\eps > 0$ and $D > 0$. An \textbf{$(\eps, D)$-copy} of $S$ in a finite set $X \ssq \R^2$ is a subset $T \ssq X$ for which there is a bijection $f$ from $T$ to a set $S'$ congruent to $S$ with $\norm{x - f(x)} < \eps$ for every $x \in T$, and such that every point of $T$ is at distance more than $D$ from every point of $X \setminus T$.
+\end{boxdefinition}
 
 Scattering $n$ points at random over a square of area $n$ leaves linearly many such copies.
 
-\begin{boxlemma}[Smiley Face Lemma, \cite{FriezePegdenSubadditive}]
-    For any fixed $S, \eps, D$ as above, there is some $\delta > 0$ such that $n$ random points in a $\sqrt{n} \times \sqrt{n}$ square have $\delta n$ many $\eps$-$D$ copies of $S$ (with high probability).
+\begin{boxlemma}[Smiley Face Lemma, {\cite[Observation~3.1]{FriezePegdenSubadditive}}]
+    For any fixed $S$, $\eps$ and $D$ as above, there is some $\delta > 0$ such that $n$ uniformly random points in a $\sqrt{n} \times \sqrt{n}$ square contain at least $\delta n$ many $(\eps, D)$-copies of $S$, with high probability.
 \end{boxlemma}
