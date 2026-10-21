@@ -197,6 +197,9 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
       the same bound for |xi_i| <= 1 and E(xi_i) = 0, via the chord
         of e^{tx} across [-1, 1]
       the picture of e^{tx} under its chord                         [supplied]
+      the +/-1 theorem retitled "for Probability 1/2", and the
+        general |xi_i| <= 1, E(xi_i) = 0 bound boxed as Chernoff's
+        Bound, with a proof sketch                        [2026-10-08, author]
 
 4.3 Martingales                               [2026-09-14, 2026-09-16]
     Takes concentration off sums altogether: a quantity revealed a little at a
@@ -358,6 +361,37 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
       Paris-Harrington: its existence is unprovable in PA, cited
 ```
 
+## 7. Discrete Geometry  ->  `Chapters/7_Geometry/`
+
+```
+7.1 The Erdos Unit Distance Problem                 [2026-10-19]
+    How many pairs among n points of the plane can be at distance exactly 1?
+    Constructions from below, and an O(n^{4/3}) bound promised from above,
+    by way of drawing graphs in the plane. The section heading is the
+    author's, written live.
+      the question; the unit distance graph of 2.3.1, cross-referenced
+    7.1.1 Lower Bounds                              [2026-10-19]
+      the square and triangular tilings, drawn                      [supplied]
+      translated squares: n = 2^d points, nd/2 = (1/2) n log_2 n unit
+        distances                                                   [supplied]
+      Erdos's grid, R^2 = a^2 + b^2 in many ways, drawn for R = 5   [supplied]
+      n^{1 + c/log log n} via Z[i], asserted
+      Erdos's n^{1 + o(1)} conjecture, and OpenAI's n^{1 + delta}
+        disproof, cited
+      the upper bound O(n^{4/3}) promised                           [CORRECTED]
+    7.1.2 Planar Graphs                             [2026-10-19]
+      planar graphs, embeddings, plane graphs, faces, boxed         [supplied]
+      K_n for n >= 5 is not planar, K_5 drawn
+      Euler's formula, stated; proof left to the author as an
+        exercise                                                    [sorry]
+      faces meet >= 3 edges, edges meet <= 2 faces              [CORRECTED]
+      e <= 3v - 6 for connected simple plane graphs with e >= 3
+    7.1.3 Crossing Numbers                          [2026-10-19]
+      cr(G), the fewest crossings over all drawings
+      cr(K_n) = O(n^4) expected
+      cr(G) >= e - 3v, by deleting an edge per crossing             [supplied]
+```
+
 Material marked `[handwritten]` is the second half of the lecture of 4 September
 2026: the laptop died partway through it (a35742c, "PARTIAL - LAPTOP ABOUT TO
 DIE"), and the rest arrived typed in the inbox a week later (885c140, "things up
@@ -488,7 +522,9 @@ Hoeffding's extension            asserted 2026-09-11: the same bound for
                                  independent xi_i with |xi_i| <= 1 and mean 0.
                                  The chord argument for a single factor is
                                  written out; the deduction of the full bound
-                                 from it is not.
+                                 from it is not. REACHED 2026-10-08: the author
+                                 boxed it as Chernoff's Bound with a proof
+                                 sketch through the chord inequality.
 fourth moment bounds             mentioned 2026-09-11 as enough for the degrees
                                  of G_{n,1/2}, "but that won't always be the
                                  case". Not carried out.
@@ -607,6 +643,17 @@ infinite Ramsey for k-sets       6.3 states and proves only the case of edges
                                  version of Ramsey's theorem by a compactness
                                  argument, which we will not give".
 Paris-Harrington                 named 2026-10-07 and explicitly not proved.
+the O(n^{4/3}) unit distance     promised 2026-10-19 ("we will show an
+  bound                          upper-bound"). The crossing number lemma of
+                                 7.1.3 is the first step; presumably the
+                                 crossing lemma and Szemeredi-Trotter come next.
+Euler's formula                  stated 2026-10-19, proof "by induction on e"
+                                 left \sorry: the author's comment reserves it
+                                 as an exercise for themselves. Not to be filled.
+the n^{1 + c/log log n} grid     asserted 2026-10-19 via "algebraic number
+                                 theory involving Z[i]", not derived.
+K_n non-planar for n >= 5        asserted 2026-10-19 as a non-example, not
+                                 proved. Follows from e <= 3v - 6 at n = 5.
 ```
 
 ## Unplaced
@@ -628,6 +675,17 @@ byte-identical to the pre-#25 inbox and was dropped, not integrated twice.
 Observations for `/organise`, recorded rather than acted on.
 
 ```
+Chapter 7 Discrete Geometry is one section, opened by /integrate on one
+    lecture's evidence (2026-10-19). The lecture introduced its own objects ---
+    plane and planar graphs, faces, drawings, the crossing number --- in
+    service of a geometric question, and none of chapter 2's colouring
+    vocabulary. A chapter with too few sections self-heals; filing it as 2.4
+    would have put it under a title it does not fit. The title is a bet: if the
+    next lectures stay with planar graphs and crossings rather than point sets,
+    "Planar Graphs" or similar may name it better. Its overlap with 2.3.1,
+    the unit distance graph, is cross-referenced rather than merged.
+    [noted 2026-10-19]
+
 2.1.5 Maker-Breaker Games is a game inside a section about colourings.
     It earns its place for now: Erdos-Selfridge is the same 2^(k-1) threshold as
     2.1.4, so the subsection continues that line of enquiry rather than opening
