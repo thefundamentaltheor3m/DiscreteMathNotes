@@ -1,0 +1,189 @@
+\section{The \protect\Erdos\ Unit Distance Problem}
+
+The \Erdos\ Unit Distance Problem asks the following question:
+\begin{center}
+    \textbf{How many unit distances can there be amongst $n$ distinct points in $\R^2$?}
+\end{center}
+
+\subsection{Lower Bounds}
+
+Some naïve constructions include making each point adjacent to four or six others by way of square/triangular tiling.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale = 0.8]
+        \draw[gray!50] (-2, -2) grid (2, 2);
+        \foreach \x in {-2, ..., 2}{
+            \foreach \y in {-2, ..., 2}{
+                \fill[black] (\x, \y) circle (2pt);
+            }
+        }
+        \foreach \ang in {0, 90, 180, 270}{
+            \draw[very thick, magenta] (0, 0) -- (\ang:1);
+        }
+        \fill[magenta] (0, 0) circle (3pt);
+    \end{tikzpicture}
+    \qquad \qquad
+    \begin{tikzpicture}[scale = 0.8]
+        \foreach \j in {-2, ..., 2}{
+            \foreach \i in {-2, ..., 2}{
+                \pgfmathtruncatemacro{\hexdist}{max(abs(\i), abs(\j), abs(\i + \j))}
+                \ifnum \hexdist < 3
+                    \pgfmathsetmacro{\x}{\i + 0.5 * \j}
+                    \pgfmathsetmacro{\y}{0.866 * \j}
+                    \foreach \di/\dj/\ang in {1/0/0, 0/1/60, -1/1/120}{
+                        \pgfmathtruncatemacro{\nextdist}{max(abs(\i + \di), abs(\j + \dj), abs(\i + \di + \j + \dj))}
+                        \ifnum \nextdist < 3
+                            \draw[gray!50, shift = {(\x, \y)}] (0, 0) -- (\ang:1);
+                        \fi
+                    }
+                    \fill[black] (\x, \y) circle (2pt);
+                \fi
+            }
+        }
+        \foreach \ang in {0, 60, ..., 300}{
+            \draw[very thick, magenta] (0, 0) -- (\ang:1);
+        }
+        \fill[magenta] (0, 0) circle (3pt);
+    \end{tikzpicture}
+\end{figure}
+
+Another construction gives us even better numbers.
+
+Take a square. Each vertex is connected to $2$ others. Translate it by one unit and connect it. Then each vertex is connected to $3$ others. Translate it by another unit and connect it again. Then each vertex is connected to $4$ others. Keep going. In this construction, you get $n \log(n)$ as your lower-bound.
+
+More precisely, each translation is by a unit vector in a new direction, and the directions are chosen generically enough (a random choice works) that no two points ever coincide. The square is a $2$-dimensional cube, and each translation adds a dimension, so after $d - 2$ translations we have $n = 2^d$ points, each at unit distance from $d$ others. Each unit distance is counted from both of its ends, so there are at least
+\begin{align*}
+    \frac{nd}{2} = \frac{1}{2} n \log_2(n)
+\end{align*}
+of them.
+
+\Erdos\ gave something even better: draw a grid with the points some distance $\frac{1}{R}$ apart, where $R$ has the property that $R^2 = a^2 + b^2$ in many ways. The point is that this looks like the following:
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale = 0.35]
+        \foreach \x in {-6, ..., 6}{
+            \foreach \y in {-6, ..., 6}{
+                \fill[black!40] (\x, \y) circle (2.5pt);
+            }
+        }
+        \draw[thick, magenta] (0, 0) circle (5);
+        \foreach \x/\y in {5/0, 4/3, 3/4, 0/5, -3/4, -4/3, -5/0, -4/-3, -3/-4, 0/-5, 3/-4, 4/-3}{
+            \draw[magenta!60] (0, 0) -- (\x, \y);
+            \fill[magenta] (\x, \y) circle (5pt);
+        }
+        \fill[black] (0, 0) circle (5pt);
+    \end{tikzpicture}
+\end{figure}
+Here $R = 5$, and $25 = 0^2 + 5^2 = 3^2 + 4^2 = 4^2 + 3^2$ puts $12$ grid points on the circle of radius $R$ grid units, ie, at unit distance from the centre.
+
+We can then do some very nice algebraic number theory involving $\Z[i]$ to get
+\begin{align*}
+    n^{1 + \frac{c}{\log\of{\log(n)}}}
+\end{align*}
+
+\Erdos\ conjectured that the maximum you could get to is $n^{1 + o(1)}$. OpenAI disproved this by finding an $n^{1 + \delta}$ construction for some $\delta > 0$.
+
+% [CORRECTED] was: "an upper-bound: $n^{\frac{4}{3}}$" --- the Spencer--Szemer\'{e}di--Trotter bound has a constant
+% in it, and the best known one is above $1$; with constant $1$ it is not a theorem.
+We will not get into the lower-bounds here, but we will show an upper-bound: $\BigO{n^{\frac{4}{3}}}$. The tool for it is drawing graphs in the plane.
+
+\subsection{Planar Graphs}
+
+We also make a distinction between plane and planar graphs: planar graphs are abstract graphs with drawings in the plane, and plane graphs are the actual drawings themselves. More formally, we define the following.
+
+\begin{boxdefinition}[Planar Graph]
+    A graph $G$ is \textbf{planar} if it has an \textbf{embedding} in the plane: an injective map sending each vertex to a point of $\R^2$ and each edge $\set{u, v}$ to a curve joining the images of $u$ and $v$, such that no curve passes through the image of any other vertex and no two curves meet except at a common endpoint.
+\end{boxdefinition}
+
+The picture itself is then the following.
+
+\begin{boxdefinition}[Plane Graph]
+    A \textbf{plane graph} is the image of an embedding of a planar graph: the points and curves in $\R^2$ themselves. Its \textbf{faces} are the connected components of what remains of $\R^2$ once the plane graph is removed.
+\end{boxdefinition}
+
+Not all graphs are planar.
+
+\begin{boxnexample}[Non-planar graphs]
+    $K_5$, $K_{100}$, any $K_n$ for $n \geq 5$.
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}
+            \completegraph{5}
+        \end{tikzpicture}
+    \end{figure}
+\end{boxnexample}
+
+The reason graphs fail to be planar is that too many of their edges cross.
+
+(Connected) plane graphs satisfy Euler's Formula: $v - e + f = 2$. We can prove this using induction on $e$ and some handwaving (one should say ``visual intuition''), but to actually do this rigorously takes a lot of machinery (eg. the Jordan Curve Theorem).
+
+\begin{boxtheorem}[Euler's Formula]
+    For a connected plane graph with $v$ vertices, $e$ edges and $f$ faces,
+    \begin{align*}
+        v - e + f = 2
+    \end{align*}
+\end{boxtheorem}
+\begin{proof}
+    Induction on $e$. \sorry % [CLAUDE] don't fill this in, it's an exercise for me to do later.
+\end{proof}
+
+% [CORRECTED] was: "in any plane graph" --- a single edge, or a path with two edges, is a plane graph with one face
+% incident with fewer than $3$ edges, and a loop or a pair of parallel edges bounds such a face too. The
+% proposition below, which is what uses the first item, assumes this (and connectedness besides).
+Notice that in any simple plane graph with at least $3$ edges, we \textit{must} have
+\begin{itemize}
+    \item Every face is incident with $\geq 3$ edges
+    \item Every edge is incident with $\leq 2$ faces
+\end{itemize}
+
+This gives us an important inequality.
+
+\begin{boxproposition} \label{Ch7:Prop:Planar_Edge_Bound}
+    For any connected simple plane graph with $v$ vertices, $e$ edges and $f$ faces, if $e \geq 3$, then
+    \begin{align*}
+        e \leq 3v - 6
+    \end{align*}
+\end{boxproposition}
+\begin{proof}
+    Count edge-face incidences. By above,
+    \begin{align*}
+        3f \leq \sum_{F \text{ a face}} \#\!\set{\text{edges $F$ is incident with}} = \sum_{E \text{ an edge}} \#\!\set{\text{faces $E$ is incident with}} \leq 2e
+    \end{align*}
+    Thus, we get the equivalent inequalities
+    \begin{align*}
+        3f \leq 2e \qquad \iff  \qquad f \leq \frac{2e}{3}
+    \end{align*}
+    Combining with Euler's formula, we get
+    \begin{align*}
+        2
+        = v - e + f
+        \leq v - e + \frac{2e}{3}
+        = v - \frac{e}{3}
+    \end{align*}
+    Rearranging gives us the desired inequality.
+\end{proof}
+
+\subsection{Crossing Numbers}
+
+A graph that is not planar can still be drawn in the plane, and we can ask how few crossings it needs.
+
+\begin{boxdefinition}[Crossing Number]
+    For every finite simple graph $G$, define the \textbf{crossing number}, denoted $\pcr{G}$, to be the minimum number of crossings between edges, taken over all drawings of $G$ in the plane. Ie, define
+    \begin{align*}
+        \pcr{G} = \min_{\text{drawings of $G$ in the plane}} \#\!\set{\text{crossings between edges}}
+    \end{align*}
+\end{boxdefinition}
+
+We might expect $\pcr{K_n} = \BigO{\parenth{\#\text{edges}}^2} = \BigO{n^4}$.
+
+\Cref{Ch7:Prop:Planar_Edge_Bound} gives us a first lower bound.
+
+\begin{boxlemma}
+    If $G$ is simple, then $\pcr{G} \geq e - 3v$.
+\end{boxlemma}
+% [FILLED] proof supplied here; the lecture stated the lemma without proving it
+\begin{proof}
+    First, every simple plane graph $H$ has at most $3v(H)$ edges. Indeed, each connected component of $H$ is a connected simple plane graph in its own right: a component with $v_i$ vertices and $e_i \geq 3$ edges has $e_i \leq 3v_i - 6 \leq 3v_i$ by \Cref{Ch7:Prop:Planar_Edge_Bound}, and one with $e_i \leq 2$ edges has $e_i \leq 3v_i$ since $v_i \geq 1$. Summing over the components gives $e(H) \leq 3v(H)$.
+
+    Now take a drawing of $G$ with exactly $\pcr{G}$ crossings, and for each crossing delete one of the two edges involved. We have deleted at most $\pcr{G}$ edges, and what remains is a drawing with no crossings at all, ie, a simple plane graph on the same $v$ vertices with at least $e - \pcr{G}$ edges. Thus $e - \pcr{G} \leq 3v$, which rearranges to $\pcr{G} \geq e - 3v$.
+\end{proof}
