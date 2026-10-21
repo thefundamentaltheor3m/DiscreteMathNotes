@@ -343,6 +343,17 @@
     \fill[magenta] (\angx:#1) circle (3pt);
 }
 
+\newcommand{\completegraph}[2][1]{  % [radius]{n}: the complete graph on n vertices, drawn on a regular n-gon
+    \foreach \i in {1, ..., #2}{
+        \foreach \j in {\i, ..., #2}{
+            \pgfmathsetmacro{\angthis}{90 + 360 * (\i - 1) / #2}
+            \pgfmathsetmacro{\angthat}{90 + 360 * (\j - 1) / #2}
+            \draw[thick] (\angthis:#1) -- (\angthat:#1);
+        }
+    }
+    \cyclevertices[#1]{#2}
+}
+
 \newcommand{\colouredcyclegraph}[3][1]{  % [radius]{n}{colours}: the cycle graph on n vertices, with its vertices coloured in turn by the n colours in the comma-separated list
     \stepedges[#1]{#2}{1}
     \foreach \c [count = \i] in {#3}{
@@ -414,6 +425,8 @@
 \newcommand{\CF}{\operatorname{CF}}  % colour-focused AP numbers: CF(k, r, s)
 \newcommand{\HJ}{\operatorname{HJ}}  % Hales-Jewett numbers: HJ(n, r)
 \newcommand{\FHJ}{\operatorname{FHJ}}  % focused Hales-Jewett numbers: FHJ(n, r, s)
+
+\newcommand{\pcr}[1]{\operatorname{cr}\!\parenth{#1}}  % the crossing number: cr(G)
 
 \newcommand{\drawcupcap}[2]{  % {k}{sign}: k points along the parabola y = sign * x^2 / 4, joined left to right
     \foreach \i in {1, ..., #1}{
