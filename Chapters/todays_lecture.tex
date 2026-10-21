@@ -95,6 +95,9 @@ We might expect $cr\of{K_n} = \BigO{\parenth{\#\text{edges}}^2} = \BigO{n^4}$.
 \begin{boxlemma}
     If $G$ is simple, then $cr(G) \geq e - 3v$.
 \end{boxlemma}
+% [FILLED] proof supplied here; the lecture stated the lemma without proving it
 \begin{proof}
-    \sorry
+    First, every simple plane graph $H$ has at most $3v(H)$ edges. Indeed, each connected component of $H$ is a connected simple plane graph in its own right: a component with $v_i$ vertices and $e_i \geq 3$ edges has $e_i \leq 3v_i - 6 \leq 3v_i$ by the proposition above, and one with $e_i \leq 2$ edges has $e_i \leq 3v_i$ since $v_i \geq 1$. Summing over the components gives $e(H) \leq 3v(H)$.
+
+    Now take a drawing of $G$ with exactly $cr(G)$ crossings, and for each crossing delete one of the two edges involved. We have deleted at most $cr(G)$ edges, and what remains is a drawing with no crossings at all, ie, a simple plane graph on the same $v$ vertices with at least $e - cr(G)$ edges. Thus $e - cr(G) \leq 3v$, which rearranges to $cr(G) \geq e - 3v$.
 \end{proof}
