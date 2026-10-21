@@ -2,3 +2,99 @@
 % this file after every chapter, so the Overleaf preview builds as you go without the
 % material having to belong to a chapter yet, and /integrate empties it again once
 % the material has been spread across whichever chapters it belongs in.
+
+\section{Erdos Unit Distance Problem}
+
+The \Erdos\ Unit Distance Problem asks the following question:
+\begin{center}
+    \textbf{How many unit distances can there be amongst $n$ distinct points in $\R^2$?}
+\end{center}
+
+Some naïve constructions include making each point adjacent to four or six others by way of square/triangular tiling. % [CLAUDE] illustrate this
+
+Another construction gives us even better numbers.
+
+Take a square. Each vertex is connected to $2$ others. Translate it by one unit and connect it. Then each vertex is connected to $3$ others. Translate it by another unit and connect it again. Then each vertex is connected to $4$ others. Keep going. In this construction, you get $n \log(n)$ as your lower-bound. % [CLAUDE] make this more precise. To wit, explain after how many steps in the construction I get to this lower-bound, and outline the steps (n = 2^d, nd/2, n log(n))
+
+\Erdos\ gave something even better: draw a grid with the points some distance $\frac{1}{R}$ apart, where $R$ has the property that $R^2 = a^2 + b^2$ in many ways. The point is that this looks like the following: % [CLAUDE] draw a grid with a circle of radius R units overlaid on it
+
+We can then do some very nice algebraic number theory involving $\Z[i]$ to get
+\begin{align*}
+    n^{1 + \frac{c}{\log\of{\log(n)}}}
+\end{align*}
+
+\Erdos\ conjectured that the maximum you could get to is $n^{1 + o(1)}$. OpenAI disproved this by finding an $n^{1 + \delta}$ construction for some $\delta > 0$.
+
+We will not get into the lower-bounds here, but we will show an upper-bound: $n^{\frac{4}{3}}$.
+
+We also make a distinction between plane and planar graphs: planar graphs are abstract graphs with drawings in the plane, and plane graphs are the actual drawings themselves. More formally, we define the following. % [CLAUDE] write boxdefinitions for these - I'm too lazy - make planar a graph with some embedding and plane the image of that embedding
+
+Not all graphs are planar.
+
+\begin{boxnexample}[Non-planar graphs]
+    $K_5$, $K_{100}$, any $K_n$ for $n \geq 5$.
+    % [CLAUDE] draw K_5
+\end{boxnexample}
+
+The reasons graphs fail to be planar is that too many of their edges cross.
+
+(Connected) plane graphs satisfy Euler's Formula: $v - e + f = 2$. We can prove this using induction on $e$ and some handwaving (one should say ``visual intuition''), but to actually do this rigorously takes a lot of machinery (eg. the Jordan Curve Theorem).
+
+\begin{boxtheorem}[Euler's Formula]
+    For a connected plane graph with $v$ vertices, $e$ edges and $f$ faces,
+    \begin{align*}
+        v - e + f = 2
+    \end{align*}
+\end{boxtheorem}
+\begin{proof}
+    Induction on $e$. \sorry % [CLAUDE] don't fill this in, it's an exercise for me to do later.
+\end{proof}
+
+Notice that in any plane graph, we \textit{must} have
+\begin{itemize}
+    \item Every face is incident with $\geq 3$ edges
+    \item Every edge is incident with $\leq 2$ faces
+\end{itemize}
+
+This gives us an important inequality.
+
+\begin{boxproposition}
+    For any connected simple plane graph with $v$ vertices, $e$ edges and $f$ faces, if $e \geq 3$, then
+    \begin{align*}
+        e \leq 3v - 6
+    \end{align*}
+\end{boxproposition}
+\begin{proof}
+    Count edge-face incidences. By above,
+    \begin{align*}
+        3f \leq \sum_{F \text{ a face}} \#\!\set{\text{edges $F$ is incident with}} = \sum_{E \text{ an edge}} \#\!\set{\text{faces $E$ is incident with}} \leq 2e
+    \end{align*}
+    Thus, we get the equivalent inequalities
+    \begin{align*}
+        3f \leq 2e \qquad \iff  \qquad f \leq \frac{2e}{3}
+    \end{align*}
+    Combining with Euler's formula, we get
+    \begin{align*}
+        2
+        = v - e + f
+        \leq v - e + \frac{2e}{3}
+        = v - \frac{e}{3}
+    \end{align*}
+    Rearranging gives us the desired inequality.
+\end{proof}
+
+\begin{boxdefinition}[Crossing Number] % [CLAUDE] make a macro for crossing number
+    For every finite simple graph $G$, define the \textbf{crossing number}, denoted $cr(G)$, to be the minimum number of crossings between edges, taken over all drawings of $G$ in the plane. Ie, define
+    \begin{align*}
+        cr(G) = \min_{\text{drawings of $G$ in the plane}} \#\!\set{\text{crossings between edges}}
+    \end{align*}
+\end{boxdefinition}
+
+We might expect $cr\of{K_n} = \BigO{\parenth{\#\text{edges}}^2} = \BigO{n^4}$.
+
+\begin{boxlemma}
+    If $G$ is simple, then $cr(G) \geq e - 3v$.
+\end{boxlemma}
+\begin{proof}
+    \sorry
+\end{proof}
