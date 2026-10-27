@@ -3,9 +3,7 @@
 % material having to belong to a chapter yet, and /integrate empties it again once
 % the material has been spread across whichever chapters it belongs in.
 
-% [CLAUDE] in lectures the lecturer used m for no of edges and n for no of vertices. I often use e and v for these things. Reconcile everything to n and m, as per lectures, and add local notation explaining it.
-
-Consider the case $G = K_n$. So $v = n$ and $e = \binom{n}{2}$. The above inequality gives us
+Consider the case $G = K_n$. So $m = \binom{n}{2}$. The above inequality gives us
 \begin{align*}
     \pcr{K_n} \geq \binom{n}{2} - 3n
 \end{align*}
@@ -14,16 +12,16 @@ But we can probably do better than this: we'd at least expect each edge to cross
 Probabilistic methods to the rescue!
 
 \begin{boxlnotation}
-    Given a graph $G$ and $p \in [0, 1]$, define $G_p$ to be the graph that retains vertices of $G$ independently with probability $p$ (ie, that deletes vertices of $G$ independently with probability $1 - p$). Define random variables $v_p$ and $e_p$, respectively denoting the number of vertices and edges in $G_p$. Denote by $v$ and $e$ the number of vertices and edges respectively of $G$.
+    Given a graph $G$ and $p \in [0, 1]$, define $G_p$ to be the graph that retains vertices of $G$ independently with probability $p$ (ie, that deletes vertices of $G$ independently with probability $1 - p$). Define random variables $n_p$ and $m_p$, respectively denoting the number of vertices and edges in $G_p$. Denote by $n$ and $m$ the number of vertices and edges respectively of $G$.
 \end{boxlnotation}
 
 We actually want to think of $G_p$ as the space of all subgraphs of $G$, with the power sigma algebra, with each singleton (ie, the probability of each subgraph being realised) having probability determined by $p$.
 
 \begin{boxlemma} \label{Ch7:Lemma:Gp_Expectations}
-    $\E\of{v_p} = p \cdot v$ and $\E\of{e_p} = p^2 \cdot e$.
+    $\E\of{n_p} = p \cdot n$ and $\E\of{m_p} = p^2 \cdot m$.
 \end{boxlemma}
 \begin{proof}[Proof sketch]
-    $\E\of{v_p} = p \cdot v$ is clear. To compute $\E\of{e_p}$, define indicator random variables $\xi_e$ for each edge $e$, so that $m_p$ is the sum over all edges $e$ of the $\xi_e$. Then apply linearity of expectation.
+    $\E\of{n_p} = p \cdot n$ is clear. To compute $\E\of{m_p}$, define indicator random variables $\xi_e$ for each edge $e$, so that $m_p$ is the sum over all edges $e$ of the $\xi_e$. Then apply linearity of expectation.
 \end{proof}
 
 We can relate $\pcr{G_p}$ with $\pcr{G}$.
@@ -80,7 +78,63 @@ In particular, once $n \geq 9$ we have $\binom{n}{2} \geq 4n$, so
 
 \subsection{A Unit-Distance Upper-Bound}
 
-% [CLAUDE] This involves representing our unit distance graph using circles, and 
+% Written up from the blackboard photographs supplied with the post-lecture pass of 2026-10-27; the three parts of the lemma are left \sorry as exercises, with hints
+We can now give the upper-bound we promised. Throughout this subsection, fix a set $X$ of $n$ points in $\R^2$, with $m$ unit distances among them. For each $p \in X$, let $C_p$ be the unit circle centred at $p$, and let $\deg(p)$ be the number of points of $X$ on $C_p$: its degree in the unit distance graph on $X$. Each unit distance is counted at both of its ends, so
+\begin{align*}
+    2m = \sum_{p \in X} \deg(p)
+\end{align*}
+
+The idea is to draw a graph on $X$ using these circles, and to play the crossing lemma off against the fact that circles cannot cross each other very often. Discard every circle $C_p$ with $\deg(p) \leq 2$. Each remaining circle passes through at least $3$ points of $X$, which cut it into $\deg(p)$ arcs. Let $D$ be the drawing whose vertices are the points of $X$ and whose edges are all of these arcs, from all of the remaining circles.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale = 1.4]
+        \draw[gray!60, dashed] (0, 0) circle (1);
+        \draw[gray!60, dashed] (1.5, 0.866) circle (1);
+        \draw[very thick, magenta] (1, 0) circle (1);
+        \draw[very thick, cyan!70!black] (0.5, 0.866) circle (1);
+        \foreach \x/\y in {0/0, 1/0, 0.5/0.866, 1.5/0.866}{
+            \fill[black] (\x, \y) circle (2pt);
+        }
+    \end{tikzpicture}
+\end{figure}
+Here $n = 4$ and $m = 5$. The two dashed circles pass through only two points each and are discarded; each solid circle is cut into three arcs, so $D$ has $6$ edges, and the two long arcs both join the bottom-left point to the top-right one.
+
+That last observation is the catch: two points can be joined by more than one arc, so $D$ is a drawing of a multigraph rather than a graph. But not by much.
+
+\begin{boxlemma} \label{Ch7:Lemma:Circle_Drawing} \hfill
+    \begin{enumerate}[label = (\arabic*)]
+        \item $D$ has at least $2m - 2n$ edges.
+        \item No two vertices of $D$ are joined by more than $2$ edges.
+        \item There are at most $n^2$ crossings between edges of $D$.
+    \end{enumerate}
+\end{boxlemma}
+\begin{proof} \hfill
+    \begin{description}
+        \item[\underline{(1).}] \sorry
+        % Hint: how many edges does each remaining circle contribute? Compare the total with $2m = \sum_p \deg(p)$: how much can discarding the circles with $\deg(p) \leq 2$ have cost?
+        \item[\underline{(2).}] \sorry
+        % Hint: if an arc of $C_p$ joins $u$ and $v$, then $p$ is at distance $1$ from both of them. How many such points $p$ are there? And how many of the arcs of a single circle through at least $3$ points can join $u$ to $v$?
+        \item[\underline{(3).}] \sorry
+        % Hint: two arcs of the same circle never cross. Two different circles meet in at most $2$ points, and at each of these at most one arc of each circle passes through. Now count pairs of circles.
+    \end{description}
+\end{proof}
+
+Now we just have to throw away the duplicate edges and apply the crossing lemma.
+
+\begin{boxtheorem} \label{Ch7:Thm:Unit_Distance_Upper_Bound}
+    Among any $n$ points in $\R^2$, there are at most $5n^{\frac{4}{3}}$ unit distances.
+\end{boxtheorem}
+\begin{proof}
+    Let $\overline{D}$ be what remains of $D$ when we keep just one edge between each pair of vertices that $D$ joins. By \Cref{Ch7:Lemma:Circle_Drawing} (2) and then (1), $\overline{D}$ has at least half as many edges as $D$, so at least $m - n$ of them. It is a drawing of a simple graph $\overline{G}$ on $n$ vertices, and its crossings are among those of $D$, so by \Cref{Ch7:Lemma:Circle_Drawing} (3),
+    \begin{align*}
+        \pcr{\overline{G}} \leq n^2
+    \end{align*}
+    If $m - n < 4n$, then $m < 5n \leq 5n^{\frac{4}{3}}$ and we are done. Otherwise $\overline{G}$ has at least $m - n \geq 4n$ edges, and \Cref{Ch7:Thm:Crossing_Lemma} gives
+    \begin{align*}
+        n^2 \geq \pcr{\overline{G}} \geq \frac{\parenth{m - n}^3}{64n^2}
+    \end{align*}
+    Thus $\parenth{m - n}^3 \leq 64n^4$, ie, $m - n \leq 4n^{\frac{4}{3}}$, and $m \leq 4n^{\frac{4}{3}} + n \leq 5n^{\frac{4}{3}}$.
+\end{proof}
 
 \section{Applications of Crossing Numbers}
 % [CLAUDE] not sure this should be a section, figure it out
@@ -112,7 +166,25 @@ Going back to our problem involving $A \ssq \Z$, define
     P := \parenth{A + A} \times \parenth{A \cdot A}
     = \setst{(x, y) \in \Z \times \Z}{x \in A + A, \, y \in A \cdot A}
 \end{align*}
-% [CLAUDE] draw a grid loosely representing this
+For example, when $A = \set{1, 2, 3}$, we have $A + A = \set{2, \ldots, 6}$ and $A \cdot A = \set{1, 2, 3, 4, 6, 9}$, and $P$ looks like this.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[x = 0.9cm, y = 0.45cm]
+        \draw[->] (1.2, 0) -- (6.8, 0) node[right] {$x$};
+        \draw[->] (1.5, -0.3) -- (1.5, 10) node[above] {$y$};
+        \foreach \x in {2, ..., 6}{
+            \draw (\x, 0.15) -- (\x, -0.15) node[below] {\small $\x$};
+        }
+        \foreach \y in {1, 2, 3, 4, 6, 9}{
+            \draw (1.6, \y) -- (1.4, \y) node[left] {\small $\y$};
+            \foreach \x in {2, ..., 6}{
+                \fill[black] (\x, \y) circle (2pt);
+            }
+        }
+        \node at (4, -1.6) {$A + A$};
+        \node[rotate = 90] at (0.6, 5) {$A \cdot A$};
+    \end{tikzpicture}
+\end{figure}
 
 The incidence bound answers our question: $A + A$ and $A \cdot A$ cannot both be small.
 
@@ -207,7 +279,30 @@ Let's denote the greatest such number $J(L)$.
 
 Here's one construction: just an $n \times n \times n$ grid. This gives you $3n^2$ points.
 
-% [CLAUDE] illustrate
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[x = {(1cm, 0cm)}, y = {(0.55cm, 0.4cm)}, z = {(0cm, 1cm)}, scale = 1.2]
+        \foreach \a in {0, 1, 2}{
+            \foreach \b in {0, 1, 2}{
+                \draw[gray!50] (-0.5, \a, \b) -- (2.5, \a, \b);
+                \draw[gray!50] (\a, -0.5, \b) -- (\a, 2.5, \b);
+                \draw[gray!50] (\a, \b, -0.5) -- (\a, \b, 2.5);
+            }
+        }
+        \draw[very thick, magenta] (-0.5, 0, 2) -- (2.5, 0, 2);
+        \draw[very thick, magenta] (2, -0.5, 2) -- (2, 2.5, 2);
+        \draw[very thick, magenta] (2, 0, -0.5) -- (2, 0, 2.5);
+        \foreach \a in {0, 1, 2}{
+            \foreach \b in {0, 1, 2}{
+                \foreach \c in {0, 1, 2}{
+                    \fill[black] (\a, \b, \c) circle (1.5pt);
+                }
+            }
+        }
+        \fill[magenta] (2, 0, 2) circle (2.5pt);
+    \end{tikzpicture}
+\end{figure}
+The case $n = 3$ is drawn above, with the three lines through one of the joints highlighted. Every point of the grid is a joint, and every line of the grid is parallel to one of the axes and passes through $n$ of them.
 
 \begin{boxlemma}
     In any collection of lines with $J$ joints, some line is in $\leq 3J^{\frac{1}{3}}$ joints.
@@ -223,7 +318,11 @@ Assuming the lemma, we notice that
     &\leq J(L - 3) \cdots \\
     &\leq 3 \cdot L \cdot J(L)^{\frac{1}{3}}
 \end{align*}
-% [CLAUDE] wut?
+The first inequality comes from taking $L$ lines with $J(L)$ joints and deleting a line that, by the lemma, is in at most $3J(L)^{\frac{1}{3}}$ of them. Every other joint is still a joint of the remaining $L - 1$ lines, so $J(L) - 3J(L)^{\frac{1}{3}} \leq J(L - 1)$. The same argument gives $J(L - 1) \leq J(L - 2) + 3J(L - 1)^{\frac{1}{3}}$, and $J(L - 1) \leq J(L)$, since adding a line to a collection destroys none of its joints; this is the second line. Carrying on down to $J(0) = 0$, each of the $L$ lines we delete costs at most $3J(L)^{\frac{1}{3}}$ joints, which is the last line. Dividing it by $J(L)^{\frac{1}{3}}$ gives $J(L)^{\frac{2}{3}} \leq 3L$, ie,
+\begin{align*}
+    J(L) \leq \parenth{3L}^{\frac{3}{2}} = \BigO{L^{\frac{3}{2}}}
+\end{align*}
+So the grid is optimal up to a constant factor: it has $L = 3n^2$ lines and $n^3 = \parenth{\frac{L}{3}}^{\frac{3}{2}}$ joints.
 
 Let's now take a detour into the world of polynomials.
 
