@@ -19,7 +19,7 @@ Probabilistic methods to the rescue!
 
 We actually want to think of $G_p$ as the space of all subgraphs of $G$, with the power sigma algebra, with each singleton (ie, the probability of each subgraph being realised) having probability determined by $p$.
 
-\begin{boxlemma}
+\begin{boxlemma} \label{Ch7:Lemma:Gp_Expectations}
     $\E\of{v_p} = p \cdot v$ and $\E\of{e_p} = p^2 \cdot e$.
 \end{boxlemma}
 \begin{proof}[Proof sketch]
@@ -28,20 +28,55 @@ We actually want to think of $G_p$ as the space of all subgraphs of $G$, with th
 
 We can relate $\pcr{G_p}$ with $\pcr{G}$.
 
-\begin{boxlemma}
+\begin{boxlemma} \label{Ch7:Lemma:Gp_Crossings}
     $\E\of{\pcr{G_p}} \leq p^4 \cdot \pcr{G}$
 \end{boxlemma}
 \begin{proof}
-    \sorry % [CLAUDE] don't fill this in, instead give me a hint in the comments here so I can fill it out myself as an exercise.
+    \sorry
+    % Hint: fix a drawing of $G$ with exactly $\pcr{G}$ crossings, and draw each outcome of $G_p$ by erasing the deleted vertices and every edge at them. This is a drawing of $G_p$, so $\pcr{G_p}$ is at most the number of crossings that survive into it. When does a crossing survive, and with what probability? Then take expectations.
+    % Second hint, for the probability: you want the two edges at a crossing to have four distinct endpoints between them. In a drawing with the fewest crossings, two edges that share an endpoint never cross --- if they did, swapping their two pieces between the shared endpoint and the crossing point, and pulling them slightly apart, would give a drawing with fewer crossings.
 \end{proof}
 
 If we can then find a tighter lower-bound for $\pcr{G_p}$, we can get a tighter lower-bound for $\pcr{G}$. If we then optimise it by finding the $p$ that makes it tightest, we can actually do a bit better than what we've done so far.
 
-\sorry % [CLAUDE] I have a picture of this that I will supply at some point, or I will fill this in myself. Don't bother.
+This is the content of the following theorem.
+
+% [FILLED] statement and proof written up from the blackboard photographs supplied with the post-lecture pass of 2026-10-27; the \sorry in the proof is left as an exercise, with a hint
+\begin{boxtheorem}[The Crossing Lemma] \label{Ch7:Thm:Crossing_Lemma}
+    If $G$ is a simple graph with $n$ vertices and $m \geq 4n$ edges, then
+    \begin{align*}
+        \pcr{G} \geq \frac{m^3}{64n^2}
+    \end{align*}
+\end{boxtheorem}
+\begin{proof}
+    We claim that for every $p \in (0, 1]$,
+    \begin{align*}
+        p^4 \pcr{G} \geq p^2 m - 3pn
+    \end{align*}
+    \sorry
+    % Hint: every outcome of $G_p$ is a simple graph, so \Cref{Ch7:Lemma:Crossing_Edge_Bound} applies to it. That gives an inequality between three random variables; take expectations of both sides, and bring in \Cref{Ch7:Lemma:Gp_Expectations,Ch7:Lemma:Gp_Crossings}.
+
+    Dividing through by $p^4$, we get
+    \begin{align*}
+        \pcr{G} \geq \frac{m}{p^2} - \frac{3n}{p^3}
+    \end{align*}
+    for every $p \in (0, 1]$, and we are free to choose $p$. We take $p = \frac{4n}{m}$, which is a probability precisely because $m \geq 4n$. (This is not quite the $p$ that maximises the right-hand side, but it makes the constant come out cleanly.) Substituting,
+    \begin{align*}
+        \pcr{G}
+        \geq \frac{m^3}{16n^2} - \frac{3m^3}{64n^2}
+        = \frac{m^3}{64n^2}
+    \end{align*}
+\end{proof}
+
+In particular, once $n \geq 9$ we have $\binom{n}{2} \geq 4n$, so
+\begin{align*}
+    \pcr{K_n}
+    \geq \frac{1}{64n^2} \binom{n}{2}^3
+    = \frac{n\parenth{n - 1}^3}{512}
+    = \Omega\of{n^4}
+\end{align*}
 
 % [CLAUDE] maybe the following/the above need to be separated into different subsections or something?
-
-% End with $cr(G) \geq \frac{e^3}{64v^2}$ - though we do need $p$ to be a probability, so we want that in the extremal case where $p = \frac{v}{4e}$, we have $p \leq 1$.
 
 \subsection{A Unit-Distance Upper-Bound}
 
@@ -79,11 +114,45 @@ Going back to our problem involving $A \ssq \Z$, define
 \end{align*}
 % [CLAUDE] draw a grid loosely representing this
 
-\sorry % [CLAUDE] give me hints to fill this out using blackboard pictures
+The incidence bound answers our question: $A + A$ and $A \cdot A$ cannot both be small.
+
+% [FILLED] statement and outline written up from the blackboard photographs supplied with the post-lecture pass of 2026-10-27; the two \sorry steps are left as exercises, with hints
+\begin{boxtheorem} \label{Ch7:Thm:Sum_Product}
+    There is a constant $c > 0$ such that for every finite $A \ssq \Z$,
+    \begin{align*}
+        \abs{A + A} \abs{A \cdot A} \geq c \abs{A}^{\frac{5}{2}}
+    \end{align*}
+    In particular, $\max\set{\abs{A + A}, \abs{A \cdot A}} \geq \sqrt{c} \abs{A}^{\frac{5}{4}}$.
+\end{boxtheorem}
+\begin{proof}
+    We may assume that $0 \notin A$: removing $0$ from $A$ can only shrink $A + A$ and $A \cdot A$, and for $\abs{A} \geq 2$ it at most halves $\abs{A}$, which changes only the constant.
+
+    Our points are those of $P$, so $\abs{P} = \abs{A + A} \abs{A \cdot A}$. For the lines, take
+    \begin{align*}
+        \mathcal{L} := \setst{\text{the line } y = a\parenth{x - a'}}{a, a' \in A}
+    \end{align*}
+    The line $y = a\parenth{x - a'}$ has slope $a$ and, since $a \neq 0$, meets the $x$-axis exactly at $a'$, so different pairs $\parenth{a, a'}$ give different lines and $\abs{\mathcal{L}} = \abs{A}^2$. Each of these lines passes through at least $\abs{A}$ points of $P$, so
+    \begin{align*}
+        I\of{\mathcal{L}, P} \geq \abs{\mathcal{L}} \abs{A} = \abs{A}^3
+    \end{align*}
+    \sorry
+    % Hint: fix the line $y = a\parenth{x - a'}$. Which $x$ make $y$ land in $A \cdot A$? Try $x = a' + b$ for each $b \in A$, and check that the point you get lies in $P$.
+
+    On the other hand, \Cref{Ch7:Thm:Szemeredi_Trotter} gives a constant $C$ such that
+    \begin{align*}
+        \abs{A}^3
+        \leq I\of{\mathcal{L}, P}
+        \leq C\parenth{\abs{A}^{\frac{4}{3}} \abs{P}^{\frac{2}{3}} + \abs{A}^2 + \abs{P}}
+    \end{align*}
+    One of the three terms in the bracket is at least $\frac{\abs{A}^3}{3C}$, and in each case we get $\abs{P} \geq c\abs{A}^{\frac{5}{2}}$ for a suitable $c > 0$ depending only on $C$. \sorry
+    % Hint: take the three cases one at a time. The first is where the exponent $\frac{5}{2}$ comes from. In the second, $\abs{A}$ is at most a constant, and $\abs{A + A}, \abs{A \cdot A} \geq \abs{A}$ (why?). The third is immediate.
+
+    The second inequality follows from the first, since the larger of two numbers is at least the square root of their product.
+\end{proof}
 
 \subsection{The Szemeredi-Trotters Theorem}
 
-\begin{boxtheorem}[Szemeredi-Trotters]
+\begin{boxtheorem}[Szemeredi-Trotters] \label{Ch7:Thm:Szemeredi_Trotter}
     $I\of{\mathcal{L}, P} = \BigO{\abs{\mathcal{L}}^{\frac{2}{3}} \abs{P}^{\frac{2}{3}} + \abs{\mathcal{L}} + \abs{P}}$
 \end{boxtheorem}
 \begin{proof}
@@ -101,11 +170,27 @@ Going back to our problem involving $A \ssq \Z$, define
     \begin{align*}
         \abs{P'} \leq 4\parenth{I\of{\mathcal{L}, P} - \abs{P}}
     \end{align*}
-    then we can apply \sorry\todo{add cross-ref after adding thing} to conclude that
+    then we can apply \Cref{Ch7:Thm:Crossing_Lemma} to conclude that
     \begin{align*}
         \pcr{D} \leq \frac{\parenth{I\of{\mathcal{L}, P} - \abs{P}}^3}{64 \abs{P'}^2}
     \end{align*}
-    \sorry % [CLAUDE] structure this proof (with `\sorry`s) so that I can truly gain an understanding of the results when I fill in those `\sorry`s.
+    % [FILLED] the rest of the proof is structured from the blackboard photographs supplied with the post-lecture pass of 2026-10-27; the \sorry steps are left as exercises, with hints
+    On the other hand, $D$ is a drawing of a simple graph, and two of its edges can only cross where the two lines of $\mathcal{L}$ containing them cross, so
+    \begin{align*}
+        \pcr{D} \leq \abs{\mathcal{L}}^2
+    \end{align*}
+    \sorry
+    % Hint: two things to check. Why can no two edges of $D$ join the same pair of points (and why does an edge pass through no vertex)? And how many times can two distinct lines meet? Then count pairs of lines.
+
+    Putting this together with the lower bound on $\pcr{D}$ from \Cref{Ch7:Thm:Crossing_Lemma}, we get $\frac{m^3}{64n^2} \leq \abs{\mathcal{L}}^2$, ie,
+    \begin{align*}
+        m \leq 4 \abs{\mathcal{L}}^{\frac{2}{3}} n^{\frac{2}{3}}
+    \end{align*}
+    If instead $m < 4n$, then $m$ is already bounded by a multiple of the number of points. Either way, $m \leq 4 \abs{\mathcal{L}}^{\frac{2}{3}} n^{\frac{2}{3}} + 4n$, and since $I\of{\mathcal{L}, P} = m + \abs{\mathcal{L}}$,
+    \begin{align*}
+        I\of{\mathcal{L}, P} \leq 4 \abs{\mathcal{L}}^{\frac{2}{3}} n^{\frac{2}{3}} + 4n + \abs{\mathcal{L}}
+    \end{align*}
+    It remains to get from $n = \abs{P'}$ back to $\abs{P}$. \sorry
 \end{proof}
 
 \section{Lines in $\R^3$}
