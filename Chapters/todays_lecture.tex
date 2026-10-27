@@ -2,3 +2,161 @@
 % this file after every chapter, so the Overleaf preview builds as you go without the
 % material having to belong to a chapter yet, and /integrate empties it again once
 % the material has been spread across whichever chapters it belongs in.
+
+% [CLAUDE] in lectures the lecturer used m for no of edges and n for no of vertices. I often use e and v for these things. Reconcile everything to n and m, as per lectures, and add local notation explaining it.
+
+Consider the case $G = K_n$. So $v = n$ and $e = \binom{n}{2}$. The above inequality gives us
+\begin{align*}
+    \pcr{K_n} \geq \binom{n}{2} - 3n
+\end{align*}
+But we can probably do better than this: we'd at least expect each edge to cross each other edge or something, so we might think $\pcr{K_n} = \Omega\of{n^2}$.
+
+Probabilistic methods to the rescue!
+
+\begin{boxlnotation}
+    Given a graph $G$ and $p \in [0, 1]$, define $G_p$ to be the graph that retains vertices of $G$ independently with probability $p$ (ie, that deletes vertices of $G$ independently with probability $1 - p$). Define random variables $v_p$ and $e_p$, respectively denoting the number of vertices and edges in $G_p$. Denote by $v$ and $e$ the number of vertices and edges respectively of $G$.
+\end{boxlnotation}
+
+We actually want to think of $G_p$ as the space of all subgraphs of $G$, with the power sigma algebra, with each singleton (ie, the probability of each subgraph being realised) having probability determined by $p$.
+
+\begin{boxlemma}
+    $\E\of{v_p} = p \cdot v$ and $\E\of{e_p} = p^2 \cdot e$.
+\end{boxlemma}
+\begin{proof}[Proof sketch]
+    $\E\of{v_p} = p \cdot v$ is clear. To compute $\E\of{e_p}$, define indicator random variables $\xi_e$ for each edge $e$, so that $m_p$ is the sum over all edges $e$ of the $\xi_e$. Then apply linearity of expectation.
+\end{proof}
+
+We can relate $\pcr{G_p}$ with $\pcr{G}$.
+
+\begin{boxlemma}
+    $\E\of{\pcr{G_p}} \leq p^4 \cdot \pcr{G}$
+\end{boxlemma}
+\begin{proof}
+    \sorry % [CLAUDE] don't fill this in, instead give me a hint in the comments here so I can fill it out myself as an exercise.
+\end{proof}
+
+If we can then find a tighter lower-bound for $\pcr{G_p}$, we can get a tighter lower-bound for $\pcr{G}$. If we then optimise it by finding the $p$ that makes it tightest, we can actually do a bit better than what we've done so far.
+
+\sorry % [CLAUDE] I have a picture of this that I will supply at some point, or I will fill this in myself. Don't bother.
+
+% [CLAUDE] maybe the following/the above need to be separated into different subsections or something?
+
+% End with $cr(G) \geq \frac{e^3}{64v^2}$ - though we do need $p$ to be a probability, so we want that in the extremal case where $p = \frac{v}{4e}$, we have $p \leq 1$.
+
+\subsection{A Unit-Distance Upper-Bound}
+
+% [CLAUDE] This involves representing our unit distance graph using circles, and 
+
+\section{Applications of Crossing Numbers}
+% [CLAUDE] not sure this should be a section, figure it out
+
+\subsection{Can't think of a name} % [CLAUDE] think of one
+
+Fix some $A \ssq \Z$. Define
+\begin{align*}
+    A + A &:= \setst{a + b}{a, b \in A} \\
+    A \cdot A &:= \setst{a \cdot b}{a, b \in A}
+\end{align*}
+
+Is there a set $A$ for which both $A + A$ and $A \cdot A$ are small?
+
+Given finite sets $\mathcal{L}$ of lines and $P$ of points in $\R^2$, define
+\begin{align*}
+    I\of{\mathcal{L}, P}
+    := \#\!\set{\text{point-line incidences}}
+    = \#\!\setst{\parenth{\ell, p} \in \mathcal{L} \times P}{p \in \ell}
+\end{align*}
+
+We can expect
+\begin{align*}
+    I\of{\mathcal{L}, P} = \BigO{\abs{\mathcal{L}}^{\frac{2}{3}} \abs{P}^{\frac{2}{3}} + \abs{\mathcal{L}} + \abs{P}}
+\end{align*}
+
+Going back to our problem involving $A \ssq \Z$, define
+\begin{align*}
+    P := \parenth{A + A} \times \parenth{A \cdot A}
+    = \setst{(x, y) \in \Z \times \Z}{x \in A + A, \, y \in A \cdot A}
+\end{align*}
+% [CLAUDE] draw a grid loosely representing this
+
+\sorry % [CLAUDE] give me hints to fill this out using blackboard pictures
+
+\subsection{The Szemeredi-Trotters Theorem}
+
+\begin{boxtheorem}[Szemeredi-Trotters]
+    $I\of{\mathcal{L}, P} = \BigO{\abs{\mathcal{L}}^{\frac{2}{3}} \abs{P}^{\frac{2}{3}} + \abs{\mathcal{L}} + \abs{P}}$
+\end{boxtheorem}
+\begin{proof}
+    Given an $\mathcal{L},P$ system, consider the graph drawing $D$ whose vertices are the points in $P$ and whose edges are intervals of lines in $\mathcal{L}$ with endpoints in $P$, with no interval points in $P$.
+
+    Let $P'$ with $\abs{P'} \leq \abs{P} + 2 \abs{\mathcal{L}}$ be an expected set of points such that every line has $\geq 2$ points. % I need to assume here that each line has at least 2 points. Then I argue and get my bound. Now in the general case, what I do is, I remove all lines with just one point, I get my upper-bound, then I add them back, which adds at most |L|, which gets subsumed into the |L| term of our big O.
+
+    Let $n = \abs{P'}$ be the number of vertices. How many edges do I have? I should have
+    \begin{align*}
+        m
+        = I\of{\mathcal{L}, P} - \abs{\mathcal{L}}
+        = \sum_{\ell \in \mathcal{L}} \parenth{\#\!\setst{p \in P}{p \in \ell} - 1}
+    \end{align*}
+    If we have $n \leq 4m$, ie,
+    \begin{align*}
+        \abs{P'} \leq 4\parenth{I\of{\mathcal{L}, P} - \abs{P}}
+    \end{align*}
+    then we can apply \sorry\todo{add cross-ref after adding thing} to conclude that
+    \begin{align*}
+        \pcr{D} \leq \frac{\parenth{I\of{\mathcal{L}, P} - \abs{P}}^3}{64 \abs{P'}^2}
+    \end{align*}
+    \sorry
+\end{proof}
+
+\section{Lines in $\R^3$}
+
+\begin{boxdefinition}[Joint]
+    A \textbf{joint} in $\R^3$ is an intersection point of $3$ non-coplanar lines.
+\end{boxdefinition}
+
+In other words, any point at which three lines that do not share a plane in common meet is called a joint.
+
+We ask ourselves the following question: how many joints can a collection of $L$ lines have?
+
+Let's denote the greatest such number $J(L)$.
+
+Here's one construction: just an $n \times n \times n$ grid. This gives you $3n^2$ points.
+
+% [CLAUDE] illustrate
+
+\begin{boxlemma}
+    In any collection of lines with $J$ joints, some line is in $\leq 3J^{\frac{1}{3}}$ joints.
+\end{boxlemma}
+\begin{proof}
+\end{proof}
+
+Assuming the lemma, we notice that
+\begin{align*}
+    J(L)
+    &\leq J(L - 1) + 3J(L)^{\frac{1}{3}} \\
+    &\leq J(L - 2) \cdot 3 \cdot 2 \cdot J(L)^{\frac{1}{3}} \\
+    &\leq J(L - 3) \cdots \\
+    &\leq 3 \cdot L \cdot J(L)^{\frac{1}{3}}
+\end{align*}
+% [CLAUDE] wut?
+
+Let's now take a detour into the world of polynomials.
+
+Our notation for this course isn't amazing. Let $\F$ be a field.
+
+\begin{boxnotation}
+    $\poly_D\of{\F^n}$ denotes the set
+    \begin{align*}
+        \setst{p \in \F\!\brac{x_1, \ldots, x_n}}{\deg_{\tot}\of{p} \leq D}
+    \end{align*}
+    where $\deg_{\tot}$ denotes the total degree of the polynomial.
+\end{boxnotation}
+
+The monomials form a basis of this space. By a stars and bars argument, we can show that the number of monomials is $\binom{D + n}{n}$. So this is the dimension of this space.
+
+Observe the following: if $S \ssq \F^n$ is such that $\abs{S} \leq \dim\of{\poly_D\of{\F^n}}$, there is some $p \in \poly_D\of{\F^n}$ that vanishes on $S$. The proof is simple: consider the evaluation map
+\begin{align*}
+    \ev : \poly_D\of{\F^n} \to \F^{S} : p \mapsto \parenth{p(s)}_{s \in S}
+\end{align*}
+Rank-nullity\footnote{Tarun would be so proud!} and the inequality $\abs{S} \leq \parenth{\text{dimension of space}}$ tells us the dimension of the kernel is positive, which gives us some $p$ as desired.
+
