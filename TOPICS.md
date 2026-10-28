@@ -364,7 +364,7 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
 ## 7. Discrete Geometry  ->  `Chapters/7_Geometry/`
 
 ```
-7.1 The Erdos Unit Distance Problem                 [2026-10-19]
+7.1 The Erdos Unit Distance Problem                 [2026-10-19, week of 2026-10-19]
     How many pairs among n points of the plane can be at distance exactly 1?
     Constructions from below, and an O(n^{4/3}) bound promised from above,
     by way of drawing graphs in the plane. The section heading is the
@@ -385,11 +385,56 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
       Euler's formula, stated; proof left to the author as an
         exercise                                                    [sorry]
       faces meet >= 3 edges, edges meet <= 2 faces              [CORRECTED]
-      e <= 3v - 6 for connected simple plane graphs with e >= 3
-    7.1.3 Crossing Numbers                          [2026-10-19]
+      m <= 3n - 6 for connected simple plane graphs with m >= 3 (was
+        e <= 3v - 6)
+      n and m for vertices and edges, as in the lecture, boxed as
+        local notation for the section; v and e renamed throughout
+        7.1 on the author's instruction            [week of 2026-10-19]
+    7.1.3 Crossing Numbers                          [2026-10-19, week of 2026-10-19]
       cr(G), the fewest crossings over all drawings
       cr(K_n) = O(n^4) expected
-      cr(G) >= e - 3v, by deleting an edge per crossing             [supplied]
+      cr(G) >= m - 3n, by deleting an edge per crossing             [supplied]
+      for K_n this is only Omega(n^2); Omega(n^4) hoped for      [CORRECTED]
+    7.1.4 The Crossing Lemma                        [week of 2026-10-19]
+      G_p, keeping each vertex with probability p; E(n_p) = pn and
+        E(m_p) = p^2 m
+      E(cr(G_p)) <= p^4 cr(G), left to the author with a hint    [exercise]
+      the crossing lemma: cr(G) >= m^3/64n^2 for m >= 4n, stated
+        from the blackboard; proof left to the author, the board's
+        route (G_p, p = 4n/m) in a hint                  [exercise]
+    7.1.5 A Unit-Distance Upper-Bound               [week of 2026-10-19]
+      O(n^{4/3}) unit distances, stated from the blackboard; proof
+        left to the author, the board's route (arcs of unit circles,
+        multiplicity <= 2, the crossing lemma) in a hint [exercise]
+
+7.2 Point-Line Incidences                           [week of 2026-10-19]
+    How many incidences can |L| lines and |P| points in the plane have,
+    and what that says about A + A and A . A. The author headed it
+    "Applications of Crossing Numbers", unsure it was a section.
+    7.2.1 The Szemeredi-Trotter Theorem             [week of 2026-10-19]
+      I(L, P), the number of point-line incidences
+      I(L, P) = O(|L|^{2/3}|P|^{2/3} + |L| + |P|), by the crossing
+        lemma on the drawing of segments between consecutive points;
+        the reduction to lines with >= 2 points corrected to the
+        author's own (remove, then add back)            [CORRECTED]
+      the rest of the proof from cr(D) >= m^3/64n^2 on (cr(D) <= |L|^2,
+        the comparison, the case m < 4n) left to the author with a
+        hint                                             [exercise]
+    7.2.2 Sums and Products                          [week of 2026-10-19]
+      A + A and A . A; can both be small?
+      P = (A + A) x (A . A), drawn for A = {1, 2, 3}     [supplied]
+      |A + A||A . A| >= c|A|^{5/2}, so max >= c'|A|^{5/4}, stated from
+        the blackboard; proof left to the author, the board's lines
+        y = a(x - a') in a hint                          [exercise]
+
+7.3 Lines in R^3                                    [week of 2026-10-19]
+    How many joints can L lines in space have?
+      joints; J(L), the most joints of L lines
+      the n x n x n grid: 3n^2 lines, n^3 joints, drawn   [CORRECTED]
+      some line is in <= 3 J^{1/3} joints, stated, proof to come  [sorry]
+      J(L) <= (3L)^{3/2}, from it; the recursion explained briefly
+      poly_D(F^n), of dimension binom(D + n, n); a nonzero polynomial
+        vanishing on S when |S| < dim, by rank-nullity    [CORRECTED]
 ```
 
 Material marked `[handwritten]` is the second half of the lecture of 4 September
@@ -647,6 +692,13 @@ the O(n^{4/3}) unit distance     promised 2026-10-19 ("we will show an
   bound                          upper-bound"). The crossing number lemma of
                                  7.1.3 is the first step; presumably the
                                  crossing lemma and Szemeredi-Trotter come next.
+                                 REACHED the week of 2026-10-19: 7.1.4-7.1.5,
+                                 and Szemeredi-Trotter in 7.2.
+the joints lemma                 stated the week of 2026-10-19 with an empty
+                                 proof: some line is in <= 3J^{1/3} joints.
+                                 The lecture then "takes a detour into the
+                                 world of polynomials", which is presumably the
+                                 polynomial method that proves it. Left \sorry.
 Euler's formula                  stated 2026-10-19, proof "by induction on e"
                                  left \sorry: the author's comment reserves it
                                  as an exercise for themselves. Not to be filled.
@@ -655,6 +707,19 @@ the n^{1 + c/log log n} grid     asserted 2026-10-19 via "algebraic number
 K_n non-planar for n >= 5        asserted 2026-10-19 as a non-example, not
                                  proved. Follows from e <= 3v - 6 at n = 5.
 ```
+
+## Dating the lectures of the week of 2026-10-19
+
+The material of 7.1.4-7.3 arrived in two commits of 2026-10-27, 4a1065e
+("some notes from last week") and 5142df7, with no date written in the file.
+The lecture of 2026-10-19 had already been integrated (#29), so this is the
+material of the later lecture or lectures that week, probably 21 and 23
+October; where one ended and the next began is not recorded. Entries are
+dated "week of 2026-10-19" until the author says otherwise.
+
+Entries marked `[exercise]` are steps deliberately left `\sorry` for the
+author to fill, at the author's request, each with a `% Hint:` comment at
+its site.
 
 ## Unplaced
 
@@ -676,7 +741,9 @@ Observations for `/organise`, recorded rather than acted on.
 
 ```
 Chapter 7 Discrete Geometry is one section, opened by /integrate on one
-    lecture's evidence (2026-10-19). The lecture introduced its own objects ---
+    lecture's evidence (2026-10-19). [Now three sections, the week of
+    2026-10-19: point-line incidences and joints stayed with points and
+    lines, so the title holds.] The lecture introduced its own objects ---
     plane and planar graphs, faces, drawings, the crossing number --- in
     service of a geometric question, and none of chapter 2's colouring
     vocabulary. A chapter with too few sections self-heals; filing it as 2.4

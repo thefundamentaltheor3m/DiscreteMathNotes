@@ -115,16 +115,22 @@ Not all graphs are planar.
 
 The reason graphs fail to be planar is that too many of their edges cross.
 
-(Connected) plane graphs satisfy Euler's Formula: $v - e + f = 2$. We can prove this using induction on $e$ and some handwaving (one should say ``visual intuition''), but to actually do this rigorously takes a lot of machinery (eg. the Jordan Curve Theorem).
+We follow the lecture's letters for the sizes of a graph.
+
+\begin{boxlnotation}
+    For the rest of this section, a graph $G$ has $n$ vertices and $m$ edges, and a plane graph has $f$ faces. Where several graphs are in play, we write $n(H)$ and $m(H)$ for the numbers of vertices and edges of $H$.
+\end{boxlnotation}
+
+(Connected) plane graphs satisfy Euler's Formula: $n - m + f = 2$. We can prove this using induction on $m$ and some handwaving (one should say ``visual intuition''), but to actually do this rigorously takes a lot of machinery (eg. the Jordan Curve Theorem).
 
 \begin{boxtheorem}[Euler's Formula]
-    For a connected plane graph with $v$ vertices, $e$ edges and $f$ faces,
+    For a connected plane graph with $n$ vertices, $m$ edges and $f$ faces,
     \begin{align*}
-        v - e + f = 2
+        n - m + f = 2
     \end{align*}
 \end{boxtheorem}
 \begin{proof}
-    Induction on $e$. \sorry % [CLAUDE] don't fill this in, it's an exercise for me to do later.
+    Induction on $m$. \sorry % [CLAUDE] don't fill this in, it's an exercise for me to do later.
 \end{proof}
 
 % [CORRECTED] was: "in any plane graph" --- a single edge, or a path with two edges, is a plane graph with one face
@@ -139,26 +145,26 @@ Notice that in any simple plane graph with at least $3$ edges, we \textit{must} 
 This gives us an important inequality.
 
 \begin{boxproposition} \label{Ch7:Prop:Planar_Edge_Bound}
-    For any connected simple plane graph with $v$ vertices, $e$ edges and $f$ faces, if $e \geq 3$, then
+    For any connected simple plane graph with $n$ vertices, $m$ edges and $f$ faces, if $m \geq 3$, then
     \begin{align*}
-        e \leq 3v - 6
+        m \leq 3n - 6
     \end{align*}
 \end{boxproposition}
 \begin{proof}
     Count edge-face incidences. By above,
     \begin{align*}
-        3f \leq \sum_{F \text{ a face}} \#\!\set{\text{edges $F$ is incident with}} = \sum_{E \text{ an edge}} \#\!\set{\text{faces $E$ is incident with}} \leq 2e
+        3f \leq \sum_{F \text{ a face}} \#\!\set{\text{edges $F$ is incident with}} = \sum_{E \text{ an edge}} \#\!\set{\text{faces $E$ is incident with}} \leq 2m
     \end{align*}
     Thus, we get the equivalent inequalities
     \begin{align*}
-        3f \leq 2e \qquad \iff  \qquad f \leq \frac{2e}{3}
+        3f \leq 2m \qquad \iff  \qquad f \leq \frac{2m}{3}
     \end{align*}
     Combining with Euler's formula, we get
     \begin{align*}
         2
-        = v - e + f
-        \leq v - e + \frac{2e}{3}
-        = v - \frac{e}{3}
+        = n - m + f
+        \leq n - m + \frac{2m}{3}
+        = n - \frac{m}{3}
     \end{align*}
     Rearranging gives us the desired inequality.
 \end{proof}
@@ -178,12 +184,75 @@ We might expect $\pcr{K_n} = \BigO{\parenth{\#\text{edges}}^2} = \BigO{n^4}$.
 
 \Cref{Ch7:Prop:Planar_Edge_Bound} gives us a first lower bound.
 
-\begin{boxlemma}
-    If $G$ is simple, then $\pcr{G} \geq e - 3v$.
+\begin{boxlemma} \label{Ch7:Lemma:Crossing_Edge_Bound}
+    If $G$ is simple, then $\pcr{G} \geq m - 3n$.
 \end{boxlemma}
 % [FILLED] proof supplied here; the lecture stated the lemma without proving it
 \begin{proof}
-    First, every simple plane graph $H$ has at most $3v(H)$ edges. Indeed, each connected component of $H$ is a connected simple plane graph in its own right: a component with $v_i$ vertices and $e_i \geq 3$ edges has $e_i \leq 3v_i - 6 \leq 3v_i$ by \Cref{Ch7:Prop:Planar_Edge_Bound}, and one with $e_i \leq 2$ edges has $e_i \leq 3v_i$ since $v_i \geq 1$. Summing over the components gives $e(H) \leq 3v(H)$.
+    First, every simple plane graph $H$ has $m(H) \leq 3n(H)$. Indeed, each connected component of $H$ is a connected simple plane graph in its own right: a component with $n_i$ vertices and $m_i \geq 3$ edges has $m_i \leq 3n_i - 6 \leq 3n_i$ by \Cref{Ch7:Prop:Planar_Edge_Bound}, and one with $m_i \leq 2$ edges has $m_i \leq 3n_i$ since $n_i \geq 1$. Summing over the components gives $m(H) \leq 3n(H)$.
 
-    Now take a drawing of $G$ with exactly $\pcr{G}$ crossings, and for each crossing delete one of the two edges involved. We have deleted at most $\pcr{G}$ edges, and what remains is a drawing with no crossings at all, ie, a simple plane graph on the same $v$ vertices with at least $e - \pcr{G}$ edges. Thus $e - \pcr{G} \leq 3v$, which rearranges to $\pcr{G} \geq e - 3v$.
+    Now take a drawing of $G$ with exactly $\pcr{G}$ crossings, and for each crossing delete one of the two edges involved. We have deleted at most $\pcr{G}$ edges, and what remains is a drawing with no crossings at all, ie, a simple plane graph on the same $n$ vertices with at least $m - \pcr{G}$ edges. Thus $m - \pcr{G} \leq 3n$, which rearranges to $\pcr{G} \geq m - 3n$.
+\end{proof}
+
+Consider the case $G = K_n$. So $m = \binom{n}{2}$. The above inequality gives us
+\begin{align*}
+    \pcr{K_n} \geq \binom{n}{2} - 3n
+\end{align*}
+But we can probably do better than this: we'd at least expect each edge to cross each other edge or something, so we might think $\pcr{K_n} = \Omega\of{n^4}$.
+
+\subsection{The Crossing Lemma}
+
+Probabilistic methods to the rescue!
+
+\begin{boxlnotation}
+    Given a graph $G$ and $p \in [0, 1]$, define $G_p$ to be the graph that retains vertices of $G$ independently with probability $p$ (ie, that deletes vertices of $G$ independently with probability $1 - p$). Define random variables $n_p$ and $m_p$, respectively denoting the number of vertices and edges in $G_p$. Denote by $n$ and $m$ the number of vertices and edges respectively of $G$.
+\end{boxlnotation}
+
+We actually want to think of $G_p$ as the space of all subgraphs of $G$, with the power sigma algebra, with each singleton (ie, the probability of each subgraph being realised) having probability determined by $p$.
+
+\begin{boxlemma} \label{Ch7:Lemma:Gp_Expectations}
+    $\E\of{n_p} = p \cdot n$ and $\E\of{m_p} = p^2 \cdot m$.
+\end{boxlemma}
+\begin{proof}[Proof sketch]
+    $\E\of{n_p} = p \cdot n$ is clear. To compute $\E\of{m_p}$, define indicator random variables $\xi_e$ for each edge $e$, so that $m_p$ is the sum over all edges $e$ of the $\xi_e$. Then apply linearity of expectation.
+\end{proof}
+
+We can relate $\pcr{G_p}$ with $\pcr{G}$.
+
+\begin{boxlemma} \label{Ch7:Lemma:Gp_Crossings}
+    $\E\of{\pcr{G_p}} \leq p^4 \cdot \pcr{G}$
+\end{boxlemma}
+\begin{proof}
+    \sorry
+    % Hint: fix a drawing of $G$ with exactly $\pcr{G}$ crossings, and draw each outcome of $G_p$ by erasing the deleted vertices and every edge at them. This is a drawing of $G_p$, so $\pcr{G_p}$ is at most the number of crossings that survive into it. When does a crossing survive, and with what probability? Then take expectations.
+    % Second hint, for the probability: you want the two edges at a crossing to have four distinct endpoints between them. In a drawing with the fewest crossings, two edges that share an endpoint never cross --- if they did, swapping their two pieces between the shared endpoint and the crossing point, and pulling them slightly apart, would give a drawing with fewer crossings.
+\end{proof}
+
+If we can then find a tighter lower-bound for $\pcr{G_p}$, we can get a tighter lower-bound for $\pcr{G}$. If we then optimise it by finding the $p$ that makes it tightest, we can actually do a bit better than what we've done so far.
+
+This is the crossing lemma.
+
+% [FILLED] statement written up from the blackboard photographs supplied on 2026-10-27; the proof is left to the author, with a hint
+\begin{boxtheorem}[The Crossing Lemma] \label{Ch7:Thm:Crossing_Lemma}
+    If $G$ is a simple graph with $n$ vertices and $m \geq 4n$ edges, then
+    \begin{align*}
+        \pcr{G} \geq \frac{m^3}{64n^2}
+    \end{align*}
+\end{boxtheorem}
+\begin{proof}
+    \sorry
+    % Hint (from the blackboard): apply \Cref{Ch7:Lemma:Crossing_Edge_Bound} to $G_p$ and take expectations, using \Cref{Ch7:Lemma:Gp_Expectations,Ch7:Lemma:Gp_Crossings}, to get $p^4 \pcr{G} \geq p^2 m - 3pn$ for every $p \in (0, 1]$. Then choose $p = \frac{4n}{m}$, which is a probability because $m \geq 4n$.
+\end{proof}
+
+\subsection{A Unit-Distance Upper-Bound}
+
+% [FILLED] statement written up from the blackboard photographs supplied on 2026-10-27; the proof is left to the author, with a hint
+We can now give the upper-bound we promised.
+
+\begin{boxtheorem} \label{Ch7:Thm:Unit_Distance_Upper_Bound}
+    Among any $n$ points in $\R^2$, there are $\BigO{n^{\frac{4}{3}}}$ unit distances.
+\end{boxtheorem}
+\begin{proof}
+    \sorry
+    % Hint (from the blackboard): say the points determine $m$ unit distances, so that $2m$ is the sum of the degrees in the unit distance graph. Draw the unit circle around each point, and let $D$ be the drawing whose vertices are the $n$ points and whose edges are the arcs between consecutive points on each circle. Then $D$ has about $m$ edges (careful with circles through only one or two points), and no two vertices are joined by more than $2$ of them (why?). Keep one edge of each multiple edge, and play the crossing lemma off against the fact that two unit circles meet in at most $2$ points.
 \end{proof}
