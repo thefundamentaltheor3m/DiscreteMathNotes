@@ -3,27 +3,48 @@
 % material having to belong to a chapter yet, and /integrate empties it again once
 % the material has been spread across whichever chapters it belongs in.
 
+% [CLAUDE] make all the polynomial stuff a subsection or section or something inside the discrete geometry chapter.
+The arguments that follow all run the same way. We argue by contradiction, and fix a nonzero polynomial $p$ that vanishes on the set we care about, of degree as small as \Cref{Ch7:Lemma:Low_Degree_Vanishing} allows; if the set is small, so is this degree. We then show that $p$ vanishes at many more points than we asked it to, usually by restricting it to a line: there it is a polynomial in one variable of degree at most $\deg(p)$, so if it vanishes at more than $\deg(p)$ points of the line, it vanishes on all of it. Finally, we show that a polynomial of such small degree that vanishes at so many points must be the zero polynomial, which contradicts our choice of $p$. This last step is the delicate one, because vanishing everywhere is not enough on its own: over $\F_q$ we need the degree to be at most $q - 1$ (\Cref{Ch7:Lemma:Vanishing_Everywhere}), and over $\R$ we take $p$ of least degree and differentiate.
+
+The degree bound comes straight out of the dimension count.
+
+\begin{boxlemma} \label{Ch7:Lemma:Low_Degree_Vanishing}
+    If $S \ssq \F^n$ is finite, there is a nonzero polynomial of degree at most $n \abs{S}^{\frac{1}{n}}$ that vanishes on $S$.
+\end{boxlemma}
+\begin{proof}
+    Take $D = n \abs{S}^{\frac{1}{n}}$. Then $\frac{D^n}{n!} = \binom{D + n}{n} = \dim_{\F}\of{\poly_D\of{\F^n}}$ is greater than $\abs{S}$, so by rank-nullity, the evaluation map has a nontrivial kernel.
+\end{proof}
+
+Over $\R$, we can also differentiate. Given $p \in \R\!\brac{x, y, z}$, consider the gradient
+\begin{align*}
+    \nabla p = \parenth{\frac{\partial}{\partial x} p, \frac{\partial}{\partial y} p, \frac{\partial}{\partial z} p}
+\end{align*}
+At any point $b = \parenth{b_0, b_1, b_2}$, and for any unit vector $a$, the directional derivative of $p$ at $b$ in the direction of $a$ is given by $\cycl{\nabla p (b), a}$.
+
 \begin{boxlemma} % [CLAUDE] move this proof to the place where the lemma is stated in the notes when you run /integrate. replace my earlier statement with this one.
     In any collection of $L$ lines, some line participates in $\leq 3J^{\frac{1}{3}}$ joints.
 \end{boxlemma}
 \begin{proof}
     Suppose not. Ie, suppose we have a collection of $L$ lines in which every line participates in $> 3 J^{\frac{1}{3}}$ joints.
     
-    Consider a nonzero polynomial $p$ over $\R$ in $3$ variables of the least degree $D \leq J^{\frac{1}{3}}$ that vanishes on the joints. Such a polynomial exists for the following reason: on any set $S$ with $D = n \abs{S}^{\frac{1}{n}}$, $\frac{D^n}{n!} = \binom{D + n}{n} = \dim_{\F}\of{\poly_D\of{\F^n}}$ is greater than $\abs{S}$, so by rank-nullity, the evaluation map has a nontrivial kernel.
+    Consider a nonzero polynomial $p$ over $\R$ in $3$ variables of the least degree $D \leq J^{\frac{1}{3}}$ that vanishes on the joints. Such a polynomial exists by \Cref{Ch7:Lemma:Low_Degree_Vanishing}.
 
     We've assumed every line in our collection participates in $>3 J^{\frac{1}{3}}$. Then for any line $\ell$ of the form $at + b$ with $a, b \in \R^3$, $p(at + b)$ is a single variable polynomial of degree $D \leq 3J^{\frac{1}{3}}$, vanishing at $> D$ points. So $p$ is zero on $L$. In other words, $p$ is zero on all lines in our collection.
 
-    % [CLAUDE] factor out the following. Actually make all the polynomial stuff a subsection or section or something inside the discrete geometry chapter.
-    Consider the gradient
-    \begin{align*}
-        \nabla p = \parenth{\frac{\partial}{\partial x} p, \frac{\partial}{\partial y} p, \frac{\partial}{\partial z} p}
-    \end{align*}
-    At any point $b = \parenth{b_0, b_1, b_2}$, and for any unit vector $a$, the directional derivative of $p$ at $b$ in the direction of $a$ is given by $\cycl{\nabla p (b), a}$.
+    Given a joint $\sigma$ there are three directions $a_1, a_2, a_3$ of lines through $\nabla p (\sigma)$. There may well be more than three lines of our collection through $\sigma$, but by definition three of them are not coplanar, and those are the three we take. These three directions form a basis.
 
-    % [CLAUDE] should it be at least three? add a comment here explaining this.
-    Given a joint $\sigma$ there are three directions $a_1, a_2, a_3$ of lines through $\nabla p (\sigma)$. These three directions form a basis.
-    
-    % [CLAUDE] illustrate: draw a joint with three points
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[x = {(1cm, 0cm)}, y = {(0.55cm, 0.4cm)}, z = {(0cm, 1cm)}, scale = 1.5]
+            \draw[gray] (-1.6, 0, 0.48) -- (1.6, 0, -0.48);
+            \draw[gray] (0, -1.6, -0.32) -- (0, 1.6, 0.32);
+            \draw[gray] (0.45, 0, -1.5) -- (-0.45, 0, 1.5);
+            \draw[very thick, magenta, ->] (0, 0, 0) -- (1, 0, -0.3) node[right] {$a_1$};
+            \draw[very thick, magenta, ->] (0, 0, 0) -- (0, 1, 0.2) node[above right] {$a_2$};
+            \draw[very thick, magenta, ->] (0, 0, 0) -- (-0.3, 0, 1) node[left] {$a_3$};
+            \fill[black] (0, 0, 0) circle (2pt) node[below left] {$\sigma$};
+        \end{tikzpicture}
+    \end{figure}
 
     % [FILLED] the reason the directional derivatives vanish was a \todo{why?}
     The directional derivatives of $p$ at $\sigma$ in all these directions $a_1, a_2, a_3$ must be zero. Indeed, $p$ vanishes on the line $\setst{a_i t + \sigma}{t \in \R}$, so $t \mapsto p\of{a_i t + \sigma}$ is the zero polynomial, and its derivative at $t = 0$, which by the chain rule is $\cycl{\nabla p (\sigma), a_i}$, is zero. So $\nabla p (\sigma)$ must itself be zero, because its inner product with all elements of a basis is zero. In particular, all three partial derivatives also vanish at every joint. But this necessitates that either one of these is a nonzero polynomial of smaller degree than $p$ or $p$ is the zero polynomial. Either way, we have a contradiction.
@@ -38,7 +59,7 @@ Recall that a polynomial evaluating to zero on all inputs does not make it the z
 But it turns out that under some conditions we can make this fact true.
 
 % [CLAUDE] move to section on polys
-\begin{boxlemma}
+\begin{boxlemma} \label{Ch7:Lemma:Vanishing_Everywhere}
     If $p \in \poly_{q - 1}\of{\F_q^{n-1}}$ and $p(x) = 0$ for all $x \in \F_q^{n - 1}$, then $p$ is the zero polynomial.
 \end{boxlemma}
 \begin{proof}
@@ -56,17 +77,16 @@ But it turns out that under some conditions we can make this fact true.
 \end{boxdefinition}
 
 % [FILLED] the sentence broke off at a \sorry; its end, and the attribution to Nikodym, were supplied
-In $\R^2$ it means the unit square has a subset $N$ of measure zero such that every point $x$ of the square outside $N$ lies on a line whose other points in the square all lie in $N$. That such a subset exists is a theorem of Nikodym, from 1927, so in $\R^2$ a set of this kind can be negligible. Over $\F_q$ this is far from the case.
+In $\R^2$ it means the unit square has a subset $N$ of measure zero such that every point $x$ of the square outside $N$ lies on a line whose other points in the square all lie in $N$. That such a subset exists is a theorem of Nikodym, from 1927, so in $\R^2$ a set of this kind can be negligible. Over $\F_q$ this is far from the case.\footnote{The method is Dvir's, from his proof of the finite field Kakeya conjecture: Z.~Dvir, \textit{On the size of Kakeya sets in finite fields}, J.~Amer.~Math.~Soc.~22 (2009), 1093--1097, posted to the arXiv in March 2008. The bound for Nikodym sets was written down from it within days, by L.~Li, \textit{On the size of Nikodym sets in finite fields}, arXiv:0803.3525.}
 
-\begin{boxtheorem}[Div, 2008] % [CLAUDE] is this the right reference? find it
+\begin{boxtheorem}[Dvir, 2008]
     Any Nikodym set in $\F_q^n$ has size at most $\frac{q^n}{\parenth{2n}^n}$.
 \end{boxtheorem}
-\begin{proof} % [CLAUDE] below when I say the previous lemma replace that with a \Cref
-    Fix a Nikodym set $N$. Choose a nonzero polynomial $p$ of degree $\leq n \abs{N}^{\frac{1}{n}}$. If $\abs{N} < \parenth{\frac{q}{2n}}^n$ then $\deg(p) \leq q - 1$. The previous Lemma, if $p(x) = 0$ for all $x \in \F_q^{n - 1}$.
+\begin{proof}
+    Fix a Nikodym set $N$. Choose a nonzero polynomial $p$ of degree $\leq n \abs{N}^{\frac{1}{n}}$. If $\abs{N} < \parenth{\frac{q}{2n}}^n$ then $\deg(p) \leq q - 1$. By \Cref{Ch7:Lemma:Vanishing_Everywhere}, if $p(x) = 0$ for all $x \in \F_q^{n - 1}$.
 
-    As $N$ is Nikodym, for each $x \in N$, there is a line $L(x) = at + b$ with all points of $L(x)$ except for $x$ itself lying in $N$. The restriction of my polynomial to this line is always a degree $1$ polynomial such that \sorry % [CLAUDE] don't fill this sorry, maybe add a small hint for me or an illustration that will help me figure it out. Mention in your hint that this is actually a proof by contradiction.
-
-    % [CLAUDE] maybe make a general comment early on about the general framework we've used in today's lecture: "argue by contradiction, fix a nonzero polynomial, say it vanishes at too many points and therefore must be zero" or something like this (add in a few small nuances - but don't be verbose, this whole thing should be a paragraph at most)
+    As $N$ is Nikodym, for each $x \in N$, there is a line $L(x) = at + b$ with all points of $L(x)$ except for $x$ itself lying in $N$. The restriction of my polynomial to this line is always a degree $1$ polynomial such that \sorry
+    % Hint: this is a proof by contradiction. We have assumed $\abs{N} < \parenth{\frac{q}{2n}}^n$, and want to show that $p$ is then the zero polynomial. A line in $\F_q^n$ has $q$ points; at how many points of $L(x)$ must $p$ vanish, and how does that compare with $\deg(p)$, which is less than $\frac{q}{2}$? Deduce that $p(x) = 0$, and do this for every $x \in \F_q^n$.
 \end{proof}
 
 \begin{boxdefinition}[Kakeya Set]
