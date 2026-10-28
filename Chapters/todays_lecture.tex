@@ -12,8 +12,8 @@ The degree bound comes straight out of the dimension count.
     If $S \ssq \F^n$ is finite, there is a nonzero polynomial of degree at most $n \abs{S}^{\frac{1}{n}}$ that vanishes on $S$.
 \end{boxlemma}
 \begin{proof}
-    % [CORRECTED] was: "$\frac{D^n}{n!} = \binom{D + n}{n} = \dim_{\F}\of{\poly_D\of{\F^n}}$ is greater than $\abs{S}$" --- $\binom{D + n}{n} = \frac{(D + 1) \cdots (D + n)}{n!}$ is strictly greater than $\frac{D^n}{n!}$, not equal to it
-    Take $D = n \abs{S}^{\frac{1}{n}}$. Then $\dim_{\F}\of{\poly_D\of{\F^n}} = \binom{D + n}{n} > \frac{D^n}{n!} = \frac{n^n}{n!}\abs{S} \geq \abs{S}$, so by rank-nullity, the evaluation map has a nontrivial kernel.
+    % [CORRECTED] was: "$\frac{D^n}{n!} = \binom{D + n}{n} = \dim_{\F}\of{\poly_D\of{\F^n}}$ is greater than $\abs{S}$" --- $\binom{D + n}{n} = \frac{(D + 1) \cdots (D + n)}{n!}$ is strictly greater than $\frac{D^n}{n!}$, not equal to it; and since $D$ need not be an integer, the dimension is $\binom{\floor{D} + n}{n}$ (review round one)
+    Take $D = n \abs{S}^{\frac{1}{n}}$. Then $\dim_{\F}\of{\poly_D\of{\F^n}} = \binom{\floor{D} + n}{n} > \frac{D^n}{n!} = \frac{n^n}{n!}\abs{S} \geq \abs{S}$, so by rank-nullity, the evaluation map has a nontrivial kernel.
 \end{proof}
 
 Over $\R$, we can also differentiate. Given $p \in \R\!\brac{x, y, z}$, consider the gradient
