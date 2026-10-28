@@ -1,0 +1,35 @@
+\section{Nikodym and Kakeya Sets}
+
+We now leave $\R^3$ for $\F_q^n$, where a line is a set $\setst{at + b}{t \in \F_q}$ with $a, b \in \F_q^n$ and $a \neq 0$, and so has exactly $q$ points. We ask how small a set can be if it contains almost all of a line through every point, or all of a line in every direction.
+
+\subsection{Nikodym Sets}
+
+% [CORRECTED] was: "$\exists L(x)$ a line such that" --- without "through $x$", any single line would be Nikodym
+\begin{boxdefinition}[Nikodym Set]
+    A set $N \ssq \F_q^n$ is \textbf{Nikodym} if $\forall x \in \F_q^n$, $\exists L(x)$ a line through $x$ such that all points of $L(x)$ except for $x$ itself are in $N$.
+\end{boxdefinition}
+
+% [FILLED] the sentence broke off at a \sorry; its end, and the attribution to Nikodym, were supplied
+In $\R^2$ it means the unit square has a subset $N$ of measure zero such that every point $x$ of the square outside $N$ lies on a line whose other points in the square all lie in $N$. That such a subset exists is a theorem of Nikodym, from 1927, so in $\R^2$ a set of this kind can be negligible. Over $\F_q$ this is far from the case.\footnote{The method is Dvir's, from his proof of the finite field Kakeya conjecture: Z.~Dvir, \textit{On the size of Kakeya sets in finite fields}, J.~Amer.~Math.~Soc.~22 (2009), 1093--1097, posted to the arXiv in March 2008. The bound for Nikodym sets was written down from it within days, by L.~Li, \textit{On the size of Nikodym sets in finite fields}, arXiv:0803.3525.}
+
+% [CORRECTED] was: "has size at most" --- $\F_q^n$ itself is Nikodym, and the proof assumes $\abs{N}$ is small towards a contradiction
+\begin{boxtheorem}[Dvir, 2008]
+    Any Nikodym set in $\F_q^n$ has size at least $\frac{q^n}{\parenth{2n}^n}$.
+\end{boxtheorem}
+\begin{proof}
+    Fix a Nikodym set $N$. Choose a nonzero polynomial $p$ of degree $\leq n \abs{N}^{\frac{1}{n}}$ that vanishes on $N$. If $\abs{N} < \parenth{\frac{q}{2n}}^n$ then $\deg(p) \leq q - 1$. By \Cref{Ch7:Lemma:Vanishing_Everywhere}, if $p(x) = 0$ for all $x \in \F_q^n$, then $p$ is the zero polynomial.
+
+    As $N$ is Nikodym, for each $x \in \F_q^n$, there is a line $L(x) = at + b$ with all points of $L(x)$ except for $x$ itself lying in $N$. The restriction of my polynomial to this line is always a single-variable polynomial such that \sorry
+    % Hint: this is a proof by contradiction. We have assumed $\abs{N} < \parenth{\frac{q}{2n}}^n$, and want to show that $p$ is then the zero polynomial. A line in $\F_q^n$ has $q$ points; at how many points of $L(x)$ must $p$ vanish, and how does that compare with $\deg(p)$, which is less than $\frac{q}{2}$? Deduce that $p(x) = 0$, and do this for every $x \in \F_q^n$.
+\end{proof}
+
+\subsection{Kakeya Sets}
+
+Asking instead for a whole line in every direction gives the second kind of set.
+
+\begin{boxdefinition}[Kakeya Set]
+    A set $K \ssq \F_q^n$ is \textbf{Kakeya} if $\forall a \in \F_q^n \setminus \set{0}$, $\exists b \in \F_q^n$ such that
+    \begin{align*}
+        \setst{at + b}{t \in \F_q} \ssq K
+    \end{align*}
+\end{boxdefinition}
