@@ -427,14 +427,49 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
         the blackboard; proof left to the author, the board's lines
         y = a(x - a') in a hint                          [exercise]
 
-7.3 Lines in R^3                                    [week of 2026-10-19]
-    How many joints can L lines in space have?
+7.3 The Polynomial Method                           [week of 2026-10-19, 2026-10-28]
+    Low-degree polynomials that vanish on a set, and when vanishing at
+    enough points forces one to be zero: the tool for 7.4 and 7.5. Made a
+    section on the author's instruction of 2026-10-28 ("make all the
+    polynomial stuff a subsection or section"); placed before 7.4 because
+    the joints proof now needs it, which renumbered Lines in R^3 to 7.4.
+      the shape of the arguments that follow, in one paragraph    [supplied]
+      poly_D(F^n), of dimension binom(D + n, n)   (moved from 7.3, preamble)
+    7.3.1 Polynomials Vanishing on a Set            [week of 2026-10-19, 2026-10-28]
+      a nonzero polynomial vanishing on S when |S| < dim, by
+        rank-nullity                              [CORRECTED, moved from 7.3]
+      degree <= n|S|^{1/n} suffices; factored out of the joints proof on
+        the author's instruction; binom(floor(D) + n, n)      [CORRECTED]
+    7.3.2 Polynomials Vanishing Everywhere          [2026-10-28]
+      x(x - 1) over F_2, vanishing everywhere and nonzero
+      total degree <= q - 1 and zero on F_q^n gives p = 0, by induction
+        on n; the inductive step                              [CORRECTED]
+    7.3.3 Directional Derivatives                   [2026-10-28]
+      the gradient, and <grad p(b), a> as the directional derivative;
+        factored out of the joints proof on the author's instruction
+
+7.4 Lines in R^3                                    [week of 2026-10-19, 2026-10-28]
+    How many joints can L lines in space have? Was 7.3 until 2026-10-28.
       joints; J(L), the most joints of L lines
       the n x n x n grid: 3n^2 lines, n^3 joints, drawn   [CORRECTED]
-      some line is in <= 3 J^{1/3} joints, stated, proof to come  [sorry]
+      some line is in <= 3 J^{1/3} joints: the author's restated lemma,
+        and its proof, given 2026-10-28; D <= 3J^{1/3}        [CORRECTED]
+      why the directional derivatives vanish (was a \todo{why?})  [supplied]
+      more than three lines may meet at a joint; a joint drawn  [supplied]
       J(L) <= (3L)^{3/2}, from it; the recursion explained briefly
-      poly_D(F^n), of dimension binom(D + n, n); a nonzero polynomial
-        vanishing on S when |S| < dim, by rank-nullity    [CORRECTED]
+
+7.5 Nikodym and Kakeya Sets                         [2026-10-28]
+    How small can a set in F_q^n be if it contains almost all of a line
+    through every point, or a whole line in every direction?
+    7.5.1 Nikodym Sets                              [2026-10-28]
+      Nikodym sets, with L(x) through x                    [CORRECTED]
+      Nikodym's measure-zero set in the unit square, 1927     [supplied]
+      Dvir's bound |N| >= q^n/(2n)^n (was "at most")       [CORRECTED]
+      its proof, the key step left to the author with a hint  [exercise]
+      the reference: Dvir (JAMS 2009, arXiv 2008) for the method, Li
+        (arXiv:0803.3525) for the Nikodym bound, in a footnote [supplied]
+    7.5.2 Kakeya Sets                               [2026-10-28]
+      Kakeya sets, with b in F_q^n (was F_q)
 ```
 
 Material marked `[handwritten]` is the second half of the lecture of 4 September
@@ -699,9 +734,16 @@ the joints lemma                 stated the week of 2026-10-19 with an empty
                                  The lecture then "takes a detour into the
                                  world of polynomials", which is presumably the
                                  polynomial method that proves it. Left \sorry.
+                                 REACHED 2026-10-28: proved by the polynomial
+                                 method, now 7.4.
 Euler's formula                  stated 2026-10-19, proof "by induction on e"
                                  left \sorry: the author's comment reserves it
                                  as an exercise for themselves. Not to be filled.
+the Kakeya bound                 |K| >= (q/10n)^n, stated 2026-10-28 with its
+                                 proof begun ("Suppose not ... degree at most
+                                 q - 2"). Held in the inbox on the author's
+                                 instruction, to be completed next lecture;
+                                 "at most" corrected to "at least" there.
 the n^{1 + c/log log n} grid     asserted 2026-10-19 via "algebraic number
                                  theory involving Z[i]", not derived.
 K_n non-planar for n >= 5        asserted 2026-10-19 as a non-example, not
@@ -740,6 +782,16 @@ byte-identical to the pre-#25 inbox and was dropped, not integrated twice.
 Observations for `/organise`, recorded rather than acted on.
 
 ```
+7.3 The Polynomial Method is a toolkit section inside a geometry chapter.
+    The author asked for it on 2026-10-28, and it serves both 7.4 (joints,
+    over R) and 7.5 (Nikodym and Kakeya, over F_q), which share the method
+    but not a question. If more polynomial-method applications arrive, the
+    method and its applications may want a chapter of their own, as
+    probability did. The joints lemma's J is still undefined in its
+    statement (the author's wording, restated on 2026-10-28); an
+    adjudicator ruled it true read either as this collection's number of
+    joints or as J(L). [noted 2026-10-28]
+
 Chapter 7 Discrete Geometry is one section, opened by /integrate on one
     lecture's evidence (2026-10-19). [Now three sections, the week of
     2026-10-19: point-line incidences and joints stayed with points and

@@ -1,0 +1,68 @@
+\section{The Polynomial Method} \label{Ch7:Sec:Polynomial_Method}
+
+The rest of this chapter is about lines again: lines in $\R^3$ and the points where three of them meet, and then lines over a finite field. The tool for all of it is polynomials, so let's now take a detour into the world of polynomials.
+
+The arguments that follow all run the same way. We argue by contradiction, and fix a nonzero polynomial $p$ that vanishes on the set we care about, of degree as small as \Cref{Ch7:Lemma:Low_Degree_Vanishing} allows; if the set is small, so is this degree. We then show that $p$ vanishes at many more points than we asked it to, usually by restricting it to a line: there it is a polynomial in one variable of degree at most $\deg(p)$, so if it vanishes at more than $\deg(p)$ points of the line, it vanishes on all of it. Finally, we show that a polynomial of such small degree that vanishes at so many points must be the zero polynomial, which contradicts our choice of $p$. This last step is the delicate one, because vanishing everywhere is not enough on its own: over $\F_q$ we need the degree to be at most $q - 1$ (\Cref{Ch7:Lemma:Vanishing_Everywhere}), and over $\R$ we take $p$ of least degree and differentiate.
+
+Our notation for this course isn't amazing. Let $\F$ be a field.
+
+\begin{boxnotation}
+    $\poly_D\of{\F^n}$ denotes the set
+    \begin{align*}
+        \setst{p \in \F\!\brac{x_1, \ldots, x_n}}{\deg_{\tot}\of{p} \leq D}
+    \end{align*}
+    where $\deg_{\tot}$ denotes the total degree of the polynomial.
+\end{boxnotation}
+
+The monomials form a basis of this space. By a stars and bars argument, we can show that the number of monomials is $\binom{D + n}{n}$. So this is the dimension of this space.
+
+\subsection{Polynomials Vanishing on a Set}
+
+% [CORRECTED] was: "$\abs{S} \leq \dim\of{\poly_D\of{\F^n}}$, there is some $p$", and "the inequality $\abs{S} \leq \parenth{\text{dimension of space}}$" below --- $p = 0$ always vanishes, and at equality the kernel can be $0$ (eg, $n = 1$ and $D + 1$ distinct points), so the inequality has to be strict
+Observe the following: if $S \ssq \F^n$ is such that $\abs{S} < \dim\of{\poly_D\of{\F^n}}$, there is some nonzero $p \in \poly_D\of{\F^n}$ that vanishes on $S$. The proof is simple: consider the evaluation map
+\begin{align*}
+    \ev : \poly_D\of{\F^n} \to \F^{S} : p \mapsto \parenth{p(s)}_{s \in S}
+\end{align*}
+Rank-nullity\footnote{Tarun would be so proud!} and the inequality $\abs{S} < \parenth{\text{dimension of space}}$ tells us the dimension of the kernel is positive, which gives us some $p$ as desired.
+
+The degree bound comes straight out of the dimension count.
+
+\begin{boxlemma} \label{Ch7:Lemma:Low_Degree_Vanishing}
+    If $S \ssq \F^n$ is finite, there is a nonzero polynomial of degree at most $n \abs{S}^{\frac{1}{n}}$ that vanishes on $S$.
+\end{boxlemma}
+\begin{proof}
+    % [CORRECTED] was: "$\frac{D^n}{n!} = \binom{D + n}{n} = \dim_{\F}\of{\poly_D\of{\F^n}}$ is greater than $\abs{S}$" --- $\binom{D + n}{n} = \frac{(D + 1) \cdots (D + n)}{n!}$ is strictly greater than $\frac{D^n}{n!}$, not equal to it; and since $D$ need not be an integer, the dimension is $\binom{\floor{D} + n}{n}$ (review round one)
+    Take $D = n \abs{S}^{\frac{1}{n}}$. Then $\dim_{\F}\of{\poly_D\of{\F^n}} = \binom{\floor{D} + n}{n} > \frac{D^n}{n!} = \frac{n^n}{n!}\abs{S} \geq \abs{S}$, so by rank-nullity, the evaluation map has a nontrivial kernel.
+\end{proof}
+
+\subsection{Polynomials Vanishing Everywhere}
+
+Recall that a polynomial evaluating to zero on all inputs does not make it the zero polynomial.
+
+\begin{boxcexample}
+    The polynomial $x(x - 1) \in \F_2[x]$ evaluates to zero at all points in $\F_2$ but is not equal to the zero polynomial.
+\end{boxcexample}
+
+But it turns out that under some conditions we can make this fact true.
+
+\begin{boxlemma} \label{Ch7:Lemma:Vanishing_Everywhere}
+    If $p \in \poly_{q - 1}\of{\F_q^n}$ and $p(x) = 0$ for all $x \in \F_q^n$, then $p$ is the zero polynomial.
+\end{boxlemma}
+\begin{proof}
+    Argue by induction on $n$. When $n = 1$, the result follows by polynomial division and applying the fact that each single-variable nonzero polynomial of degree $d$ has at most $d$ roots.
+
+    For the inductive step, consider a polynomial $p(x) \in \poly_{q - 1}\of{\F_q^n}$. Write
+    \begin{align*}
+        p\of{x_1, \ldots, x_n} = \sum_{j=0}^{q-1} p_j\of{x_1, x_2, \ldots, x_{n - 1}} x_n^j
+    \end{align*}
+    % [CORRECTED] was: "Each $p_j$ is zero by the induction hypothesis and each $x_n^j$ is also zero by the single-variable case." --- the induction hypothesis needs $p_j$ to vanish on $\F_q^{n-1}$, which the single-variable case gives, and $x_n^j$ is not zero
+    for some polynomials $p_j \in \F_{q}\brac{x_1, \ldots, x_{n-1}}$. Fix $\parenth{x_1, \ldots, x_{n-1}} \in \F_q^{n-1}$. Then $\sum_j p_j\of{x_1, \ldots, x_{n-1}} t^j$ is a single-variable polynomial in $t$ of degree at most $q - 1$ that vanishes on all of $\F_q$, so by the single-variable case each $p_j\of{x_1, \ldots, x_{n-1}}$ is zero. So each $p_j$, which has total degree at most $q - 1$, vanishes on all of $\F_q^{n-1}$, and is zero by the induction hypothesis.
+\end{proof}
+
+\subsection{Directional Derivatives}
+
+Over $\R$, we can also differentiate. Given $p \in \R\!\brac{x, y, z}$, consider the gradient
+\begin{align*}
+    \nabla p = \parenth{\frac{\partial}{\partial x} p, \frac{\partial}{\partial y} p, \frac{\partial}{\partial z} p}
+\end{align*}
+At any point $b = \parenth{b_0, b_1, b_2}$, and for any unit vector $a$, the directional derivative of $p$ at $b$ in the direction of $a$ is given by $\cycl{\nabla p (b), a}$.
