@@ -25,7 +25,8 @@
     
     % [CLAUDE] illustrate: draw a joint with three points
 
-    The directional derivatives of $p$ at $\sigma$ in all these directions $a_1, a_2, a_3$ must be zero\todo{why?}. So $\nabla p (\sigma)$ must itself be zero, because its inner product with all elements of a basis is zero. In particular, all three partial derivatives also vanish at every joint. But this necessitates that either one of these is a nonzero polynomial of smaller degree than $p$ or $p$ is the zero polynomial. Either way, we have a contradiction.
+    % [FILLED] the reason the directional derivatives vanish was a \todo{why?}
+    The directional derivatives of $p$ at $\sigma$ in all these directions $a_1, a_2, a_3$ must be zero. Indeed, $p$ vanishes on the line $\setst{a_i t + \sigma}{t \in \R}$, so $t \mapsto p\of{a_i t + \sigma}$ is the zero polynomial, and its derivative at $t = 0$, which by the chain rule is $\cycl{\nabla p (\sigma), a_i}$, is zero. So $\nabla p (\sigma)$ must itself be zero, because its inner product with all elements of a basis is zero. In particular, all three partial derivatives also vanish at every joint. But this necessitates that either one of these is a nonzero polynomial of smaller degree than $p$ or $p$ is the zero polynomial. Either way, we have a contradiction.
 \end{proof}
 
 Recall that a polynomial evaluating to zero on all inputs does not make it the zero polynomial.
@@ -54,7 +55,8 @@ But it turns out that under some conditions we can make this fact true.
     A set $N \ssq \F_q^n$ is \textbf{Nikodym} if $\forall x \in \F_q^n$, $\exists L(x)$ a line such that all points of $L(x)$ except for $x$ itself are in $N$.
 \end{boxdefinition}
 
-In $\R^2$ it means the unit square has \sorry % [CLAUDE] some measure zero something - fill in this \sorry
+% [FILLED] the sentence broke off at a \sorry; its end, and the attribution to Nikodym, were supplied
+In $\R^2$ it means the unit square has a subset $N$ of measure zero such that every point $x$ of the square outside $N$ lies on a line whose other points in the square all lie in $N$. That such a subset exists is a theorem of Nikodym, from 1927, so in $\R^2$ a set of this kind can be negligible. Over $\F_q$ this is far from the case.
 
 \begin{boxtheorem}[Div, 2008] % [CLAUDE] is this the right reference? find it
     Any Nikodym set in $\F_q^n$ has size at most $\frac{q^n}{\parenth{2n}^n}$.
