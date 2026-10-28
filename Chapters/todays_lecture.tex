@@ -7,7 +7,7 @@ Consider the case $G = K_n$. So $m = \binom{n}{2}$. The above inequality gives u
 \begin{align*}
     \pcr{K_n} \geq \binom{n}{2} - 3n
 \end{align*}
-But we can probably do better than this: we'd at least expect each edge to cross each other edge or something, so we might think $\pcr{K_n} = \Omega\of{n^2}$.
+But we can probably do better than this: we'd at least expect each edge to cross each other edge or something, so we might think $\pcr{K_n} = \Omega\of{n^4}$.
 
 Probabilistic methods to the rescue!
 
@@ -222,29 +222,32 @@ The incidence bound answers our question: $A + A$ and $A \cdot A$ cannot both be
     The second inequality follows from the first, since the larger of two numbers is at least the square root of their product.
 \end{proof}
 
-\subsection{The Szemeredi-Trotters Theorem}
+\subsection{The Szemer\'{e}di--Trotter Theorem}
 
-\begin{boxtheorem}[Szemeredi-Trotters] \label{Ch7:Thm:Szemeredi_Trotter}
+\begin{boxtheorem}[Szemer\'{e}di--Trotter] \label{Ch7:Thm:Szemeredi_Trotter}
     $I\of{\mathcal{L}, P} = \BigO{\abs{\mathcal{L}}^{\frac{2}{3}} \abs{P}^{\frac{2}{3}} + \abs{\mathcal{L}} + \abs{P}}$
 \end{boxtheorem}
 \begin{proof}
-    Given an $\mathcal{L},P$ system, consider the graph drawing $D$ whose vertices are the points in $P$ and whose edges are intervals of lines in $\mathcal{L}$ with endpoints in $P$, with no interval points in $P$.
+    Given an $\mathcal{L},P$ system, consider the graph drawing $D$ whose vertices are the points in $P$ and whose edges are intervals of lines in $\mathcal{L}$ with endpoints in $P$, with no interior points in $P$.
 
-    Let $P'$ with $\abs{P'} \leq \abs{P} + 2 \abs{\mathcal{L}}$ be an expected set of points such that every line has $\geq 2$ points. % I need to assume here that each line has at least 2 points. Then I argue and get my bound. Now in the general case, what I do is, I remove all lines with just one point, I get my upper-bound, then I add them back, which adds at most |L|, which gets subsumed into the |L| term of our big O.
+    % [CORRECTED] was: "Let $P'$ with $\abs{P'} \leq \abs{P} + 2 \abs{\mathcal{L}}$ be an expected set of points such that every line has $\geq 2$ points." --- with up to $2\abs{\mathcal{L}}$ added points the argument below gives a term of order $\abs{\mathcal{L}}^{4/3}$, which the bound cannot absorb when $\abs{\mathcal{L}}$ is much larger than $\abs{P}$. The sentence now carries out the reduction of the author's own comment, which stood here: "I need to assume here that each line has at least 2 points. Then I argue and get my bound. Now in the general case, what I do is, I remove all lines with just one point, I get my upper-bound, then I add them back, which adds at most |L|, which gets subsumed into the |L| term of our big O."
+    We first assume that every line of $\mathcal{L}$ contains at least $2$ points of $P$. In the general case, we remove the lines containing fewer than $2$ points of $P$, get our upper-bound for the lines that remain, and then add them back, which adds at most $\abs{\mathcal{L}}$ incidences; these are absorbed into the $\abs{\mathcal{L}}$ term of the bound.
 
-    Let $n = \abs{P'}$ be the number of vertices. How many edges do I have? I should have
+    Let $n = \abs{P}$ be the number of vertices. How many edges do I have? I should have
     \begin{align*}
         m
         = I\of{\mathcal{L}, P} - \abs{\mathcal{L}}
         = \sum_{\ell \in \mathcal{L}} \parenth{\#\!\setst{p \in P}{p \in \ell} - 1}
     \end{align*}
-    If we have $n \leq 4m$, ie,
+    % [CORRECTED] was: "$n \leq 4m$, ie, $\abs{P'} \leq 4\parenth{I\of{\mathcal{L}, P} - \abs{P}}$" --- the crossing lemma needs $m \geq 4n$, and $m = I\of{\mathcal{L}, P} - \abs{\mathcal{L}}$
+    If we have $4n \leq m$, ie,
     \begin{align*}
-        \abs{P'} \leq 4\parenth{I\of{\mathcal{L}, P} - \abs{P}}
+        4\abs{P} \leq I\of{\mathcal{L}, P} - \abs{\mathcal{L}}
     \end{align*}
+    % [CORRECTED] was: "$\pcr{D} \leq \frac{\parenth{I\of{\mathcal{L}, P} - \abs{P}}^3}{64 \abs{P'}^2}$" --- the crossing lemma bounds $\pcr{D}$ from below, by $\frac{m^3}{64n^2}$
     then we can apply \Cref{Ch7:Thm:Crossing_Lemma} to conclude that
     \begin{align*}
-        \pcr{D} \leq \frac{\parenth{I\of{\mathcal{L}, P} - \abs{P}}^3}{64 \abs{P'}^2}
+        \pcr{D} \geq \frac{\parenth{I\of{\mathcal{L}, P} - \abs{\mathcal{L}}}^3}{64 \abs{P}^2}
     \end{align*}
     % [FILLED] the rest of the proof is structured from the blackboard photographs supplied with the post-lecture pass of 2026-10-27; the \sorry steps are left as exercises, with hints
     On the other hand, $D$ is a drawing of a simple graph, and two of its edges can only cross where the two lines of $\mathcal{L}$ containing them cross, so
@@ -262,7 +265,10 @@ The incidence bound answers our question: $A + A$ and $A \cdot A$ cannot both be
     \begin{align*}
         I\of{\mathcal{L}, P} \leq 4 \abs{\mathcal{L}}^{\frac{2}{3}} n^{\frac{2}{3}} + 4n + \abs{\mathcal{L}}
     \end{align*}
-    It remains to get from $n = \abs{P'}$ back to $\abs{P}$. \sorry
+    This is the bound for lines with at least $2$ points each, since $n = \abs{P}$. Adding back the lines we removed at the start adds at most $\abs{\mathcal{L}}$ more incidences, so in general
+    \begin{align*}
+        I\of{\mathcal{L}, P} \leq 4 \abs{\mathcal{L}}^{\frac{2}{3}} \abs{P}^{\frac{2}{3}} + 4\abs{P} + 2\abs{\mathcal{L}}
+    \end{align*}
 \end{proof}
 
 \section{Lines in $\R^3$}
@@ -277,7 +283,7 @@ We ask ourselves the following question: how many joints can a collection of $L$
 
 Let's denote the greatest such number $J(L)$.
 
-Here's one construction: just an $n \times n \times n$ grid. This gives you $3n^2$ points.
+Here's one construction: just an $n \times n \times n$ grid. This gives you $3n^2$ lines and $n^3$ joints.
 
 \begin{figure}[H]
     \centering
@@ -314,7 +320,7 @@ Assuming the lemma, we notice that
 \begin{align*}
     J(L)
     &\leq J(L - 1) + 3J(L)^{\frac{1}{3}} \\
-    &\leq J(L - 2) \cdot 3 \cdot 2 \cdot J(L)^{\frac{1}{3}} \\
+    &\leq J(L - 2) + 3 \cdot 2 \cdot J(L)^{\frac{1}{3}} \\
     &\leq J(L - 3) \cdots \\
     &\leq 3 \cdot L \cdot J(L)^{\frac{1}{3}}
 \end{align*}
@@ -338,9 +344,10 @@ Our notation for this course isn't amazing. Let $\F$ be a field.
 
 The monomials form a basis of this space. By a stars and bars argument, we can show that the number of monomials is $\binom{D + n}{n}$. So this is the dimension of this space.
 
-Observe the following: if $S \ssq \F^n$ is such that $\abs{S} \leq \dim\of{\poly_D\of{\F^n}}$, there is some $p \in \poly_D\of{\F^n}$ that vanishes on $S$. The proof is simple: consider the evaluation map
+% [CORRECTED] was: "$\abs{S} \leq \dim\of{\poly_D\of{\F^n}}$, there is some $p$", and "the inequality $\abs{S} \leq \parenth{\text{dimension of space}}$" below --- $p = 0$ always vanishes, and at equality the kernel can be $0$ (eg, $n = 1$ and $D + 1$ distinct points), so the inequality has to be strict
+Observe the following: if $S \ssq \F^n$ is such that $\abs{S} < \dim\of{\poly_D\of{\F^n}}$, there is some nonzero $p \in \poly_D\of{\F^n}$ that vanishes on $S$. The proof is simple: consider the evaluation map
 \begin{align*}
     \ev : \poly_D\of{\F^n} \to \F^{S} : p \mapsto \parenth{p(s)}_{s \in S}
 \end{align*}
-Rank-nullity\footnote{Tarun would be so proud!} and the inequality $\abs{S} \leq \parenth{\text{dimension of space}}$ tells us the dimension of the kernel is positive, which gives us some $p$ as desired.
+Rank-nullity\footnote{Tarun would be so proud!} and the inequality $\abs{S} < \parenth{\text{dimension of space}}$ tells us the dimension of the kernel is positive, which gives us some $p$ as desired.
 
