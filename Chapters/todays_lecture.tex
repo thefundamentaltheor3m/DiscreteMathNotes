@@ -2,3 +2,83 @@
 % this file after every chapter, so the Overleaf preview builds as you go without the
 % material having to belong to a chapter yet, and /integrate empties it again once
 % the material has been spread across whichever chapters it belongs in.
+
+\begin{boxlemma} % [CLAUDE] move this proof to the place where the lemma is stated in the notes when you run /integrate. replace my earlier statement with this one.
+    In any collection of $L$ lines, some line participates in $\leq 3J^{\frac{1}{3}}$ joints.
+\end{boxlemma}
+\begin{proof}
+    Suppose not. Ie, suppose we have a collection of $L$ lines in which every line participates in $> 3 J^{\frac{1}{3}}$ joints.
+    
+    Consider a nonzero polynomial $p$ over $\R$ in $3$ variables of the least degree $D \leq J^{\frac{1}{3}}$ that vanishes on the joints. Such a polynomial exists for the following reason: on any set $S$ with $D = n \abs{S}^{\frac{1}{n}}$, $\frac{D^n}{n!} = \binom{D + n}{n} = \dim_{\F}\of{\poly_D\of{\F^n}}$ is greater than $\abs{S}$, so by rank-nullity, the evaluation map has a nontrivial kernel.
+
+    We've assumed every line in our collection participates in $>3 J^{\frac{1}{3}}$. Then for any line $\ell$ of the form $at + b$ with $a, b \in \R^3$, $p(at + b)$ is a single variable polynomial of degree $D \leq 3J^{\frac{1}{3}}$, vanishing at $> D$ points. So $p$ is zero on $L$. In other words, $p$ is zero on all lines in our collection.
+
+    % [CLAUDE] factor out the following. Actually make all the polynomial stuff a subsection or section or something inside the discrete geometry chapter.
+    Consider the gradient
+    \begin{align*}
+        \nabla p = \parenth{\frac{\partial}{\partial x} p, \frac{\partial}{\partial y} p, \frac{\partial}{\partial z} p}
+    \end{align*}
+    At any point $b = \parenth{b_0, b_1, b_2}$, and for any unit vector $a$, the directional derivative of $p$ at $b$ in the direction of $a$ is given by $\cycl{\nabla p (b), a}$.
+
+    % [CLAUDE] should it be at least three? add a comment here explaining this.
+    Given a joint $\sigma$ there are three directions $a_1, a_2, a_3$ of lines through $\nabla p (\sigma)$. These three directions form a basis.
+    
+    % [CLAUDE] illustrate: draw a joint with three points
+
+    The directional derivatives of $p$ at $\sigma$ in all these directions $a_1, a_2, a_3$ must be zero\todo{why?}. So $\nabla p (\sigma)$ must itself be zero, because its inner product with all elements of a basis is zero. In particular, all three partial derivatives also vanish at every joint. But this necessitates that either one of these is a nonzero polynomial of smaller degree than $p$ or $p$ is the zero polynomial. Either way, we have a contradiction.
+\end{proof}
+
+Recall that a polynomial evaluating to zero on all inputs does not make it the zero polynomial.
+
+\begin{boxcexample}
+    The polynomial $x(x - 1) \in \F_2[x]$ evaluates to zero at all points in $\F_2$ but is not equal to the zero polynomial.
+\end{boxcexample}
+
+But it turns out that under some conditions we can make this fact true.
+
+% [CLAUDE] move to section on polys
+\begin{boxlemma}
+    If $p \in \poly_{q - 1}\of{\F_q^{n-1}}$ and $p(x) = 0$ for all $x \in \F_q^{n - 1}$, then $p$ is the zero polynomial.
+\end{boxlemma}
+\begin{proof}
+    Argue by induction on $n$. When $n = 1$, the result follows by polynomial division and applying the fact that each single-variable nonzero polynomial of degree $d$ has at most $d$ roots.
+
+    For the inductive step, consider a polynomial $p(x) \in \poly_{q - 1}\of{\F_q^n}$. Write
+    \begin{align*}
+        p\of{x_1, \ldots, x_n} = \sum_{j=0}^{q-1} p_j\of{x_1, x_2, \ldots, x_{n - 1}} x_n^j
+    \end{align*}
+    for some polynomials $p_j \in \F_{q}\brac{x_1, \ldots, x_{n-1}}$. Each $p_j$ is zero by the induction hypothesis and each $x_n^j$ is also zero by the single-variable case.
+\end{proof}
+
+\begin{boxdefinition}[Nikodym Set]
+    A set $N \ssq \F_q^n$ is \textbf{Nikodym} if $\forall x \in \F_q^n$, $\exists L(x)$ a line such that all points of $L(x)$ except for $x$ itself are in $N$.
+\end{boxdefinition}
+
+In $\R^2$ it means the unit square has \sorry % [CLAUDE] some measure zero something - fill in this \sorry
+
+\begin{boxtheorem}[Div, 2008] % [CLAUDE] is this the right reference? find it
+    Any Nikodym set in $\F_q^n$ has size at most $\frac{q^n}{\parenth{2n}^n}$.
+\end{boxtheorem}
+\begin{proof} % [CLAUDE] below when I say the previous lemma replace that with a \Cref
+    Fix a Nikodym set $N$. Choose a nonzero polynomial $p$ of degree $\leq n \abs{N}^{\frac{1}{n}}$. If $\abs{N} < \parenth{\frac{q}{2n}}^n$ then $\deg(p) \leq q - 1$. The previous Lemma, if $p(x) = 0$ for all $x \in \F_q^{n - 1}$.
+
+    As $N$ is Nikodym, for each $x \in N$, there is a line $L(x) = at + b$ with all points of $L(x)$ except for $x$ itself lying in $N$. The restriction of my polynomial to this line is always a degree $1$ polynomial such that \sorry % [CLAUDE] don't fill this sorry, maybe add a small hint for me or an illustration that will help me figure it out. Mention in your hint that this is actually a proof by contradiction.
+
+    % [CLAUDE] maybe make a general comment early on about the general framework we've used in today's lecture: "argue by contradiction, fix a nonzero polynomial, say it vanishes at too many points and therefore must be zero" or something like this (add in a few small nuances - but don't be verbose, this whole thing should be a paragraph at most)
+\end{proof}
+
+\begin{boxdefinition}[Kakeya Set]
+    A set $K \ssq \F_q^n$ is \textbf{Kakeya} if $\forall a \in \F_q^n \setminus \set{0}$, $\exists b \in \F_q$ such that
+    \begin{align*}
+        \setst{at + b}{t \in \F_q} \ssq K
+    \end{align*}
+\end{boxdefinition}
+
+% [CLAUDE] note that the following theorem and proof will be completed next time. So leave them here. Don't /integrate them into the notes.
+
+\begin{boxtheorem}
+    Any Kakeya set in $\F_q^n$ has size at most $\parenth{\frac{q}{10n}}^n$.
+\end{boxtheorem}
+\begin{proof}
+    Suppose not. Choose a nonzero polynomial $p$ of degree at most $q - 2$ that vanishes on $K$.
+\end{proof}
