@@ -35,7 +35,7 @@ Here's one construction: just an $n \times n \times n$ grid. This gives you $3n^
         \fill[magenta] (2, 0, 2) circle (2.5pt);
     \end{tikzpicture}
 \end{figure}
-The case $n = 3$ is drawn above, with the three lines through one of the joints highlighted. Every point of the grid is a joint, and every line of the grid is parallel to one of the axes and passes through $n$ of them.
+The case $n = 3$ is drawn above, with the three lines through one of the joints highlighted.
 
 \begin{boxlemma}
     In any collection of lines with $J$ joints, some line is in $\leq 3J^{\frac{1}{3}}$ joints.
@@ -52,11 +52,7 @@ Assuming the lemma, we notice that
     &\leq J(L - 3) \cdots \\
     &\leq 3 \cdot L \cdot J(L)^{\frac{1}{3}}
 \end{align*}
-The first inequality comes from taking $L$ lines with $J(L)$ joints and deleting a line that, by the lemma, is in at most $3J(L)^{\frac{1}{3}}$ of them. Every other joint is still a joint of the remaining $L - 1$ lines, so $J(L) - 3J(L)^{\frac{1}{3}} \leq J(L - 1)$. The same argument gives $J(L - 1) \leq J(L - 2) + 3J(L - 1)^{\frac{1}{3}}$, and $J(L - 1) \leq J(L)$, since adding a line to a collection destroys none of its joints; this is the second line. Carrying on down to $J(0) = 0$, each of the $L$ lines we delete costs at most $3J(L)^{\frac{1}{3}}$ joints, which is the last line. Dividing it by $J(L)^{\frac{1}{3}}$ gives $J(L)^{\frac{2}{3}} \leq 3L$, ie,
-\begin{align*}
-    J(L) \leq \parenth{3L}^{\frac{3}{2}} = \BigO{L^{\frac{3}{2}}}
-\end{align*}
-So the grid is optimal up to a constant factor: it has $L = 3n^2$ lines and $n^3 = \parenth{\frac{L}{3}}^{\frac{3}{2}}$ joints.
+The first inequality comes from taking $L$ lines with $J(L)$ joints and deleting a line that, by the lemma, is in at most $3J(L)^{\frac{1}{3}}$ of them; every other joint survives. Repeating this, and using $J(L - 1) \leq J(L)$, each of the $L$ deletions costs at most $3J(L)^{\frac{1}{3}}$ joints, which is the last line. Rearranging gives $J(L) \leq \parenth{3L}^{\frac{3}{2}}$.
 
 Let's now take a detour into the world of polynomials.
 

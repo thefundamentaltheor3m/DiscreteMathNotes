@@ -230,9 +230,9 @@ We can relate $\pcr{G_p}$ with $\pcr{G}$.
 
 If we can then find a tighter lower-bound for $\pcr{G_p}$, we can get a tighter lower-bound for $\pcr{G}$. If we then optimise it by finding the $p$ that makes it tightest, we can actually do a bit better than what we've done so far.
 
-This is the content of the following theorem.
+This is the crossing lemma.
 
-% [FILLED] statement and proof written up from the blackboard photographs supplied with the post-lecture pass of 2026-10-27; the \sorry in the proof is left as an exercise, with a hint
+% [FILLED] statement written up from the blackboard photographs supplied on 2026-10-27; the proof is left to the author, with a hint
 \begin{boxtheorem}[The Crossing Lemma] \label{Ch7:Thm:Crossing_Lemma}
     If $G$ is a simple graph with $n$ vertices and $m \geq 4n$ edges, then
     \begin{align*}
@@ -240,89 +240,19 @@ This is the content of the following theorem.
     \end{align*}
 \end{boxtheorem}
 \begin{proof}
-    We claim that for every $p \in (0, 1]$,
-    \begin{align*}
-        p^4 \pcr{G} \geq p^2 m - 3pn
-    \end{align*}
     \sorry
-    % Hint: every outcome of $G_p$ is a simple graph, so \Cref{Ch7:Lemma:Crossing_Edge_Bound} applies to it. That gives an inequality between three random variables; take expectations of both sides, and bring in \Cref{Ch7:Lemma:Gp_Expectations,Ch7:Lemma:Gp_Crossings}.
-
-    Dividing through by $p^4$, we get
-    \begin{align*}
-        \pcr{G} \geq \frac{m}{p^2} - \frac{3n}{p^3}
-    \end{align*}
-    for every $p \in (0, 1]$, and we are free to choose $p$. We take $p = \frac{4n}{m}$, which is a probability precisely because $m \geq 4n$. (This is not quite the $p$ that maximises the right-hand side, but it makes the constant come out cleanly.) Substituting,
-    \begin{align*}
-        \pcr{G}
-        \geq \frac{m^3}{16n^2} - \frac{3m^3}{64n^2}
-        = \frac{m^3}{64n^2}
-    \end{align*}
+    % Hint (from the blackboard): apply \Cref{Ch7:Lemma:Crossing_Edge_Bound} to $G_p$ and take expectations, using \Cref{Ch7:Lemma:Gp_Expectations,Ch7:Lemma:Gp_Crossings}, to get $p^4 \pcr{G} \geq p^2 m - 3pn$ for every $p \in (0, 1]$. Then choose $p = \frac{4n}{m}$, which is a probability because $m \geq 4n$.
 \end{proof}
-
-In particular, once $n \geq 9$ we have $\binom{n}{2} \geq 4n$, so
-\begin{align*}
-    \pcr{K_n}
-    \geq \frac{1}{64n^2} \binom{n}{2}^3
-    = \frac{n\parenth{n - 1}^3}{512}
-    = \Omega\of{n^4}
-\end{align*}
 
 \subsection{A Unit-Distance Upper-Bound}
 
-% Written up from the blackboard photographs supplied with the post-lecture pass of 2026-10-27; the three parts of the lemma are left \sorry as exercises, with hints
-We can now give the upper-bound we promised. Throughout this subsection, fix a set $X$ of $n$ points in $\R^2$, with $m$ unit distances among them. For each $p \in X$, let $C_p$ be the unit circle centred at $p$, and let $\deg(p)$ be the number of points of $X$ on $C_p$: its degree in the unit distance graph on $X$. Each unit distance is counted at both of its ends, so
-\begin{align*}
-    2m = \sum_{p \in X} \deg(p)
-\end{align*}
-
-The idea is to draw a graph on $X$ using these circles, and to play the crossing lemma off against the fact that circles cannot cross each other very often. Discard every circle $C_p$ with $\deg(p) \leq 2$. Each remaining circle passes through at least $3$ points of $X$, which cut it into $\deg(p)$ arcs. Let $D$ be the drawing whose vertices are the points of $X$ and whose edges are all of these arcs, from all of the remaining circles.
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}[scale = 1.4]
-        \draw[gray!60, dashed] (0, 0) circle (1);
-        \draw[gray!60, dashed] (1.5, 0.866) circle (1);
-        \draw[very thick, magenta] (1, 0) circle (1);
-        \draw[very thick, cyan!70!black] (0.5, 0.866) circle (1);
-        \foreach \x/\y in {0/0, 1/0, 0.5/0.866, 1.5/0.866}{
-            \fill[black] (\x, \y) circle (2pt);
-        }
-    \end{tikzpicture}
-\end{figure}
-Here $n = 4$ and $m = 5$. The two dashed circles pass through only two points each and are discarded; each solid circle is cut into three arcs, so $D$ has $6$ edges, and the two long arcs both join the bottom-left point to the top-right one.
-
-That last observation is the catch: two points can be joined by more than one arc, so $D$ is a drawing of a multigraph rather than a graph. But not by much.
-
-\begin{boxlemma} \label{Ch7:Lemma:Circle_Drawing} \hfill
-    \begin{enumerate}[label = (\arabic*)]
-        \item $D$ has at least $2m - 2n$ edges.
-        \item No two vertices of $D$ are joined by more than $2$ edges.
-        \item There are at most $n^2$ crossings between edges of $D$.
-    \end{enumerate}
-\end{boxlemma}
-\begin{proof} \hfill
-    \begin{description}
-        \item[\underline{(1).}] \sorry
-        % Hint: how many edges does each remaining circle contribute? Compare the total with $2m = \sum_p \deg(p)$: how much can discarding the circles with $\deg(p) \leq 2$ have cost?
-        \item[\underline{(2).}] \sorry
-        % Hint: if an arc of $C_p$ joins $u$ and $v$, then $p$ is at distance $1$ from both of them. How many such points $p$ are there? And how many of the arcs of a single circle through at least $3$ points can join $u$ to $v$?
-        \item[\underline{(3).}] \sorry
-        % Hint: two arcs of the same circle never cross. Two different circles meet in at most $2$ points, and at each of these at most one arc of each circle passes through. Now count pairs of circles.
-    \end{description}
-\end{proof}
-
-Now we just have to throw away the duplicate edges and apply the crossing lemma.
+% [FILLED] statement written up from the blackboard photographs supplied on 2026-10-27; the proof is left to the author, with a hint
+We can now give the upper-bound we promised.
 
 \begin{boxtheorem} \label{Ch7:Thm:Unit_Distance_Upper_Bound}
-    Among any $n$ points in $\R^2$, there are at most $5n^{\frac{4}{3}}$ unit distances.
+    Among any $n$ points in $\R^2$, there are $\BigO{n^{\frac{4}{3}}}$ unit distances.
 \end{boxtheorem}
 \begin{proof}
-    Let $\overline{D}$ be what remains of $D$ when we keep just one edge between each pair of vertices that $D$ joins. By \Cref{Ch7:Lemma:Circle_Drawing} (2) and then (1), $\overline{D}$ has at least half as many edges as $D$, so at least $m - n$ of them. It is a drawing of a simple graph $\overline{G}$ on $n$ vertices, and its crossings are among those of $D$, so by \Cref{Ch7:Lemma:Circle_Drawing} (3),
-    \begin{align*}
-        \pcr{\overline{G}} \leq n^2
-    \end{align*}
-    If $m - n < 4n$, then $m < 5n \leq 5n^{\frac{4}{3}}$ and we are done. Otherwise $\overline{G}$ has at least $m - n \geq 4n$ edges, and \Cref{Ch7:Thm:Crossing_Lemma} gives
-    \begin{align*}
-        n^2 \geq \pcr{\overline{G}} \geq \frac{\parenth{m - n}^3}{64n^2}
-    \end{align*}
-    Thus $\parenth{m - n}^3 \leq 64n^4$, ie, $m - n \leq 4n^{\frac{4}{3}}$, and $m \leq 4n^{\frac{4}{3}} + n \leq 5n^{\frac{4}{3}}$.
+    \sorry
+    % Hint (from the blackboard): say the points determine $m$ unit distances, so that $2m$ is the sum of the degrees in the unit distance graph. Draw the unit circle around each point, and let $D$ be the drawing whose vertices are the $n$ points and whose edges are the arcs between consecutive points on each circle. Then $D$ has about $m$ edges (careful with circles through only one or two points), and no two vertices are joined by more than $2$ of them (why?). Keep one edge of each multiple edge, and play the crossing lemma off against the fact that two unit circles meet in at most $2$ points.
 \end{proof}

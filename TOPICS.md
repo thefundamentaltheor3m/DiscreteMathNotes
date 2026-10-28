@@ -399,16 +399,13 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
       G_p, keeping each vertex with probability p; E(n_p) = pn and
         E(m_p) = p^2 m
       E(cr(G_p)) <= p^4 cr(G), left to the author with a hint    [exercise]
-      the crossing lemma: cr(G) >= m^3/64n^2 for m >= 4n, at
-        p = 4n/m, from the blackboard; the averaging step left to
-        the author with a hint                          [supplied, exercise]
-      cr(K_n) = Omega(n^4) for n >= 9                               [supplied]
+      the crossing lemma: cr(G) >= m^3/64n^2 for m >= 4n, stated
+        from the blackboard; proof left to the author, the board's
+        route (G_p, p = 4n/m) in a hint                  [exercise]
     7.1.5 A Unit-Distance Upper-Bound               [week of 2026-10-19]
-      the drawing on n points by arcs of the unit circles through
-        >= 3 of them, drawn for a unit rhombus          [supplied]
-      >= 2m - 2n edges, multiplicity <= 2, <= n^2 crossings, as
-        a lemma left to the author with hints           [exercise]
-      at most 5 n^{4/3} unit distances, by the crossing lemma        [supplied]
+      O(n^{4/3}) unit distances, stated from the blackboard; proof
+        left to the author, the board's route (arcs of unit circles,
+        multiplicity <= 2, the crossing lemma) in a hint [exercise]
 
 7.2 Point-Line Incidences                           [week of 2026-10-19]
     How many incidences can |L| lines and |P| points in the plane have,
@@ -420,20 +417,22 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
         lemma on the drawing of segments between consecutive points;
         the reduction to lines with >= 2 points corrected to the
         author's own (remove, then add back)            [CORRECTED]
-      cr(D) <= |L|^2, left to the author with a hint     [exercise]
+      the rest of the proof from cr(D) >= m^3/64n^2 on (cr(D) <= |L|^2,
+        the comparison, the case m < 4n) left to the author with a
+        hint                                             [exercise]
     7.2.2 Sums and Products                          [week of 2026-10-19]
       A + A and A . A; can both be small?
       P = (A + A) x (A . A), drawn for A = {1, 2, 3}     [supplied]
-      |A + A||A . A| >= c|A|^{5/2}, so max >= c'|A|^{5/4}, by the lines
-        y = a(x - a'); the incidence count and the three-case finish
-        left to the author with hints                   [supplied, exercise]
+      |A + A||A . A| >= c|A|^{5/2}, so max >= c'|A|^{5/4}, stated from
+        the blackboard; proof left to the author, the board's lines
+        y = a(x - a') in a hint                          [exercise]
 
 7.3 Lines in R^3                                    [week of 2026-10-19]
     How many joints can L lines in space have?
       joints; J(L), the most joints of L lines
-      the n x n x n grid: 3n^2 lines, n^3 joints, drawn   [CORRECTED, supplied]
+      the n x n x n grid: 3n^2 lines, n^3 joints, drawn   [CORRECTED]
       some line is in <= 3 J^{1/3} joints, stated, proof to come  [sorry]
-      J(L) <= (3L)^{3/2}, from it, the recursion explained  [supplied]
+      J(L) <= (3L)^{3/2}, from it; the recursion explained briefly
       poly_D(F^n), of dimension binom(D + n, n); a nonzero polynomial
         vanishing on S when |S| < dim, by rank-nullity    [CORRECTED]
 ```

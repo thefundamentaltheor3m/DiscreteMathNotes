@@ -38,27 +38,8 @@ It turns out that we can say how large this can be, up to a constant.
     \begin{align*}
         \pcr{D} \geq \frac{\parenth{I\of{\mathcal{L}, P} - \abs{\mathcal{L}}}^3}{64 \abs{P}^2}
     \end{align*}
-    % [FILLED] the rest of the proof is structured from the blackboard photographs supplied with the post-lecture pass of 2026-10-27; the \sorry steps are left as exercises, with hints
-    On the other hand, $D$ is a drawing of a simple graph, and two of its edges can only cross where the two lines of $\mathcal{L}$ containing them cross, so
-    \begin{align*}
-        \pcr{D} \leq \abs{\mathcal{L}}^2
-    \end{align*}
     \sorry
-    % Hint: two things to check. Why can no two edges of $D$ join the same pair of points (and why does an edge pass through no vertex)? And how many times can two distinct lines meet? Then count pairs of lines.
-
-    Putting this together with the lower bound on $\pcr{D}$ from \Cref{Ch7:Thm:Crossing_Lemma}, we get $\frac{m^3}{64n^2} \leq \abs{\mathcal{L}}^2$, ie,
-    \begin{align*}
-        m \leq 4 \abs{\mathcal{L}}^{\frac{2}{3}} n^{\frac{2}{3}}
-    \end{align*}
-    If instead $m < 4n$, then $m$ is already bounded by a multiple of the number of points. Either way, $m \leq 4 \abs{\mathcal{L}}^{\frac{2}{3}} n^{\frac{2}{3}} + 4n$, and since $I\of{\mathcal{L}, P} = m + \abs{\mathcal{L}}$,
-    \begin{align*}
-        I\of{\mathcal{L}, P} \leq 4 \abs{\mathcal{L}}^{\frac{2}{3}} n^{\frac{2}{3}} + 4n + \abs{\mathcal{L}}
-    \end{align*}
-    % [FILLED] this step closes the \sorry phase 1 left here, by the reduction of the author's comment recorded above
-    This is the bound when every line has at least $2$ points, since $n = \abs{P}$. In general it holds for the lines that remain after the removal at the start, of which there are at most $\abs{\mathcal{L}}$, and adding the removed lines back adds at most $\abs{\mathcal{L}}$ more incidences, so for the original family
-    \begin{align*}
-        I\of{\mathcal{L}, P} \leq 4 \abs{\mathcal{L}}^{\frac{2}{3}} \abs{P}^{\frac{2}{3}} + 4\abs{P} + 2\abs{\mathcal{L}}
-    \end{align*}
+    % Hint (from the blackboard): bound $\pcr{D}$ from above by $\abs{\mathcal{L}}^2$ --- where can two edges of $D$ cross, and how often can two lines meet? Comparing the two bounds on $\pcr{D}$ bounds $m$, and so $I\of{\mathcal{L}, P}$; the case $m < 4n$ needs a line of its own.
 \end{proof}
 
 \subsection{Sums and Products}
@@ -98,7 +79,7 @@ For example, when $A = \set{1, 2, 3}$, we have $A + A = \set{2, \ldots, 6}$ and 
 
 The incidence bound answers our question: $A + A$ and $A \cdot A$ cannot both be small.
 
-% [FILLED] statement and outline written up from the blackboard photographs supplied with the post-lecture pass of 2026-10-27; the two \sorry steps are left as exercises, with hints
+% [FILLED] statement written up from the blackboard photographs supplied on 2026-10-27; the proof is left to the author, with a hint
 \begin{boxtheorem} \label{Ch7:Thm:Sum_Product}
     There is a constant $c > 0$ such that for every finite $A \ssq \Z$,
     \begin{align*}
@@ -107,27 +88,6 @@ The incidence bound answers our question: $A + A$ and $A \cdot A$ cannot both be
     In particular, $\max\set{\abs{A + A}, \abs{A \cdot A}} \geq \sqrt{c} \abs{A}^{\frac{5}{4}}$.
 \end{boxtheorem}
 \begin{proof}
-    We may assume that $0 \notin A$: removing $0$ from $A$ can only shrink $A + A$ and $A \cdot A$, and for $\abs{A} \geq 2$ it at most halves $\abs{A}$, which changes only the constant.
-
-    Our points are those of $P$, so $\abs{P} = \abs{A + A} \abs{A \cdot A}$. For the lines, take
-    \begin{align*}
-        \mathcal{L} := \setst{\text{the line } y = a\parenth{x - a'}}{a, a' \in A}
-    \end{align*}
-    The line $y = a\parenth{x - a'}$ has slope $a$ and, since $a \neq 0$, meets the $x$-axis exactly at $a'$, so different pairs $\parenth{a, a'}$ give different lines and $\abs{\mathcal{L}} = \abs{A}^2$. Each of these lines passes through at least $\abs{A}$ points of $P$, so
-    \begin{align*}
-        I\of{\mathcal{L}, P} \geq \abs{\mathcal{L}} \abs{A} = \abs{A}^3
-    \end{align*}
     \sorry
-    % Hint: fix the line $y = a\parenth{x - a'}$. Which $x$ make $y$ land in $A \cdot A$? Try $x = a' + b$ for each $b \in A$, and check that the point you get lies in $P$.
-
-    On the other hand, \Cref{Ch7:Thm:Szemeredi_Trotter} gives a constant $C$ such that
-    \begin{align*}
-        \abs{A}^3
-        \leq I\of{\mathcal{L}, P}
-        \leq C\parenth{\abs{A}^{\frac{4}{3}} \abs{P}^{\frac{2}{3}} + \abs{A}^2 + \abs{P}}
-    \end{align*}
-    One of the three terms in the bracket is at least $\frac{\abs{A}^3}{3C}$, and in each case we get $\abs{P} \geq c\abs{A}^{\frac{5}{2}}$ for a suitable $c > 0$ depending only on $C$. \sorry
-    % Hint: take the three cases one at a time. The first is where the exponent $\frac{5}{2}$ comes from. In the second, $\abs{A}$ is at most a constant, and $\abs{A + A}, \abs{A \cdot A} \geq \abs{A}$ (why?). The third is immediate.
-
-    The second inequality follows from the first, since the larger of two numbers is at least the square root of their product.
+    % Hint (from the blackboard): use $P$ as above, so that $\abs{P} = \abs{A + A}\abs{A \cdot A}$, and let $\mathcal{L}$ be the $\abs{A}^2$ lines $y = a\parenth{x - a'}$ for $a, a' \in A$ (assume $0 \notin A$). Each of them passes through $\abs{A}$ points of $P$ --- try $x = a' + b$ for $b \in A$ --- so $I\of{\mathcal{L}, P} \geq \abs{A}^3$. Now compare this with \Cref{Ch7:Thm:Szemeredi_Trotter}, one term of its bound at a time.
 \end{proof}
