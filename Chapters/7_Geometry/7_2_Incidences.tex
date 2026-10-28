@@ -1,0 +1,133 @@
+\section{Point--Line Incidences}
+
+The crossing lemma also bounds how often points of the plane can lie on lines, and the bound in turn says something about sums and products of integers.
+
+\subsection{The Szemer\'{e}di--Trotter Theorem}
+
+Given finite sets $\mathcal{L}$ of lines and $P$ of points in $\R^2$, define
+\begin{align*}
+    I\of{\mathcal{L}, P}
+    := \#\!\set{\text{point-line incidences}}
+    = \#\!\setst{\parenth{\ell, p} \in \mathcal{L} \times P}{p \in \ell}
+\end{align*}
+
+It turns out that we can say how large this can be, up to a constant.
+
+\begin{boxtheorem}[Szemer\'{e}di--Trotter] \label{Ch7:Thm:Szemeredi_Trotter}
+    $I\of{\mathcal{L}, P} = \BigO{\abs{\mathcal{L}}^{\frac{2}{3}} \abs{P}^{\frac{2}{3}} + \abs{\mathcal{L}} + \abs{P}}$
+\end{boxtheorem}
+\begin{proof}
+    Given an $\mathcal{L},P$ system, consider the graph drawing $D$ whose vertices are the points in $P$ and whose edges are intervals of lines in $\mathcal{L}$ with endpoints in $P$, with no interior points in $P$.
+
+    % [CORRECTED] was: "Let $P'$ with $\abs{P'} \leq \abs{P} + 2 \abs{\mathcal{L}}$ be an expected set of points such that every line has $\geq 2$ points." --- with up to $2\abs{\mathcal{L}}$ added points the argument below gives a term of order $\abs{\mathcal{L}}^{4/3}$, which the bound cannot absorb when $\abs{\mathcal{L}}$ is much larger than $\abs{P}$. The sentence now carries out the reduction of the author's own comment, which stood here: "I need to assume here that each line has at least 2 points. Then I argue and get my bound. Now in the general case, what I do is, I remove all lines with just one point, I get my upper-bound, then I add them back, which adds at most |L|, which gets subsumed into the |L| term of our big O."
+    We first assume that every line of $\mathcal{L}$ contains at least $2$ points of $P$. In the general case, we remove the lines containing fewer than $2$ points of $P$, get our upper-bound for the lines that remain, and then add them back, which adds at most $\abs{\mathcal{L}}$ incidences; these are absorbed into the $\abs{\mathcal{L}}$ term of the bound.
+
+    Let $n = \abs{P}$ be the number of vertices. How many edges do I have? I should have
+    \begin{align*}
+        m
+        = I\of{\mathcal{L}, P} - \abs{\mathcal{L}}
+        = \sum_{\ell \in \mathcal{L}} \parenth{\#\!\setst{p \in P}{p \in \ell} - 1}
+    \end{align*}
+    % [CORRECTED] was: "$n \leq 4m$, ie, $\abs{P'} \leq 4\parenth{I\of{\mathcal{L}, P} - \abs{P}}$" --- the crossing lemma needs $m \geq 4n$, and $m = I\of{\mathcal{L}, P} - \abs{\mathcal{L}}$
+    If we have $4n \leq m$, ie,
+    \begin{align*}
+        4\abs{P} \leq I\of{\mathcal{L}, P} - \abs{\mathcal{L}}
+    \end{align*}
+    % [CORRECTED] was: "$\pcr{D} \leq \frac{\parenth{I\of{\mathcal{L}, P} - \abs{P}}^3}{64 \abs{P'}^2}$" --- the crossing lemma bounds $\pcr{D}$ from below, by $\frac{m^3}{64n^2}$
+    then we can apply \Cref{Ch7:Thm:Crossing_Lemma} to conclude that
+    \begin{align*}
+        \pcr{D} \geq \frac{\parenth{I\of{\mathcal{L}, P} - \abs{\mathcal{L}}}^3}{64 \abs{P}^2}
+    \end{align*}
+    % [FILLED] the rest of the proof is structured from the blackboard photographs supplied with the post-lecture pass of 2026-10-27; the \sorry steps are left as exercises, with hints
+    On the other hand, $D$ is a drawing of a simple graph, and two of its edges can only cross where the two lines of $\mathcal{L}$ containing them cross, so
+    \begin{align*}
+        \pcr{D} \leq \abs{\mathcal{L}}^2
+    \end{align*}
+    \sorry
+    % Hint: two things to check. Why can no two edges of $D$ join the same pair of points (and why does an edge pass through no vertex)? And how many times can two distinct lines meet? Then count pairs of lines.
+
+    Putting this together with the lower bound on $\pcr{D}$ from \Cref{Ch7:Thm:Crossing_Lemma}, we get $\frac{m^3}{64n^2} \leq \abs{\mathcal{L}}^2$, ie,
+    \begin{align*}
+        m \leq 4 \abs{\mathcal{L}}^{\frac{2}{3}} n^{\frac{2}{3}}
+    \end{align*}
+    If instead $m < 4n$, then $m$ is already bounded by a multiple of the number of points. Either way, $m \leq 4 \abs{\mathcal{L}}^{\frac{2}{3}} n^{\frac{2}{3}} + 4n$, and since $I\of{\mathcal{L}, P} = m + \abs{\mathcal{L}}$,
+    \begin{align*}
+        I\of{\mathcal{L}, P} \leq 4 \abs{\mathcal{L}}^{\frac{2}{3}} n^{\frac{2}{3}} + 4n + \abs{\mathcal{L}}
+    \end{align*}
+    % [FILLED] this step closes the \sorry phase 1 left here, by the reduction of the author's comment recorded above
+    This is the bound when every line has at least $2$ points, since $n = \abs{P}$. In general it holds for the lines that remain after the removal at the start, of which there are at most $\abs{\mathcal{L}}$, and adding the removed lines back adds at most $\abs{\mathcal{L}}$ more incidences, so for the original family
+    \begin{align*}
+        I\of{\mathcal{L}, P} \leq 4 \abs{\mathcal{L}}^{\frac{2}{3}} \abs{P}^{\frac{2}{3}} + 4\abs{P} + 2\abs{\mathcal{L}}
+    \end{align*}
+\end{proof}
+
+\subsection{Sums and Products}
+
+Fix some $A \ssq \Z$. Define
+\begin{align*}
+    A + A &:= \setst{a + b}{a, b \in A} \\
+    A \cdot A &:= \setst{a \cdot b}{a, b \in A}
+\end{align*}
+
+Is there a set $A$ for which both $A + A$ and $A \cdot A$ are small?
+
+To answer this, we turn it into an incidence problem. Define
+\begin{align*}
+    P := \parenth{A + A} \times \parenth{A \cdot A}
+    = \setst{(x, y) \in \Z \times \Z}{x \in A + A, \, y \in A \cdot A}
+\end{align*}
+For example, when $A = \set{1, 2, 3}$, we have $A + A = \set{2, \ldots, 6}$ and $A \cdot A = \set{1, 2, 3, 4, 6, 9}$, and $P$ looks like this.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[x = 0.9cm, y = 0.45cm]
+        \draw[->] (1.2, 0) -- (6.8, 0) node[right] {$x$};
+        \draw[->] (1.5, -0.3) -- (1.5, 10) node[above] {$y$};
+        \foreach \x in {2, ..., 6}{
+            \draw (\x, 0.15) -- (\x, -0.15) node[below] {\small $\x$};
+        }
+        \foreach \y in {1, 2, 3, 4, 6, 9}{
+            \draw (1.6, \y) -- (1.4, \y) node[left] {\small $\y$};
+            \foreach \x in {2, ..., 6}{
+                \fill[black] (\x, \y) circle (2pt);
+            }
+        }
+        \node at (4, -1.6) {$A + A$};
+        \node[rotate = 90] at (0.6, 5) {$A \cdot A$};
+    \end{tikzpicture}
+\end{figure}
+
+The incidence bound answers our question: $A + A$ and $A \cdot A$ cannot both be small.
+
+% [FILLED] statement and outline written up from the blackboard photographs supplied with the post-lecture pass of 2026-10-27; the two \sorry steps are left as exercises, with hints
+\begin{boxtheorem} \label{Ch7:Thm:Sum_Product}
+    There is a constant $c > 0$ such that for every finite $A \ssq \Z$,
+    \begin{align*}
+        \abs{A + A} \abs{A \cdot A} \geq c \abs{A}^{\frac{5}{2}}
+    \end{align*}
+    In particular, $\max\set{\abs{A + A}, \abs{A \cdot A}} \geq \sqrt{c} \abs{A}^{\frac{5}{4}}$.
+\end{boxtheorem}
+\begin{proof}
+    We may assume that $0 \notin A$: removing $0$ from $A$ can only shrink $A + A$ and $A \cdot A$, and for $\abs{A} \geq 2$ it at most halves $\abs{A}$, which changes only the constant.
+
+    Our points are those of $P$, so $\abs{P} = \abs{A + A} \abs{A \cdot A}$. For the lines, take
+    \begin{align*}
+        \mathcal{L} := \setst{\text{the line } y = a\parenth{x - a'}}{a, a' \in A}
+    \end{align*}
+    The line $y = a\parenth{x - a'}$ has slope $a$ and, since $a \neq 0$, meets the $x$-axis exactly at $a'$, so different pairs $\parenth{a, a'}$ give different lines and $\abs{\mathcal{L}} = \abs{A}^2$. Each of these lines passes through at least $\abs{A}$ points of $P$, so
+    \begin{align*}
+        I\of{\mathcal{L}, P} \geq \abs{\mathcal{L}} \abs{A} = \abs{A}^3
+    \end{align*}
+    \sorry
+    % Hint: fix the line $y = a\parenth{x - a'}$. Which $x$ make $y$ land in $A \cdot A$? Try $x = a' + b$ for each $b \in A$, and check that the point you get lies in $P$.
+
+    On the other hand, \Cref{Ch7:Thm:Szemeredi_Trotter} gives a constant $C$ such that
+    \begin{align*}
+        \abs{A}^3
+        \leq I\of{\mathcal{L}, P}
+        \leq C\parenth{\abs{A}^{\frac{4}{3}} \abs{P}^{\frac{2}{3}} + \abs{A}^2 + \abs{P}}
+    \end{align*}
+    One of the three terms in the bracket is at least $\frac{\abs{A}^3}{3C}$, and in each case we get $\abs{P} \geq c\abs{A}^{\frac{5}{2}}$ for a suitable $c > 0$ depending only on $C$. \sorry
+    % Hint: take the three cases one at a time. The first is where the exponent $\frac{5}{2}$ comes from. In the second, $\abs{A}$ is at most a constant, and $\abs{A + A}, \abs{A \cdot A} \geq \abs{A}$ (why?). The third is immediate.
+
+    The second inequality follows from the first, since the larger of two numbers is at least the square root of their product.
+\end{proof}
