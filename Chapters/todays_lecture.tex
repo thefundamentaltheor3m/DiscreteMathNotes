@@ -3,12 +3,112 @@
 % material having to belong to a chapter yet, and /integrate empties it again once
 % the material has been spread across whichever chapters it belongs in.
 
-% [CLAUDE] note that the following theorem and proof will be completed next time. So leave them here. Don't /integrate them into the notes.
-
 % [CORRECTED] was: "has size at most" --- $\F_q^n$ itself is Kakeya, and the proof opens with "Suppose not" and a polynomial vanishing on $K$, which needs $K$ small
 \begin{boxtheorem}
     Any Kakeya set in $\F_q^n$ has size at least $\parenth{\frac{q}{10n}}^n$.
 \end{boxtheorem}
 \begin{proof}
-    Suppose not. Choose a nonzero polynomial $p$ of degree at most $q - 2$ that vanishes on $K$.
+    Suppose not. Choose a nonzero polynomial $p$ of degree at most $n\abs{K}^{\frac{1}{n}}$. Write $c_n = \parenth{\frac{1}{10n}}^n$. If $\abs{K} > c_n q^n$, then $\deg(p) \leq q - 1$. $q - 2$ that vanishes on $K$.
+
+    For all $a \in \F_q^n \setminus \set{0}$, there is some $b$ such that the line
+    \begin{align*}
+        L_{a, b} = \setst{at + b}{t \in \F_q}
+    \end{align*}
+    is contained in $K$. We know, in particular, that
+    \begin{align*}
+        \phi(t) = p\of{at + b}
+    \end{align*}
+    is the zero polynomial.
+
+    Let $D = \deg(p)$. Write $p = p_D + R$, where $p_D$ is the degree $D$ part of $p$ (ie, the part with all monomials having degree $D$) and $R$ is whatever's left.Observe that
+    \begin{align*}
+        \phi(t) = p_D(a) t^D + \cdots + \text{something}
+    \end{align*}
+    The fact that $\phi(t)$ vanishes tells us that $p_D(a) = 0$ for all $a \in \F_q^n \setminus \set{0}$. But also $p_D(0) = 0$. So in fact $p_D(a) = 0$ for all $a \in \F_q^n$. So by our previous lemma, $p_D = 0$, a contradiction.
 \end{proof}
+
+% [CLAUDE] in the last line above and in the line below, add a cross ref to the lemma about vanishing implies zero
+
+So Lemma really is quite a useful tool! Let's now explore more results of this flavour.
+
+\begin{boxlemma}[Schwarz-Zippel]
+    Let $\F$ be an arbitrary field and let $p \in \poly_d\of{\F^n}$ be nonzero. For any finite subset $S \subset \F^n$, if $s_1, \ldots, s_n \in S$ are chosen uniformly at random (with replacement), then
+    \begin{align*}
+        \Pr\of{p\of{s_1, \ldots, s_n} = 0} \leq \frac{d}{\abs{S}}
+    \end{align*}
+\end{boxlemma}
+
+This essentially tells us that a nonzero polynomial of degree $d$ cannot vanish on more than a $\frac{d}{\abs{S}}$ fraction of any grid-set of the form
+\begin{align*}
+    \underbrace{S \times \cdots \times S}_{n \text{ times}}
+\end{align*}
+
+Let's think about how we'd prove Schwarz-Zippel. Suppose we choose $s_1, \ldots, s_n$ randomly. View $p\of{x_1, \ldots, x_n}$ as a single-variable polynomial in $x_n$, ie, as an element of $\F\!\brac{x_1, \ldots, x_{n - 1}}\!\brac{x_n}$. Write
+\begin{align*}
+    p\of{s_1, \ldots, s_n}
+    = p_0\of{s_1, \ldots, s_n} + p_1\of{s_1, \ldots, s_{n-1}} s_n + p_2\of{s_1, \ldots, s_{n-1}} s_n^2 + \cdots + p_k\of{} \sorry
+\end{align*}
+We might want to argue that there are at most $d$ roots of this one-variable polynomial in $s_n$ or something, but the problem is that this does not address the case where $p = 0$.
+
+\begin{proof}[Proof of \sorry\ (Schwarz-Zippel)] % [CLAUDE] CR for schwartz-zippel
+    Argue by induction on the number of variables $n$. The base case $n = 1$ is clear.
+
+    Let $k$ be the longest degree of $x_n$ in $p$. Ie, choose $k$ so that
+    \begin{align*}
+        p\of{x_1, \ldots, x_n} = x_n^k q\of{x_1, \ldots, x_{n - 1}} + r\of{x_1, \ldots, x_{n-1}}
+    \end{align*}
+    Choose $x_1 = s_1, x_2 = s_2, \ldots, x_{n - 1} = s_{n - 1}$. By induction, $\Pr\of{q = 0} \leq \frac{d}{\abs{S}}$. If $q \neq 0$, we're done by choice of $x_n = s_n$. It's enough to argue that $\Pr\of{p = 0} \leq \frac{k}{\abs{S}}$. % [CLAUDE] what? Polish this a little, make it clearer
+
+    
+\end{proof}
+
+% 2 Nov
+
+\begin{boxtheorem}[Combinatorial Nullstellensatz]
+    Suppose $p \in \poly_D\of{\F^n}$ is a polynomial with a nonzero coefficient for $x_1^{j_1} x_2^{j_2} \cdots x_n j^{n}$. Then, for any $S_1, \ldots, S_n \ssq \F$ with $\abs{S_i} \geq j_i + 1$, we have that some $x \in S_1 \times \cdots S_n$ has $p(x) \neq 0$.
+\end{boxtheorem}
+\begin{remark}
+    Note that the condition that the coefficient for $x_1^{j_1} x_2^{j_2} \cdots x_n j^{n}$ is nonzero implies that the total degree is at least $j_1 + \cdots + j_n$.
+\end{remark}
+\begin{proof}
+    Fix $p$ as above. WLoG, assume $j_1 \geq 1$ (so that $\abs{S_1} \geq 2$). For $s \in \F$, write
+    \begin{align*}
+        p\of{x_1, \ldots, x_n} = \parenth{x_1 - s} q_s\of{x_1, \ldots, x_n} + r_s\of{x_2, \ldots, x_n}
+    \end{align*}
+    Notice that
+    \begin{align*}
+        p\of{s, s_2, s_3, \ldots, s_n} = r_s\of{s_2, \ldots, s_n}
+    \end{align*}
+    If $p\of{s, s_2, \ldots, s_n} = 0$ then $r_s\of{s_2, \ldots, s_n} = 0$.
+    \sorry % some kind of induction on n I think?
+\end{proof}
+
+\begin{boxcorollary}[Cauchy-Davenport] % [CLAUDE] is a nonempty condition necessary here?
+    For all $A, B \ssq \F_p$,
+    \begin{align*}
+        \abs{A + B} \geq \min\of{p, \abs{A} + \abs{B} - 1}
+    \end{align*}
+\end{boxcorollary}
+\begin{proof}
+    This is ``trivial'' if $\abs{A} + \abs{B} > p$. % [CLAUDE] the lecturer wrote on the board the sentence "$A \cap (x - B) \ni a$ by DHD" - what does it mean?
+    So let's assume that $\abs{A} + \abs{B} \leq p$.
+
+    Assume, towards contradiction, that $A + B \ssq C$, where $\abs{C} = \abs{A} + \abs{B} - 2$. Define
+    \begin{align*}
+        p(x, y) = \prod_{c \in C} \parenth{x + y - c}
+    \end{align*}
+    Notice that $p(x, y) = 0$ for all $x \in A$ and $y \in B$. Moreover, notice that $x^{\abs{A} - 1} y^{\abs{B} - 1}$ has coefficient $\abs{A} + \abs{B} - 2$. \sorry % [CLAUDE] we want to apply the combinatorial nullstellensatz here - give me a hint in the comments here, don't fill it in yourself!
+ \end{proof}
+
+\begin{boxdefinition}[List Chromatic Number]
+    For a graph $G$, define the \textbf{list chromatic number $\chi'(G)$} to be the smallest $k$ such that for any assignment of lists of size $k$ to vertices of $G$, there is a proper colouring from the list.
+\end{boxdefinition}
+
+Our strategy for finding upper-bounds will be to apply the Combinatorial Nullstellensatz to the folowing polynomial:
+\begin{align}
+    p\of{x_1, \ldots, x_n} = \prod_{i \sim j} \parenth{x_i - x_j}
+\end{align}
+where we label the vertices of the graph $\set{1, \ldots, n}$ and take the product over adjacent vertices, ie, over edges.
+
+
+ 
