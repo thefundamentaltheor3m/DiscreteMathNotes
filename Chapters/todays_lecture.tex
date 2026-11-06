@@ -8,7 +8,8 @@
     Any Kakeya set in $\F_q^n$ has size at least $\parenth{\frac{q}{10n}}^n$.
 \end{boxtheorem}
 \begin{proof}
-    Suppose not. Choose a nonzero polynomial $p$ of degree at most $n\abs{K}^{\frac{1}{n}}$. Write $c_n = \parenth{\frac{1}{10n}}^n$. If $\abs{K} > c_n q^n$, then $\deg(p) \leq q - 1$. $q - 2$ that vanishes on $K$.
+    % [CORRECTED] was: "If $\abs{K} > c_n q^n$" --- ``suppose not'' means $\abs{K} < c_n q^n$, and only that bounds $\deg(p) \leq n\abs{K}^{\frac{1}{n}} < \frac{q}{10} \leq q - 1$
+    Suppose not. Choose a nonzero polynomial $p$ of degree at most $n\abs{K}^{\frac{1}{n}}$ that vanishes on $K$. Write $c_n = \parenth{\frac{1}{10n}}^n$. If $\abs{K} < c_n q^n$, then $\deg(p) \leq q - 1$.
 
     For all $a \in \F_q^n \setminus \set{0}$, there is some $b$ such that the line
     \begin{align*}
@@ -20,7 +21,7 @@
     \end{align*}
     is the zero polynomial.
 
-    Let $D = \deg(p)$. Write $p = p_D + R$, where $p_D$ is the degree $D$ part of $p$ (ie, the part with all monomials having degree $D$) and $R$ is whatever's left.Observe that
+    Let $D = \deg(p)$. Write $p = p_D + R$, where $p_D$ is the degree $D$ part of $p$ (ie, the part with all monomials having degree $D$) and $R$ is whatever's left. Observe that
     \begin{align*}
         \phi(t) = p_D(a) t^D + \cdots + \text{something}
     \end{align*}
@@ -29,8 +30,8 @@
 
 So \Cref{Ch7:Lemma:Vanishing_Everywhere} really is quite a useful tool! Let's now explore more results of this flavour.
 
-\begin{boxlemma}[Schwarz-Zippel] \label{Ch8:Lemma:Schwartz_Zippel}
-    Let $\F$ be an arbitrary field and let $p \in \poly_d\of{\F^n}$ be nonzero. For any finite subset $S \subset \F^n$, if $s_1, \ldots, s_n \in S$ are chosen uniformly at random (with replacement), then
+\begin{boxlemma}[Schwartz-Zippel] \label{Ch8:Lemma:Schwartz_Zippel}
+    Let $\F$ be an arbitrary field and let $p \in \poly_d\of{\F^n}$ be nonzero. For any finite subset $S \subset \F$, if $s_1, \ldots, s_n \in S$ are chosen uniformly at random (with replacement), then
     \begin{align*}
         \Pr\of{p\of{s_1, \ldots, s_n} = 0} \leq \frac{d}{\abs{S}}
     \end{align*}
@@ -41,21 +42,23 @@ This essentially tells us that a nonzero polynomial of degree $d$ cannot vanish 
     \underbrace{S \times \cdots \times S}_{n \text{ times}}
 \end{align*}
 
-Let's think about how we'd prove Schwarz-Zippel. Suppose we choose $s_1, \ldots, s_n$ randomly. View $p\of{x_1, \ldots, x_n}$ as a single-variable polynomial in $x_n$, ie, as an element of $\F\!\brac{x_1, \ldots, x_{n - 1}}\!\brac{x_n}$. Write
+Let's think about how we'd prove Schwartz-Zippel. Suppose we choose $s_1, \ldots, s_n$ randomly. View $p\of{x_1, \ldots, x_n}$ as a single-variable polynomial in $x_n$, ie, as an element of $\F\!\brac{x_1, \ldots, x_{n - 1}}\!\brac{x_n}$. Write
 % [FILLED] the display broke off at "p_k\of{} \sorry"; its last term was supplied, with $k$ the largest power of $x_n$ in $p$
 \begin{align*}
     p\of{s_1, \ldots, s_n}
-    = p_0\of{s_1, \ldots, s_n} + p_1\of{s_1, \ldots, s_{n-1}} s_n + p_2\of{s_1, \ldots, s_{n-1}} s_n^2 + \cdots + p_k\of{s_1, \ldots, s_{n-1}} s_n^k
+    = p_0\of{s_1, \ldots, s_{n-1}} + p_1\of{s_1, \ldots, s_{n-1}} s_n + p_2\of{s_1, \ldots, s_{n-1}} s_n^2 + \cdots + p_k\of{s_1, \ldots, s_{n-1}} s_n^k
 \end{align*}
 We might want to argue that there are at most $d$ roots of this one-variable polynomial in $s_n$ or something, but the problem is that this does not address the case where $p = 0$.
 
-\begin{proof}[Proof of \Cref{Ch8:Lemma:Schwartz_Zippel} (Schwarz-Zippel)]
+\begin{proof}[Proof of \Cref{Ch8:Lemma:Schwartz_Zippel} (Schwartz-Zippel)]
     Argue by induction on the number of variables $n$. The base case $n = 1$ is clear.
 
-    Let $k$ be the longest degree of $x_n$ in $p$. Ie, choose $k$ so that
+    Let $k$ be the largest degree of $x_n$ in $p$. Ie, choose $k$ so that
+    % [CORRECTED] was: "$+ r\of{x_1, \ldots, x_{n-1}}$" --- the terms of $p$ below $x_n^k$ can still involve $x_n$, eg, $x_2^2 + x_1 x_2$
     \begin{align*}
-        p\of{x_1, \ldots, x_n} = x_n^k q\of{x_1, \ldots, x_{n - 1}} + r\of{x_1, \ldots, x_{n-1}}
+        p\of{x_1, \ldots, x_n} = x_n^k q\of{x_1, \ldots, x_{n - 1}} + r\of{x_1, \ldots, x_n}
     \end{align*}
+    where $r$ has degree less than $k$ in $x_n$.
     We choose $x_1 = s_1, x_2 = s_2, \ldots, x_{n - 1} = s_{n - 1}$ first, and $x_n = s_n$ last. By induction, $\Pr\of{q = 0} \leq \frac{d}{\abs{S}}$; in fact, as $x_n^k q$ is the part of $p$ of highest degree in $x_n$, $q$ has degree at most $d - k$, so induction gives $\Pr\of{q = 0} \leq \frac{d - k}{\abs{S}}$. If $q\of{s_1, \ldots, s_{n-1}} \neq 0$, then $p\of{s_1, \ldots, s_{n-1}, x_n}$ is a nonzero polynomial in $x_n$ alone, of degree $k$, so it has at most $k$ roots, and the choice of $x_n = s_n$ hits one of them with probability at most $\frac{k}{\abs{S}}$. So
     \begin{align*}
         \Pr\of{p = 0} \leq \Pr\of{q = 0} + \Pr\of{p = 0 \text{ and } q \neq 0} \leq \frac{d - k}{\abs{S}} + \frac{k}{\abs{S}} = \frac{d}{\abs{S}}
@@ -64,11 +67,12 @@ We might want to argue that there are at most $d$ roots of this one-variable pol
 
 % 2 Nov
 
+% [CORRECTED] was: no condition on $D$ --- for larger $D$ the theorem fails, eg, $x^2 - x$ has $x$-coefficient $-1$ and vanishes on $\set{0, 1}$
 \begin{boxtheorem}[Combinatorial Nullstellensatz] \label{Ch8:Thm:Combinatorial_Nullstellensatz}
-    Suppose $p \in \poly_D\of{\F^n}$ is a polynomial with a nonzero coefficient for $x_1^{j_1} x_2^{j_2} \cdots x_n j^{n}$. Then, for any $S_1, \ldots, S_n \ssq \F$ with $\abs{S_i} \geq j_i + 1$, we have that some $x \in S_1 \times \cdots S_n$ has $p(x) \neq 0$.
+    Suppose $p \in \poly_D\of{\F^n}$, where $D = j_1 + \cdots + j_n$, is a polynomial with a nonzero coefficient for $x_1^{j_1} x_2^{j_2} \cdots x_n^{j_n}$. Then, for any $S_1, \ldots, S_n \ssq \F$ with $\abs{S_i} \geq j_i + 1$, we have that some $x \in S_1 \times \cdots \times S_n$ has $p(x) \neq 0$.
 \end{boxtheorem}
 \begin{remark}
-    Note that the condition that the coefficient for $x_1^{j_1} x_2^{j_2} \cdots x_n j^{n}$ is nonzero implies that the total degree is at least $j_1 + \cdots + j_n$.
+    Note that the condition that the coefficient for $x_1^{j_1} x_2^{j_2} \cdots x_n^{j_n}$ is nonzero implies that the total degree is at least $j_1 + \cdots + j_n$.
 \end{remark}
 \begin{proof}
     % [FILLED] the induction on the degree (the opening sentence) and everything after "then $r_s\of{s_2, \ldots, s_n} = 0$" were supplied; the lecture's own steps are kept as written
@@ -93,8 +97,9 @@ We might want to argue that there are at most $d$ roots of this one-variable pol
     and every monomial of $q_s$ has degree at most $\parenth{D - k} + \parenth{k - 1} = D - 1$. In particular, $q_s$ has no monomial of degree $D$, and $r_s$ has no monomial involving $x_1$. So when we compare the coefficients of $x_1^{j_1} x_2^{j_2} \cdots x_n^{j_n}$ on the two sides of $p = \parenth{x_1 - s} q_s + r_s$, the only contribution on the right comes from multiplying the $x_1^{j_1 - 1} x_2^{j_2} \cdots x_n^{j_n}$ term of $q_s$ by $x_1$. Hence $q_s \in \poly_{D - 1}\of{\F^n}$ has a nonzero coefficient for $x_1^{j_1 - 1} x_2^{j_2} \cdots x_n^{j_n}$. Since $\abs{S_1 \setminus \set{s}} \geq j_1 = \parenth{j_1 - 1} + 1$, the induction hypothesis gives a point of $\parenth{S_1 \setminus \set{s}} \times S_2 \times \cdots \times S_n$ at which $q_s$ is nonzero, which is a contradiction.
 \end{proof}
 
-\begin{boxcorollary}[Cauchy-Davenport] % [CLAUDE] is a nonempty condition necessary here?
-    For all $A, B \ssq \F_p$,
+% [CORRECTED] was: "For all $A, B \ssq \F_p$" --- with $A = \emptyset$ and $\abs{B} \geq 2$, $\abs{A + B} = 0 < \min\of{p, \abs{B} - 1}$
+\begin{boxcorollary}[Cauchy-Davenport]
+    For all nonempty $A, B \ssq \F_p$,
     \begin{align*}
         \abs{A + B} \geq \min\of{p, \abs{A} + \abs{B} - 1}
     \end{align*}
@@ -103,11 +108,12 @@ We might want to argue that there are at most $d$ roots of this one-variable pol
     This is ``trivial'' if $\abs{A} + \abs{B} > p$. Indeed, for any $x \in \F_p$, the sets $A$ and $x - B = \setst{x - b}{b \in B}$ have sizes adding up to more than $p$, so by the pigeonhole principle they share some element $a = x - b$, and then $x = a + b \in A + B$. So $A + B = \F_p$.
     So let's assume that $\abs{A} + \abs{B} \leq p$.
 
+    % [CORRECTED] was: coefficient "$\abs{A} + \abs{B} - 2$" --- it is the coefficient of $x^{\abs{A} - 1} y^{\abs{B} - 1}$ in $\parenth{x + y}^{\abs{C}}$, the top-degree part of $p$
     Assume, towards contradiction, that $A + B \ssq C$, where $\abs{C} = \abs{A} + \abs{B} - 2$. Define
     \begin{align*}
         p(x, y) = \prod_{c \in C} \parenth{x + y - c}
     \end{align*}
-    Notice that $p(x, y) = 0$ for all $x \in A$ and $y \in B$. Moreover, notice that $x^{\abs{A} - 1} y^{\abs{B} - 1}$ has coefficient $\abs{A} + \abs{B} - 2$. \sorry
+    Notice that $p(x, y) = 0$ for all $x \in A$ and $y \in B$. Moreover, notice that $x^{\abs{A} - 1} y^{\abs{B} - 1}$ has coefficient $\binom{\abs{A} + \abs{B} - 2}{\abs{A} - 1}$. \sorry
     % Hint: apply \Cref{Ch8:Thm:Combinatorial_Nullstellensatz} to $p$, with $S_1 = A$, $S_2 = B$, $j_1 = \abs{A} - 1$ and $j_2 = \abs{B} - 1$, and see what it says about a polynomial that vanishes on all of $A \times B$. Two things need checking: that $p$ has total degree exactly $j_1 + j_2$ (count the factors), and that the coefficient of $x^{\abs{A} - 1} y^{\abs{B} - 1}$ is nonzero in $\F_p$. For the second, only the top-degree part $\parenth{x + y}^{\abs{C}}$ of $p$ can contribute, and $\abs{C} < p$.
  \end{proof}
 
@@ -115,7 +121,7 @@ We might want to argue that there are at most $d$ roots of this one-variable pol
     For a graph $G$, define the \textbf{list chromatic number $\chi'(G)$} to be the smallest $k$ such that for any assignment of lists of size $k$ to vertices of $G$, there is a proper colouring from the list.
 \end{boxdefinition}
 
-Our strategy for finding upper-bounds will be to apply the Combinatorial Nullstellensatz to the folowing polynomial:
+Our strategy for finding upper-bounds will be to apply the Combinatorial Nullstellensatz to the following polynomial:
 \begin{align}
     p\of{x_1, \ldots, x_n} = \prod_{i \sim j} \parenth{x_i - x_j}
 \end{align}
@@ -125,14 +131,15 @@ The field over which we define this polynomial does not matter much, so long as 
 
 % 4 Nov
 
+% [CORRECTED] was: "$k \leq q - 1$" --- at $k = q - 1$ the sum is $q - 1 = -1$; and the proof below was: "$x^{k} - 1$ has at most $k < q$ roots over $\F_q$. So there is certainly some $a \in \F_q$ that is" --- that $a$ could be $0$, and $x^0 - 1 = 0$
 \begin{boxtheorem}
-    For all $k \leq q - 1$,
+    For all $k < q - 1$,
     \begin{align*}
         \sum_{x \in \F_q} x^k = 0
     \end{align*}
 \end{boxtheorem}
 \begin{proof}
-    Note that $x^{k} - 1$ has at most $k < q$ roots over $\F_q$. So there is certainly some $a \in \F_q$ that is \textit{not} a root of this polynomial. So $a^k \neq 1$. Since $x \mapsto ax$ is a bijection,
+    For $k = 0$ the sum is $q = 0$. Otherwise, note that $x^{k} - 1$ has at most $k < q - 1$ roots over $\F_q$. So there is certainly some $a \in \F_q \setminus \set{0}$ that is \textit{not} a root of this polynomial. So $a^k \neq 1$. Since $x \mapsto ax$ is a bijection,
     \begin{align*}
         \sum_{x \in \F_q} x^k = \sum_{x \in \F_q} \parenth{ax}^k = a^k \sum_{x \in \F_q} x^k
     \end{align*}
@@ -142,7 +149,7 @@ The field over which we define this polynomial does not matter much, so long as 
 \begin{boxtheorem} \label{Ch8:Thm:Sum_Over_Fq}
     Let $p \in \F_q\!\brac{x_1, \ldots, x_n}$. Assume $\deg(p) < n(q - 1)$. Then
     \begin{align*}
-        \sum_{\bx \in \F_q^n} p\of{\bx}
+        \sum_{\bx \in \F_q^n} p\of{\bx} = 0
     \end{align*}
 \end{boxtheorem}
 \begin{proof}
@@ -156,13 +163,14 @@ We'll now prove Fermat's Little Theorem combinatorially.
     For $p$ a prime, for all $a \in \Z$, $a^p \equiv a \pmod{p}$. Equivalently, for $p$ a prime, for all $a \in \Z$ such that $p \nmid a$, $a^{p - 1} \equiv 1 \pmod{p}$.
 \end{boxtheorem}
 \begin{proof}
-    We know that $x \mapsto ax$ is a bijection. So
+    % [CORRECTED] was: "We know that $x \mapsto ax$ is a bijection", and the display ended "$= a^{p - 1}$" --- the bijection needs $p \nmid a$, and the product is $-1$, not $1$, so it is cancelled rather than dropped
+    For $p \nmid a$, we know that $x \mapsto ax$ is a bijection of $\F_p \setminus \set{0}$. So
     \begin{align*}
         \prod_{x \in \F_p \setminus \set{0}} x
         = \prod_{x \in \F_p \setminus \set{0}} (ax)
-        = a^{p - 1} \prod_{x \in \F_p \setminus \set{0}} x = a^{p - 1}
+        = a^{p - 1} \prod_{x \in \F_p \setminus \set{0}} x
     \end{align*}
-    in $\F_p$.
+    in $\F_p$, and cancelling the product, which is nonzero, gives $a^{p - 1} = 1$.
 \end{proof}
 
 Of course the corresponding result holds in $\F_q$ as well.
@@ -177,12 +185,12 @@ Of course the corresponding result holds in $\F_q$ as well.
     \end{align*}
 \end{proof}
 
-Let's not study systems of polynomials over $\F_q$.
+Let's now study systems of polynomials over $\F_q$.
 
 \begin{boxtheorem}[Chevalley-Warning]
     Fix $p_1, \ldots, p_k \in \F_q\!\brac{x_1, \ldots, x_n}$ with $\sum_{i=1}^{k} \pdeg{p_i} < n$. Let $p$ be the characteristic of $\F_q$. Then
     \begin{align*}
-        p \mid \#\!\setst{\bx \in \F_q}{p_1\of{\bx} = p_2\of{\bx} = \cdots = p_k\of{\bx} = 0}
+        p \mid \#\!\setst{\bx \in \F_q^n}{p_1\of{\bx} = p_2\of{\bx} = \cdots = p_k\of{\bx} = 0}
     \end{align*}
 \end{boxtheorem}
 \begin{proof}
@@ -204,17 +212,18 @@ Let's not study systems of polynomials over $\F_q$.
     \begin{align*}
         z = \underbrace{1 + \cdots + 1}_{N \text{ times}}
     \end{align*}
-    where $N = \#\!\setst{\bx \in \F_q}{p_1\of{\bx} = p_2\of{\bx} = \cdots = p_k\of{\bx} = 0}$. As $N = 0$ in $\F_q$, we must have $p \mid N$.
+    where $N = \#\!\setst{\bx \in \F_q^n}{p_1\of{\bx} = p_2\of{\bx} = \cdots = p_k\of{\bx} = 0}$. As $N = 0$ in $\F_q$, we must have $p \mid N$.
 \end{proof}
 
-\begin{boxtheorem}[\Erdos-Ginsberg-Ziv]
+\begin{boxtheorem}[\Erdos-Ginzburg-Ziv]
     Out of any $2n - 1$ integers, there are $n$ whose average is an integer. More precisely, for all $a_1, \ldots, a_{2n - 1} \in \Z$, $\exists I \ssq \set{1, \ldots, 2n - 1}$ such that $\abs{I} = n$ and $\sum_{i \in I} a_i \equiv 0 \pmod{n}$.
 \end{boxtheorem}
 
 \begin{proof}
-    Consider the case $n = p$, with $p$ a prime. Notice that if $\bx = \parenth{x_1, \ldots, x_{2p - 1}}$,
+    % [CORRECTED] was: the display "$p(\bx) = \sum_{\bx \in \F_p^{2n - 1}} \indicator_I(x)$" --- its right-hand side sums out $\bx$, and $p$ is the prime here; this is the identity the argument below uses, by Fermat's Little Theorem
+    Consider the case $n = p$, with $p$ a prime. Notice that if $\bx = \parenth{x_1, \ldots, x_{2p - 1}} \in \F_p^{2p - 1}$,
     \begin{align*}
-        p(\bx) = \sum_{\bx \in \F_p^{2n - 1}} \indicator_I(x)
+        \sum_{i=1}^{2p - 1} x_i^{p - 1} = \sum_{i=1}^{2p - 1} \indicator_{x_i \neq 0}
     \end{align*}
     % [FILLED] the prime case, from "Fix $a_1, \ldots$" to the end of this paragraph, was supplied; it is the standard deduction from Chevalley--Warning
     Fix $a_1, \ldots, a_{2p - 1} \in \Z$, and consider the polynomials
@@ -229,9 +238,10 @@ Let's not study systems of polynomials over $\F_q$.
 
     This takes care of the prime case.
 
-    Now, assume the result is proven for $n = a$ and $n = b$, with $a$ and $b$ coprime. We prove the result for $n = ab$.
+    % [CORRECTED] was: "for $n = a$ and $n = b$, with $a$ and $b$ coprime", and the result for $a$ applied to the $y_i$ themselves, then coprimality --- from the primes, coprime products reach only squarefree $n$ (never $4$); applying the result for $a$ to the $\frac{y_i}{b}$ needs no coprimality
+    Now, assume the result is proven for $n = a$ and $n = b$. We prove the result for $n = ab$.
 
     Fix $c_1, c_2, \ldots, c_{2ab - 1} \in \Z$. I repeatedly find and remove $b$ terms summing to $0$ mod $b$. I can do this $2a - 1$ times, to get disjoint sets $B_1, B_2, \ldots, B_{2a - 1}$, each summing as $\sum_{c \in B_i} c = y_i \equiv 0 \pmod{b}$.
 
-    Using the result for $a$ on $y_1, \ldots, y_{2a - 1}$, I can find $a$ of the sets $B_{i_1}, B_{i_2}, \ldots, B_{i_a}$ such that $\sum_{j=1}^{a} y_{i_j} \equiv 0 \pmod{a}$. Each $y_{i_j}$ is $0$ mod $b$, so this sum is also $0$ mod $b$, and as $a$ and $b$ are coprime, it is $0$ mod $ab$. But it is the sum of the $ab$ numbers in $B_{i_1} \cup \cdots \cup B_{i_a}$, which is what we wanted.
+    Using the result for $a$ on the integers $\frac{y_1}{b}, \ldots, \frac{y_{2a - 1}}{b}$, I can find $a$ of the sets $B_{i_1}, B_{i_2}, \ldots, B_{i_a}$ such that $\sum_{j=1}^{a} \frac{y_{i_j}}{b} \equiv 0 \pmod{a}$, so that $\sum_{j=1}^{a} y_{i_j} \equiv 0 \pmod{ab}$. But this is the sum of the $ab$ numbers in $B_{i_1} \cup \cdots \cup B_{i_a}$, which is what we wanted.
 \end{proof}
