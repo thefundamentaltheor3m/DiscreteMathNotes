@@ -13,7 +13,8 @@ It turns out the answer is $d + 1$, and is given by the standard simplex.
 
 Let's study the properties of hypothetical points that would satisfy this condition to glean information that will help us figure out what they might be.
 
-Let $v_0, v_1, \ldots, v_n \in \R^d$ be points such that $\norm{v_i - v_j} = 1$ for all $0 \leq i, j \leq n$ with $i \neq j$ and $\norm{v_i} = 1$ for $i \neq 0$. Without loss of generality, take $v_0 = 0$.
+% [CORRECTED] was: "... with $i \neq j$ and $\norm{v_i} = 1$ for $i \neq 0$. Without loss of generality, take $v_0 = 0$." --- assumed before the translation, $\norm{v_i} = 1$ is an extra hypothesis (the origin at distance $1$ from the points); after it, it follows from $\norm{v_i - v_0} = 1$
+Let $v_0, v_1, \ldots, v_n \in \R^d$ be points such that $\norm{v_i - v_j} = 1$ for all $0 \leq i, j \leq n$ with $i \neq j$. Without loss of generality, take $v_0 = 0$, so that $\norm{v_i} = 1$ for $i \neq 0$.
 
 For all $i, j \geq 1$ with $i \neq j$, notice that
 \begin{align*}
@@ -75,8 +76,9 @@ Not too far from Eventown, Pennsylvania, is the town of Oddtown, Pennsylvania. A
 
 \subsection{Fisher's Inequality}
 
+% [CORRECTED] was: "Fix a collection $\A \ssq \Powset{[n]}$. If ..., then $\abs{\A} = n$." --- eg, $\set{\set{1, 2}, \set{1, 3}}$ has $k = 1$ and $2 < 3$ sets; and at $k = 0$, $\set{\emptyset, \set{1}, \ldots, \set{n}}$ has $n + 1$ (the proof's last step uses $k \neq 0$)
 \begin{boxtheorem}[Fisher's Inequality]
-    Fix a collection $\A \ssq \Powset{[n]}$. If $\abs{A \cap B} = k$ for all distinct $A, B \in \A$, then $\abs{\A} = n$.
+    Fix a collection $\A \ssq \Powset{[n]}$ and $k \geq 1$. If $\abs{A \cap B} = k$ for all distinct $A, B \in \A$, then $\abs{\A} \leq n$.
 \end{boxtheorem}
 \begin{proof}
     Let $v_A$ denote the incidence vector for $A \in \A$ (over $\R$). This is the vector in $\R^n$ whose $i$th coordinate is $1$ if $i \in A$ and $0$ otherwise, so that $\cycl{v_A, v_B} = \abs{A \cap B}$.
@@ -96,7 +98,7 @@ Not too far from Eventown, Pennsylvania, is the town of Oddtown, Pennsylvania. A
 
 Say we have $n$ points that are not all on a line. This means that they determine $\geq n$ lines.
 
-Let $P$ be a set of points determining a set $L$ of lines. For a point $p \in P$, let $A_p$ be the set of lines in $L$ that are incident with $P$. For points $p \neq q$, would $\abs{A_p \cap A_q} = 1$ imply that $\abs{P} \leq \abs{L}$?
+Let $P$ be a set of points determining a set $L$ of lines. For a point $p \in P$, let $A_p$ be the set of lines in $L$ that are incident with $p$. For points $p \neq q$, would $\abs{A_p \cap A_q} = 1$ imply that $\abs{P} \leq \abs{L}$?
 
 If not all points are on one line, then for all $p, q$, $A_p \neq A_q$. So there is a point $r$ that does not lie on the line $\bar{pq}$. Thus, the line $\bar{pr} \in A_p \setminus A_q$. Then $\bar{qr} \in A_q \setminus A_p$.
 
@@ -110,10 +112,12 @@ Recall our Ramsey number bound $R(k) = R(k, k) \geq (k - 1)^2 + 1$, which comes 
 
 Define a graph $G$ with vertex set $T = \binom{[k]}{3}$. In other words, the vertex set is the set of all subsets of $[k]$ of size $3$.
 
-For $A, B \in T$, say $A \sim T$ if $\abs{A \cap B} = 1$. Using this relation, define the edge set of the graph $G$.
+For $A, B \in T$, say $A \sim B$ if $\abs{A \cap B} = 1$. Using this relation, define the edge set of the graph $G$.
 
 Fisher's Inequality tells us that $\omega(G) \leq k$, where $\omega(G)$ is the clique number (see \Cref{Ch2:Def:Clique}): a clique is a collection of $3$-subsets of $[k]$ any two of which meet in exactly one element.
 
-An independent set in this context would be a set $I$ with $\abs{I} \leq k$ where $\forall A, B \in I$, $\abs{A \cap B} \in \set{0, 2}$. In other words, we're living in oddtown! The sets in $I$ are the clubs of an Oddtown with $k$ people: each has $3$ people, an odd number, and any two share $0$ or $2$ of them, an even number.
+% [CORRECTED] was: "a set $I$ with $\abs{I} \leq k$ where ..., In other words, we're living in oddtown!" --- $\abs{I} \leq k$ is not part of being independent; it is what living in Oddtown gives
+An independent set in this context would be a set $I$ where $\forall A, B \in I$, $\abs{A \cap B} \in \set{0, 2}$. In other words, we're living in oddtown, and so $\abs{I} \leq k$! The sets in $I$ are the clubs of an Oddtown with $k$ people: each has $3$ people, an odd number, and any two share $0$ or $2$ of them, an even number.
 
-So $G$ has $\binom{k}{3}$ vertices, and neither a clique nor an independent set of more than $k$ of them. We can then show $R(k) \geq \binom{k}{3}$.
+% [CORRECTED] below, was: "$R(k) \geq \binom{k}{3}$" --- with no clique or independent set of size $k + 1$, $G$ bounds $R(k + 1)$; a bound on $R(k)$ would need none of size $k$
+So $G$ has $\binom{k}{3}$ vertices, and neither a clique nor an independent set of more than $k$ of them. We can then show $R(k + 1) > \binom{k}{3}$.
