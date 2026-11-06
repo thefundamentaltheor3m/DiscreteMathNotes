@@ -474,6 +474,25 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
         the top-degree part p_D vanishing on every direction; the
         degree condition |K| < c_n q^n (was ">")              [CORRECTED]
       the chapter's last line points on to chapter 8
+
+7.6 Sets with Few Distances                         [2026-11-06]
+    How many points in R^d can determine only one distance, or only two?
+    The lecture's question, set against 7.1's: there the points are
+    fixed and the distances counted.
+    7.6.1 Equilateral Sets                          [2026-11-06]
+      at most d + 1 points at pairwise unit distance, the regular simplex
+        (was "standard")                                    [slip]
+      v_0 = 0 by translation, so |v_i| = 1 (was assumed)    [CORRECTED]
+      <v_i, v_j> = 1/2 for i != j >= 1 (the i, j >= 1 on the author's
+        question)
+      v_1, ..., v_n linearly independent: left to the author ("this one
+        is very easy")                                   [exercise]
+      the bound itself not yet drawn from the claim          [sorry]
+    7.6.2 Two-Distance Sets                         [2026-11-06]
+      f_i(x) = (|x - p_i|^2 - alpha^2)(|x - p_i|^2 - beta^2), so that
+        f_i(p_j) is alpha^2 beta^2 or 0
+      the argument breaks off; the author has asked about it for
+        office hours (issue #33)                             [sorry]
 ```
 
 ## 8. Zeros of Polynomials  ->  `Chapters/8_Polynomials/`
@@ -809,6 +828,9 @@ upper bounds on chi'(G)          promised 2026-11-02 ("our strategy for
                                  polynomial). No bound yet in the notes; the
                                  board also posed whether C_n can always be
                                  coloured from lists of size 2.
+a bound on two-distance sets     begun 2026-11-06 (7.6.2): the polynomials f_i
+                                 are defined, and the lecture stops. Raised
+                                 as an office-hours question, issue #33.
 the n^{1 + c/log log n} grid     asserted 2026-10-19 via "algebraic number
                                  theory involving Z[i]", not derived.
 K_n non-planar for n >= 5        asserted 2026-10-19 as a non-example, not
@@ -839,7 +861,18 @@ its site.
 
 ## Unplaced
 
-Nothing. The local lemma of 2026-09-16 and Beck's theorem of 2026-09-21 were
+The Eventown section of 2026-11-06 is held in the inbox on the author's
+instruction ("until this whole section on Eventown is somewhat complete, don't
+/integrate it"): Eventown and Oddtown, Fisher's Inequality (|A| <= n for
+families meeting pairwise in k >= 1 elements), n points not all on a line
+determine >= n lines, and R(k + 1) > binom(k, 3) from the graph on the
+3-subsets of [k]. Phases 2 and 3 of the post-lecture pass ran on it in place
+(#34), and its subsections were added there at the author's request. The
+Oddtown bound (at most n clubs among n people), which the Ramsey application
+uses, is not yet stated. Where it goes once complete is open: Fisher and Oddtown
+are set systems (chapter 3), but the method is the linear algebra of 7.6.
+
+Before that, nothing. The local lemma of 2026-09-16 and Beck's theorem of 2026-09-21 were
 held in the inbox, the first on the author's instruction, until the author asked
 on 2026-09-23 for the inbox to be emptied; they are now chapter 5.
 

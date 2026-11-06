@@ -3,56 +3,6 @@
 % material having to belong to a chapter yet, and /integrate empties it again once
 % the material has been spread across whichever chapters it belongs in.
 
-Let's now ask ourselves a question that, though seemingly similar to the unit distance problem, is actually quite different:
-\begin{center}
-    How many points in $\R^d$ can all be at pairwise unit distance?
-\end{center}
-In the unit distance problem, we \textit{fixed points} and \textit{counted unit distances}. Here, we haven't fixed any points.
-
-It turns out the answer is $d + 1$, and is given by the regular simplex.
-
-Let's study the properties of hypothetical points that would satisfy this condition to glean information that will help us figure out what they might be.
-
-% [CORRECTED] was: "... with $i \neq j$ and $\norm{v_i} = 1$ for $i \neq 0$. Without loss of generality, take $v_0 = 0$." --- assumed before the translation, $\norm{v_i} = 1$ is an extra hypothesis (the origin at distance $1$ from the points); after it, it follows from $\norm{v_i - v_0} = 1$
-Let $v_0, v_1, \ldots, v_n \in \R^d$ be points such that $\norm{v_i - v_j} = 1$ for all $0 \leq i, j \leq n$ with $i \neq j$. Without loss of generality, take $v_0 = 0$, so that $\norm{v_i} = 1$ for $i \neq 0$.
-
-For all $i, j \geq 1$ with $i \neq j$, notice that
-\begin{align*}
-    1 = \norm{v_i - v_j}^2 = \cycl{v_i - v_j, v_i - v_j} = \cycl{v_i, v_i} - 2\cycl{v_i, v_j} + \cycl{v_j, v_j} = 2\parenth{1 - \cycl{v_i, v_j}}
-\end{align*}
-This tells us
-\begin{align*}
-    \cycl{v_i, v_j} =
-    \begin{cases}
-        1 & \text{ if } i = j \\
-        \frac{1}{2} & \text{ if } i \neq j
-    \end{cases}
-\end{align*}
-
-\begin{claim*}
-    $v_1, \ldots, v_n$ are linearly independent.
-\end{claim*}
-\begin{proof}
-    \sorry % [CLAUDE] leave this, this one is very easy
-\end{proof}
-
-What if I have two distances instead?
-
-Suppose $p_1, \ldots, p_n \in \R^d$ are at pairwise distances $\set{\alpha, \beta}$. We want to define polynomials $f_i(\bx)$ such that for all $i, j$,
-\begin{align*}
-    f_i\of{p_j} = 
-    \begin{cases}
-        \alpha^2 \beta^2 & \text{ if } i = j \\
-        0 & \text{ if } i \neq j
-    \end{cases}
-\end{align*}
-We can define
-\begin{align*}
-    f_i(\bx) = \parenth{\norm{\bx - p_i}^2 - \alpha^2}\parenth{\norm{\bx - p_i}^2 - \beta^2}
-\end{align*}
-
-% Question for office hours: https://github.com/thefundamentaltheor3m/DiscreteMathNotes/issues/33 (the two-distance case)
-
 \section{Eventown}
 
 \subsection{Eventown and Oddtown}
