@@ -9,7 +9,7 @@ Let's now ask ourselves a question that, though seemingly similar to the unit di
 \end{center}
 In the unit distance problem, we \textit{fixed points} and \textit{counted unit distances}. Here, we haven't fixed any points.
 
-It turns out the answer is $d + 1$, and is given by the standard simplex.
+It turns out the answer is $d + 1$, and is given by the regular simplex.
 
 Let's study the properties of hypothetical points that would satisfy this condition to glean information that will help us figure out what they might be.
 
@@ -116,8 +116,8 @@ For $A, B \in T$, say $A \sim B$ if $\abs{A \cap B} = 1$. Using this relation, d
 
 Fisher's Inequality tells us that $\omega(G) \leq k$, where $\omega(G)$ is the clique number (see \Cref{Ch2:Def:Clique}): a clique is a collection of $3$-subsets of $[k]$ any two of which meet in exactly one element.
 
-% [CORRECTED] was: "a set $I$ with $\abs{I} \leq k$ where ..., In other words, we're living in oddtown!" --- $\abs{I} \leq k$ is not part of being independent; it is what living in Oddtown gives
-An independent set in this context would be a set $I$ where $\abs{A \cap B} \in \set{0, 2}$ for all distinct $A, B \in I$. In other words, we're living in oddtown, and so $\abs{I} \leq k$! The sets in $I$ are the clubs of an Oddtown with $k$ people: each has $3$ people, an odd number, and any two share $0$ or $2$ of them, an even number.
+% [CORRECTED] was: "a set $I$ with $\abs{I} \leq k$ where $\forall A, B \in I$, $\abs{A \cap B} \in \set{0, 2}$. In other words, we're living in oddtown!" --- $\abs{I} \leq k$ is not part of being independent, it is what living in Oddtown gives; and the condition is for distinct $A, B$, since $\abs{A \cap A} = 3$ (review rounds one and two)
+An independent set in this context would be a set $I$ where $\abs{A \cap B} \in \set{0, 2}$ for all distinct $A, B \in I$. In other words, we're living in oddtown! So $\abs{I} \leq k$. The sets in $I$ are the clubs of an Oddtown with $k$ people: each has $3$ people, an odd number, and any two share $0$ or $2$ of them, an even number.
 
 % [CORRECTED] below, was: "$R(k) \geq \binom{k}{3}$" --- with no clique or independent set of size $k + 1$, $G$ bounds $R(k + 1)$; a bound on $R(k)$ would need none of size $k$
 So $G$ has $\binom{k}{3}$ vertices, and neither a clique nor an independent set of more than $k$ of them. We can then show $R(k + 1) > \binom{k}{3}$.
