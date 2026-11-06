@@ -59,6 +59,37 @@ If the user named a file, a comment, or a topic, restrict to that. Otherwise tak
 them all, and list them to the user up front with file, line, and the directive
 quoted, so they can see what is in scope before you start writing.
 
+### `/issue` directives are questions, not writing jobs
+
+Since 2026-11-06 the author keeps a list of questions for the lecturer's office hours
+as GitHub issues on this repository, and asks for one with
+
+```tex
+% [CLAUDE] /issue Ask for clarification on two distance case
+```
+
+For each of these, write nothing into the notes. Instead:
+
+1. Check the open issues for one already asking the same thing; if there is one, add
+   to it rather than opening a second.
+2. Open an issue (`gh issue create`, or the GitHub MCP tools where `gh` is absent)
+   titled for the question, with the lecture date in it. In the body, quote the
+   author's words, then say where the notes stand on the passage the question is
+   about — what is written and where it stops — so the issue makes sense at office
+   hours without the notes open. Phrase anything you add as questions to ask, not as
+   answers: the point of the issue is that the author wants to hear it from the
+   lecturer.
+3. Replace the comment with a pointer, so the source still records that the question
+   was asked:
+
+   ```tex
+   % Question for office hours: https://github.com/thefundamentaltheor3m/DiscreteMathNotes/issues/<n> (<short topic>)
+   ```
+
+   This is no longer a `% [CLAUDE]` line, so no later run will act on it again.
+
+List the issues you opened in the report, with their links.
+
 ## 2. Read each comment in context, not on its own
 
 A directive is written in the middle of an argument and means almost nothing outside
