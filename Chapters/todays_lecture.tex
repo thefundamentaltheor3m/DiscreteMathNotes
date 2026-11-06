@@ -91,7 +91,7 @@ Not too far from Eventown, Pennsylvania, is the town of Oddtown, Pennsylvania. A
         &= \sum_{A \in \A } \lambda_A^2 \abs{A} + \sum_{A \neq B} k \lambda_A \lambda_B \\
         &= k\parenth{\sum_{A \in \A} \lambda_A}^2 + \sum_{A \in \A}\parenth{\abs{A} - k} \lambda_A^2
     \end{align*}
-    Every $A \in \A$ has $\abs{A} \geq k$, since it meets the other sets in $k$ elements, and there is at most one $A_0 \in \A$ with $\abs{A_0} = k$, since two such sets would both be equal to their intersection. So both terms on the right are nonnegative, and as they add up to $0$, both are $0$. The second gives $\lambda_A = 0$ for every $A \neq A_0$, and then the first gives $\lambda_{A_0} = \sum_{A \in \A} \lambda_A = 0$ also. So the $v_A$ are linearly independent vectors in $\R^n$, and there are at most $n$ of them.
+    If $\A$ has at most one set, there is nothing to prove, so suppose it has at least two. Then every $A \in \A$ has $\abs{A} \geq k$, since it meets the other sets in $k$ elements, and there is at most one $A_0 \in \A$ with $\abs{A_0} = k$, since two such sets would both be equal to their intersection. So both terms on the right are nonnegative, and as they add up to $0$, both are $0$. The second gives $\lambda_A = 0$ for every $A \neq A_0$, and then the first gives $\lambda_{A_0} = \sum_{A \in \A} \lambda_A = 0$ also. So the $v_A$ are linearly independent vectors in $\R^n$, and there are at most $n$ of them.
 \end{proof}
 
 \subsection{Points and Lines}
@@ -100,7 +100,7 @@ Say we have $n$ points that are not all on a line. This means that they determin
 
 Let $P$ be a set of points determining a set $L$ of lines. For a point $p \in P$, let $A_p$ be the set of lines in $L$ that are incident with $p$. For points $p \neq q$, would $\abs{A_p \cap A_q} = 1$ imply that $\abs{P} \leq \abs{L}$?
 
-If not all points are on one line, then for all $p, q$, $A_p \neq A_q$. So there is a point $r$ that does not lie on the line $\bar{pq}$. Thus, the line $\bar{pr} \in A_p \setminus A_q$. Then $\bar{qr} \in A_q \setminus A_p$.
+If not all points are on one line, then for all $p \neq q$, $A_p \neq A_q$. So there is a point $r$ that does not lie on the line $\bar{pq}$. Thus, the line $\bar{pr} \in A_p \setminus A_q$. Then $\bar{qr} \in A_q \setminus A_p$.
 
 So the $A_p$, for $p \in P$, are $\abs{P}$ distinct subsets of $L$, and any two of them, $A_p$ and $A_q$, meet in exactly one line, namely $\bar{pq}$. Fisher's Inequality, with $L$ in place of $[n]$ and $k = 1$, now gives $\abs{P} \leq \abs{L}$. So the answer to our question is yes: $n$ points, not all on a line, determine at least $n$ lines.
 
@@ -108,7 +108,7 @@ So the $A_p$, for $p \in P$, are $\abs{P}$ distinct subsets of $L$, and any two 
 
 Yet another application.
 
-Recall our Ramsey number bound $R(k) = R(k, k) \geq (k - 1)^2 + 1$, which comes from $k - 1$ disjoint copies of $K_{k - 1}$: they have no clique and no independent set of size $k$. Fisher's Inequality gives a much better construction.
+Recall our Ramsey number bound $R(k) = R(k, k) \geq (k - 1)^2 + 1$, which comes from $k - 1$ disjoint copies of $K_{k - 1}$: they have no clique and no independent set of size $k$. Fisher's Inequality gives a much better construction for large $k$.
 
 Define a graph $G$ with vertex set $T = \binom{[k]}{3}$. In other words, the vertex set is the set of all subsets of $[k]$ of size $3$.
 
@@ -117,7 +117,7 @@ For $A, B \in T$, say $A \sim B$ if $\abs{A \cap B} = 1$. Using this relation, d
 Fisher's Inequality tells us that $\omega(G) \leq k$, where $\omega(G)$ is the clique number (see \Cref{Ch2:Def:Clique}): a clique is a collection of $3$-subsets of $[k]$ any two of which meet in exactly one element.
 
 % [CORRECTED] was: "a set $I$ with $\abs{I} \leq k$ where ..., In other words, we're living in oddtown!" --- $\abs{I} \leq k$ is not part of being independent; it is what living in Oddtown gives
-An independent set in this context would be a set $I$ where $\forall A, B \in I$, $\abs{A \cap B} \in \set{0, 2}$. In other words, we're living in oddtown, and so $\abs{I} \leq k$! The sets in $I$ are the clubs of an Oddtown with $k$ people: each has $3$ people, an odd number, and any two share $0$ or $2$ of them, an even number.
+An independent set in this context would be a set $I$ where $\abs{A \cap B} \in \set{0, 2}$ for all distinct $A, B \in I$. In other words, we're living in oddtown, and so $\abs{I} \leq k$! The sets in $I$ are the clubs of an Oddtown with $k$ people: each has $3$ people, an odd number, and any two share $0$ or $2$ of them, an even number.
 
 % [CORRECTED] below, was: "$R(k) \geq \binom{k}{3}$" --- with no clique or independent set of size $k + 1$, $G$ bounds $R(k + 1)$; a bound on $R(k)$ would need none of size $k$
 So $G$ has $\binom{k}{3}$ vertices, and neither a clique nor an independent set of more than $k$ of them. We can then show $R(k + 1) > \binom{k}{3}$.
