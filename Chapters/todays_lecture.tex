@@ -24,14 +24,12 @@
     \begin{align*}
         \phi(t) = p_D(a) t^D + \cdots + \text{something}
     \end{align*}
-    The fact that $\phi(t)$ vanishes tells us that $p_D(a) = 0$ for all $a \in \F_q^n \setminus \set{0}$. But also $p_D(0) = 0$. So in fact $p_D(a) = 0$ for all $a \in \F_q^n$. So by our previous lemma, $p_D = 0$, a contradiction.
+    The fact that $\phi(t)$ vanishes tells us that $p_D(a) = 0$ for all $a \in \F_q^n \setminus \set{0}$. But also $p_D(0) = 0$. So in fact $p_D(a) = 0$ for all $a \in \F_q^n$. So by \Cref{Ch7:Lemma:Vanishing_Everywhere}, $p_D = 0$, a contradiction.
 \end{proof}
 
-% [CLAUDE] in the last line above and in the line below, add a cross ref to the lemma about vanishing implies zero
+So \Cref{Ch7:Lemma:Vanishing_Everywhere} really is quite a useful tool! Let's now explore more results of this flavour.
 
-So Lemma really is quite a useful tool! Let's now explore more results of this flavour.
-
-\begin{boxlemma}[Schwarz-Zippel]
+\begin{boxlemma}[Schwarz-Zippel] \label{Ch8:Lemma:Schwartz_Zippel}
     Let $\F$ be an arbitrary field and let $p \in \poly_d\of{\F^n}$ be nonzero. For any finite subset $S \subset \F^n$, if $s_1, \ldots, s_n \in S$ are chosen uniformly at random (with replacement), then
     \begin{align*}
         \Pr\of{p\of{s_1, \ldots, s_n} = 0} \leq \frac{d}{\abs{S}}
@@ -51,21 +49,22 @@ Let's think about how we'd prove Schwarz-Zippel. Suppose we choose $s_1, \ldots,
 \end{align*}
 We might want to argue that there are at most $d$ roots of this one-variable polynomial in $s_n$ or something, but the problem is that this does not address the case where $p = 0$.
 
-\begin{proof}[Proof of \sorry\ (Schwarz-Zippel)] % [CLAUDE] CR for schwartz-zippel
+\begin{proof}[Proof of \Cref{Ch8:Lemma:Schwartz_Zippel} (Schwarz-Zippel)]
     Argue by induction on the number of variables $n$. The base case $n = 1$ is clear.
 
     Let $k$ be the longest degree of $x_n$ in $p$. Ie, choose $k$ so that
     \begin{align*}
         p\of{x_1, \ldots, x_n} = x_n^k q\of{x_1, \ldots, x_{n - 1}} + r\of{x_1, \ldots, x_{n-1}}
     \end{align*}
-    Choose $x_1 = s_1, x_2 = s_2, \ldots, x_{n - 1} = s_{n - 1}$. By induction, $\Pr\of{q = 0} \leq \frac{d}{\abs{S}}$. If $q \neq 0$, we're done by choice of $x_n = s_n$. It's enough to argue that $\Pr\of{p = 0} \leq \frac{k}{\abs{S}}$. % [CLAUDE] what? Polish this a little, make it clearer
-
-    
+    We choose $x_1 = s_1, x_2 = s_2, \ldots, x_{n - 1} = s_{n - 1}$ first, and $x_n = s_n$ last. By induction, $\Pr\of{q = 0} \leq \frac{d}{\abs{S}}$; in fact, as $x_n^k q$ is the part of $p$ of highest degree in $x_n$, $q$ has degree at most $d - k$, so induction gives $\Pr\of{q = 0} \leq \frac{d - k}{\abs{S}}$. If $q\of{s_1, \ldots, s_{n-1}} \neq 0$, then $p\of{s_1, \ldots, s_{n-1}, x_n}$ is a nonzero polynomial in $x_n$ alone, of degree $k$, so it has at most $k$ roots, and the choice of $x_n = s_n$ hits one of them with probability at most $\frac{k}{\abs{S}}$. So
+    \begin{align*}
+        \Pr\of{p = 0} \leq \Pr\of{q = 0} + \Pr\of{p = 0 \text{ and } q \neq 0} \leq \frac{d - k}{\abs{S}} + \frac{k}{\abs{S}} = \frac{d}{\abs{S}}
+    \end{align*}
 \end{proof}
 
 % 2 Nov
 
-\begin{boxtheorem}[Combinatorial Nullstellensatz]
+\begin{boxtheorem}[Combinatorial Nullstellensatz] \label{Ch8:Thm:Combinatorial_Nullstellensatz}
     Suppose $p \in \poly_D\of{\F^n}$ is a polynomial with a nonzero coefficient for $x_1^{j_1} x_2^{j_2} \cdots x_n j^{n}$. Then, for any $S_1, \ldots, S_n \ssq \F$ with $\abs{S_i} \geq j_i + 1$, we have that some $x \in S_1 \times \cdots S_n$ has $p(x) \neq 0$.
 \end{boxtheorem}
 \begin{remark}
@@ -101,14 +100,15 @@ We might want to argue that there are at most $d$ roots of this one-variable pol
     \end{align*}
 \end{boxcorollary}
 \begin{proof}
-    This is ``trivial'' if $\abs{A} + \abs{B} > p$. % [CLAUDE] the lecturer wrote on the board the sentence "$A \cap (x - B) \ni a$ by DHD" - what does it mean?
+    This is ``trivial'' if $\abs{A} + \abs{B} > p$. Indeed, for any $x \in \F_p$, the sets $A$ and $x - B = \setst{x - b}{b \in B}$ have sizes adding up to more than $p$, so by the pigeonhole principle they share some element $a = x - b$, and then $x = a + b \in A + B$. So $A + B = \F_p$.
     So let's assume that $\abs{A} + \abs{B} \leq p$.
 
     Assume, towards contradiction, that $A + B \ssq C$, where $\abs{C} = \abs{A} + \abs{B} - 2$. Define
     \begin{align*}
         p(x, y) = \prod_{c \in C} \parenth{x + y - c}
     \end{align*}
-    Notice that $p(x, y) = 0$ for all $x \in A$ and $y \in B$. Moreover, notice that $x^{\abs{A} - 1} y^{\abs{B} - 1}$ has coefficient $\abs{A} + \abs{B} - 2$. \sorry % [CLAUDE] we want to apply the combinatorial nullstellensatz here - give me a hint in the comments here, don't fill it in yourself!
+    Notice that $p(x, y) = 0$ for all $x \in A$ and $y \in B$. Moreover, notice that $x^{\abs{A} - 1} y^{\abs{B} - 1}$ has coefficient $\abs{A} + \abs{B} - 2$. \sorry
+    % Hint: apply \Cref{Ch8:Thm:Combinatorial_Nullstellensatz} to $p$, with $S_1 = A$, $S_2 = B$, $j_1 = \abs{A} - 1$ and $j_2 = \abs{B} - 1$, and see what it says about a polynomial that vanishes on all of $A \times B$. Two things need checking: that $p$ has total degree exactly $j_1 + j_2$ (count the factors), and that the coefficient of $x^{\abs{A} - 1} y^{\abs{B} - 1}$ is nonzero in $\F_p$. For the second, only the top-degree part $\parenth{x + y}^{\abs{C}}$ of $p$ can contribute, and $\abs{C} < p$.
  \end{proof}
 
 \begin{boxdefinition}[List Chromatic Number]
@@ -120,6 +120,8 @@ Our strategy for finding upper-bounds will be to apply the Combinatorial Nullste
     p\of{x_1, \ldots, x_n} = \prod_{i \sim j} \parenth{x_i - x_j}
 \end{align}
 where we label the vertices of the graph $\set{1, \ldots, n}$ and take the product over adjacent vertices, ie, over edges.
+
+The field over which we define this polynomial does not matter much, so long as it has enough elements. The colours in our lists have to live in the field, but whether a colouring is proper only depends on which vertices get the same colour, so we can relabel the colours as distinct elements of any field with at least as many elements as there are colours in all the lists together. So we can always get away with taking the field to be $\Q$ or $\R$. In fact, $\Q$ is never a worse choice than $\F_q$: the coefficients of $p$ are integers, and the Combinatorial Nullstellensatz asks for one of them to be nonzero, which can fail in $\F_q$ for an integer that is nonzero in $\Q$.
 
 % 4 Nov
 
@@ -137,7 +139,7 @@ where we label the vertices of the graph $\set{1, \ldots, n}$ and take the produ
     As $a^k \ne 1$, the only way this equality can hold is if $\sum_{x \in \F_q} x^k = 0$.
 \end{proof}
 
-\begin{boxtheorem}
+\begin{boxtheorem} \label{Ch8:Thm:Sum_Over_Fq}
     Let $p \in \F_q\!\brac{x_1, \ldots, x_n}$. Assume $\deg(p) < n(q - 1)$. Then
     \begin{align*}
         \sum_{\bx \in \F_q^n} p\of{\bx}
@@ -197,7 +199,7 @@ Let's not study systems of polynomials over $\F_q$.
     \begin{align*}
         \F_q \ni z = \sum_{\bx \in \F_q^n} Q(\bx)
     \end{align*}
-    Notice that $\pdeg{Q} < n(q - 1)$, so by previous theorem, % [CLAUDE] add cross-ref
+    Notice that $\pdeg{Q} < n(q - 1)$, so by \Cref{Ch8:Thm:Sum_Over_Fq}, 
     $z = 0$. We can write
     \begin{align*}
         z = \underbrace{1 + \cdots + 1}_{N \text{ times}}
@@ -231,5 +233,5 @@ Let's not study systems of polynomials over $\F_q$.
 
     Fix $c_1, c_2, \ldots, c_{2ab - 1} \in \Z$. I repeatedly find and remove $b$ terms summing to $0$ mod $b$. I can do this $2a - 1$ times, to get disjoint sets $B_1, B_2, \ldots, B_{2a - 1}$, each summing as $\sum_{c \in B_i} c = y_i \equiv 0 \pmod{b}$.
 
-    Using the result for $a$, I can find $a$ of the sets $B_{i_1}, B_{i_2}, \ldots, B_{i_a}$ such that $\sum_{j=1}^{a} y_{ij} \equiv 0 \pmod{a}$. So $\sum_{y_{ij}} \equiv 0 \pmod{a}$. % [CLAUDE] what?
+    Using the result for $a$ on $y_1, \ldots, y_{2a - 1}$, I can find $a$ of the sets $B_{i_1}, B_{i_2}, \ldots, B_{i_a}$ such that $\sum_{j=1}^{a} y_{i_j} \equiv 0 \pmod{a}$. Each $y_{i_j}$ is $0$ mod $b$, so this sum is also $0$ mod $b$, and as $a$ and $b$ are coprime, it is $0$ mod $ab$. But it is the sum of the $ab$ numbers in $B_{i_1} \cup \cdots \cup B_{i_a}$, which is what we wanted.
 \end{proof}
