@@ -468,8 +468,66 @@ What earns a chapter, a section and a subsection: `.claude/ORGANISATION.md`.
       its proof, the key step left to the author with a hint  [exercise]
       the reference: Dvir (JAMS 2009, arXiv 2008) for the method, Li
         (arXiv:0803.3525) for the Nikodym bound, in a footnote [supplied]
-    7.5.2 Kakeya Sets                               [2026-10-28]
+    7.5.2 Kakeya Sets                               [2026-10-28, 2026-10-30]
       Kakeya sets, with b in F_q^n (was F_q)
+      |K| >= (q/10n)^n, begun 2026-10-28 and finished 2026-10-30, by
+        the top-degree part p_D vanishing on every direction; the
+        degree condition |K| < c_n q^n (was ">")              [CORRECTED]
+      the chapter's last line points on to chapter 8
+```
+
+## 8. Zeros of Polynomials  ->  `Chapters/8_Polynomials/`
+
+```
+8.1 Polynomials on Grids                            [2026-10-30, 2026-11-02]
+    When must a polynomial be nonzero somewhere on S_1 x ... x S_n, and
+    what does that give for sums of sets and for colouring from lists?
+    8.1.1 The Schwartz-Zippel Lemma                 [2026-10-30]
+      Pr(p(s) = 0) <= d/|S| for s uniform on S^n, S a subset of F
+        (was F^n)                                           [slip]
+      the expansion in powers of s_n, its last term         [supplied]
+      the obstruction: the polynomial in s_n can vanish     [CORRECTED]
+      the proof by induction on n; r involves x_n           [CORRECTED]
+        the step polished, (d - k)/|S| + k/|S|, on the author's
+        instruction ("what? Polish this a little")
+    8.1.2 The Combinatorial Nullstellensatz         [2026-11-02]
+      nonzero x^j coefficient, deg p = j_1 + ... + j_n (was
+        unconstrained), |S_i| > j_i: nonzero on the grid    [CORRECTED]
+      the proof, by induction on the degree; the lecture's division by
+        x_1 - s kept, the rest                              [supplied]
+    8.1.3 The Cauchy-Davenport Theorem              [2026-11-02]
+      |A + B| >= min(p, |A| + |B| - 1), A and B nonempty    [CORRECTED]
+      the case |A| + |B| > p by pigeonhole (the board's "DHD")
+      the coefficient binom(|A| + |B| - 2, |A| - 1)          [CORRECTED]
+      the application of 8.1.2 left to the author, with a hint
+                                                         [exercise]
+    8.1.4 List Colourings                           [2026-11-02]
+      the list chromatic number chi'(G)
+      the graph polynomial prod_{i ~ j} (x_i - x_j), as the route to
+        upper bounds
+      the base field: any field that can hold the colours; Q always
+        works and is never worse than F_q, at the author's request
+                                                         [supplied]
+
+8.2 Polynomials over Finite Fields                  [2026-11-04]
+    Summing a polynomial over F_q^n counts its zeros mod p; what that
+    says about systems of equations, and about the integers.
+    8.2.1 Sums over F_q                             [2026-11-04]
+      sum_x x^k = 0 for k < q - 1 (was <= q - 1)            [CORRECTED]
+      sum over F_q^n of p is 0 when deg p < n(q - 1); proof left with
+        the author's own hint                            [exercise]
+    8.2.2 Fermat's Little Theorem                   [2026-11-04]
+      a^{p-1} = 1 by permuting F_p \ {0}; the product cancelled
+                                                         [CORRECTED]
+      a^{q-1} = 1 in F_q, from x^q - x
+    8.2.3 The Chevalley-Warning Theorem             [2026-11-04]
+      sum deg p_i < n gives p | #common zeros in F_q^n, via
+        Q = prod (1 - p_i^{q-1}) and 8.2.1
+    8.2.4 The Erdos-Ginzburg-Ziv Theorem            [2026-11-04]
+      any 2n - 1 integers contain n summing to 0 mod n
+      the prime case, from Chevalley-Warning                [supplied]
+      the product step, applying the result for a to the y_i / b
+        (was coprime a, b, which reaches only squarefree n) [CORRECTED]
 ```
 
 Material marked `[handwritten]` is the second half of the lecture of 4 September
@@ -744,11 +802,27 @@ the Kakeya bound                 |K| >= (q/10n)^n, stated 2026-10-28 with its
                                  q - 2"). Held in the inbox on the author's
                                  instruction, to be completed next lecture;
                                  "at most" corrected to "at least" there.
+                                 REACHED 2026-10-30: now 7.5.2.
+upper bounds on chi'(G)          promised 2026-11-02 ("our strategy for
+                                 finding upper-bounds will be to apply the
+                                 Combinatorial Nullstellensatz" to the graph
+                                 polynomial). No bound yet in the notes; the
+                                 board also posed whether C_n can always be
+                                 coloured from lists of size 2.
 the n^{1 + c/log log n} grid     asserted 2026-10-19 via "algebraic number
                                  theory involving Z[i]", not derived.
 K_n non-planar for n >= 5        asserted 2026-10-19 as a non-example, not
                                  proved. Follows from e <= 3v - 6 at n = 5.
 ```
+
+## Dating the lectures of 30 October to 4 November 2026
+
+The end of the Kakeya proof and the Schwartz-Zippel lemma arrived in ae80b06
+("lecture 2 nov", 2026-11-02), above a "% 2 Nov" marker in the inbox, and the
+28 October inbox had said the Kakeya proof "will be completed next time". So
+that material is dated 2026-10-30, inferred rather than written. The rest
+carries the author's own "% 2 Nov" and "% 4 Nov" markers, and agrees with
+ae80b06 and 710cb2d ("till 4 nov", 2026-11-05).
 
 ## Dating the lectures of the week of 2026-10-19
 
@@ -782,6 +856,19 @@ byte-identical to the pre-#25 inbox and was dropped, not integrated twice.
 Observations for `/organise`, recorded rather than acted on.
 
 ```
+Chapter 8 Zeros of Polynomials was opened by /integrate on 2026-11-06 for
+    three lectures (30 October to 4 November) of polynomial-method material
+    that is not geometry: grids and the Nullstellensatz, with applications
+    to sums of sets and list colouring, then sums over F_q, Chevalley-Warning
+    and Erdos-Ginzburg-Ziv. 7.3 The Polynomial Method (polynomials vanishing
+    on a set, or everywhere; directional derivatives) asks the same question
+    as 8.1 and now reads as chapter 8's first section, stranded in chapter
+    7; 7.4 and 7.5 are its geometric applications. /integrate may not move
+    settled material, so the question is left for /organise: move 7.3 into
+    chapter 8 (renumbering both chapters' polynomial results), or decide
+    that chapter 7's polynomial sections and chapter 8 are one chapter.
+    [noted 2026-11-06]
+
 7.3 The Polynomial Method is a toolkit section inside a geometry chapter.
     The author asked for it on 2026-10-28, and it serves both 7.4 (joints,
     over R) and 7.5 (Nikodym and Kakeya, over F_q), which share the method

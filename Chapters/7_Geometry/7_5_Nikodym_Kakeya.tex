@@ -33,3 +33,32 @@ Asking instead for a whole line in every direction gives the second kind of set.
         \setst{at + b}{t \in \F_q} \ssq K
     \end{align*}
 \end{boxdefinition}
+
+The same method shows that Kakeya sets are large too.
+
+% [CORRECTED] was: "has size at most" --- $\F_q^n$ itself is Kakeya, and the proof opens with "Suppose not" and a polynomial vanishing on $K$, which needs $K$ small
+\begin{boxtheorem}
+    Any Kakeya set in $\F_q^n$ has size at least $\parenth{\frac{q}{10n}}^n$.
+\end{boxtheorem}
+\begin{proof}
+    % [CORRECTED] was: "If $\abs{K} > c_n q^n$" --- ``suppose not'' means $\abs{K} < c_n q^n$, and only that bounds $\deg(p) \leq n\abs{K}^{\frac{1}{n}} < \frac{q}{10} \leq q - 1$
+    Suppose not. Choose a nonzero polynomial $p$ of degree at most $n\abs{K}^{\frac{1}{n}}$ that vanishes on $K$. Write $c_n = \parenth{\frac{1}{10n}}^n$. If $\abs{K} < c_n q^n$, then $\deg(p) \leq q - 1$.
+
+    For all $a \in \F_q^n \setminus \set{0}$, there is some $b$ such that the line
+    \begin{align*}
+        L_{a, b} = \setst{at + b}{t \in \F_q}
+    \end{align*}
+    is contained in $K$. We know, in particular, that
+    \begin{align*}
+        \phi(t) = p\of{at + b}
+    \end{align*}
+    is the zero polynomial.
+
+    Let $D = \deg(p)$. Write $p = p_D + R$, where $p_D$ is the degree $D$ part of $p$ (ie, the part with all monomials having degree $D$) and $R$ is whatever's left. Observe that
+    \begin{align*}
+        \phi(t) = p_D(a) t^D + \cdots + \text{something}
+    \end{align*}
+    The fact that $\phi(t)$ vanishes tells us that $p_D(a) = 0$ for all $a \in \F_q^n \setminus \set{0}$. But also $p_D(0) = 0$. So in fact $p_D(a) = 0$ for all $a \in \F_q^n$. So by \Cref{Ch7:Lemma:Vanishing_Everywhere}, $p_D = 0$, a contradiction.
+\end{proof}
+
+So \Cref{Ch7:Lemma:Vanishing_Everywhere} really is quite a useful tool! Let's now explore more results of this flavour.
