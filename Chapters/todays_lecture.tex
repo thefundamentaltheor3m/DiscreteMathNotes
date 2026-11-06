@@ -110,5 +110,106 @@ Our strategy for finding upper-bounds will be to apply the Combinatorial Nullste
 \end{align}
 where we label the vertices of the graph $\set{1, \ldots, n}$ and take the product over adjacent vertices, ie, over edges.
 
+% 4 Nov
 
- 
+\begin{boxtheorem}
+    For all $k \leq q - 1$,
+    \begin{align*}
+        \sum_{x \in \F_q} x^k = 0
+    \end{align*}
+\end{boxtheorem}
+\begin{proof}
+    Note that $x^{k} - 1$ has at most $k < q$ roots over $\F_q$. So there is certainly some $a \in \F_q$ that is \textit{not} a root of this polynomial. So $a^k \neq 1$. Since $x \mapsto ax$ is a bijection,
+    \begin{align*}
+        \sum_{x \in \F_q} x^k = \sum_{x \in \F_q} \parenth{ax}^k = a^k \sum_{x \in \F_q} x^k
+    \end{align*}
+    As $a^k \ne 1$, the only way this equality can hold is if $\sum_{x \in \F_q} x^k = 0$.
+\end{proof}
+
+\begin{boxtheorem}
+    Let $p \in \F_q\!\brac{x_1, \ldots, x_n}$. Assume $\deg(p) < n(q - 1)$. Then
+    \begin{align*}
+        \sum_{\bx \in \F_q^n} p\of{\bx}
+    \end{align*}
+\end{boxtheorem}
+\begin{proof}
+    Enough to do the case where $p(\bx)$ is a monomial.
+    % Hint: just fix j_1, \ldots, j_n whose sum is less than n(q - 1)
+\end{proof}
+
+We'll now prove Fermat's Little Theorem combinatorially.
+
+\begin{boxtheorem}[Fermat's Little Theorem]
+    For $p$ a prime, for all $a \in \Z$, $a^p \equiv a \pmod{p}$. Equivalently, for $p$ a prime, for all $a \in \Z$ such that $p \nmid a$, $a^{p - 1} \equiv 1 \pmod{p}$.
+\end{boxtheorem}
+\begin{proof}
+    We know that $x \mapsto ax$ is a bijection. So
+    \begin{align*}
+        \prod_{x \in \F_p \setminus \set{0}} x
+        = \prod_{x \in \F_p \setminus \set{0}} (ax)
+        = a^{p - 1} \prod_{x \in \F_p \setminus \set{0}} x = a^{p - 1}
+    \end{align*}
+    in $\F_p$.
+\end{proof}
+
+Of course the corresponding result holds in $\F_q$ as well.
+
+\begin{boxtheorem}
+    For all $a \in \F_q \setminus \set{0}$, $a^{q - 1} = 1$.
+\end{boxtheorem}
+\begin{proof}[``Proof'']
+    $\F_q$ is, by definition, the splitting field of $x^{q} - x$ over $\F_p$, where $q$ is a power of $p$. So when $a \in \F_q$ is nonzero,
+    \begin{align*}
+        a^q - a = 0 \iff a\parenth{a^{q - 1} - 1} = 0 \iff a^{q - 1} - 1 = 0
+    \end{align*}
+\end{proof}
+
+Let's not study systems of polynomials over $\F_q$.
+
+\begin{boxtheorem}[Chevalley-Warning]
+    Fix $p_1, \ldots, p_k \in \F_q\!\brac{x_1, \ldots, x_n}$ with $\sum_{i=1}^{k} \pdeg{p_i} < n$. Let $p$ be the characteristic of $\F_q$. Then
+    \begin{align*}
+        p \mid \#\!\setst{\bx \in \F_q}{p_1\of{\bx} = p_2\of{\bx} = \cdots = p_k\of{\bx} = 0}
+    \end{align*}
+\end{boxtheorem}
+\begin{proof}
+    Define the polynomial
+    \begin{align*}
+        Q(\bx) = \prod_{i=1}^{k} \parenth{1 - p_i(\bx)^{q - 1}}
+    \end{align*}
+    What's interesting about the way we've defined $Q$ is that
+    \begin{itemize}
+        \item $Q(\bx) = 0$ iff $p_i(\bx) \ne 0$ for \textit{some} $i$
+        \item $Q(\bx) = 1$ iff $p_i(\bx) = 0$ for \textit{every} $i$
+    \end{itemize}
+    Consider the quantity
+    \begin{align*}
+        \F_q \ni z = \sum_{\bx \in \F_q^n} Q(\bx)
+    \end{align*}
+    Notice that $\pdeg{Q} < n(q - 1)$, so by previous theorem, % [CLAUDE] add cross-ref
+    $z = 0$. We can write
+    \begin{align*}
+        z = \underbrace{1 + \cdots + 1}_{N \text{ times}}
+    \end{align*}
+    where $N = \#\!\setst{\bx \in \F_q}{p_1\of{\bx} = p_2\of{\bx} = \cdots = p_k\of{\bx} = 0}$. As $N = 0$ in $\F_q$, we must have $p \mid N$.
+\end{proof}
+
+\begin{boxtheorem}[\Erdos-Ginsberg-Ziv]
+    Out of any $2n - 1$ integers, there are $n$ whose average is an integer. More precisely, for all $a_1, \ldots, a_{2n - 1} \in \Z$, $\exists I \ssq \set{1, \ldots, 2n - 1}$ such that $\abs{I} = n$ and $\sum_{i \in I} a_i \equiv 0 \pmod{n}$.
+\end{boxtheorem}
+
+\begin{proof}
+    Consider the case $n = p$, with $p$ a prime. Notice that if $\bx = \parenth{x_1, \ldots, x_{2p - 1}}$,
+    \begin{align*}
+        p(\bx) = \sum_{\bx \in \F_p^{2n - 1}} \indicator_I(x)
+    \end{align*}
+    \sorry
+
+    This takes care of the prime case.
+
+    Now, assume the result is proven for $n = a$ and $n = b$, with $a$ and $b$ coprime. We prove the result for $n = ab$.
+
+    Fix $c_1, c_2, \ldots, c_{2ab - 1} \in \Z$. I repeatedly find and remove $b$ terms summing to $0$ mod $b$. I can do this $2a - 1$ times, to get disjoint sets $B_1, B_2, \ldots, B_{2a - 1}$, each summing as $\sum_{c \in B_i} c = y_i \equiv 0 \pmod{b}$.
+
+    Using the result for $a$, I can find $a$ of the sets $B_{i_1}, B_{i_2}, \ldots, B_{i_a}$ such that $\sum_{j=1}^{a} y_{ij} \equiv 0 \pmod{a}$. So $\sum_{y_{ij}} \equiv 0 \pmod{a}$. % [CLAUDE] what?
+\end{proof}
