@@ -48,7 +48,8 @@ Let's think about how we'd prove Schwartz-Zippel. Suppose we choose $s_1, \ldots
     p\of{s_1, \ldots, s_n}
     = p_0\of{s_1, \ldots, s_{n-1}} + p_1\of{s_1, \ldots, s_{n-1}} s_n + p_2\of{s_1, \ldots, s_{n-1}} s_n^2 + \cdots + p_k\of{s_1, \ldots, s_{n-1}} s_n^k
 \end{align*}
-We might want to argue that there are at most $d$ roots of this one-variable polynomial in $s_n$ or something, but the problem is that this does not address the case where $p = 0$.
+% [CORRECTED] was: "the case where $p = 0$" --- $p$ is nonzero by hypothesis; the trouble is that this polynomial in $s_n$ can still be $0$ for some $s_1, \ldots, s_{n-1}$, eg, $p = x_1 x_2$ and $s_1 = 0$ (review round one)
+We might want to argue that there are at most $d$ roots of this one-variable polynomial in $s_n$ or something, but the problem is that this does not address the case where this polynomial is $0$.
 
 \begin{proof}[Proof of \Cref{Ch8:Lemma:Schwartz_Zippel} (Schwartz-Zippel)]
     Argue by induction on the number of variables $n$. The base case $n = 1$ is clear.
@@ -230,7 +231,7 @@ Let's now study systems of polynomials over $\F_q$.
     \begin{align*}
         p_1\of{\bx} = \sum_{i=1}^{2p - 1} a_i x_i^{p - 1} \qquad \text{and} \qquad p_2\of{\bx} = \sum_{i=1}^{2p - 1} x_i^{p - 1}
     \end{align*}
-    in $\F_p\!\brac{x_1, \ldots, x_{2p - 1}}$, reading the $a_i$ mod $p$. Their degrees add up to $2p - 2 < 2p - 1$, so by Chevalley--Warning, the number of common zeros of $p_1$ and $p_2$ is a multiple of $p$. One of them is $\bx = 0$, so there is another, $\bx \neq 0$. Let $I = \setst{i}{x_i \neq 0}$, which is nonempty. By Fermat's Little Theorem, $x_i^{p - 1}$ is $1$ if $i \in I$ and $0$ otherwise, so in $\F_p$,
+    in $\F_p\!\brac{x_1, \ldots, x_{2p - 1}}$, reading the $a_i$ mod $p$. Their degrees add up to at most $2p - 2 < 2p - 1$, so by Chevalley--Warning, the number of common zeros of $p_1$ and $p_2$ is a multiple of $p$. One of them is $\bx = 0$, so there is another, $\bx \neq 0$. Let $I = \setst{i}{x_i \neq 0}$, which is nonempty. By Fermat's Little Theorem, $x_i^{p - 1}$ is $1$ if $i \in I$ and $0$ otherwise, so in $\F_p$,
     \begin{align*}
         0 = p_2\of{\bx} = \abs{I} \qquad \text{and} \qquad 0 = p_1\of{\bx} = \sum_{i \in I} a_i
     \end{align*}
