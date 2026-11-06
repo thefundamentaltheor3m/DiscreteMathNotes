@@ -1,0 +1,117 @@
+\section{Polynomials on Grids}
+
+A nonzero polynomial in one variable of degree $d$ has at most $d$ roots. This section is about what that fact becomes in several variables, where a nonzero polynomial can vanish at infinitely many points, but not at too many points of a grid.
+
+\subsection{The Schwartz--Zippel Lemma}
+
+The first answer is probabilistic: a nonzero polynomial is nonzero at most points of a grid.
+
+\begin{boxlemma}[Schwartz-Zippel] \label{Ch8:Lemma:Schwartz_Zippel}
+    Let $\F$ be an arbitrary field and let $p \in \poly_d\of{\F^n}$ be nonzero. For any finite subset $S \subset \F$, if $s_1, \ldots, s_n \in S$ are chosen uniformly at random (with replacement), then
+    \begin{align*}
+        \Pr\of{p\of{s_1, \ldots, s_n} = 0} \leq \frac{d}{\abs{S}}
+    \end{align*}
+\end{boxlemma}
+
+This essentially tells us that a nonzero polynomial of degree $d$ cannot vanish on more than a $\frac{d}{\abs{S}}$ fraction of any grid-set of the form
+\begin{align*}
+    \underbrace{S \times \cdots \times S}_{n \text{ times}}
+\end{align*}
+
+Let's think about how we'd prove Schwartz-Zippel. Suppose we choose $s_1, \ldots, s_n$ randomly. View $p\of{x_1, \ldots, x_n}$ as a single-variable polynomial in $x_n$, ie, as an element of $\F\!\brac{x_1, \ldots, x_{n - 1}}\!\brac{x_n}$. Write
+% [FILLED] the display broke off at "p_k\of{} \sorry"; its last term was supplied, with $k$ the largest power of $x_n$ in $p$
+\begin{align*}
+    p\of{s_1, \ldots, s_n}
+    = p_0\of{s_1, \ldots, s_{n-1}} + p_1\of{s_1, \ldots, s_{n-1}} s_n + p_2\of{s_1, \ldots, s_{n-1}} s_n^2 + \cdots + p_k\of{s_1, \ldots, s_{n-1}} s_n^k
+\end{align*}
+% [CORRECTED] was: "the case where $p = 0$" --- ambiguous, since $p$ itself is nonzero by hypothesis; the trouble is that this polynomial in $s_n$ can still be $0$ for some $s_1, \ldots, s_{n-1}$, eg, $p = x_1 x_2$ and $s_1 = 0$ (review round one)
+We might want to argue that there are at most $d$ roots of this one-variable polynomial in $s_n$ or something, but the problem is that this does not address the case where this polynomial is $0$.
+
+\begin{proof}[Proof of \Cref{Ch8:Lemma:Schwartz_Zippel} (Schwartz-Zippel)]
+    Argue by induction on the number of variables $n$. The base case $n = 1$ is clear.
+
+    Let $k$ be the largest degree of $x_n$ in $p$. Ie, choose $k$ so that
+    % [CORRECTED] was: "$+ r\of{x_1, \ldots, x_{n-1}}$" --- the terms of $p$ below $x_n^k$ can still involve $x_n$, eg, $x_2^2 + x_1 x_2$
+    \begin{align*}
+        p\of{x_1, \ldots, x_n} = x_n^k q\of{x_1, \ldots, x_{n - 1}} + r\of{x_1, \ldots, x_n}
+    \end{align*}
+    where $r$ has degree less than $k$ in $x_n$.
+    We choose $x_1 = s_1, x_2 = s_2, \ldots, x_{n - 1} = s_{n - 1}$ first, and $x_n = s_n$ last. By induction, $\Pr\of{q = 0} \leq \frac{d}{\abs{S}}$; in fact, as $x_n^k q$ is the part of $p$ of highest degree in $x_n$, $q$ has degree at most $d - k$, so induction gives $\Pr\of{q = 0} \leq \frac{d - k}{\abs{S}}$. If $q\of{s_1, \ldots, s_{n-1}} \neq 0$, then $p\of{s_1, \ldots, s_{n-1}, x_n}$ is a nonzero polynomial in $x_n$ alone, of degree $k$, so it has at most $k$ roots, and the choice of $x_n = s_n$ hits one of them with probability at most $\frac{k}{\abs{S}}$. So
+    \begin{align*}
+        \Pr\of{p = 0} \leq \Pr\of{q = 0} + \Pr\of{p = 0 \text{ and } q \neq 0} \leq \frac{d - k}{\abs{S}} + \frac{k}{\abs{S}} = \frac{d}{\abs{S}}
+    \end{align*}
+\end{proof}
+
+\subsection{The Combinatorial Nullstellensatz}
+
+If we know that one of the top-degree coefficients of $p$ is nonzero, we can say more: $p$ is nonzero somewhere on a grid whose sides are only just longer than the exponents in that monomial.
+
+% [CORRECTED] was: no condition on $D$ --- for larger $D$ the theorem fails, eg, $x^2 - x$ has $x$-coefficient $-1$ and vanishes on $\set{0, 1}$
+\begin{boxtheorem}[Combinatorial Nullstellensatz] \label{Ch8:Thm:Combinatorial_Nullstellensatz}
+    Suppose $p \in \poly_D\of{\F^n}$, where $D = j_1 + \cdots + j_n$, is a polynomial with a nonzero coefficient for $x_1^{j_1} x_2^{j_2} \cdots x_n^{j_n}$. Then, for any $S_1, \ldots, S_n \ssq \F$ with $\abs{S_i} \geq j_i + 1$, we have that some $x \in S_1 \times \cdots \times S_n$ has $p(x) \neq 0$.
+\end{boxtheorem}
+\begin{remark}
+    Note that the condition that the coefficient for $x_1^{j_1} x_2^{j_2} \cdots x_n^{j_n}$ is nonzero implies that the total degree is at least $j_1 + \cdots + j_n$.
+\end{remark}
+\begin{proof}
+    % [FILLED] the induction on the degree (the opening sentence) and everything after "then $r_s\of{s_2, \ldots, s_n} = 0$" were supplied; the lecture's own steps are kept as written
+    We argue by induction on $D = j_1 + \cdots + j_n$. If $D = 0$, then $p$ is a nonzero constant, and there is nothing to prove. So suppose $D \geq 1$, and that the result holds for all polynomials of smaller degree.
+
+    Fix $p$ as above. WLoG, assume $j_1 \geq 1$ (so that $\abs{S_1} \geq 2$). For $s \in \F$, write
+    \begin{align*}
+        p\of{x_1, \ldots, x_n} = \parenth{x_1 - s} q_s\of{x_1, \ldots, x_n} + r_s\of{x_2, \ldots, x_n}
+    \end{align*}
+    Notice that
+    \begin{align*}
+        p\of{s, s_2, s_3, \ldots, s_n} = r_s\of{s_2, \ldots, s_n}
+    \end{align*}
+    If $p\of{s, s_2, \ldots, s_n} = 0$ then $r_s\of{s_2, \ldots, s_n} = 0$.
+
+    Now suppose, towards a contradiction, that $p$ vanishes on all of $S_1 \times \cdots \times S_n$, and fix $s \in S_1$. Then $r_s$ vanishes on $S_2 \times \cdots \times S_n$, and since $r_s$ does not involve $x_1$, it vanishes on all of $S_1 \times \cdots \times S_n$. So $\parenth{x_1 - s} q_s$ vanishes on $S_1 \times \cdots \times S_n$, and as $x_1 - s \neq 0$ when $x_1 \neq s$, $q_s$ vanishes on $\parenth{S_1 \setminus \set{s}} \times S_2 \times \cdots \times S_n$.
+
+    We want to apply the induction hypothesis to $q_s$, so we need to know what it looks like. Write $p = \sum_{k} c_k x_1^k$, where each $c_k \in \F\!\brac{x_2, \ldots, x_n}$ has degree at most $D - k$. As $x_1^k - s^k = \parenth{x_1 - s}\parenth{x_1^{k-1} + s x_1^{k-2} + \cdots + s^{k-1}}$, we can take
+    \begin{align*}
+        q_s = \sum_{k} c_k \parenth{x_1^{k-1} + s x_1^{k-2} + \cdots + s^{k-1}} \qquad \text{and} \qquad r_s = \sum_k c_k s^k
+    \end{align*}
+    and every monomial of $q_s$ has degree at most $\parenth{D - k} + \parenth{k - 1} = D - 1$. In particular, $q_s$ has no monomial of degree $D$, and $r_s$ has no monomial involving $x_1$. So when we compare the coefficients of $x_1^{j_1} x_2^{j_2} \cdots x_n^{j_n}$ on the two sides of $p = \parenth{x_1 - s} q_s + r_s$, the only contribution on the right comes from multiplying the $x_1^{j_1 - 1} x_2^{j_2} \cdots x_n^{j_n}$ term of $q_s$ by $x_1$. Hence $q_s \in \poly_{D - 1}\of{\F^n}$ has a nonzero coefficient for $x_1^{j_1 - 1} x_2^{j_2} \cdots x_n^{j_n}$. Since $\abs{S_1 \setminus \set{s}} \geq j_1 = \parenth{j_1 - 1} + 1$, the induction hypothesis gives a point of $\parenth{S_1 \setminus \set{s}} \times S_2 \times \cdots \times S_n$ at which $q_s$ is nonzero, which is a contradiction.
+\end{proof}
+
+\subsection{The Cauchy--Davenport Theorem}
+
+Our first application is to sums of sets in $\F_p$, where $A + B = \setst{a + b}{a \in A, b \in B}$.
+
+% [CORRECTED] was: "For all $A, B \ssq \F_p$" --- with $A = \emptyset$ and $\abs{B} \geq 2$, $\abs{A + B} = 0 < \min\of{p, \abs{B} - 1}$
+\begin{boxcorollary}[Cauchy-Davenport]
+    For all nonempty $A, B \ssq \F_p$,
+    \begin{align*}
+        \abs{A + B} \geq \min\of{p, \abs{A} + \abs{B} - 1}
+    \end{align*}
+\end{boxcorollary}
+\begin{proof}
+    This is ``trivial'' if $\abs{A} + \abs{B} > p$. Indeed, for any $x \in \F_p$, the sets $A$ and $x - B = \setst{x - b}{b \in B}$ have sizes adding up to more than $p$, so by the pigeonhole principle they share some element $a = x - b$, and then $x = a + b \in A + B$. So $A + B = \F_p$.
+    So let's assume that $\abs{A} + \abs{B} \leq p$.
+
+    % [CORRECTED] was: coefficient "$\abs{A} + \abs{B} - 2$" --- it is the coefficient of $x^{\abs{A} - 1} y^{\abs{B} - 1}$ in $\parenth{x + y}^{\abs{C}}$, the top-degree part of $p$
+    Assume, towards contradiction, that $A + B \ssq C$, where $\abs{C} = \abs{A} + \abs{B} - 2$. Define
+    \begin{align*}
+        p(x, y) = \prod_{c \in C} \parenth{x + y - c}
+    \end{align*}
+    Notice that $p(x, y) = 0$ for all $x \in A$ and $y \in B$. Moreover, notice that $x^{\abs{A} - 1} y^{\abs{B} - 1}$ has coefficient $\binom{\abs{A} + \abs{B} - 2}{\abs{A} - 1}$. \sorry
+    % Hint: apply \Cref{Ch8:Thm:Combinatorial_Nullstellensatz} to $p$, with $S_1 = A$, $S_2 = B$, $j_1 = \abs{A} - 1$ and $j_2 = \abs{B} - 1$, and see what it says about a polynomial that vanishes on all of $A \times B$. Two things need checking: that $p$ has total degree exactly $j_1 + j_2$ (count the factors), and that the coefficient of $x^{\abs{A} - 1} y^{\abs{B} - 1}$ is nonzero in $\F_p$. For the second, only the top-degree part $\parenth{x + y}^{\abs{C}}$ of $p$ can contribute, and $\abs{C} < p$.
+ \end{proof}
+
+\subsection{List Colourings}
+
+The second is to colouring graphs (cf. \Cref{Ch2:Def:Chromatic_Number}), where each vertex now comes with its own list of allowed colours.
+
+\begin{boxdefinition}[List Chromatic Number]
+    For a graph $G$, define the \textbf{list chromatic number $\chi'(G)$} to be the smallest $k$ such that for any assignment of lists of size $k$ to vertices of $G$, there is a proper colouring from the list.
+\end{boxdefinition}
+
+Our strategy for finding upper-bounds will be to apply the Combinatorial Nullstellensatz to the following polynomial:
+\begin{align*}
+    p\of{x_1, \ldots, x_n} = \prod_{i \sim j} \parenth{x_i - x_j}
+\end{align*}
+where we label the vertices of the graph $\set{1, \ldots, n}$ and take the product over adjacent vertices, ie, over edges.
+
+The field over which we define this polynomial does not matter much, so long as it has enough elements. The colours in our lists have to live in the field, but whether a colouring is proper only depends on which vertices get the same colour, so we can relabel the colours as distinct elements of any field with at least as many elements as there are colours in all the lists together. So we can always get away with taking the field to be $\Q$ or $\R$. In fact, $\Q$ is never a worse choice than $\F_q$: the coefficients of $p$ are integers, and the Combinatorial Nullstellensatz asks for one of them to be nonzero, which can fail in $\F_q$ for an integer that is nonzero in $\Q$.
