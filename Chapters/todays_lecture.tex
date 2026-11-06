@@ -48,7 +48,7 @@ Let's think about how we'd prove Schwartz-Zippel. Suppose we choose $s_1, \ldots
     p\of{s_1, \ldots, s_n}
     = p_0\of{s_1, \ldots, s_{n-1}} + p_1\of{s_1, \ldots, s_{n-1}} s_n + p_2\of{s_1, \ldots, s_{n-1}} s_n^2 + \cdots + p_k\of{s_1, \ldots, s_{n-1}} s_n^k
 \end{align*}
-% [CORRECTED] was: "the case where $p = 0$" --- $p$ is nonzero by hypothesis; the trouble is that this polynomial in $s_n$ can still be $0$ for some $s_1, \ldots, s_{n-1}$, eg, $p = x_1 x_2$ and $s_1 = 0$ (review round one)
+% [CORRECTED] was: "the case where $p = 0$" --- ambiguous, since $p$ itself is nonzero by hypothesis; the trouble is that this polynomial in $s_n$ can still be $0$ for some $s_1, \ldots, s_{n-1}$, eg, $p = x_1 x_2$ and $s_1 = 0$ (review round one)
 We might want to argue that there are at most $d$ roots of this one-variable polynomial in $s_n$ or something, but the problem is that this does not address the case where this polynomial is $0$.
 
 \begin{proof}[Proof of \Cref{Ch8:Lemma:Schwartz_Zippel} (Schwartz-Zippel)]
@@ -239,7 +239,7 @@ Let's now study systems of polynomials over $\F_q$.
 
     This takes care of the prime case.
 
-    % [CORRECTED] was: "for $n = a$ and $n = b$, with $a$ and $b$ coprime", and the result for $a$ applied to the $y_i$ themselves, then coprimality --- from the primes, coprime products reach only squarefree $n$ (never $4$); applying the result for $a$ to the $\frac{y_i}{b}$ needs no coprimality
+    % [CORRECTED] was: "for $n = a$ and $n = b$, with $a$ and $b$ coprime", and below, "Using the result for $a$, I can find $a$ of the sets $B_{i_1}, B_{i_2}, \ldots, B_{i_a}$ such that $\sum_{j=1}^{a} y_{ij} \equiv 0 \pmod{a}$. So $\sum_{y_{ij}} \equiv 0 \pmod{a}$." (which phase 2 of the post-lecture pass finished using coprimality) --- from the primes, coprime products reach only squarefree $n$ (never $4$); applying the result for $a$ to the $\frac{y_i}{b}$ needs no coprimality
     Now, assume the result is proven for $n = a$ and $n = b$. We prove the result for $n = ab$.
 
     Fix $c_1, c_2, \ldots, c_{2ab - 1} \in \Z$. I repeatedly find and remove $b$ terms summing to $0$ mod $b$. I can do this $2a - 1$ times, to get disjoint sets $B_1, B_2, \ldots, B_{2a - 1}$, each summing as $\sum_{c \in B_i} c = y_i \equiv 0 \pmod{b}$.
