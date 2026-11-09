@@ -183,6 +183,12 @@ arithmetic the lecture skipped. The `/address-comments` skill
 deleting the marker once satisfied. Do not treat a `% [CLAUDE]` line as ordinary
 commented-out content, and do not delete one without addressing it.
 
+One variant is not a writing job: `% [CLAUDE] /issue <question>` marks something to
+raise at the lecturer's office hours. The author keeps those questions as GitHub
+issues on this repository (convention set on 2026-11-06), so `/address-comments` opens
+one issue per such comment and replaces the comment with
+`% Question for office hours: <issue URL>`, writing nothing into the notes themselves.
+
 `\sorry` is the other inline marker, and it means something different: not a scoped
 instruction but an unfilled gap — a proof not given, a case not covered, a development
 that broke off. The `/fill-sorries` skill (`.claude/skills/fill-sorries/`) closes them,

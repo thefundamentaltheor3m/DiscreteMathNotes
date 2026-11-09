@@ -3,60 +3,9 @@
 % material having to belong to a chapter yet, and /integrate empties it again once
 % the material has been spread across whichever chapters it belongs in.
 
-% [CLAUDE] it should be spelt "Zeroes", surely... no? (In your previous chapter.) Fact-check this and decide.
-
-Let's now ask ourselves a question that, though seemingly similar to the unit distance problem, is actually quite different:
-\begin{center}
-    How many points in $\R^d$ can all be at pairwise unit distance?
-\end{center}
-In the unit distance problem, we \textit{fixed points} and \textit{counted unit distances}. Here, we haven't fixed any points.
-
-It turns out the answer is $d + 1$, and is given by the standard simplex.
-
-Let's study the properties of hypothetical points that would satisfy this condition to glean information that will help us figure out what they might be.
-
-Let $v_0, v_1, \ldots, v_n \in \R^d$ be points such that $\norm{v_i - v_j} = 1$ for all $0 \leq i, j \leq n$ with $i \neq j$ and $\norm{v_i} = 1$ for $i \neq 0$. Without loss of generality, take $v_0 = 0$.
-
-For all $i \neq j$, notice that % [CLAUDE] do I need i, j \geq 1 here? add that condition in if so
-\begin{align*}
-    1 = \norm{v_i - v_j}^2 = \cycl{v_i - v_j, v_i - v_j} = \cycl{v_i, v_i} - 2\cycl{v_i, v_j} + \cycl{v_j, v_j} = 2\parenth{1 - \cycl{v_i, v_j}}
-\end{align*}
-This tells us
-\begin{align*}
-    \cycl{v_i, v_j} =
-    \begin{cases}
-        1 & \text{ if } i = j \\
-        \frac{1}{2} & \text{ if } i \neq j
-    \end{cases}
-\end{align*}
-
-\begin{claim*}
-    $v_1, \ldots, v_n$ are linearly independent.
-\end{claim*}
-\begin{proof}
-    \sorry % [CLAUDE] leave this, this one is very easy
-\end{proof}
-
-What if I have two distances instead?
-
-Suppose $p_1, \ldots, p_n \in \R^d$ are at pairwise distances $\set{\alpha, \beta}$. We want to define polynomials $f_i(\bx)$ such that for all $i, j$,
-\begin{align*}
-    f_i\of{p_j} = 
-    \begin{cases}
-        \alpha^2 \beta^2 & \text{ if } i = j \\
-        0 & \text{ if } i \neq j
-    \end{cases}
-\end{align*}
-We can define
-\begin{align*}
-    f_i(\bx) = \parenth{\norm{\bx - p_i}^2 - \alpha^2}\parenth{\norm{\bx - p_i}^2 - \beta^2}
-\end{align*}
-
-% [CLAUDE] going forward, we will maintain, via GitHub issues, a list of questions that we would like to see adddressed or things we'd like to discuss. We'll primarily use this list as a point of reference when we go to Wes's office hours. I'll indicate you should add an issue by saying [CLAUDE] /issue here in the comments. See below.
-
-% [CLAUDE] /issue Ask for clarification on two distance case, might be helpful to go over it again at OH
-
 \section{Eventown}
+
+\subsection{Eventown and Oddtown}
 
 Wes reckons this place is close to Allentown. Gotta explore Eastern Pennsylvania some more.
 
@@ -75,11 +24,14 @@ Not too far from Eventown, Pennsylvania, is the town of Oddtown, Pennsylvania. A
 
 % [CLAUDE] now we're talking about some inequality - until this whole section on Eventown is somewhat complete, don't /integrate it
 
+\subsection{Fisher's Inequality}
+
+% [CORRECTED] was: "Fix a collection $\A \ssq \Powset{[n]}$. If ..., then $\abs{\A} = n$." --- eg, $\set{\set{1, 2}, \set{1, 3}}$ has $k = 1$ and $2 < 3$ sets; and at $k = 0$, $\set{\emptyset, \set{1}, \ldots, \set{n}}$ has $n + 1$ (the proof's last step uses $k \neq 0$)
 \begin{boxtheorem}[Fisher's Inequality]
-    Fix a collection $\A \ssq \Powset{[n]}$. If $\abs{A \cap B} = k$ for all distinct $A, B \in \A$, then $\abs{\A} = n$.
+    Fix a collection $\A \ssq \Powset{[n]}$ and $k \geq 1$. If $\abs{A \cap B} = k$ for all distinct $A, B \in \A$, then $\abs{\A} \leq n$.
 \end{boxtheorem}
 \begin{proof}
-    Let $v_A$ denote the incidence vector for $A \in \A$ (over $\R$). % [CLAUDE] add a note about what this means.
+    Let $v_A$ denote the incidence vector for $A \in \A$ (over $\R$). This is the vector in $\R^n$ whose $i$th coordinate is $1$ if $i \in A$ and $0$ otherwise, so that $\cycl{v_A, v_B} = \abs{A \cap B}$.
     We want to show that $\set{v_A}_{A \in \A}$ is linearly independent.
 
     Suppose $0 = \sum_{A \in \A} \lambda_A v_A$. Then
@@ -89,31 +41,33 @@ Not too far from Eventown, Pennsylvania, is the town of Oddtown, Pennsylvania. A
         &= \sum_{A \in \A } \lambda_A^2 \abs{A} + \sum_{A \neq B} k \lambda_A \lambda_B \\
         &= k\parenth{\sum_{A \in \A} \lambda_A}^2 + \sum_{A \in \A}\parenth{\abs{A} - k} \lambda_A^2
     \end{align*}
-    There is at most one $A_0 \in \A$ with $\abs{A_0} = k$. For $A \neq A_0$ we can get $\lambda_{A_0} = 0$. But then $\lambda_{A_0} = 0$ also. % [CLAUDE] polish this a bit and make it a bit
+    If $\A$ has at most one set, there is nothing to prove, so suppose it has at least two. Then every $A \in \A$ has $\abs{A} \geq k$, since it meets the other sets in $k$ elements, and there is at most one $A_0 \in \A$ with $\abs{A_0} = k$, since two such sets would both be equal to their intersection. So both terms on the right are nonnegative, and as they add up to $0$, both are $0$. The second gives $\lambda_A = 0$ for every $A \neq A_0$, and then the first gives $\lambda_{A_0} = \sum_{A \in \A} \lambda_A = 0$ also. So the $v_A$ are linearly independent vectors in $\R^n$, and there are at most $n$ of them.
 \end{proof}
+
+\subsection{Points and Lines}
 
 Say we have $n$ points that are not all on a line. This means that they determine $\geq n$ lines.
 
-Let $P$ be a set of points determining a set $L$ of lines. For a point $p \in P$, let $A_p$ be the set of lines in $L$ that are incident with $P$. For points $p \neq q$, would $\abs{A_p \cap A_q} = 1$ imply that $\abs{P} \leq \abs{L}$?
+Let $P$ be a set of points determining a set $L$ of lines. For a point $p \in P$, let $A_p$ be the set of lines in $L$ that are incident with $p$. For points $p \neq q$, would $\abs{A_p \cap A_q} = 1$ imply that $\abs{P} \leq \abs{L}$?
 
-If not all points are on one line, then for all $p, q$, $A_p \neq A_q$. So there is a point $r$ that does not lie on the line $\bar{pq}$. Thus, the line $\bar{pr} \in A_p \setminus A_q$. Then $\bar{qr} \in A_q \setminus A_p$.
+If not all points are on one line, then for all $p \neq q$, $A_p \neq A_q$. So there is a point $r$ that does not lie on the line $\bar{pq}$. Thus, the line $\bar{pr} \in A_p \setminus A_q$. Then $\bar{qr} \in A_q \setminus A_p$.
 
-% [CLAUDE] wrap this up with a concrete "here's what we've shown" kind of sentence and something tying it back to the question we wanted to answer.
+So the $A_p$, for $p \in P$, are $\abs{P}$ distinct subsets of $L$, and any two of them, $A_p$ and $A_q$, meet in exactly one line, namely $\bar{pq}$. Fisher's Inequality, with $L$ in place of $[n]$ and $k = 1$, now gives $\abs{P} \leq \abs{L}$. So the answer to our question is yes: $n$ points, not all on a line, determine at least $n$ lines.
 
-% [CLAUDE] also organise all these applications in this section into a section or subsections or something.
+\subsection{A Lower Bound on Ramsey Numbers}
 
 Yet another application.
 
-Recall our Ramsey number bound $R(k) = R(k, k) \geq (k - 1)^2 + 1$.
+Recall our Ramsey number bound $R(k) = R(k, k) \geq (k - 1)^2 + 1$, which comes from $k - 1$ disjoint copies of $K_{k - 1}$: they have no clique and no independent set of size $k$. Fisher's Inequality gives a much better construction for large $k$.
 
 Define a graph $G$ with vertex set $T = \binom{[k]}{3}$. In other words, the vertex set is the set of all subsets of $[k]$ of size $3$.
 
-For $A, B \in T$, say $A \sim T$ if $\abs{A \cap B} = 1$. Using this relation, define the edge set of the graph $G$.
+For $A, B \in T$, say $A \sim B$ if $\abs{A \cap B} = 1$. Using this relation, define the edge set of the graph $G$.
 
-Fisher's Inequality tells us that $\omega(G) \leq k$, where $\omega(G)$ is the clique number (see \sorry). % [CLAUDE] add cross-ref in place of \sorry.
+Fisher's Inequality tells us that $\omega(G) \leq k$, where $\omega(G)$ is the clique number (see \Cref{Ch2:Def:Clique}): a clique is a collection of $3$-subsets of $[k]$ any two of which meet in exactly one element.
 
-An independent set in this context would be a set $I$ with $\abs{I} \leq k$ where $\forall A, B \in I$, $\abs{A \cap B} \in \set{0, 2}$. In other words, we're living in oddtown!
+% [CORRECTED] was: "a set $I$ with $\abs{I} \leq k$ where $\forall A, B \in I$, $\abs{A \cap B} \in \set{0, 2}$. In other words, we're living in oddtown!" --- $\abs{I} \leq k$ is not part of being independent, it is what living in Oddtown gives; and the condition is for distinct $A, B$, since $\abs{A \cap A} = 3$ (review rounds one and two)
+An independent set in this context would be a set $I$ where $\abs{A \cap B} \in \set{0, 2}$ for all distinct $A, B \in I$. In other words, we're living in oddtown! So $\abs{I} \leq k$. The sets in $I$ are the clubs of an Oddtown with $k$ people: each has $3$ people, an odd number, and any two share $0$ or $2$ of them, an even number.
 
-We can then show $R(k) \geq \binom{k}{3}$.
-
-% [CLAUDE] polish this application a bit
+% [CORRECTED] below, was: "$R(k) \geq \binom{k}{3}$" --- with no clique or independent set of size $k + 1$, $G$ bounds $R(k + 1)$; a bound on $R(k)$ would need none of size $k$
+So $G$ has $\binom{k}{3}$ vertices, and neither a clique nor an independent set of more than $k$ of them. We can then show $R(k + 1) > \binom{k}{3}$.
